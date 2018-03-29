@@ -1,0 +1,1805 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                     %
+%              Scientific Word   Wrap/Unwrap  Version 2.5             %
+%              Scientific Word   Wrap/Unwrap  Version 3.0             %
+%                                                                     %
+% If you are separating the files in this message by hand, you will   %
+% need to identify the file type and place it in the appropriate      %
+% directory.  The possible types are: Document, DocAssoc, Other,      %
+% Macro, Style, Graphic, PastedPict, and PlotPict. Extract files      %
+% tagged as Document, DocAssoc, or Other into your TeX source file    %
+% directory.  Macro files go into your TeX macros directory. Style    %
+% files are used by Scientific Word and do not need to be extracted.  %
+% Graphic, PastedPict, and PlotPict files should be placed in a       %
+% graphics directory.                                                 %
+%                                                                     %
+% Graphic files need to be converted from the text format (this is    %
+% done for e-mail compatability) to the original 8-bit binary format. %
+%                                                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                     %
+% Files included:                                                     %
+%                                                                     %
+% "/document/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex", Document, 55827, 3/28/2018, 19:58:05, ""%
+% "/document/P6BDD601.wmf", PastePict, 16754, 3/28/2018, 18:43:54, "" %
+% "/document/graphics/P6BDD601__1.pdf", ImportPict, 13267, 3/28/2018, 19:58:05, ""%
+%                                                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%% Start /document/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex %%%%%
+
+
+\documentclass[letterpaper,fleqn,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage[singlespacing]{setspace}
+\usepackage{amsfonts}
+\usepackage{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{accents}
+\usepackage{eurosym}
+\usepackage{amssymb}
+\usepackage{rotating}
+\usepackage{sectsty}
+\usepackage{endnotes}
+\usepackage{chbibref}
+\usepackage{float}
+\usepackage{nopageno}
+\usepackage[labelsep=period]{caption}
+\usepackage{scalefnt}
+\usepackage{ragged2e}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2960}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Wednesday, April 07, 2010 09:52:31}
+%TCIDATA{LastRevised=Wednesday, March 28, 2018 21:58:05}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=40 LaTeX article.cst}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\geometry{left=1 in,right=1 in,top=1 in,bottom=1 in}
+\input{tcilatex}
+\setlength{\abovecaptionskip}{4pt}
+\makeatletter
+\def\@biblabel#1{\hspace*{-\labelsep}}
+\newdimen\@bibhang \@bibhang=2em
+\def\setbibhang#1{\@bibhang=#1}
+\renewenvironment{thebibliography}[1]{  \setlength{\labelwidth}{0pt}
+  \setlength{\labelsep}{0pt}
+  \section*{\refname
+     \@mkboth{\uppercase{\refname}}{\uppercase{\refname}}}   \vspace{0em}
+   \setlength{\parindent}{0pt}
+   \def\newblock{}
+   \renewcommand{\bibitem}[2][]{     \if@filesw
+       {\let\protect\noexpand\immediate
+        \write\@auxout{\string\bibcite{##2}{##1}}}
+        \fi\hangindent=\@bibhang\hangafter=1}}
+\makeatother
+
+\begin{document}
+
+\title{Estimation of nested and cross-nested zero-inflated ordered probit
+models\\
+\bigskip }
+\date{}
+\author{David Dale\thanks{%
+We gratefully acknowledge support from the Basic Research Program of the
+Higher School of Economics.} \thanks{%
+Corresponding author. Email:} \\
+%EndAName
+Yandex, Moscow \and Andrei Sirchenko \\
+%EndAName
+Higher School of Economics, Moscow}
+\maketitle
+
+\begin{abstract}
+We develop the maximum likelihood estimators and provide the STATA commands, 
+\texttt{nop}, \texttt{ziop-2} and \texttt{ziop-3}, which estimate the
+three-part nested ordered probit model, the two-part cross-nested
+zero-inflated ordered probit models of Harris and Zhao (2007, \textit{%
+Journal of Econometrics }141(2): 1073--1099) and Brooks, Harris and Spencer
+(2012,\ \textit{Economics Letters} 117(3): 683--686), and the three-part
+cross-nested zero-inflated ordered probit model, with both exogenous and
+endogenous switching. The zero-inflated models address the inflation of
+neutral (zero) observations and allows zeros to emerge in two or three
+latent regimes. The three-part models allow the probabilities of positive
+and negative outcomes to be generated by distinct processes. We investigate
+the finite-sample performance of proposed estimators by Monte Carlo
+simulations, and illustrate the models with an empirical application to
+federal funds rate target.
+
+\bigskip \bigskip \bigskip \bigskip \bigskip \bigskip \bigskip 
+
+\bigskip \bigskip \bigskip \bigskip \bigskip \bigskip \bigskip 
+
+\bigskip \bigskip \bigskip \bigskip \bigskip \bigskip \bigskip 
+
+\textbf{Keywords:} ordinal responses, nested ordered probit, zero inflation,
+endogenous switching, Monte Carlo simulation, federal funds rate target.
+
+\bigskip \bigskip \bigskip \bigskip \bigskip
+\end{abstract}
+
+%TCIMACRO{\TeXButton{Onehalf}{\begin{onehalfspace}}}%
+%BeginExpansion
+\begin{onehalfspace}%
+%EndExpansion
+
+\section{Introduction}
+
+We introduce the STATA\ commands, \texttt{nop}, \texttt{ziop-2} and \texttt{%
+ziop-3}, which estimate the two-level nested and cross-nested ordered-probit
+models including the zero- and middle-inflated models of Harris and Zhao
+(2007), Bagozzi and Mukherjee (2012) and Brooks, Harris and Spencer (2012).
+The rationale behind the two-level nested decision process is standard in
+the discrete-choice modeling when the set of alternatives faced by a
+decision-maker can be partitioned into subsets (or nests) with similar
+correlated alternatives. A choice among the nests and a choice among the
+alternatives within each nest can be driven by different sets of observed
+and unobserved factors (and common factors can have different weights). In
+the case of unordered categorical data, in which choices can be grouped into
+the nests of similar options, the nested logit model is a popular method.
+
+The nested models for ordinal data are far more rare although the rationale
+behind such approach is also straigtforward: choosing among a decrease, no
+change or an increase is quite different from choosing between a small
+decrease or a large decrease; and choosing between a small decrease\ or a
+large decrease is quite different from choosing between a small increase\ or
+a large increase. This leads to three implicit decisions: a regime decision
+--- a choice among the nests, and two outcome decisions --- the choices of
+the magnitude of decreases and increases (see the top left panel of Figure %
+\ref{trees}).
+
+\medskip 
+
+%TCIMACRO{%
+%\TeXButton{B}{\begin{figure}[H] \captionsetup{singlelinecheck = false, justification=justified}}}%
+%BeginExpansion
+\begin{figure}[H] \captionsetup{singlelinecheck = false, justification=justified}%
+%EndExpansion
+\caption{Nested and cross-nested zero-inflated ordered probit
+models\label{trees}}%
+%TCIMACRO{\TeXButton{center}{\centering}}%
+%BeginExpansion
+\centering%
+%EndExpansion
+
+\begin{center}
+TBA
+\end{center}
+
+%TCIMACRO{\TeXButton{E}{\end{figure}}}%
+%BeginExpansion
+\end{figure}%
+%EndExpansion
+
+\medskip 
+
+Furthermore, it would be useful for the no-change (zero) alternative to be
+in three nests: its own one, another with decreases and another with
+increases; so some no-change decisions can be driven by similar factors as
+increases or decreases. This leads to a three-part cross-nested model with
+the nests overlapping at a zero response; hence, the probability of zeros is
+`inflated'. Since the regime decision is not observable, the zeros are
+observationally equivalent --- it is never known to which of the three nests
+the observed zero belongs. While several types of models with overlapping
+nests for unordered categorical responses are developed (Vovsha 1997; Wen
+and Koppelman 2001), the cross-nested models for ordinal\ outcomes are very
+scarce.\footnote{%
+Small (1987) introduced an ordered-choice model\ with overlapping nests,
+which contain two adjacent choices.}
+
+The prevalence of status quo, neutral or zero outcomes is observed in many
+fields, including economics, sociology, technometrics, psychology and
+biology. The heterogeneity of zeros is well recognized --- see Winkelmann
+(2008) and Greene and Hensher (2010) for a review. Studies discriminate
+among different types of zeros such as: no visits to doctor due to good
+health, iatrophobia, or medical costs; no children due to infertility or
+choice; no illness due to strong resistance or lack of infection. In the
+studies of survey responses using an odd-point Likert-type scale, where the
+respondents must indicate the negative, neutral or positive attitude or
+opinion, the heterogeneity of indifferent responses (a true neutral option
+versus an undecided, or ambivalent, or uninformed one, commonly reported as
+neutral) is also well-recognized and sometimes labeled as the middle
+category endorsement or inflation (Bagozzi and Mukhetjee 2012, Hern\'{a}%
+ndez, Drasgow and Gonz\'{a}les-Rom\'{a} 2004, Kulas and Stachowski 2009). In
+the decision-making experiments and micro-level studies of consumer choices,
+election votes and other repeated choices, the prevalence of no-change
+decisions is often attributed to the status quo bias -- a tendency to do
+nothing or maintain one's previous decision, even though it is not always
+objectively superior to the available options (Hartman, Doane and Woo 1991,
+Kahneman, Knetsch, and Thaler 1991). It is a cognitive bias, explained by
+both the rational causes (informational or cognitive limitations, transition
+or analysis costs) and irrational ones (mental illusions and various
+psychological inclinations such as convenience, habit, inertia, fear, innate
+conservatism, loss aversion, and reputation concern) --- see Samuelson and
+Zeckhauser (1988) for an excellent exposition.
+
+The two-part zero-inflated models, developed to address the unobserved
+heterogeneity of zeros, combines a binary choice model for the probability
+of crossing the hurdle (to participate or not to participate; to consume or
+not to consume) with a count or ordered-choice model for nonnegative
+outcomes above the hurdle: the two parts are jointly estimated and the zero
+observations can emerge in both parts. The two-part zero-inflated models
+include the zero-inflated Poisson (Lambert 1992), negative binomial (Greene
+1994), binomial (Hall 2002) and generalized Poisson (Famoye and Singh 2003)
+models for count outcomes, and the zero-inflated ordered probit model
+(Harris and Zhao 2007) and zero-inflated proportional odds model (Kelley and
+Anderson 2008) for non-negative ordinal responses.
+
+The model of Harris and Zhao (2007) is suitable for explaining decisions
+such as the levels of consumption, when the upper hurdle is naturally binary
+(to smoke or not to smoke) and the ordinal responses are typically
+non-negative (see the top left panel of Figure \ref{trees}). Thus, the
+abundant\ zeros are situated at one end of the ordered scale. Bagozzi and
+Mukherjee (2012) and Brooks, Harris and Spencer (2012) extended the model of
+Harris and Zhao (2007) and proposed the middle-inflated ordered probit model
+for an ordinal outcome, which ranges from negative to positive responses,
+and where an abundant outcome is situated in the middle of the choice
+spectrum (see the bottom left panel of Figure \ref{trees}). The three-part
+cross-nested zero-inflated ordered probit model (see the bottom right panel
+of Figure \ref{trees}), introduced in Sirchenko (2013), is a natural
+generalization of the models of Harris and Zhao (2007), Bagozzi and
+Mukherjee (2012) and Brooks, Harris and Spencer (2012). A trichotomous
+regime decision is more realistic and flexible than a binary decision
+(change or no change) if applied to ordinal data with negative, zero and
+positive values.
+
+\section{\noindent Models}
+
+The observed dependent variable $y_{t}$, $t=1,2,...,T$ is assumed to take on
+a finite number of ordinal values $j$ coded as $%
+\{-J^{-},...,-1,0,1,...,J^{+}\},$ where a typically predominant (and
+potentially heterogeneous) response is coded as zero. The latent unobserved
+(or only partially observed) variables are denoted by $\ast $. Each model
+assumes an ordered-choice regime decision and the ordered-choice outcome
+decisions conditional on each regime. The regime decision is allowed to be
+correlated with each outcome decision. Each decision is modeled by an
+ordered probit approach. We denote by $\mathbf{x}_{t},\mathbf{x}_{t}^{-},%
+\mathbf{x}_{t}^{+}$ and $\mathbf{z}_{t}$ the $t^{\text{th}}$ rows of the
+observed data matrices (which in addition to predetermined explanatory
+variables may also include the lags of $y_{t}$), by $\mathbf{\beta ,\beta }%
+^{-},\mathbf{\beta }$ and $\mathbf{\gamma }$ the vectors of unknown slope
+parameters, by $\mathbf{\alpha ,\alpha }^{-}\mathbf{,\alpha }^{+}$ and $%
+\mathbf{\mu }$ the vectors of unknown threshold parameters, by $\varepsilon
+_{t},\varepsilon _{t}^{-},\varepsilon _{t}^{+}$ and $\nu _{t}\ $the error
+terms that are independently and identically distributed (\textit{iid})
+across $t$ with normal cumulative distribution function (CDF) $\Phi $ and
+with variances $\sigma ^{2},\sigma _{-}^{2}.\sigma _{+}^{2},$ and $\sigma
+_{\nu }^{2}$, respectively, and by $\Phi _{2}(g_{1}\mathbf{;}g_{2}\mathbf{;}%
+\lambda )$ the CDF of the bivariate normal distribution of the two random
+variables $g_{1}$ and\textbf{\ }$g_{2}$ with the correlation coefficient $%
+\lambda $ and variances $\sigma _{1}^{2}$ and $\sigma _{2}^{2}$:
+
+\begin{center}
+$\Phi _{2}(g_{1}\mathbf{;}g_{2}\mathbf{;}\lambda )=\frac{1}{2\pi \sigma
+_{1}\sigma _{2}\sqrt{1-\lambda ^{2}}}\underset{}{\underset{-\infty }{\overset%
+{g_{1}}{\int }}}\underset{-\infty }{\overset{g_{2}}{\int }}\exp \left( -%
+\frac{u^{2}/\sigma _{1}^{2}-2\lambda uw/\sigma _{1}\sigma _{2}+w^{2}/\sigma
+_{2}^{2}}{2(1-\lambda ^{2})}\right) dudw.$
+\end{center}
+
+\subsubsection*{Three-part nested ordered probit (NOP) model}
+
+Despite the wide-spread use of nested logit models for unordered categorical
+responses we are not aware of any example of the nested ordered probit/logit
+model for ordinal responses in the literature. The NOP model can be
+described as
+
+\medskip
+
+$%
+\begin{tabular}{ll}
+\ Regime decision: & $r_{t}^{\ast }=\mathbf{z}_{t}\mathbf{\gamma }+\nu _{t},$
+\ \ $s_{t}=\left\{ 
+\begin{array}{rcl}
+1 & \text{if} & \mu _{2}<r_{t}^{\ast }, \\ 
+0 & \text{if} & \mu _{1}<r_{t}^{\ast }\leq \mu _{2}, \\ 
+-1 & \text{if} & \text{ \ \ \ \ \ \ }r_{t}^{\ast }\leq \mu _{1}.%
+\end{array}%
+\right. $ \\ 
+\ Outcome decisions: & $y_{t}^{-\ast }=\mathbf{x}_{t}^{-}\mathbf{\beta }%
+^{-}+\varepsilon _{t}^{-},$ \ \ $y_{t}^{+\ast }=\mathbf{x}_{t}^{+}\mathbf{%
+\beta }^{+}+\varepsilon _{t}^{+},$ \\ 
+& $y_{t}=\left\{ 
+\begin{array}{lcl}
+j(j>0) & \text{if} & s_{t}=1\text{ and }\alpha _{j-1}^{+}<y_{t}^{+\ast }\leq
+\alpha _{j}^{+}, \\ 
+0 & \text{if} & s_{t}=0, \\ 
+j(j<0) & \text{if} & s_{t}=-1\text{ \ \ and }\alpha _{j}^{-}<y_{t}^{-\ast
+}\leq \alpha _{j+1}^{-},%
+\end{array}%
+\right. $ \\ 
+& where $-\infty =\alpha _{0}^{+}\leq \alpha _{1}^{+}\leq ...\leq \alpha
+_{J^{+}}^{+}=\infty $ \\ 
+& and $-\infty =\alpha _{-J^{-}}^{-}\leq \alpha _{-J+1}^{-}\leq ...\leq
+\alpha _{0}^{-}=\infty $. \\ 
+\begin{tabular}{l}
+Correlation among \\ 
+decisions:%
+\end{tabular}
+& $\left[ 
+\begin{array}{c}
+\nu _{t} \\ 
+\varepsilon _{t}^{i}%
+\end{array}%
+\right] \overset{iid}{\sim }\mathcal{N}\left( 
+\begin{array}{c}
+0 \\ 
+0%
+\end{array}%
+,\left[ 
+\begin{array}{cc}
+\sigma _{\nu }^{2} & \rho _{i}\sigma _{\nu }\sigma _{i} \\ 
+\rho _{i}\sigma _{\nu }\sigma _{i} & \sigma _{i}^{2}%
+\end{array}%
+\right] \right) $, $i\in \{-,+\}.$%
+\end{tabular}%
+$
+
+\bigskip
+
+The probabilities of the outcome $j$ in the NOP model are given by%
+\begin{equation}
+\begin{array}{l}
+\Pr (y_{t}=j|\mathbf{z}_{t},\mathbf{x}_{t}^{-},\mathbf{x}_{t}^{+})=I_{j<0}%
+\Pr (r_{t}^{\ast }\leq \mu _{1}\ \text{and }\alpha _{j}^{-}<y_{t}^{-\ast
+}\leq \alpha _{j+1}^{-}|\mathbf{z}_{t},\mathbf{x}_{t}^{-}) \\ 
++I_{j=0}\Pr (\mu _{1}<r_{t}^{\ast }\leq \mu _{2}|\mathbf{z}_{t})+I_{j>0}\Pr
+(\mu _{2}<r_{t}^{\ast }\ \text{and }\alpha _{j-1}^{+}<y_{t}^{+\ast }\leq
+\alpha _{j}^{+}|\mathbf{z}_{t},\mathbf{x}_{t}^{+}) \\ 
+=I_{j<0}\Pr (\nu _{t}\leq \mu _{1}-\mathbf{z}_{t}\mathbf{\gamma }\ \text{and 
+}\alpha _{j}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta }^{-}<\varepsilon
+_{t}^{-}\leq \alpha _{j+1}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta }^{-}) \\ 
++I_{j=0}\Pr (\mu _{1}-\mathbf{z}_{t}\mathbf{\gamma }<\nu _{t}\leq \mu _{2}-%
+\mathbf{z}_{t}\mathbf{\gamma }) \\ 
++I_{j>0}\Pr (\mu _{2}-\mathbf{z}_{t}\mathbf{\gamma }<\nu _{t}\ \text{and }%
+\alpha _{j-1}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta }^{+}<\varepsilon
+_{t}^{+}\leq \alpha _{j}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta }^{+}) \\ 
+=I_{j<0}[\Phi _{2}(\mu _{1}-\mathbf{z}_{t}\mathbf{\gamma };\alpha _{j+1}^{-}-%
+\mathbf{x}_{t}^{-}\mathbf{\beta }^{-}\mathbf{;}\rho _{-})-\Phi _{2}(\mu _{1}-%
+\mathbf{z}_{t}\mathbf{\gamma };\alpha _{j}^{-}-\mathbf{x}_{t}^{-}\mathbf{%
+\beta }^{-}\mathbf{;}\rho _{-})] \\ 
++I_{j=0}[\Phi (\mu _{2}-\mathbf{z}_{t}\mathbf{\gamma })-\Phi (\mu _{1}-%
+\mathbf{z}_{t}\mathbf{\gamma })] \\ 
++I_{j>0}[\Phi _{2}(-\mu _{2}+\mathbf{z}_{t}\mathbf{\gamma };\alpha _{j}^{+}-%
+\mathbf{x}_{t}^{+}\mathbf{\beta }^{+};\mathbf{-}\rho _{+})-\Phi _{2}(-\mu
+_{2}+\mathbf{z}_{t}\mathbf{\gamma };\alpha _{j-1}^{+}-\mathbf{x}_{t}^{+}%
+\mathbf{\beta }^{+};\mathbf{-}\rho _{+})]\text{,}%
+\end{array}
+\label{Prob NOP}
+\end{equation}
+
+\noindent where $I_{j\leq 0}$ is an indicator function such that $I_{j\leq
+0}=1$ if $j\leq 0$, and $I_{j\leq 0}=0$ if $j>0$ (analogously for $I_{j=0}$
+and $I_{j\leq 0}$).
+
+In the case of exogenous switching (when $\rho _{-}=\rho _{+}=0$), the
+probabilities of the outcome $j$ in the NOP can be computed as
+
+\begin{center}
+$%
+\begin{array}{l}
+\Pr (y_{t}=j|\mathbf{z}_{t},\mathbf{x}_{t}^{-},\mathbf{x}_{t}^{+},\rho
+_{-}=\rho _{+}=0) \\ 
+=I_{j<0}\Phi (\mu _{1}-\mathbf{z}_{t}\mathbf{\gamma )}[\Phi (\alpha
+_{j+1}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta }^{-})-\Phi (\alpha _{j}^{-}-%
+\mathbf{x}_{t}^{-}\mathbf{\beta }^{-})] \\ 
++I_{j=0}[\Phi (\mu _{2}-\mathbf{z}_{t}\mathbf{\gamma })-\Phi (\mu _{1}-%
+\mathbf{z}_{t}\mathbf{\gamma })] \\ 
++I_{j>0}[1-\Phi (\mu _{2}-\mathbf{z}_{t}\mathbf{\gamma })][\Phi (\alpha
+_{j}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta }^{+})-\Phi (\alpha _{j-1}^{+}-%
+\mathbf{x}_{t}^{+}\mathbf{\beta }^{+})]\text{.}%
+\end{array}%
+$
+\end{center}
+
+In the case of three outcome categories the NOP model degenerates to the
+conventional ordered probit model.
+
+\subsubsection*{Two-part cross-nested zero-inflated ordered probit (ZIOP-2)
+model}
+
+The ZIOP-2 model, which represents the middle-inflated ordered probit model
+of Bagozzi and Mukherjee (2012) and Brooks, Harris and Spencer (2012), can
+be described by the following system
+
+\medskip
+
+$%
+\begin{tabular}{ll}
+\ Regime decision: & $r_{t}^{\ast }=\mathbf{z}_{t}\mathbf{\gamma }+\nu _{t},$
+\ \ $s_{t}^{\ast }=\left\{ 
+\begin{array}{rcl}
+1 & \text{if} & \mu <r_{t}^{\ast }, \\ 
+0 & \text{if} & r_{t}^{\ast }\leq \mu .%
+\end{array}%
+\right. $ \\ 
+\ Outcome decision: \ \ \ \ \ \  & $y_{t}^{\ast }=\mathbf{x}_{t}\mathbf{%
+\beta }+\varepsilon _{t},$ \\ 
+& $y_{t}=\left\{ 
+\begin{array}{lcl}
+j & \text{if} & s_{t}^{\ast }=1\text{ and }\alpha _{j-1}<y_{t}^{\ast }\leq
+\alpha _{j}, \\ 
+0 & \text{if} & s_{t}^{\ast }=0,%
+\end{array}%
+\right. $ \\ 
+& where $-\infty =\alpha _{-J^{-}-1}\leq \alpha _{-J^{-}}\leq ...\leq \alpha
+_{J^{+}}=\infty .$ \\ 
+\begin{tabular}{l}
+Correlation among \\ 
+decisions:%
+\end{tabular}
+& $\left[ 
+\begin{array}{c}
+\nu _{t} \\ 
+\varepsilon _{t}%
+\end{array}%
+\right] \overset{iid}{\sim }\mathcal{N}\left( 
+\begin{array}{c}
+0 \\ 
+0%
+\end{array}%
+,\left[ 
+\begin{array}{cc}
+\sigma _{\nu }^{2} & \rho \sigma _{\nu }\sigma _{\varepsilon } \\ 
+\rho \sigma _{\nu }\sigma _{\varepsilon } & \sigma _{\varepsilon }^{2}%
+\end{array}%
+\right] \right) .$%
+\end{tabular}%
+$
+
+\bigskip
+
+The probabilities of the outcome $j$ in the ZIOP-2 model are given by%
+\begin{equation}
+\begin{array}{l}
+\Pr (y_{t}=j|\mathbf{z}_{t},\mathbf{x}_{t})=I_{j=0}\Pr (r_{t}^{\ast }\leq
+\mu |\mathbf{z}_{t}) \\ 
++I_{j\geq 0}\Pr (\mu <r_{t}^{\ast }\ \text{and }\alpha _{j-1}<y_{t}^{\ast
+}\leq \alpha _{j}|\mathbf{z}_{t},\mathbf{x}_{t}) \\ 
+=I_{j=0}\Pr (\nu _{t}\leq \mu -\mathbf{z}_{t}\mathbf{\gamma })+I_{j\geq
+0}\Pr (\mu -\mathbf{z}_{t}\mathbf{\gamma }<\nu _{t}\ \text{and }\alpha
+_{j-1}-\mathbf{x}_{t}\mathbf{\beta }<\varepsilon _{t}\leq \alpha _{j}-%
+\mathbf{x}_{t}\mathbf{\beta }) \\ 
+=I_{j=0}\Phi (\mu -\mathbf{z}_{t}\mathbf{\gamma })+\Phi _{2}(-\mu +\mathbf{z}%
+_{t}\mathbf{\gamma };\alpha _{j}-\mathbf{x}_{t}\mathbf{\beta };\mathbf{-}%
+\rho )-\Phi _{2}(-\mu +\mathbf{z}_{t}\mathbf{\gamma };\alpha _{j-1}-\mathbf{x%
+}_{t}\mathbf{\beta };\mathbf{-}\rho )\text{.}%
+\end{array}
+\label{Prob MIOP}
+\end{equation}
+
+In the case of exogenous switching (when $\rho =0$), the probabilities of
+the outcome $j$ in the ZIOP-2 model can be computed as
+
+\begin{center}
+$%
+\begin{array}{l}
+\Pr (y_{t}=j|\mathbf{z}_{t},\mathbf{x}_{t},\rho =0)=I_{j=0}\Phi (\mu -%
+\mathbf{z}_{t}\mathbf{\gamma }) \\ 
++[1-\Phi (\mu -\mathbf{z}_{t}\mathbf{\gamma })][\Phi (\alpha _{j}-\mathbf{x}%
+_{t}\mathbf{\beta })-\Phi (\alpha _{j-1}-\mathbf{x}_{t}\mathbf{\beta })]%
+\text{.}%
+\end{array}%
+$
+\end{center}
+
+If $y_{t}\geq 0$ for $\forall t,$ the ZIOP-2 model reduces to the model in
+Harris and Zhao (2007).
+
+\subsubsection*{Three-part cross-nested zero-inflated ordered probit
+(ZIOP-3) model}
+
+The ZIOP-3 model, developed by Sirchenko (2013), generalizes the ZIOP-2
+model and can be described by the following system
+
+\medskip
+
+$%
+\begin{tabular}{ll}
+\ Regime decision: & $r_{t}^{\ast }=\mathbf{z}_{t}\mathbf{\gamma }+\nu _{t},$
+\ \ $s_{t}^{\ast }=\left\{ 
+\begin{array}{rcl}
+1 & \text{if} & \mu _{2}<r_{t}^{\ast }, \\ 
+0 & \text{if} & \mu _{1}<r_{t}^{\ast }\leq \mu _{2}, \\ 
+-1 & \text{if} & \text{ \ \ \ \ \ \ }r_{t}^{\ast }\leq \mu _{1}.%
+\end{array}%
+\right. $ \\ 
+\ Outcome decisions: & $y_{t}^{-\ast }=\mathbf{x}_{t}^{-}\mathbf{\beta }%
+^{-}+\varepsilon _{t}^{-},$ \ \ $y_{t}^{+\ast }=\mathbf{x}_{t}^{+}\mathbf{%
+\beta }^{+}+\varepsilon _{t}^{+},$ \\ 
+& $y_{t}=\left\{ 
+\begin{array}{lcl}
+j(j\geq 0) & \text{if} & s_{t}^{\ast }=1\text{ \ \ and }\alpha
+_{j-1}^{+}<y_{t}^{+\ast }\leq \alpha _{j}^{+}, \\ 
+0 & \text{if} & s_{t}^{\ast }=0, \\ 
+j(j\leq 0) & \text{if} & s_{t}^{\ast }=-1\text{ and }\alpha
+_{j}^{-}<y_{t}^{-\ast }\leq \alpha _{j+1}^{-},%
+\end{array}%
+\right. $ \\ 
+& where $-\infty =\alpha _{-1}^{+}\leq \alpha _{0}^{+}\leq ...\leq \alpha
+_{J^{+}}^{+}=\infty $ \\ 
+& and $-\infty =\alpha _{-J^{-}}^{-}\leq \alpha _{-J+1}^{-}\leq ...\leq
+\alpha _{1}^{-}=\infty $. \\ 
+\begin{tabular}{l}
+Correlation among \\ 
+decisions:%
+\end{tabular}
+& $\left[ 
+\begin{array}{c}
+\nu _{t} \\ 
+\varepsilon _{t}^{i}%
+\end{array}%
+\right] \overset{iid}{\sim }\mathcal{N}\left( 
+\begin{array}{c}
+0 \\ 
+0%
+\end{array}%
+,\left[ 
+\begin{array}{cc}
+\sigma _{\nu }^{2} & \rho _{i}\sigma _{\nu }\sigma _{i} \\ 
+\rho _{i}\sigma _{\nu }\sigma _{i} & \sigma _{i}^{2}%
+\end{array}%
+\right] \right) $, $i\in \{-,+\}.$%
+\end{tabular}%
+$
+
+\bigskip
+
+The probabilities of the outcome $j$ in the ZIOP-3 model are given by
+
+\begin{flushleft}
+\begin{equation}
+\begin{array}{l}
+\Pr (y_{t}=j|\mathbf{z}_{t},\mathbf{x}_{t}^{-},\mathbf{x}_{t}^{+})=I_{j\leq
+0}\Pr (r_{t}^{\ast }\leq \mu _{1}\ \text{and }\alpha _{j}^{-}<y_{t}^{-\ast
+}\leq \alpha _{j+1}^{-}|\mathbf{z}_{t},\mathbf{x}_{t}^{-}) \\ 
++I_{j=0}\Pr (\mu _{1}<r_{t}^{\ast }\leq \mu _{2}|\mathbf{z}_{t})+I_{j\geq
+0}\Pr (\mu _{2}<r_{t}^{\ast }\ \text{and }\alpha _{j-1}^{+}<y_{t}^{+\ast
+}\leq \alpha _{j}^{+}|\mathbf{z}_{t},\mathbf{x}_{t}^{+}) \\ 
+=I_{j\leq 0}\Pr (\nu _{t}\leq \mu _{1}-\mathbf{z}_{t}\mathbf{\gamma }\ \text{%
+and }\alpha _{j}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta }^{-}<\varepsilon
+_{t}^{-}\leq \alpha _{j+1}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta }^{-}) \\ 
++I_{j=0}\Pr (\mu _{1}-\mathbf{z}_{t}\mathbf{\gamma }<\nu _{t}\leq \mu _{2}-%
+\mathbf{z}_{t}\mathbf{\gamma }) \\ 
++I_{j\geq 0}\Pr (\mu _{2}-\mathbf{z}_{t}\mathbf{\gamma }<\nu _{t}\ \text{and 
+}\alpha _{j-1}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta }^{+}<\varepsilon
+_{t}^{+}\leq \alpha _{j}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta }^{+}) \\ 
+=I_{j\leq 0}[\Phi _{2}(\mu _{1}-\mathbf{z}_{t}\mathbf{\gamma };\alpha
+_{j+1}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta }^{-}\mathbf{;}\rho _{-})-\Phi
+_{2}(\mu _{1}-\mathbf{z}_{t}\mathbf{\gamma };\alpha _{j}^{-}-\mathbf{x}%
+_{t}^{-}\mathbf{\beta }^{-}\mathbf{;}\rho _{-})] \\ 
++I_{j=0}[\Phi (\mu _{2}-\mathbf{z}_{t}\mathbf{\gamma })-\Phi (\mu _{1}-%
+\mathbf{z}_{t}\mathbf{\gamma })] \\ 
++I_{j\geq 0}[\Phi _{2}(-\mu _{2}+\mathbf{z}_{t}\mathbf{\gamma };\alpha
+_{j}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta }^{+};\mathbf{-}\rho _{+})-\Phi
+_{2}(-\mu _{2}+\mathbf{z}_{t}\mathbf{\gamma };\alpha _{j-1}^{+}-\mathbf{x}%
+_{t}^{+}\mathbf{\beta }^{+};\mathbf{-}\rho _{+})]\text{,}%
+\end{array}
+\label{Prob CroNOP}
+\end{equation}
+\end{flushleft}
+
+\noindent where $I_{j\leq 0}$ is an indicator function such that $I_{j\leq
+0}=1$ if $j\leq 0$, and $I_{j\leq 0}=0$ if $j>0$ (analogously for $I_{j=0}$
+and $I_{j\leq 0}$).
+
+In the case of exogenous switching (when $\rho _{-}=\rho _{+}=0$), the
+probabilities of the outcome $j$ in the NOP can be computed as
+
+\begin{center}
+$%
+\begin{array}{l}
+\Pr (y_{t}=j|\mathbf{z}_{t},\mathbf{x}_{t}^{-},\mathbf{x}_{t}^{+},\rho
+_{-}=\rho _{+}=0) \\ 
+=I_{j\leq 0}\Phi (\mu _{1}-\mathbf{z}_{t}\mathbf{\gamma )}[\Phi (\alpha
+_{j+1}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta }^{-})-\Phi (\alpha _{j}^{-}-%
+\mathbf{x}_{t}^{-}\mathbf{\beta }^{-})] \\ 
++I_{j=0}[\Phi (\mu _{2}-\mathbf{z}_{t}\mathbf{\gamma })-\Phi (\mu _{1}-%
+\mathbf{z}_{t}\mathbf{\gamma })] \\ 
++I_{j\geq 0}[1-\Phi (\mu _{2}-\mathbf{z}_{t}\mathbf{\gamma })][\Phi (\alpha
+_{j}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta }^{+})-\Phi (\alpha _{j-1}^{+}-%
+\mathbf{x}_{t}^{+}\mathbf{\beta }^{+})]\text{.}%
+\end{array}%
+$
+\end{center}
+
+The inflated outcome does not have to be in the \emph{very} middle of
+ordered categories. If it is located at the \emph{end} of the ordered scale,
+i.e. if $y_{t}\geq 0$ for $\forall t,$ the ZIOP-3 model reduces to the
+ZIOP-2 model of Harris and Zhao (2007).
+
+\subsubsection*{Maximum likelihood (ML) estimation}
+
+The probabilities in each ordered probit model representing the regime and
+outcome decisions can be consistently estimated under fairly general
+conditions by an asymptotically normal ML estimator (Basu and de Jong 2007).
+The simalteneous estimation of the ordered probit equations in the NOP,
+ZIOP-2 and ZIOP-3 models can be performed using an ML estimator of the
+vector of the parameters $\mathbf{\theta }$ that solves
+
+\begin{equation}
+\underset{\mathbf{\theta \epsilon \Theta }}{\max }\overset{}{\underset{}{%
+\underset{t=1}{\overset{T}{\sum }}}}\overset{J^{+}}{\underset{j=-J^{-}}{\sum 
+}}q_{tj}\ln [\Pr (y_{t}=j|\mathbf{x}_{t}^{all},\mathbf{\theta })]\text{,}
+\label{LL}
+\end{equation}
+
+\noindent where $q_{tj}$ is an indicator function such that $q_{tj}=1$ if $%
+y_{t}=j$ and $q_{itj}=0$ otherwise; $\mathbf{\theta }$ includes $\mathbf{%
+\gamma ,}$ $\mathbf{\mu ,}$ $\mathbf{\beta }^{-},$ $\mathbf{\beta }^{+},$ $%
+\mathbf{\alpha }^{-}$ and $\mathbf{\alpha }^{+}$ for the NOP model, $\mathbf{%
+\gamma ,}$ $\mathbf{\mu ,}$ $\mathbf{\beta },$ $\mathbf{\alpha }$ and $%
+\mathbf{\rho }$ for the ZIOP-2 model, and $\mathbf{\gamma ,}$ $\mathbf{\mu ,}
+$ $\mathbf{\beta }^{-},$ $\mathbf{\beta }^{+},$ $\mathbf{\alpha }^{-},$ $%
+\mathbf{\alpha }^{+}\mathbf{,}$ $\mathbf{\rho }^{-}$ and $\mathbf{\rho }^{+}$
+for the ZIOP-3 model; $\mathbf{\Theta }$ is a parameters' space; $\mathbf{x}%
+_{t}^{all}$ is a vector that contains the values of all unique covariates
+from all equations of the model at observation $t$; and $\Pr (y_{t}=j|%
+\mathbf{x}_{t}^{all},\mathbf{\theta })$ are probabilities in either (\ref%
+{Prob NOP}), or (\ref{Prob CroNOP}), or (\ref{Prob MIOP}) for, respectively,
+the NOP, ZIOP-2 and ZIOP-3 models.
+
+The intercept components of $\mathbf{\beta ,}$ $\mathbf{\beta }^{-},$ $%
+\mathbf{\beta }$ and $\mathbf{\gamma }$ are identified up to scale and
+location, that is only jointly with the corresponding threshold parameters $%
+\mathbf{\alpha ,}$ $\mathbf{\alpha }^{-}\mathbf{,}$ $\mathbf{\alpha }^{+}$
+and $\mathbf{\mu }$ and variances $\sigma ^{2},$ $\sigma _{-}^{2},$ $\sigma
+_{+}^{2},$ and $\sigma _{\nu }^{2}$. As is common in the identification of
+discrete choice models, the variances $\sigma ^{2},$ $\sigma _{-}^{2},$ $%
+\sigma _{+}^{2},$ and $\sigma _{\nu }^{2}$ are fixed to unit, and the
+intercept components of $\mathbf{\beta ,}$ $\mathbf{\beta }^{-},$ $\mathbf{%
+\beta }$ and $\mathbf{\gamma }$ are fixed to zero. The probabilities in (\ref%
+{Prob NOP}), (\ref{Prob MIOP}) and (\ref{Prob CroNOP}) are invariant to
+these (arbitrary) identifying assumptions. Up to scale and location, we can
+identify all parameters in $\mathbf{\theta }$ because of the nonlinearity of
+ordered probit equations, i.e. via the functional form (Heckman 1978; Wilde
+2000). However, since the normal CDF is approximately linear in the middle
+of its support, the simultaneous estimation of two or three equations may
+experience a weak identification problem if all decision and outcome
+equations contain the same set of covariates. To enhance the precision of
+parameter estimates we may impose exclusion restrictions on the
+specification of covariates in each equation. The asymptotic standard errors
+of $\widehat{\mathbf{\theta }}$ can be computed from the Hessian matrix.
+
+The three regimes (nests) in the NOP model are fully observable, contrary to
+the latent (only partially observed) regimes in the ZIOP-2 and ZIOP-3
+models. The log of the likelihood function of the NOP model ---\ again in
+contrast with the ZIOP-2 and ZIOP-3 models --- is separable with respect to
+the parameters in the three equations. Thus, solving (\ref{LL}) for the NOP
+model is equivalent to maximizing separately the likelihoods of the three
+ordered probit models, representing the regime and outcome decisions in (\ref%
+{incl}), if the data matrices in the outcome decisions are truncated to
+contain only those rows $\mathbf{x}_{t}^{-}$ or $\mathbf{x}_{t}^{-}$ for
+which $y_{t}<0$ or $y_{t}>0$, respectively.
+
+\subsubsection*{Marginal effects}
+
+\noindent The marginal effect (ME) of a continuous covariate $k$ (the $k^{%
+\text{th}}$ element of $\mathbf{x}_{t}^{all}$) on the probability of each
+discrete outcome $j$ are computed for the ZIOP-3 model as
+
+$%
+\begin{array}{l}
+ME_{k,j,t}=\frac{\partial \Pr (y_{t}=j|\mathbf{\theta })}{\partial \mathbf{x}%
+_{t,k}^{all}}=I_{j\leq 0}\left\{ \left[ \Phi \left( \frac{\mu _{1}-\mathbf{z}%
+_{t}\mathbf{\gamma }-\rho _{-}(\alpha _{j}^{-}-\mathbf{x}_{t}^{-}\mathbf{%
+\beta ^{-})}}{\sqrt{1-(\rho _{-})^{2}}}\right) f(\alpha _{j}^{-}-\mathbf{x}%
+_{t}^{-}\mathbf{\beta ^{-}})\right. \right. \\ 
+\left. -\Phi \left( \frac{\mu _{1}-\mathbf{z}_{t}\mathbf{\gamma }-\rho
+_{-}(\alpha _{j+1}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta ^{-})}}{\sqrt{1-(\rho
+_{-})^{2}}}\right) f(\alpha _{j+1}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta ^{-}})%
+\right] \mathbf{\beta }_{k}^{-all} \\ 
+\left. -\left[ \Phi \left( \frac{\alpha _{j+1}^{-}-\mathbf{x}_{t}^{-}\mathbf{%
+\beta ^{-}}-\rho _{-}(\mu _{1}-\mathbf{z}_{t}\mathbf{\gamma )}}{\sqrt{%
+1-(\rho _{-})^{2}}}\right) -\Phi \left( \frac{\alpha _{j}^{-}-\mathbf{x}%
+_{t}^{-}\mathbf{\beta ^{-}}-\rho _{-}(\mu _{1}-\mathbf{z}_{t}\mathbf{\gamma )%
+}}{\sqrt{1-(\rho _{-})^{2}}}\right) \right] f(\mu _{1}-\mathbf{z}_{t}\mathbf{%
+\gamma })\mathbf{\gamma }_{k}^{all}\right\} \\ 
+-I_{j=0}[f(\mu _{2}-\mathbf{z}_{t}\mathbf{\gamma })-f(\mu _{1}-\mathbf{z}_{t}%
+\mathbf{\gamma })]\mathbf{\gamma }_{k}^{all} \\ 
++I_{j\geq 0}\left\{ \left[ \Phi \left( \frac{\mathbf{z}_{t}\mathbf{\gamma }%
+-\mu _{2}+\rho _{+}(\alpha _{j-1}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta ^{+})}%
+}{\sqrt{1-(\rho _{+})^{2}}}\right) \right. \right. f(\alpha _{j-1}^{+}-%
+\mathbf{x}_{t}^{+}\mathbf{\beta ^{+}}) \\ 
+\left. -\Phi \left( \frac{\mathbf{z}_{t}\mathbf{\gamma }-\mu _{2}+\rho
+^{+}(\alpha _{j}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta ^{+})}}{\sqrt{1-(\rho
+_{+})^{2}}}\right) f(\alpha _{j}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta ^{+}})%
+\right] \mathbf{\beta }_{k}^{+all} \\ 
+\left. +\left[ \Phi \left( \frac{\alpha _{j}^{+}-\mathbf{x}_{t}^{+}\mathbf{%
+\beta ^{+}}+\rho _{+}(\mathbf{z}_{t}\mathbf{\gamma }-\mu _{2}\mathbf{)}}{%
+\sqrt{1-(\rho _{+})^{2}}}\right) -\Phi \left( \frac{\alpha _{j-1}^{+}-%
+\mathbf{x}_{t}^{+}\mathbf{\beta ^{+}}+\rho _{+}(\mathbf{z}_{t}\mathbf{\gamma 
+}-\mu _{2}\mathbf{)}}{\sqrt{1-(\rho _{+})^{2}}}\right) \right] f(\mathbf{z}%
+_{t}\mathbf{\gamma }-\mu _{2})\mathbf{\gamma }_{k}^{all}\right\} ,%
+\end{array}%
+$
+
+\medskip
+
+\noindent where $f$ is the probability density function of the standard
+normal distribution, and $\mathbf{\gamma }_{k}^{all}$, $\mathbf{\beta }%
+_{k}^{-all}$ and $\mathbf{\beta }_{k}^{+all}$ are the parameters on the $k^{%
+\text{th}}$ covariate in $\mathbf{x}_{t}^{all}$ in each equation ($\mathbf{%
+\gamma }_{k}^{all}$, $\mathbf{\beta }_{k}^{-all}$ or $\mathbf{\beta }%
+_{k}^{+all}$ is zero if the $k^{\text{th}}$ covariate in $\mathbf{x}%
+_{t}^{all}$ is not included into the corresponding equation). For a
+discrete-valued covariate, the ME can be computed as the change in the
+probabilities when this covariate changes by one increment and all other
+covariates are fixed.
+
+The MEs for the NOP model are given by replacing $I_{j\geq 0}$ with $I_{j>0}$
+and $I_{j\leq 0}$ with $I_{j<0}$. The MEs for the ZIOP-2 model are computed
+as
+
+\medskip
+
+$%
+\begin{array}{l}
+ME_{k,j,t}=\frac{\partial \Pr (y_{t}=j|\mathbf{\theta })}{\partial \mathbf{x}%
+_{t,k}^{all}}=-I_{j=0}[f(\mu -\mathbf{z}_{t}\mathbf{\gamma })]\mathbf{\gamma 
+}_{k}^{all} \\ 
++\left[ \Phi \left( \frac{\mathbf{z}_{t}\mathbf{\gamma }-\mu +\rho (\alpha
+_{j-1}-\mathbf{x}_{t}\mathbf{\beta )}}{\sqrt{1-\rho ^{2}}}\right) f(\alpha
+_{j-1}-\mathbf{x}_{t}\mathbf{\beta })-\Phi \left( \frac{\mathbf{z}_{t}%
+\mathbf{\gamma }-\mu +\rho (\alpha _{j}-\mathbf{x}_{t}\mathbf{\beta )}}{%
+\sqrt{1-\rho ^{2}}}\right) f(\alpha _{j}-\mathbf{x}_{t}\mathbf{\beta })%
+\right] \mathbf{\beta }_{k}^{all} \\ 
++\left[ \Phi \left( \frac{\alpha _{j}-\mathbf{x}_{t}\mathbf{\beta }+\rho (%
+\mathbf{z}_{t}\mathbf{\gamma }-\mu \mathbf{)}}{\sqrt{1-\rho ^{2}}}\right)
+-\Phi \left( \frac{\alpha _{j-1}-\mathbf{x}_{t}\mathbf{\beta }+\rho (\mathbf{%
+z}_{t}\mathbf{\gamma }-\mu \mathbf{)}}{\sqrt{1-\rho ^{2}}}\right) \right] f(%
+\mathbf{z}_{t}\mathbf{\gamma }-\mu )\mathbf{\gamma }_{k}^{all}\text{.}%
+\end{array}%
+$
+
+\medskip
+
+The asymptotic standard errors of the MEs are computed using the Delta
+method as the square roots of the diagonal elements of
+
+\begin{center}
+$\widehat{Var(\widehat{\underset{}{\mathbf{ME}_{k,j,t}}})}=\nabla _{\theta }%
+\widehat{\mathbf{ME}}_{k,j,t}\widehat{Var(\widehat{\mathbf{\theta }})}\nabla
+_{\theta }\widehat{\mathbf{ME}}_{k,j,t})^{\prime }$.
+\end{center}
+
+\subsubsection*{\noindent The relations among the models and their comparison%
+}
+
+In this section I discuss the relations among the NOP, ZIOP-2 and ZIOP-3
+models and the choice of a formal model-selection test, which depends on
+whether the models are nested in each other.
+
+The exogenous-switching version of each model is nested in the
+endogenous-switching version of this model as its uncorrelated special case;
+their comparison can be performed using any classical lilkelihood-based test
+for nested hypotheses, such as the likelihood ratio (LR) test.
+
+The NOP model is nested in the ZIOP-3 model. The latter becomes a NOP model
+if $\alpha _{-1}^{-}\rightarrow \infty $ and $\alpha _{1}^{+}\rightarrow
+-\infty $; therefore, $\Pr (y_{t}=0|\mathbf{x}_{t}^{+},s_{t}=1)\rightarrow 0$
+and $\Pr (y_{t}=0|\mathbf{x}_{t}^{-},s_{t}=-1)\rightarrow 0$. Thus, the
+comparison of the NOP and ZIOP-3 models can also be performed with the LR
+test; however, the critical values of the classical LR test are invalid
+since some standard regularity conditions of the classical LR test fail to
+hold. In particular, the values of $\alpha _{-1}^{-}$ and $\alpha _{1}^{+}$
+in the null hypothesis are not the interior points of the parameter space;
+hence, the asymptotic distribution of the LR statistics is not standard.
+Instead, we may use the simulated critical values provided in Andrews (2001).
+
+Generally, the ZIOP-2 model is not a special case of the ZIOP-3 model, and
+vice versa. However, they are not strictly non-nested and overlap if all
+their slope parameters are fixed to zeros. We can compare them using a
+likelihood-based test for non-nested overlapping models, such as the Vuong
+test (Vuong 1989). A special case when the ZIOP-3 model nests the ZIOP-2
+model emerges under some restrictions on the parameters provided: (i) $y_{t}$
+only has three choices, (ii) the regressors in $\mathbf{x}_{t}^{-}$ and $%
+\mathbf{x}_{t}^{+}$ in the outcome equations of the ZIOP-3 model contain all
+regressors in $\mathbf{z}_{t}$ in the ZIOP-2 regime equation, and (iii) the
+regressors in $\mathbf{z}_{t}$ in the regime equation of the ZIOP-3 model
+include all regressors in the $\mathbf{x}_{t}$ in the ZIOP-2 amount equation
+(see Appendix for the details). In this case, the selection between the
+ZIOP-3 and ZIOP-2 models can be performed using any classical
+likelihood-based test for nested hypotheses, which can be interpreted as a
+misspecification test for the latter.
+
+\section{The nop, ziop-2 and ziop-3 commands}
+
+\subsection*{Syntax}
+
+%\subsubsection{Syntax}
+
+\hangindent=\parindent\noindent \texttt{ziop-3 $depvar$ $indepvars$ [$if$] [$%
+in$] [, zp($varlist$) zn($varlist$) infcat($integer$ $0$) correlated cluster(%
+$varname$) robust initial($string$)] }
+
+This command estimates by ML the three-part cross-nested zero-inflated
+ordered probit model with possibly different sets of covariates in the
+regime and outcome equations and possibly endogenous switching among three
+latent regimes.
+
+\hangindent=\parindent\noindent \texttt{ziop-2 $depvar$ $indepvars$ [$if$] [$%
+in$] [, z ($varlist$) infcat($integer$ $0$) correlated cluster($varname$)
+robust initial($string$)] }
+
+This command  estimates by ML the two-part cross-nested zero-inflated
+ordered probit model with possibly different sets of covariates in the
+regime and outcome equations and possibly endogenous switching among two
+latent regimes.
+
+\hangindent=\parindent
+\noindent \texttt{nop $depvar$ $indepvars$ [$if$] [$in$] [, zp($varlist$) zn(%
+$varlist$) infcat($integer$ $0$) correlated cluster($varname$) robust
+initial($string$)] }
+
+This command estimates by ML the three-part nested ordered probit model with
+possibly different sets of covariates in the regime and outcome equations
+and possibly endogenous switching among three latent regimes..
+
+%\subsubsection{Description}
+
+\subsubsection*{Options}
+
+\begin{tabular}{lp{12cm}}
+\textit{options} & Description \\ 
+\midrule \texttt{zp($varlist$)} & list of covariates for positive response
+in NOP and CNOP models; by default, it equals $indepvars$, the list of
+covariates for initial stage \\ 
+\texttt{zn($varlist$)} & list of covariates for negative response in NOP and
+CNOP models; by default, it equals $indepvars$, the list of covariates for
+initial stage \\ 
+\texttt{z($varlist$)} & list of covariates for non-zero response in ZIOP
+models; by default, it equals $indepvars$, the list of covariates for
+initial stage \\ 
+\texttt{infcat($integer$)} & value of the response variable that should be
+modeled as inflated; by default, it equals 0 \\ 
+\texttt{correlated} & flag that errors in the first and second stages may be
+correlated, forcing estimation of CNOPc, NOPc or ZIOPc model \\ 
+\texttt{robust} & flag that variance-covariance estimator must be robust
+(based on ``sandwich``) estimate \\ 
+\texttt{cluster($varname$)} & clustering variable for robust variance
+estimator \\ 
+\texttt{initial($string$)} & whitespace-delimited list of initial parameter
+values for estimation, in the following order: $\beta$, $\alpha$, $%
+\gamma^{+} $, $\mu^{+}$, $\gamma^{-}$, $\mu^{-}$, $\rho^{-}$, $\rho^{+}$%
+\end{tabular}
+
+\subsubsection*{Examples}
+
+TBD
+
+\subsubsection*{Stored results}
+
+\texttt{nop}, \texttt{ziop-2}, and \texttt{ziop-3} store the following in 
+\texttt{e()}:
+
+%Scalars
+
+\begin{tabular}{p{3cm}p{12cm}}
+\texttt{e(N)} & number of observations%
+\end{tabular}
+
+%Macros
+
+\begin{tabular}{p{3cm}p{12cm}}
+\texttt{e(cmd)} & \texttt{cnop}, \texttt{nop}, or \texttt{miop}, respectively
+\\ 
+\texttt{e(depvar)} & dependent variable of regression%
+\end{tabular}
+
+%Matrices
+
+\begin{tabular}{p{3cm}p{12cm}}
+\texttt{e(b)} & parameters vector \\ 
+\texttt{e(V)} & variance-covariance matrix%
+\end{tabular}
+
+%Functions
+
+\begin{tabular}{p{3cm}p{12cm}}
+\texttt{e(sample)} & marks estimation sample%
+\end{tabular}
+
+\subsection*{Postestimation commands}
+
+\subsubsection*{The predict command}
+
+The \texttt{predict} command after the nop, ziop-2 and ziop-3 estimation
+commands produces either predicted probabilities or expected values of the
+responses.
+
+\texttt{predict $varname$ [$if$] [$in$] [, zeroes regime output($string$) at(%
+$string$)]}
+
+\texttt{name} is the name of predicted variable, if it is single, or prefix
+for names, if there are several predicted variables
+
+\texttt{zeroes} indicates that different types of zeroes (i.e. ``intrinsic
+zeroes``, or ``positive zeroes``, or ``negative zeroes``) must be predicted
+instead of different response values.
+
+\texttt{regime} indicates that different groups of response (negative,
+positive or zero) must be predicted instead of different response values.
+This option is ignored if \texttt{zeroes} option is on.
+
+\texttt{output(string)} specifies type of aggregating predicted
+probabilities of different response. Possible values are \texttt{mode} and 
+\texttt{mean}, for predicting average or most probable outcome, and \texttt{%
+cum} for predicting cumulative response probabilities (i.e. $\Pr (y_{t}<=-2)$%
+, $\Pr (y_{t}<=-1)$, $\Pr (y_{t}<=0)$ etc.). If not specified, raw response
+probabilities are predicted ($\Pr (y_{t}=-2)$, $\Pr (y_{t}=-1)$, $\Pr
+(y_{t}=0)$ etc.).
+
+\subsubsection*{The cnopmargins command}
+
+\texttt{cnopmargins [, at($string$) nominal($varlist$) zeroes regime]}
+
+This command prints marginal effects for the last estimated model (either
+NOP, or ZIOP-2, or ZIOP-3), calculated at the specified point, along with
+confidence intervals.
+
+\texttt{at(string)} specifies at which point predictions must be calculated.
+If at is specified, (as a list of \texttt{varname=value} expressions,
+separated by comma), prediction is calculated at this point and posted on
+the screen without saving to the dataset. If some covariate names are not
+specified, their mean value is taken instead.
+
+\texttt{nominal} is a space-separated list of covariates which should be
+considered as nominal; marginal effect is then calculated as difference
+between values at 0 and at 1.
+
+\texttt{zeroes} and \texttt{regime} indicate that marginal effects should be
+calculated for different zeroes or for groups of response variable, as in 
+\texttt{predict} command.
+
+\subsubsection*{The cnopprobabilities command}
+
+\texttt{cnopprobabilities [, at($string$) zeroes regime]}
+
+This command prints predicted probabilities for the last estimated model
+(either NOP, or ZIOP-2, or ZIOP-3) , calculated at the specified point,
+along with confidence intervals. The point \texttt{at} is specified like in 
+\texttt{cnopmargins}.
+
+\subsubsection*{The cnopcontrasts command}
+
+\texttt{cnopcontrasts [, at($string$) to($string$) zeroes regime] }
+
+This command prints differences in predicted probabilities for the last
+estimated model (either NOP, or ZIOP-2, or ZIOP-3), calculated between the
+specified points, along with confidence intervals. The points \texttt{at}
+and \texttt{to} are specified like \texttt{at} in \texttt{cnopmargins}.
+
+\subsubsection*{Examples}
+
+TBD
+
+\section{Monte Carlo simulations}
+
+We conducted extensive Monte Carlo experiments to illustrate the finite
+sample performance of the ML estimators of each model.
+
+\subsection*{Monte Carlo design}
+
+We simulated six processes generated by the NOP, ZIOP-2 and ZIOP-3 models
+with both exogenous and endogenous switching. The repeated samples with 200,
+500 and 1000 observations were independently generated and then estimated by
+the true model. The number of replications was 10,000 in each experiment.
+
+Three covariates $\mathbf{w}_{\mathbf{1}}$, $\mathbf{w}_{\mathbf{2}}$ and $%
+\mathbf{w}_{\mathbf{3}}$ were drawn in each replication as\noindent\ $%
+\mathbf{w}_{\mathbf{1}}\overset{\emph{iid}}{\sim }\mathcal{N}(0,1)+2$, $%
+\mathbf{w}_{\mathbf{2}}\overset{\emph{iid}}{\sim }\mathcal{N}(0,1$), and $%
+\mathbf{w}_{\mathbf{3}}=-1$ if $\mathbf{u}\leq 0.3$, $0$ if $0.3<\mathbf{u}%
+\leq 0.7$, or $1$ if $\mathbf{u}>0.7$, where $\mathbf{u}\overset{\emph{iid}}{%
+\sim }\mathcal{U}[0,1]$. The repeated samples were generated for the NOP and
+ZIOP-2 DGPs\textit{\ }with $\mathbf{Z=(w_{1}},\mathbf{w_{2}}$), $\mathbf{%
+\mathbf{X}^{-}=(w_{1}},\mathbf{w_{3}}$), $\mathbf{\mathbf{X}^{+}=(w_{2}},%
+\mathbf{w_{3}}$), and for the ZIOP-2 DGP with $\mathbf{Z=(w}_{1},\mathbf{w}%
+_{3})$, $\mathbf{\mathbf{X}=(w}_{2},\mathbf{w}_{3})$. The dependent variable 
+$y$ was generated with five outcome categories: -2, -1, 0, 1 and 2. The
+parameters were calibrated to yield on average the following frequencies of
+the above outcomes: 7\%, 14\%, 58\%, 14\% and 7\%, respectively. To avoid
+the divergence of ML estimates due to the problem of complete separation
+(perfect prediction), which could happen if actual number of observations in
+any outcome category is very low, the samples with any outcome category
+frequency lower than 6\% were re-generated. The matrix of the MEs has $%
+3\times 5=15$ elements; their values, which depend on the values of the
+regressors, are computed at the population medians of the covariates. The
+variances of the errors in the regime and outcome equations were fixed to
+one. The true values of all other parameters in the simulations are shown in
+Table \ref{True param}. The simulations and estimations were performed using
+the MATA programming language. The starting values for slope and threshold
+parameters were obtained using the independent ordered-probit estimations of
+each equation. The starting values for $\rho $, $\rho _{-}$ and $\rho _{+}$
+were obtained by maximizing the logarithms of the likelihood functions of
+the endogenous-switching models holding the other parameters fixed at their
+estimates in the corresponding exogenous-switching model.
+
+% Table generated by Excel2LaTeX from sheet 'params'
+
+%TCIMACRO{%
+%\TeXButton{B}{\begin{table}[H] \captionsetup{singlelinecheck = false, justification=justified}}}%
+%BeginExpansion
+\begin{table}[H] \captionsetup{singlelinecheck = false, justification=justified}%
+%EndExpansion
+
+\caption{Monte Carlo simulations: The true values of parameters\label{True
+param}}%
+%TCIMACRO{\TeXButton{TeX field}{\centering}}%
+%BeginExpansion
+\centering%
+%EndExpansion
+
+\begin{center}
+TBA
+\end{center}
+
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
+
+\subsection*{Monte Carlo results}
+
+Table \ref{MC_results} reports the measures of accuracy for the estimates of
+the probabilities and MEs. For each model, the bias and RMSE decrease as
+sample size increases. RMSE decreases in most cases faster than asymptotic
+rate $\sqrt{n}$. This may be caused by a small number of large deviations in
+parameter estimation in small samples. For most of models and sample sizes,
+the bias and RMSE are slightly higher for the endogenous-switching version.
+This is expected from a more complex model, estimated with the same sample
+size.
+
+Standard error estimates for parameters on average correspond to the actual
+standard errors. Large deviations make standard errors estimates biased,
+especially on small samples, but this problem rapidly decreases as sample
+size grows. Anyway, rare large deviations do not prevent asymptotic coverage
+probabilities of 95\% confidence intervals from being consistent. In
+general, results of Monte Carlo simulations show that estimators of the
+proposed nested and cross-nested ordered probit models are consistent, but
+should be used carefully in small samples. As a rule of thumb, we would
+advise using at least 10 observations per variable in each outcome class,
+which corresponds to 1000 observations in our case (make it more
+optimistic!!!).
+
+\bigskip
+
+%TCIMACRO{%
+%\TeXButton{B}{\begin{table}[H] \captionsetup{singlelinecheck = false, justification=justified}}}%
+%BeginExpansion
+\begin{table}[H] \captionsetup{singlelinecheck = false, justification=justified}%
+%EndExpansion
+
+\caption{Monte Carlo results: The accuracy of ML
+estimators\label{MC_results}}%
+%TCIMACRO{\TeXButton{TeX field}{\centering}}%
+%BeginExpansion
+\centering%
+%EndExpansion
+
+\begin{center}
+%TCIMACRO{%
+%\FRAME{ihF}{6.2349in}{5.2453in}{0in}{}{}{Figure}{%
+%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "T";width 6.2349in;height 5.2453in;depth 0in;original-width 6.2075in;original-height 5.2154in;cropleft "0";croptop "1";cropright "1";cropbottom "0";tempfilename 'P6BDD601.wmf';tempfile-properties "XPR";}}}%
+%BeginExpansion
+\includegraphics[
+natheight=5.2154in, natwidth=6.2075in, height=5.2453in, width=6.2349in]
+{/document/graphics/P6BDD601__1.pdf}%
+%EndExpansion
+\end{center}
+
+%TCIMACRO{\TeXButton{TeX field}{\justify}}%
+%BeginExpansion
+\justify%
+%EndExpansion
+%TCIMACRO{\TeXButton{TeX field}{\footnotesize}}%
+%BeginExpansion
+\footnotesize%
+%EndExpansion
+
+Notes: (exog) -- exogenous switching; Bias -- the absolute difference
+between the estimated and true values, devided by the true value; RMSE --
+the absolute root mean square error of the estimates; Coverage probability
+-- the percentage of times the estimated asymptotic 95\% confidence
+intervals cover the true values; Bias of standard error estimates -- the
+absolute difference between the average of the estimated asymptotic standard
+errors of the estimates and the standard deviation of the estimates in all
+replications. The above measures of accuracy for the estimates of the
+probabilities are averaged across five outcome categories, and for the
+estimates of the MEs are averaged across five outcome categories and across
+all covariates.
+
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
+
+% Need to insert \midrule between parts of table and 4cm width of multirows instead of * manually
+% Need \usepackage{booktabs} and \usepackage{multirow}
+% Table generated by Excel2LaTeX from sheet 'total'. 
+
+\section{Empirical application}
+
+The existing applications of discrete-choice approach to monetary policy
+rules (e.g., Hamilton and Jorda, 2002; Hu and Phillips, 2004; Dolado et al.,
+2005; Piazzesi, 2005; Basu and de Jong, 2007; Kauppi, 2012; Van den Hauwe et
+al., 2013) do not allow for a regime-switching behavior of central bank.
+
+TBA
+
+\section*{\noindent \noindent Concluding remarks}
+
+\noindent
+
+\begin{thebibliography}{99}
+\bibitem{} Andrews, D. W. K. 2001. Testing when a parameter is on the
+boundary of the maintained hypothesis.\ \textit{Econometrica} 69 (3):
+683--734.
+
+\bibitem{} Bagozzi, B. E., and B. Mukherjee. 2012. A mixture model for
+middle category inflation in ordered survey responses.\ \textit{Political
+Analysis\ }20: 369--386.
+
+\bibitem{} Basu, D., and R. M. de Jong. 2007. Dynamic multinomial ordered
+choice with an application to the estimation of monetary policy rules.\ 
+\textit{Studies in Nonlinear Dynamics and Econometrics} 11 (4): 1--35.
+
+\bibitem{} Brooks, R., M. N. Harris, and C. Spencer. 2012. Inflated ordered
+outcomes.\ \textit{Economics Letters} 117 (3): 683--686.
+
+\bibitem{} Famoye, F., and K. P. Singh. 2003. On inflated generalized
+Poisson regression models. \textit{Advanced Applied Statistics} 3 (2):
+145--158.
+
+\bibitem{} Greene, W. H. 1994. Accounting for excess zeros and sample
+selection in Poisson and negative binomial regression models.\ Working Paper
+No. 94-10, Department of Economics, Stern School of Business, New York
+University.
+
+\bibitem{} Greene, W. H., and D. A. Hensher. 2010. \textit{Modeling ordered
+choices: A primer}.\ Cambridge University Press.
+
+\bibitem{} Harris, M. N., and X. Zhao. 2007. A zero-inflated ordered probit
+model, with an application to modelling tobacco consumption.\ \textit{%
+Journal of Econometrics} 141 (2): 1073--1099.
+
+\bibitem{} Hartman, R. S., M. Doane, and C.-K. Woo. 1991. Consumer
+rationality and the status quo.\ \textit{Quarterly Journal of Economics}
+106: 141--162.
+
+\bibitem{} Heckman, J. J. 1978. Dummy endogenous variables in a simultaneous
+equation system. \textit{Econometrica} 46: 931--959.
+
+\bibitem{} Hern\'{a}ndez, A., F. Drasgow and V. Gonz\'{a}les-Rom\'{a}. 2004.
+Investigating the functioning of a middle category by means of a
+mixed-measurement model. \textit{Journal of Applied Psychology} 89 (4):
+687-699.
+
+\bibitem{} Kahneman, D., J. L. Knetsch, and R. H. Thaler. 1991. Anomalies:
+the endowment effect, loss aversion, and status quo bias.\ \textit{Journal
+of Economic Perspectives} 5 (1): 193--206.
+
+\bibitem{} Kelley, M. E., and S. J. Anderson. 2008. Zero inflation in
+ordinal data: incorporating susceptibility to response through the use of a
+mixture model.\ \textit{Statistics in Medicine} 27: 3674--3688.
+
+\bibitem{} Kulas, J. T. and A. A. Stachowski. 2009. Middle category
+endorsement in odd-numbered Likert response scales: Associated item
+characteristics, cognitive demands, and preferred meanings. \textit{Journal
+of Research in Personality }43: 489-493.
+
+\bibitem{} Lambert, D. 1992. Zero-inflated Poisson regression with an
+application to defects in manufacturing.\ \textit{Technometrics} 34 (1):
+1--14.
+
+\bibitem{} MacKinnon, J. G. 1996. Numerical distribution functions for unit
+root and cointegration tests.\ \textit{Journal of Applied Econometrics} 11:
+601--618.
+
+\bibitem{} Samuelson, W., and R. Zeckhauser. 1988. Status quo bias in
+decision making.\ \textit{Journal of Risk and Uncertainty} 1: 7--59.
+
+\bibitem{} Sirchenko, A. 2013. A model for ordinal responses with an
+application to policy interest rate. National Bank of Poland Working Paper
+No. 148.
+
+\bibitem{} Small, K. 1987. A discrete choice model for ordered
+alternatives.\ \textit{Econometrica} 55: 409--424.
+
+\bibitem{} Vovsha, P. 1997. Application of cross-nested logit model to mode
+choice in Tel Aviv, Israel, Metropolitan Area.\ \textit{Transportation
+Research Record} 1607: 6--15.
+
+\bibitem{} Vuong, Q. 1989. Likelihood ratio tests for model selection and
+non-nested hypotheses.\ \textit{Econometrica} 57 (2): 307--333.
+
+\bibitem{} Wen, C.-H., and F. Koppelman. 2001. The generalized nested logit
+model. \textit{Transportation Research B} 35: 627--641.
+
+\bibitem{} Wilde, J. 2000. Identification of multiple equation probit models
+with endogenous dummy regressors.\ \textit{Economics Letters} 69 (3):
+309--312.
+
+\bibitem{} Winkelmann, R. 2008. \textit{Econometric analysis of count data}%
+.\ 5$^{\text{th}}$ edition, Springer.
+
+\bibitem{} 
+\end{thebibliography}
+
+\end{document}
+
+%%%%% End /document/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex %%%%%
+
+%%%%%%%%%%%%%%%%%%%%% Start /document/P6BDD601.wmf %%%%%%%%%%%%%%%%%%%%
+
+WwlqZB@@@@@@@dBPiWC{I@@@@@PwvI@@I@@@CxJH@@`B@dC@@@@@@P@@@@p@A`@@E@@@@l`@@@@
+@@T@@@@@CBth@ILPA@@@@IH@@@@@@E@@@@D`@@P@@@@@AAt@@D@@@@HP@B@p@@@@@^@@A@@
+@@gDpO@@@@`G@P@@@@pIA|C@@@@xA@E@@@@D`@@T@@@@PBB@@@@@@A@@@@gDpO@@@
+@`G@T@@@@P@B|CPA@@@@IH@@@@@@G@@@@XAALJ@BC@@@@@@A@@@@gDpO@@@@`G@T@@@@P@
+B|CPA@@@@IH@@@@@@G@@@@XAALJ@BC@@@@@@A@@@@gDpO@@@@`G@T@@@@P@B|CPA@@@
+@IH@@@@@@G@@@@XAALJ@BCD@@A@@A@@@@gDpO@@@@`G@T@@@@P@B|CPA@@@@IH@@@@@@G@
+@@@XAALJ@BCD@@A@@A@@@@gDpO@@@@`G@T@@@@P@B|CPA@@@@IH@@@@@@G@@@@XAALJ@BC
+D@@A@pA@@@@|K@@@|C@@@P@@@@PKA@@@E@@@@d`@@T@@@@P@B@@@@@@A@@@@DDPC@P@@
+@@`@AH@@L@@@@@TBa@@|@@@@@@@@@Hj@aL@@@@@@\@@@@lo@oO@@@@@@@@dA@@@@@@@@@@DTeV
+[eMGHNUv]`Hu[mEf[@@@@@@@@@@@@@@@@@@@@@@@A@@@@mDP@@\@@@@@B@@@@@@@D@@@@t
+R@B@@G@@@@{K@E@d@@@@@@@pk@@@@@@D`@BHrTyMG]euF@@@@@@@`VOy~~_@@@@@@@@@B@@@]
+]bA~S@@@@PKAL@@D@@@@\R@@@@@@^@@A@@@@mDP@@P@@@@PKA@@@E@@@@D`@@@@@@T@@@@PB
+B|CpA@@@@VP`M@dU@I@@AAT@@@@PBB@@@@@PA@@@@AHpO@D@@@@PP@M@@A@@@@BDP@@t@
+@@@`LJl@@^D@A@@@@N}DT`p@@L@`B@P@@P@@@@HcBa@@FAX@@@@@Jeaw[gebA@`@@H@PB@`@@F@
+@A@@@@mDp@@P@@@@PKAD@@D@@@@tR@B@@A@@@@mDp@@P@@@@pIA|C@@@@xA@D@@@@tR@A@@A@
+@@@mD@@@T@@@@P@B|CPA@@@@IH@@@@@@G@@@@XAALJ@BCD@@A@@A@@@@DDPC@P@@@@`@AD@@
+L@@@@HcBK@@]AL@@@@`SOAE@L@@C@h@@D@@@@tR@B@@A@@@@mDp@@P@@@@pIA|C@@@@xA@D@@
+@@tR@A@@A@@@@mD@@@T@@@@P@B|CPA@@@@IH@@@@@@G@@@@XAAv@PABd@@pF@A@@@@DDPC@P
+@@@@`@AD@@R@@@@HcBK@@pA\@@@@`VI}DTmHCH@h@@E@@C@h@@F@PB@P@@P@@@@HcBa@@qAX@@@
+@@Jeaw[gebA@`@@H@PB@`@@F@@A@@@@mDp@@P@@@@PKAD@@D@@@@tR@B@@A@@@@mDp@@P@@@@pI
+A|C@@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|CPA@@@@IH@@@@@@G@@@@XAALJ@BCD@
+@A@@A@@@@DDPC@P@@@@`@AD@@P@@@@HcBK@pEBX@@@@`VI}DTmHcB@T@@L@`B@X@@I@@A@@@@mD
+`@@P@@@@PKAL@@D@@@@\R@@@@@@^@@A@@@@mDP@@P@@@@PKA@@@E@@@@D`@@T@@@@PBB
+@@@@@pA@@@@VP`M@Dk@I@@WBP@@@@@AAt@@D@@@@HP@A@`D@@@@rhpB@pf@G@@@@hUROAUKs@B@
+J@PA@p@@J@`A@d@@D@@D@@@@rhPH@@g@F@@@@`RYx}vYiX@@H@@B@d@@H@`A@P@@@@PKAL@@D@@
+@@tR@A@@A@@@@mD`@@P@@@@PKAL@@D@@@@\R@@@@@@^@@A@@@@mDP@@P@@@@PKA@@@E@@@@D
+`@@T@@@@PBB@@@@@pA@@@@VP@cB`p@A@P@@P@@@@@AAt@@D@@@@HP@A@@D@@@@rhpB@Ll@F
+@@@@hUROAUKsh@@E@@C@h@@F@PB@p@@@@`LJ\E@O@p@@@@@r@CL@d@@I@PB@P@@@@PKAH@@D@@@
+@tR@C@@A@@@@gDpO@@@@`G@P@@@@PKAD@@D@@@@tR@@@PA@@@@AHpO@E@@@@d`@@@@@@\@
+@@@`EDhF@HLPU@D@@D@@@@PP@M@@A@@@@BDP@@p@@@@`LJ\E@cDp@@@@@rxrL@d@@D@PB@P@@@@
+PKAL@@D@@@@tR@A@@C@@@@rhpU@dW@C@@@@DcKu@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@L@@@@
+HcBWApsAL@@@@@MnPC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJ\E@eHp@@@@@uxRL@d@@
+D@PB@P@@@@PKAL@@D@@@@tR@A@@C@@@@rhpU@lg@C@@@@LcKs@PB@P@@I@@A@@@@mDp@@P@@@@P
+KAD@@L@@@@HcBWAPtBL@@@@pLnDC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@P@@@@PKAH@@D@@@@t
+R@C@@A@@@@gDpO@@@@`G@P@@@@PKAD@@D@@@@tR@@@PA@@@@AHpO@E@@@@d`@@@@@@\@@@
+@`EDph@HLP@@D@@D@@@@PP@M@@A@@@@BDP@@p@@@@`LJtF@O@p@@@@@u@CL@d@@I@PB@P@@@@PK
+AH@@D@@@@tR@C@@A@@@@gDpO@@@@`G@P@@@@PKAD@@D@@@@tR@@@PA@@@@AHpO@E@@@@d`
+@@@@@@\@@@@`ED@H@HLpZ@D@@D@@@@PP@M@@A@@@@BDP@@p@@@@`LJtF@cDp@@@@@qxRL@d@@D@
+PB@P@@@@PKAL@@D@@@@tR@A@@C@@@@rhP[@dW@C@@@@@cKy@PB@P@@I@@A@@@@mDp@@P@@@@PKA
+D@@L@@@@HcBmApsAL@@@@`LnLC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJtF@eHp@@@@@
+sxBL@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@C@@@@rhP[@lg@C@@@@DcKv@PB@P@@I@@A@@@@mDp
+@@P@@@@PKAD@@L@@@@HcBmAPtBL@@@@PLnTC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@P@@@@PKAH
+@@D@@@@tR@C@@A@@@@gDpO@@@@`G@P@@@@PKAD@@D@@@@tR@@@PA@@@@AHpO@E@@@@d`@@
+@@@@\@@@@`EDph@HLP@@D@@D@@@@PP@M@@A@@@@BDP@@t@@@@`LJLH@F@@A@@@@q@CLpd@@I@PB
+@d@@D@@@@tR@B@@A@@@@mDp@@P@@@@pIA|C@@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|
+CPA@@@@IH@@@@@@G@@@@XAAVB@BCDH@A@@A@@@@DDPC@P@@@@`@AD@@L@@@@HcBCBpHAL@@@@
+@LnPC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJLH@yEp@@@@@pxBM@d@@D@PB@P@@@@PKA
+L@@D@@@@tR@A@@C@@@@rhp`@|\@C@@@@DcKs@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@L@@@@HcB
+CBPIBL@@@@PLn\C@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJLH@{Ip@@@@@pxBN@d@@D@P
+B@P@@@@PKAL@@D@@@@tR@A@@C@@@@rhp`@Dm@C@@@@DcKp@PB@P@@I@@A@@@@mDp@@P@@@@PKAD
+@@D@@@@tR@B@@A@@@@mDp@@P@@@@pIA|C@@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|
+CPA@@@@IH@@@@@@G@@@@XAALJ@BCD@@A@@A@@@@DDPC@P@@@@`@AD@@L@@@@HcBYBpC@L@@@@`L
+p@C@I@PB@d@@\@@@@lo@oO@@@@@@@@dA@@@@@@@@@@HCEF[iIf\iA@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@A@@@@mD@A@P@@@@PKAD@@D@@@@tR@B@@A@@@@mDp@@P@@@@pIA|C@@@@xA@D@
+@@@tR@A@@A@@@@mD@@@T@@@@P@B|CPA@@@@IH@@@@@@G@@@@XAAlB@BC\I@A@@A@@@@DDPC@
+P@@@@`@AD@@L@@@@HcBYBpHAL@@@@`LnPC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJdI@
+yEp@@@@@rxbM@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@C@@@@rhPf@|\@C@@@@HcKx@PB@P@@I@@
+A@@@@mDp@@P@@@@PKAD@@L@@@@HcBYBPIBL@@@@`LndC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p
+@@@@`LJdI@{Ip@@@@@rxrM@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@C@@@@rhPf@Dm@C@@@@HcKy
+@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@D@@@@tR@B@@A@@@@mDp@@P@@@@pIA|C@@@@xA@D@@@
+@tR@A@@A@@@@mD@@@T@@@@P@B|CPA@@@@IH@@@@@@G@@@@XAALJ@BCD@@A@@A@@@@DDPC@P@
+@@@`@AD@@L@@@@HcBoBpC@L@@@@PMp@C@I@PB@d@@D@@@@tR@B@@A@@@@mDp@@P@@@@pIA|C@
+@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|CPA@@@@IH@@@@@@G@@@@XAABC@BCtJ@A@@A@
+@@@DDPC@P@@@@`@AD@@L@@@@HcBoBpHAL@@@@PLnTC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@
+@@`LJ|J@yEp@@@@@qxbM@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@C@@@@rhpk@|\@C@@@@DcKw@P
+B@P@@I@@A@@@@mDp@@P@@@@PKAD@@L@@@@HcBoBPIBL@@@@PLn`C@I@@A@d@@D@@@@tR@C@@A@@
+@@mDP@@p@@@@`LJ|J@{Ip@@@@@qxbM@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@C@@@@rhpk@Dm@C
+@@@@DcKx@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@D@@@@tR@B@@A@@@@mDp@@P@@@@pIA|C@@@
+@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|CPA@@@@IH@@@@@@G@@@@XAALJ@BCD@@A@@A@@@
+@DDPC@P@@@@`@AD@@M@@@@HcBEC`A@P@@@@PLp@CLI@PB@d@@I@@A@@@@mD`@@P@@@@PKAL@@D@
+@@@\R@@@@@@^@@A@@@@mDP@@P@@@@PKA@@@E@@@@D`@@T@@@@PBB@@@@@pA@@@@VP@v@
+`p@CCP@@P@@@@@AAt@@D@@@@HP@A@@C@@@@rhPq@LR@C@@@@DcKq@PB@P@@I@@A@@@@mDp@@P@@
+@@PKAD@@L@@@@HcBECP^AL@@@@PLnDC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJTL@OGp
+@@@@@qxbL@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@C@@@@rhPq@Tb@C@@@@DcKr@PB@P@@I@@A@@
+@@mDp@@P@@@@PKAD@@L@@@@HcBECp^BL@@@@PLnDC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@
+@`LJTL@QKp@@@@@qxrL@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@A@@@@mD`@@P@@@@PKAL@@D@@@
+@\R@@@@@@^@@A@@@@mDP@@P@@@@PKA@@@E@@@@D`@@T@@@@PBB@@@@@pA@@@@VP@cB`p
+@A@P@@P@@@@@AAt@@D@@@@HP@A@@C@@@@rhpv@|@@C@@@@HCLp@PB@d@@I@@G@@@@{Kp{C@@@@
+@@@@Y@A@@@@@@@@@AUiuVYsAbSe]GHR}V[ayF@@@@@@@@@@@@@@@@@@@@@@P@@@@PKAT@@\@@@@
+lo@oO@@@@@@@@dA@@@@@@@@@@DTeV[eMGHNUv]`Hu[mEf[@@@@@@@@@@@@@@@@@@@@@@@A@@@@
+mD`A@P@@@@PKAT@@D@@@@tR@F@@A@@@@mDPA@P@@@@PKAD@@D@@@@tR@B@@A@@@@mDp@@P@@@@p
+IA|C@@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|CPA@@@@IH@@@@@@G@@@@XAAnC@BCd
+M@A@@A@@@@DDPC@P@@@@`@AD@@M@@@@HcB[CpGAP@@@@PNtxBMI@PB@P@@I@@A@@@@mDp@@P@@@
+@PKAD@@M@@@@HcB[CP]AP@@@@PNtxBMI@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@M@@@@HcB[Cpr
+AP@@@@PNuxrLI@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@M@@@@HcB[CPHBP@@@@PNuxrLI@PB@P@
+@I@@A@@@@mDp@@P@@@@PKAD@@M@@@@HcB[Cp]BP@@@@PNuxRLI@PB@P@@I@@A@@@@mDp@@P@@@@
+PKAD@@M@@@@HcB[CPsBP@@@@PNtxBNI@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@D@@@@tR@B@@A@
+@@@mDp@@P@@@@pIA|C@@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|CPA@@@@IH@@@@@@
+G@@@@XAALJ@BCD@@A@@A@@@@DDPC@P@@@@`@AD@@L@@@@HcBqCpC@L@@@@PMp@C@I@PB@d@@D@@
+@@tR@B@@A@@@@mDp@@P@@@@pIA|C@@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|CPA@@
+@@IH@@@@@@G@@@@XAADD@BC|N@A@@A@@@@DDPC@P@@@@`@AD@@M@@@@HcBqCpGAP@@@@PNuxBMI
+@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@M@@@@HcBqCP]AP@@@@PNuxbLI@PB@P@@I@@A@@@@mDp@
+@P@@@@PKAD@@M@@@@HcBqCprAP@@@@PNuxbMI@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@M@@@@Hc
+BqCPHBP@@@@PNuxbMI@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@M@@@@HcBqCp]BP@@@@PNuxRNI@
+PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@M@@@@HcBqCPsBP@@@@PNuxrMI@PB@P@@I@@A@@@@mDp@@
+P@@@@PKAD@@D@@@@tR@B@@A@@@@mDp@@P@@@@pIA|C@@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@
+@@P@B|CPA@@@@IH@@@@@@G@@@@XAALJ@BCD@@A@@A@@@@DDPC@P@@@@`@AD@@M@@@@HcBGD`
+A@P@@@@PLp@CLI@PB@d@@I@@A@@@@mD`@@P@@@@PKAL@@D@@@@\R@@@@@@^@@A@@@@mDP@@P
+@@@@PKA@@@E@@@@D`@@T@@@@PBB@@@@@pA@@@@VP`FA`p@EDP@@P@@@@@AAt@@D@@@@HP@A
+@PC@@@@rhpAA|Q@D@@@@dSMnTSB@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@PC@@@@rhpAATW@D@@@
+@dSMnTSB@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@PC@@@@rhpAAl\@D@@@@dSMn\SB@d@@D@PB@P@
+@@@PKAL@@D@@@@tR@A@PC@@@@rhpAADb@D@@@@dSMn\SB@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@
+PC@@@@rhpAA\g@D@@@@dSMnXSB@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@PC@@@@rhpAAtl@D@@@@
+dSMnXSB@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@A@@@@mD`@@P@@@@PKAL@@D@@@@\R@@@@@@
+^@@A@@@@mDP@@P@@@@PKA@@@E@@@@D`@@T@@@@PBB@@@@@pA@@@@VP@cB`p@A@P@@P@@@@@
+AAt@@D@@@@HP@A@@C@@@@rhPGA|@@C@@@@HCLp@PB@d@@I@@A@@@@mD`@@P@@@@PKAL@@D@@@@\
+R@@@@@@^@@A@@@@mDP@@P@@@@PKA@@@E@@@@D`@@T@@@@PBB@@@@@pA@@@@VP@LA`p@[
+DP@@P@@@@@AAt@@D@@@@HP@A@@C@@@@rhPGALR@C@@@@PcKr@PB@P@@I@@A@@@@mDp@@P@@@@PK
+AD@@L@@@@HcB]DP^AL@@@@@MnHC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJtQ@OGp@@@@
+@vxRN@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@C@@@@rhPGATb@C@@@@XcKt@PB@P@@I@@A@@@@mD
+p@@P@@@@PKAD@@L@@@@HcB]Dp^BL@@@@PMnTC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@t@@@@`LJ
+tQ@MK@A@@@@qTcKqd@@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@P@@@@PKAH@@D@@@@tR@C@@A@@@@
+gDpO@@@@`G@P@@@@PKAD@@D@@@@tR@@@PA@@@@AHpO@E@@@@d`@@@@@@\@@@@`EDph@HLP
+@@D@@D@@@@PP@M@@A@@@@BDP@@p@@@@`LJLS@O@p@@@@@u@CL@d@@I@PB@P@@@@PKAH@@D@@@@t
+R@C@@A@@@@gDpO@@@@`G@P@@@@PKAD@@D@@@@tR@@@PA@@@@AHpO@E@@@@d`@@@@@@\@@@
+@`EDXT@HLPLAD@@D@@@@PP@M@@A@@@@BDP@@p@@@@`LJLS@cDp@@@@@sxRN@d@@D@PB@P@@@@PK
+AL@@D@@@@tR@A@@C@@@@rhpLAdW@C@@@@PcKv@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@L@@@@Hc
+BsDpsAL@@@@`MndC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJLS@eHp@@@@@vxRL@d@@D@
+PB@P@@@@PKAL@@D@@@@tR@A@@C@@@@rhpLAlg@C@@@@TcKs@PB@P@@I@@A@@@@mDp@@P@@@@PKA
+D@@M@@@@HcBsDPsBP@@@@PLvxbMI@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@D@@@@tR@B@@A@@@@
+mDp@@P@@@@pIA|C@@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|CPA@@@@IH@@@@@@G@@
+@@XAALJ@BCD@@A@@A@@@@DDPC@P@@@@`@AD@@M@@@@HcBIE`A@P@@@@PLp@CLI@PB@d@@I@@A@@
+@@mD`@@P@@@@PKAL@@D@@@@\R@@@@@@^@@A@@@@mDP@@P@@@@PKA@@@E@@@@D`@@T@@@
+@PBB@@@@@pA@@@@VPPWA`p@GEP@@P@@@@@AAt@@D@@@@HP@A@@C@@@@rh@RALR@C@@@@HcKv@PB
+@P@@I@@A@@@@mDp@@P@@@@PKAD@@L@@@@HcBHEP^AL@@@@pLnPC@I@@A@d@@D@@@@tR@C@@A@@@
+@mDP@@p@@@@`LJ`T@OGp@@@@@uxrM@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@C@@@@rh@RATb@C@
+@@@TcKy@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@L@@@@HcBHEp^BL@@@@pLn\C@I@@A@d@@D@@@@
+tR@C@@A@@@@mDP@@t@@@@`LJ`T@MK@A@@@@qLcKyd@@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@P@@
+@@PKAH@@D@@@@tR@C@@A@@@@gDpO@@@@`G@P@@@@PKAD@@D@@@@tR@@@PA@@@@AHpO@E@@
+@@d`@@@@@@\@@@@`EDph@HLP@@D@@D@@@@PP@M@@A@@@@BDP@@p@@@@`LJtW@O@p@@@@@r@CL@d
+@@I@PB@P@@@@PKAH@@D@@@@tR@C@@A@@@@gDpO@@@@`G@P@@@@PKAD@@D@@@@tR@@@PA@@@@A
+HpO@E@@@@d`@@@@@@\@@@@`ED@Y@HLp^AD@@D@@@@PP@M@@A@@@@BDP@@p@@@@`LJtW@cDp@
+@@@@txRM@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@C@@@@rhP_AdW@C@@@@PcKq@PB@P@@I@@A@@@
+@mDp@@P@@@@PKAD@@M@@@@HcB}EprAP@@@@PLpxRMI@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@M@
+@@@HcB}EPHBP@@@@PLvxRNI@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@M@@@@HcB}Ep]BP@@@@PLq
+xRMI@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@M@@@@HcB}EPsBP@@@@`LsxBLI@PB@P@@I@@A@@@@
+mDp@@P@@@@PKAD@@D@@@@tR@B@@A@@@@mDp@@P@@@@pIA|C@@@@xA@D@@@@tR@A@@A@@@@mD@
+@@T@@@@P@B|CPA@@@@IH@@@@@@G@@@@XAALJ@BCD@@A@@A@@@@DDPC@P@@@@`@AD@@L@@@@H
+cBSFpC@L@@@@PMp@C@I@PB@d@@D@@@@tR@B@@A@@@@mDp@@P@@@@pIA|C@@@@xA@D@@@@tR@A
+@@A@@@@mD@@@T@@@@P@B|CPA@@@@IH@@@@@@G@@@@XAAfF@BCDY@A@@A@@@@DDPC@P@@@@`@
+AD@@L@@@@HcBSFpHAL@@@@PLn\C@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJLY@yEp@@@@
+@rxbL@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@C@@@@rhpdA|\@C@@@@PcKy@PB@P@@I@@A@@@@mD
+p@@P@@@@PKAD@@L@@@@HcBSFPIBL@@@@pMnHC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJ
+LY@{Ip@@@@@uxRM@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@C@@@@rhpdADm@C@@@@dcKw@PB@P@@
+I@@A@@@@mDp@@P@@@@PKAD@@D@@@@tR@B@@A@@@@mDp@@P@@@@pIA|C@@@@xA@D@@@@tR@A@@
+A@@@@mD@@@T@@@@P@B|CPA@@@@IH@@@@@@G@@@@XAALJ@BCD@@A@@A@@@@DDPC@P@@@@`@AD
+@@M@@@@HcBiF`A@P@@@@PLp@CLI@PB@d@@I@@A@@@@mD`@@P@@@@PKAL@@D@@@@\R@@@@@@^
+@@A@@@@mDP@@P@@@@PKA@@@E@@@@D`@@T@@@@PBB@@@@@pA@@@@VP@oA`p@gFP@@P@@@@@A
+At@@D@@@@HP@A@@C@@@@rhPjALR@C@@@@@cKx@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@L@@@@Hc
+BiFP^AL@@@@PLnLC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJdZ@OGp@@@@@rxRM@d@@D@
+PB@P@@@@PKAL@@D@@@@tR@A@@C@@@@rhPjATb@C@@@@LcKw@PB@P@@I@@A@@@@mDp@@P@@@@PKA
+D@@L@@@@HcBiFp^BL@@@@`LnXC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJdZ@QKp@@@@@
+uxrL@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@A@@@@mD`@@P@@@@PKAL@@D@@@@\R@@@@@@^@@
+A@@@@mDP@@P@@@@PKA@@@E@@@@D`@@T@@@@PBB@@@@@pA@@@@VP@cB`p@A@P@@P@@@@@AAt
+@@D@@@@HP@A@@C@@@@rhpoA|@@C@@@@HCLp@PB@d@@I@@A@@@@mD@A@P@@@@PKAD@@D@@@@tR@B
+@@A@@@@mDp@@P@@@@pIA|C@@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|CPA@@@@IH@@
+@@@@G@@@@XAARG@BCt[@A@@A@@@@DDPC@P@@@@`@AD@@L@@@@HcBFpHAL@@@@PLn`C@I@@A@d@
+@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJ|[@yEp@@@@@rxRL@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@
+@C@@@@rhpoA|\@C@@@@HcKu@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@L@@@@HcBFPIBL@@@@pLn
+XC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJ|[@{Ip@@@@@rxBN@d@@D@PB@P@@@@PKAL@@
+D@@@@tR@A@@C@@@@rhpoADm@C@@@@LcKt@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@D@@@@tR@B@@
+A@@@@mDp@@P@@@@pIA|C@@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|CPA@@@@IH@@@@
+@@G@@@@XAALJ@BCD@@A@@A@@@@DDPC@P@@@@`@AD@@L@@@@HcBUGpC@L@@@@PMp@C@I@PB@d@@D
+@@@@tR@B@@A@@@@mDp@@P@@@@pIA|C@@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|CPA
+@@@@IH@@@@@@G@@@@XAAhG@BCL]@A@@A@@@@DDPC@P@@@@`@AD@@L@@@@HcBUGpHAL@@@@PLnDC
+@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJT]@yEp@@@@@qxrL@d@@D@PB@P@@@@PKAL@@D@
+@@@tR@A@@C@@@@rhPuA|\@C@@@@DcKu@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@L@@@@HcBUGPIB
+L@@@@`LnLC@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJT]@{Ip@@@@@qxrM@d@@D@PB@P@@
+@@PKAL@@D@@@@tR@A@@C@@@@rhPuADm@C@@@@HcKp@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@D@@
+@@tR@B@@A@@@@mDp@@P@@@@pIA|C@@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|CPA@@
+@@IH@@@@@@G@@@@XAALJ@BCD@@A@@A@@@@DDPC@P@@@@`@AD@@M@@@@HcBkG`A@P@@@@PLp@CLI
+@PB@d@@I@@A@@@@mD`@@P@@@@PKAL@@D@@@@\R@@@@@@^@@A@@@@mDP@@P@@@@PKA@@@E@@@
+@D`@@T@@@@PBB@@@@@pA@@@@VP`A`p@iGP@@P@@@@@AAt@@D@@@@HP@A@@C@@@@rhpzALR
+@C@@@@@cKx@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@L@@@@HcBkGP^AL@@@@@LndC@I@@A@d@@D@
+@@@tR@C@@A@@@@mDP@@p@@@@`LJl^@OGp@@@@@qxBL@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@C@
+@@@rhpzATb@C@@@@DcKu@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@L@@@@HcBkGp^BL@@@@PLnHC@
+I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJl^@QKp@@@@@qxBM@d@@D@PB@P@@@@PKAL@@D@@
+@@tR@A@@A@@@@mD`@@P@@@@PKAL@@D@@@@\R@@@@@@^@@A@@@@mDP@@P@@@@PKA@@@E@@@@D
+`@@T@@@@PBB@@@@@pA@@@@VP@cB`p@A@P@@P@@@@@AAt@@D@@@@HP@A@@C@@@@rhP@B|@@C
+@@@@HCLp@PB@d@@I@@A@@@@mDPA@P@@@@PKAX@@D@@@@tR@E@@A@@@@mD`A@P@@@@PKAT@@D@@@
+@tR@A@@A@@@@mD`@@P@@@@PKAL@@D@@@@\R@@@@@@^@@A@@@@mDP@@P@@@@PKA@@@E@@@@D`
+@@T@@@@PBB@@@@@pA@@@@VP@EB`p@GP@@P@@@@@AAt@@D@@@@HP@A@PC@@@@rhP@B|Q@D@
+@@@dSMn`SB@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@PC@@@@rhP@BTW@D@@@@dsLndSB@d@@D@PB@
+P@@@@PKAL@@D@@@@tR@A@PC@@@@rhP@Bl\@D@@@@dSLn\SB@d@@D@PB@P@@@@PKAL@@D@@@@tR@
+A@PC@@@@rhP@BDb@D@@@@`sMndSB@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@PC@@@@rhP@B\g@D@@
+@@dCMnXSB@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@PC@@@@rhP@Btl@D@@@@dSLn`SB@d@@D@PB@P
+@@@@PKAL@@D@@@@tR@A@@A@@@@mD`@@P@@@@PKAL@@D@@@@\R@@@@@@^@@A@@@@mDP@@P@@@
+@PKA@@@E@@@@D`@@T@@@@PBB@@@@@pA@@@@VP@cB`p@A@P@@P@@@@@AAt@@D@@@@HP@A@@C
+@@@@rhpEB|@@C@@@@TCLp@PB@d@@I@@A@@@@mD`@@P@@@@PKAL@@D@@@@\R@@@@@@^@@A@@@
+@mDP@@P@@@@PKA@@@E@@@@D`@@T@@@@PBB@@@@@pA@@@@VP`JB`p@UHP@@P@@@@@AAt@@D@
+@@@HP@A@PC@@@@rhpEB|Q@D@@@@dSMndSB@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@PC@@@@rhpEB
+TW@D@@@@dCMnXSB@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@PC@@@@rhpEBl\@D@@@@dCMn`SB@d@@
+D@PB@P@@@@PKAL@@D@@@@tR@A@PC@@@@rhpEBDb@D@@@@dSLnTSB@d@@D@PB@P@@@@PKAL@@D@@
+@@tR@A@PC@@@@rhpEB\g@D@@@@dSMn@SB@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@PC@@@@rhpEBt
+l@D@@@@dsLn@SB@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@A@@@@mD`@@P@@@@PKAL@@D@@@@\R@
+@@@@@^@@A@@@@mDP@@P@@@@PKA@@@E@@@@D`@@T@@@@PBB@@@@@pA@@@@VP@cB`p@A@P@
+@P@@@@@AAt@@D@@@@HP@A@PC@@@@rhPKBX@@D@@@@DCLp@SB@d@@I@PB@P@@@@PKAH@@D@@@@tR
+@C@@A@@@@gDpO@@@@`G@P@@@@PKAD@@D@@@@tR@@@PA@@@@AHpO@E@@@@d`@@@@@@\@@@@
+`ED@d@HLpJBD@@D@@@@PP@M@@A@@@@BDP@@t@@@@`LJtb@_D@A@@@@yTcKvd@@I@@A@d@@D@@@@
+tR@C@@A@@@@mDP@@t@@@@`LJtb@uE@A@@@@yTcKpd@@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@t@@
+@@`LJtb@KG@A@@@@yTcKsd@@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@t@@@@`LJtb@aH@A@@@@yLc
+Kyd@@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@t@@@@`LJtb@wI@A@@@@yTcKqd@@I@@A@d@@D@@@@t
+R@C@@A@@@@mDP@@t@@@@`LJtb@MK@A@@@@yLcKyd@@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@P@@@
+@PKAH@@D@@@@tR@C@@A@@@@gDpO@@@@`G@P@@@@PKAD@@D@@@@tR@@@PA@@@@AHpO@E@@@
+@d`@@@@@@\@@@@`EDph@HLP@@D@@D@@@@PP@M@@A@@@@BDP@@p@@@@`LJLd@O@p@@@@@r@CL@d@
+@I@PB@P@@@@PKAH@@D@@@@tR@C@@A@@@@gDpO@@@@`G@P@@@@PKAD@@D@@@@tR@@@PA@@@@AH
+pO@E@@@@d`@@@@@@\@@@@`EDXe@HLPPBD@@D@@@@PP@M@@A@@@@BDP@@p@@@@`LJLd@cDp@@
+@@@txrM@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@@C@@@@rhpPBdW@C@@@@TcKw@PB@P@@I@@A@@@@
+mDp@@P@@@@PKAD@@L@@@@HcBCIpsAL@@@@@Nn@C@I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`
+LJLd@eHp@@@@@vxRL@d@@D@PB@P@@@@PKAL@@D@@@@tR@A@PC@@@@rhpPB\g@D@@@@HSLnPSB@d
+@@D@PB@P@@@@PKAL@@D@@@@tR@A@PC@@@@rhpPBtl@D@@@@LSNnDSB@d@@D@PB@P@@@@PKAL@@D
+@@@@tR@A@@A@@@@mD`@@P@@@@PKAL@@D@@@@\R@@@@@@^@@A@@@@mDP@@P@@@@PKA@@@E@@@
+@D`@@T@@@@PBB@@@@@pA@@@@VP@cB`p@A@P@@P@@@@@AAt@@D@@@@HP@A@@C@@@@rhPVB|@
+@C@@@@TCLp@PB@d@@I@@A@@@@mD`@@P@@@@PKAL@@D@@@@\R@@@@@@^@@A@@@@mDP@@P@@@@
+PKA@@@E@@@@D`@@T@@@@PBB@@@@@pA@@@@VP@[B`p@WIP@@P@@@@@AAt@@D@@@@HP@A@@C@
+@@@rhPVBLR@C@@@@PcKp@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@L@@@@HcBYIP^AL@@@@PMn@C@
+I@@A@d@@D@@@@tR@C@@A@@@@mDP@@p@@@@`LJde@OGp@@@@@uxBN@d@@D@PB@P@@@@PKAL@@D@@
+@@tR@A@@C@@@@rhPVBTb@C@@@@XcKp@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@M@@@@HcBYIp]BP
+@@@@`LwxBLI@PB@P@@I@@A@@@@mDp@@P@@@@PKAD@@L@@@@HcBYIPtBL@@@@@NnDC@I@@A@d@@D
+@@@@tR@C@@A@@@@mDP@@P@@@@PKAH@@D@@@@tR@C@@A@@@@gDpO@@@@`G@P@@@@PKAD@@D@@@
+@tR@@@PA@@@@AHpO@E@@@@d`@@@@@@\@@@@`EDph@HLP@@D@@D@@@@PP@M@@A@@@@BDP@@t@
+@@@`LJ|f@F@@A@@@@q@CLpd@@I@PB@d@@L@@@@HcBoI@IAL@@@@`LnPC@I@@A@d@@L@@@@HcBoI
+`^AL@@@@pLnPC@I@@A@d@@L@@@@HcBoI@tAL@@@@@MnHC@I@@A@d@@L@@@@HcBoI`IBL@@@@PMn
+\C@I@@A@d@@M@@@@HcBoIp]BP@@@@PLqxbMI@PB@P@@I@@C@@@@rhp[BHm@C@@@@\cKt@PB@P@@
+I@@A@@@@mD`@@P@@@@PKAL@@D@@@@\R@@@@@@^@@A@@@@mDP@@P@@@@PKA@@@E@@@@D`@
+@T@@@@PBB@@@@@pA@@@@VP`M@LP@I@@Q@P@@@@@AAt@@D@@@@HP@A@PK@@@@rhpB@pD@Y@@@@P
+e\uUFHayFY`Tv\teV[aQWYdAR[oQVYliC@I@`A@`@@H@@A@\@@H@@B@P@@H@pA@T@@E@PC@\@@E
+@@B@`@@D@PC@d@@H@@B@T@@E@@A@@@@mDp@@P@@@@PKAD@@D@@@@tR@B@@A@@@@mDp@@P@@@@pI
+A|C@@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|CPA@@@@IH@@@@@@G@@@@XAAv@pP@d@
+@A@@A@@@@DDPC@P@@@@`@AD@@R@@@@HcBK@PB@\@@@@pTauF\lUFH@d@@G@PC@`@@E@@B@P@@M@
+@@@HcBa@PE@P@@@@p\iiWYG@PA@\@@H@@A@@@@mDp@@P@@@@PKAD@@D@@@@tR@B@@A@@@@mDp@@
+P@@@@pIA|C@@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|CPA@@@@IH@@@@@@G@@@@XAA
+|Fp@AlW@DA@A@@@@DDPC@P@@@@`@AD@@R@@@@HcBRFpQ@\@@@@`PiEv\l@RI@l@@E@pA@\@@D@@
+A@x@@D@@@@tR@C@@A@@@@mDP@@P@@@@PKAP@@D@@@@tR@A@@A@@@@mD@A@P@@@@PKAD@@D@@@@t
+R@D@@A@@@@mDP@@P@@@@PKAH@@D@@@@tR@C@@A@@@@gDpO@@@@`G@P@@@@PKAD@@D@@@@tR@@
+@PA@@@@AHpO@E@@@@d`@@@@@@\@@@@`EDx_@CDPoAPD@D@@@@tR@D@@A@@@@mDP@@P@@@@@A
+At@@D@@@@HP@A@@D@@@@rh@uA\D@F@@@@HUSSUDK`l@@O@PB@h@@D@@A@P@@@@PKAP@@I@@@@Hc
+BSG@_@D@@@@pu@`@@D@@@@tR@A@@C@@@@rh@uAPH@C@@@@DCLp@PB@d@@I@@A@@@@mDp@@P@@@@
+PKAD@@D@@@@tR@E@@A@@@@mD`A@P@@@@PKAT@@D@@@@tR@F@@A@@@@mDPA@P@@@@PKAX@@D@@@@
+tR@E@@A@@@@mD`A@P@@@@PKAT@@D@@@@tR@F@@A@@@@mDPA@P@@@@PKAX@@D@@@@tR@E@@A@@@@
+mD`@@P@@@@PKAL@@D@@@@\R@@@@@@^@@A@@@@mDPA@P@@@@PKA@@@E@@@@D`@@T@@@@P
+BB@@@@@pA@@@@VP@PBLP@G@Q@P@@@@PKAX@@D@@@@tR@E@@A@@@@mD`A@P@@@@PKAT@@D@@@@t
+R@F@@A@@@@DDPC@P@@@@`@AD@@p@@@@HcBKHpQ@lA@@@pPoYWYrEvYeAB\r}fXaIVZleF]yABH`
+@BH`@B@K@PB@\@@H@`A@\@@H@@B@P@@H@`A@d@@H@pA@`@@E@PA@T@@E@@B@P@@D@@A@P@@D@@A
+@P@@a@@@@HcBaHpQ@DA@@@@JaQGHyTSI`pVYvUF[ipBHe@`A@\@@E@@A@d@@I@`C@P@@E@@B@\@
+@H@PA@X@@D@@A@x@@D@@@@tR@C@@A@@@@mDPA@P@@@@PKAD@@D@@@@tR@B@@A@@@@mDp@@P@@@@
+pIA|C@@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|CPA@@@@IH@@@@@@G@@@@XAACJp@A
+Dd@DA@A@@@@DDPC@P@@@@`@AD@@j@@@@HcBNIpQ@\A@@@`PiEv\`|fY`LG]ayFYaIGY`Tf\r}f\
+`@pB@T@@G@pA@P@@I@`A@P@@G@PA@\@@H@@B@\@@F@@B@P@@H@`A@X@@I@`A@P@@Y@@@@HcBdIp
+Q@p@@@@PYsQWZmEF]eMGK`TBB@\@@E@PA@t@@G@PA@`@@G@@A@P@@N@@A@@@@mDp@@P@@@@PKAD
+@@D@@@@tR@B@@A@@@@mDp@@P@@@@pIA|C@@@@xA@D@@@@tR@A@@A@@@@mD@@@T@@@@P@B|
+CPA@@@@IH@@@@@@G@@@@XAATApAC\C@A@@A@@@@DDPC@P@@@@`@AD@@[@@@@HcB|@@VAt@@@@@T
+r}fXaIVZleF]iUv\@h@@F@PB@`@@G@@B@T@@E@PA@T@@E@@B@\@@D@@@@tR@C@@A@@@@mDP@@P@
+@@@PKAH@@D@@@@tR@C@@A@@@@gDpO@@@@`G@P@@@@PKAD@@D@@@@tR@@@PA@@@@AHpO@E@
+@@@d`@@@@@@\@@@@`EDXI@CDPU@PD@D@@@@PP@M@@A@@@@BDP@@HA@@@`LJpF@GApA@@@@BeVXs
+qBHe@pB@T@@G@pA@P@@D@`C@P@@@@PKAL@@D@@@@tR@A@@A@@@@mD@A@P@@@@PKAD@@D@@@@tR@
+D@@A@@@@mDP@@P@@@@PKAP@@D@@@@tR@A@@A@@@@mD`@@P@@@@PKAL@@D@@@@\R@@@@@@^@@
+A@@@@mDP@@P@@@@PKA@@@E@@@@D`@@T@@@@PBB@@@@@pA@@@@VP@v@LP@WB@Q@P@@@@PKAP
+@@D@@@@tR@A@@A@@@@DDPC@P@@@@`@AD@@P@@@@HcBnBpQ@X@@@@`TMMUQl@rB@|@@I@`B@P@@D
+@@A@@@@mD@A@d@@@@`LJtJ@|AP@@@@@WC@B@P@@@@PKAD@@L@@@@HcBnB@a@L@@@@PLp@C@I@PB
+@d@@D@@@@tR@C@@A@@@@mDP@@P@@@@PKAT@@D@@@@tR@F@@A@@@@mDPA@P@@@@PKAX@@D@@@@tR
+@E@@A@@@@mD`A@P@@@@PKAT@@D@@@@tR@F@@A@@@@mDPA@P@@@@PKAX@@D@@@@tR@E@@A@@@@mD
+`A@P@@@@PKAT@@D@@@@tR@F@@A@@@@mDPA@P@@@@PKAH@@D@@@@tR@C@@A@@@@gDpO@@@@`G@
+P@@@@PKAT@@D@@@@tR@@@PA@@@@AHpO@E@@@@d`@@@@@@\@@@@`EDhQ@CDPv@PD@D@@@@tR@
+F@@A@@@@mDPA@P@@@@PKAX@@D@@@@tR@E@@A@@@@mD`A@P@@@@@AAt@@D@@@@HP@A@`K@@@@rhP
+y@\D@Z@@@@Lt[vUf\a]VY`@g\oIVXbeF[iQW^`@BH`@BHK@PB@\@@H@`A@\@@H@@B@P@@H@`A@d
+@@H@pA@`@@E@PA@T@@E@@B@P@@D@@A@P@@D@@A@DB@@@`LJlO@GAPD@@@@hDF]`dSMe@B[eYWYl
+eBK`TB@F@pA@T@@D@PB@d@@N@@A@T@@H@pA@`@@E@`A@P@@D@`C@P@@@@PKAL@@D@@@@tR@E@@A
+@@@@mDP@@P@@@@PKAH@@D@@@@tR@C@@A@@@@gDpO@@@@`G@P@@@@PKAD@@D@@@@tR@@@PA@@@
+@AHpO@E@@@@d`@@@@@@\@@@@`EDtU@CDpFAPD@D@@@@PP@M@@A@@@@BDP@@hB@@@`LJ`R@GA
+pE@@@@BeVXsAr[fAr\tEf[dEf\dARYrIw[rAB@K@PA@\@@G@@A@d@@F@@A@\@@E@pA@`@@H@pA@
+X@@H@@A@`@@F@`A@d@@F@@A@dA@@@`LJxS@GA@C@@@@eMG]iuVXtUv\l@RIH@pA@T@@E@PC@\@@
+E@@B@\@@D@@A@x@@D@@@@tR@C@@A@@@@mDP@@P@@@@PKAH@@D@@@@tR@C@@A@@@@gDpO@@@@`
+G@P@@@@PKAD@@D@@@@tR@@@PA@@@@AHpO@E@@@@d`@@@@@@\@@@@`EDhW@GL`WAD@@D@@@@P
+P@M@@A@@@@BDP@@dC@@@`LJLV@TDPH@@@@MEf\gef[aqFHeYfYeMF]sAr[nAB\r}fXaIVZleF]i
+Uv\@|@@G@`A@`@@E@@B@\@@E@@A@`@@F@`A@`@@H@PA@\@@D@PB@`@@D@@B@X@@I@@B@\@@H@PA
+@T@@E@PA@T@@H@pA@P@@@@PKAL@@D@@@@tR@A@@A@@@@mD`@@P@@@@PKAL@@D@@@@\R@@@@@
+@^@@A@@@@mDP@@P@@@@PKA@@@E@@@@D`@@T@@@@PBB@@@@@pA@@@@VP@cB`p@A@P@@P@@@@
+PKAH@@D@@@@tR@C@@A@@@@gDpO@@@@`G@P@@@@PKAD@@D@@@@tR@@@PA@@@@AHpO@E@@@@
+d`@@@@@@\@@@@`EDph@HL@@@@@@G@@@@po@@@@@@@@@@@@A@@@@mDpA@P@@@@@|A@@@D@@@@PP@
+M@@A@@@@BD`@@`@@@@`~B@@@@@@@@@@@@@@A@@@@mD@@@T@@@@@EB\@@A@PA@@@@SHpA@\p@H@@
+@@ho@@@@@@@@@@@@@@P@@@@PKA`@@L@@@@@TBa@@|@@@@@@@@@D@@FLpA@D@@D@@@@tR@@@PA@@
+@@THPB@D@@E@@@@La@I@pACP@@@@PKA`@@L@@@@@TBa@@|@@@@@@@@@D@@FLPB@D@@D@@@@tR@@
+@PA@@@@THPM@D@@E@@@@La@u@pACP@@@@PKA`@@L@@@@@TBa@@|@@@@@@@@@D@@FLPM@D@@D@@@
+@tR@@@PA@@@@THpM@D@@E@@@@La@w@pACP@@@@PKA`@@L@@@@@TBa@@|@@@@@@@@@D@@FLpM@D@
+@D@@@@tR@@@PA@@@@TH`e@@@@E@@@@La@VB@BCP@@@@PKA`@@L@@@@@TBa@@|@@@@@@@@@D@@HL
+`e@@@@D@@@@tR@@@PA@@@@TH@v@@@@E@@@@La@XC@BCP@@@@PKA`@@L@@@@@TBa@@|@@@@@@@@@
+D@@HL@v@@@@D@@@@tR@@@PA@@@@TH`FA@@@E@@@@La@ZD@BCP@@@@PKA`@@L@@@@@TBa@@|@@@@
+@@@@@D@@HL`FA@@@D@@@@tR@@@PA@@@@TH@WAD@@E@@@@La@\EpACP@@@@PKA`@@L@@@@@TBa@@
+|@@@@@@@@@D@@FL@WAD@@D@@@@tR@@@PA@@@@TH`WAD@@E@@@@La@^EpACP@@@@PKA`@@L@@@@@
+TBa@@|@@@@@@@@@D@@FL`WAD@@D@@@@tR@@@PA@@@@TH@oA@@@E@@@@La@|F@BCP@@@@PKA`@@L
+@@@@@TBa@@|@@@@@@@@@D@@HL@oA@@@D@@@@tR@@@PA@@@@TH`A@@@E@@@@La@~G@BCP@@@@PK
+A`@@L@@@@@TBa@@|@@@@@@@@@D@@HL`A@@@D@@@@tR@@@PA@@@@TH@PB@@@E@@@@La@@I@BCP@
+@@@PKA`@@L@@@@@TBa@@|@@@@@@@@@D@@HL@PB@@@D@@@@tR@@@PA@@@@TH``BD@@E@@@@La@BJ
+pACP@@@@PKA`@@L@@@@@TBa@@|@@@@@@@@@D@@FL``BD@@D@@@@tR@@@PA@@@@TH@aBD@@E@@@@
+La@DJpACP@@@@PKA`@@L@@@@@TBa@@|@@@@@@@@@D@@FL@aBD@@G@@@@po@@@@@@@@@@@@A@@@@
+mDPB@P@@@@@|A\@@D@@@@tR@C@@A@@@@gDpO@@@@`G@P@@@@PKAD@@E@@@@D`@@T@@@@P
+BB@@@@@pA@@@@VP@cB`p@A@P@@\@@@@`EDph@HLP@@D@@D@@@@\R@@@@@@@@@
+
+%%%%%%%%%%%%%%%%%%%%%% End /document/P6BDD601.wmf %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%% Start /document/graphics/P6BDD601__1.pdf %%%%%%%%%%%%%%
+
+e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLsHCNrDSMx@SMk@SLg@CLgdbB~xcBey
+FYoIfZJPCHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKTeV[eMgSe
+]gTouVXnipKFqVXgMGHsHcBoXt[nQgPB}F^`lUKuXCN`trLp\CHr@CLp@RLp@sM]ipKMev\sef[
+g]UZdQGZ`HSMphpKSQWYmaDHw\cBoLE]eufU`\sMJ|RRtEF[iMVPn]F[eABLJ|rPaAGReevYhQG
+HvXcLJ|BVHUVZgaF]`PCMwhpKAMwXeyF]``SNqhpKDUv\cUf[tARKrDcMJ|BSeEFYiyvY`DSMph
+pKMEF^WeFYtaFHr@CLphpKAYwYWeFYtaFHt@SLJxcOJTf[d}fXjiPM`@CHoIfZ`pCOJ|BUyAWY`
+|bQoyF]J|rTuIF]yAWY`|BUrUWYTeG\eipKBEv\eYt[nQGHoPUZmUv\NUv]R}V[ayfBoXTZrMG]
+CaVXrArLwhpKLEv\tMDZaIGHq\sLJ|RQnMv[def[gArKWef[Ayv\iUd[c}FYiyvYJ|bQoyF]DUv
+\cIWZpQw[rABM`@CHRipKWeFYtav\`lEHxLsL`@CHp@rLsLCHsLsL`@CHp@bLu@CHp@bLu@CHp@
+RMp@CHu@CL`TCLphPMp@CHu@CL`TCLp@RMp@CHu@CL`TCLp@RMp@CHr\CN`@CHp@BL`@CHp@BL`
+@CHvXsMJXcMw@BL`XSLq@BL`@CHp@rLsLCHp@BL`@CHx`SN`\cLr@rMrHCHuTcM`@CHvXsMJTSM
+v@bMqDCHp@BL`@CHp@BL`XSLq@BL`@CHp@BL`@CHp@BMtPCHu@CLJPCMt@RMp@CHtPCM`LsLs@R
+Mp@CHp@bLw`CHp@BL`HsMx@rMw`CHu@CL`TCLp@RMp@CHp@rLsLcBs`SN`HsMx@RMp@CHu@CL`@
+CHu@CL`TCLp@BMtPCHp@BL`@CHp@BL`@CHp@BLJ@CHp@BL`@CHp@BL`@CHp@BL`@CHp@BL`@CHp
+@BL`@cBp@BL`@CHp@BL`@CHp@BL`@CHp@BL`@CHp@bLu@CHp@BLJ@CHp@BL`@CHp@BL`@CHp@BL
+`@CHsLsL]ycOJTf[d}fXji`M`@CHoIfZ`pCOJ|BSeyvYtaVL`LCMqXCLJ|BSeyvYtaFHx\SNrhp
+KFeF[tUf\`luKFqVXtUFQeMv[dUVWJxcOJLG]rUVXmi@^Zw^gwaGUUkm}_V{}^fIdBiPRHPJsDF
+Rhd@aNAdrPZPHtBICdDZiADzPHafTB`tB`bJHbHM{Z@\r`JAkhb}Fv}hGKh^|XAlcJHdy}^o_fU
+LF}xkWWgwy{{ZByWnoWOkrlKkrS|\AGRPDyOUCiRvJ[^elpS^opcPtzCgHeIWvRjrfk}^jWCm
+xpDYJfYlpYNo_zgF]`DuewahVu~YNweOc@rndMQ}NYt^eJf^IemK]kOKQ}zGQ_zWEHPPGqrZI
+Z]gFe{XEskjemJew]nDmHTNTZnKhlRhhG\kIjo}`hA]pyUrrVX|cHqDP{u{omEVytWx\nWeFqgM
+FsNFBQVvOQM^}TsZ\tliEckZhMR[gn^zqhwcJeVO\{aNH]Gt]SnhGg^NzmiO|kFWniyQAj^\
+rLuFb|\QOgkq{@t`iVwlHWOJuFM[VDOaxyk[QlonqkwSHMv`ypHMz[PJoFb~CbK{ybJCUolg~
+iWVYSpGlQO~NK{oq{mq{lEOCreJbfDMYZJTqTIx~o\jBZVxIs\hyRscfoQiyczfI~yLPiiaVUFZ
+enwZuBhEBjdjbjfVB~sBa_q^KiWwbLJWMmT|geQKgVA]etJiUy}gKuHrJQMkph|r@kfVC^slVZ
+]FNirQVO]UtFp[mMQ[fvr_YimtdkVZktvp{ykfnfc~m{JmC|gkenNL_Xgtnh[`nQLoXotMwbh
+{vH~MQ{gN@fshWwnPdCXxtk}aigfn_zht}RO`qsrrpSM~Ib|yrLL^FnP|LXexN\}M{Jf_~mtf^Z
+mZ\ok_oUkw{teaxkkY}XI^_NjwrucVrcB^P_TVUK^RlC\Op~_{NbKmKc{_KZs_j|WEU~|xf[v
+Sf}ZTRwurhg|w@mOlB|PxgzOUu]wB|l{@F~fG_MuvCZT~Vi[cn]|nxNM\Rec\Gp_gt]auvwCU
+Gv[zpMsw\GkGeNbq[NWT}d[zXt}awdO@]\jAcxUu}gEX^c{niHg`^PzapLdGeNIviyIp_dQ^D
+D{q|F}TFqxrOA}dhl^kxROM}LXGjgg^AzEiWa^JTzeM~ysbRgf^MzuiwVDD\oJ}ExgWfNmiOeZM
+MLloxCbgswLMUZjn[ejmFTnj{kUQIFILkWZVgtlViiFiYMRsjefUIMkTZnRiYERsrefeIMKUZVb
+tTmtTetlXiYQRsBefEHMsWZfgtLWiYNRslefYIMUHMsTZfatL]ii\iiLiiTiiDiiXiYZRsTefiH
+MSVZfdtTdtThtT`tLQiYBRcSiI_iIOiY|RSnRsxdfqJMcQZFmtLJiIGiYdRSvRsHdfaKMYIMYJM
+YHMiKMiIMCSZ\HMCUZFbtLXiYPRsUHMCTZF`tdjtt_ii_RS_ef~HM}VZzettSiiGRSJRSwefnIM
+IKMIIM]UZzbttYiiSRSbRSBRSGeF{RSGdfxeF[RcUiINiIViIFiIZii}RS{dfhdfvJMQJMQHMaK
+MmQZBSZBUZBQZBVZZmtDdtDhtD`txottJiqOiqbtXVZLIMZRcjthHMBia|ZD^dfFefKKMWRZ~Ui
+ybRsEdf_QZ~YiygdfsKMht|CRswKM_gt|mRswHM_mt\NiylRsWIM_it|ERsgKM[iysdfet|i
+RsgHM_lt\FiycdfOTZ~@iy}efit|^Rs{JMCiy]dfwVZ^KiyMefwPZ^]iyudfWUZNmt|JRsKKM
+odt|bRsKHMOot|\RssJMOct|tRsSIMgRZ^RiyIdfGWZNit|XRscJMObt|pRsCIMOht\BiiAiyxR
+sCHMwot\_RsqdFwRS}RcKiy^efcJMGQZNltTgt\ORs]KMwet\gRs]HMwnt\[RsmJMwbt\Hiy`Rs
+Adf}KM{SZnYiYoRsMIM{QZnQiYwRsMHM{RZvit\}RsuIMWktlCiyZdfkVZvntlMiYkRSmRsVdfM
+KM[RZvhtlAiQfvcPfvcPfvcPfvcPfvcPfvcPfvcPfvcPfvcPfvcPfvcPfvcPfvcPfvcPfvcPfvc
+PfvcPfvchRiQfcPfcPfcPfcPfcPfcPfcPfcPfcPfcPfcPfcPfcPfcPfcPfc
+PfcPfcPfcPfcPfcPfcPfcPfcPfcPfcPfcPfcPfcPfcPfcPfcPfvcPfvcPfv
+cPfmcPfmcPfmcPfmcPfmcPfmcPfmcPfmcPfmcH}ci[PVsnc[HVQNsncKBHkcKmVwqMPHupeVCKk
+v]\ABYU\iUrrUrrJXYync]XPVf{XSGrRYYIlTMWWU\iEsRe\pEyNvt`lPVV@Ksg[r|XYnlLGwqd
+IdYsrlXiBVfIKsp]LY@Yz\irYiLVJeeRXiXVfFKSe{wTxRSfeIqRQlTHKEprDYYBlxde|YIOVFO
+KyrrxXYllLFVFMKcbe\XYdncN[HYsrH\G}HaL\Vrr]ty@ISwQOJHYpRzldFWwpx~y`ear}[HlLX
+VFDwrk`eAr]_@ldJK}ge~qR_yAkOlt[^TzEK}de^pCVJlt]n_]cedYIIVzJK]aeNsRgxaNQVR`G
+sNrb]Vz@OtqsbMn_VYINVbeeXXIZVZo{vOFHmceh\w~qBimlDIGLBVBgCvFVBcePyzBae`y`mfe
+`XIPnn@Xq_VZEWg_lXaEsn[wx`Xr]{rEbFKj\PEnd`ErPD^XiQcfHnLWzRl|kl\QnnKpe~EV~YV
+~IVNo{hrGrOzNj|`|C\iogeoceoek{[xR_MKgcesru}Ul|e\po`eOgeMK_FwdEWzSyR_BWzcY
+yLl|Q\]_HK_@G|}Yy_rr{qr{rMy_pe^GV^[wm]bP^Kwm]BP^SV^CNxksrkqrkrriyf|Jl|r\pWb
+eWdeW`egg[rsqrsrA_FV^ZV^JVNEKOIwrg`K}xl\RV^LnnGeeGaC~pl|Pl|`l\BVZ`[yqyRO@Kw
+OKwGKGs]dCEb[wQNIHusbKVnWVNJKGaeCsR]l\OncD{WKn[^TnKVnSnn{`e[ge[ce[ee[aeCqrA
+Yy@|`m_^TvGKwLWw^YyfXYOl\c\GvMWzFXYWllSnnkgGekcekek[Gl\Ml\ull]VvFwrmrejeemp
+rfYYSllQwQTBdMxNbRa\Ull^wQLCHkceuzNBgPjq]DXsXqZ\GQ`lZVVEw}Ur}{JYYEnch\HKg{
+~rXYillDVjfejXYq|PWIw}EqrB]GQYPV@OXsg[y|XYnlLGVfMKsb{WElLS~J[F\wgNKesmlLVJe
+eRXiXVfFKSeoigB_eMYVfD_SWDOtEr_PEprDyKwIp_PNyQI_VrceqsRnnCwAdqyN\}OaqzN\}iw
+cq]xkGrh]G^w`LJnIyprH]GNrKPdMWZDlL\NXVnC_uPrt]x[BRFnC_MPRw]xu@IMwaeEdaqbCVF
+JKCq]Xx|]q`yRCr]hEByJXY`nCU_jq@XIUwaN\H}w]hE@i_nCmHH}ekkOlt[wafLd^qmlgnCUF
+kGnCU_mYJlt]n{]cDRfedxAkkltE^pzLK]beDYIAwajTjclXgGsNpcY||`YcGEklDGwoXYIFV
+bfevsR{\GrT`De{PfJdvzNdiAIRVb`epYiMlDFwaPyNDBGLXVZMKAqR`\KC`[i\pVqb_lXaEs\
+KMqmTcCjrbBKBVHG^BnTkztXpeY}rAWnuKAoBnHxBHvo`XLxg@gG|cH~O@~^Twwar_Kx[@_Mx
+\H~YA_Ej{KQyo@|y`MxsZ}Lm~oZ]EVTpg@~XpYPlOBzGB~@p{crShoGx]ACp{Dt\l~vAuSk
+oEtwLhyZ}MBJQkoNxu`UCJIkgF|J`WFuRHvKFt|l~Bp|p\plAM[kOSPsrzSGTEV_j`fiuS
+a~~dX|^BpcC\xydxgOFxQAOR`KrzCGXeV_h@WluGLpjl^BPC`ccxO@x~Q]wGj{XHf[P}@W`{M`e
+[}hAlBkGI`UZ}pAlJkuEpjm^O`{F\W`{D\G`[O`nY}v`^k`[A}yPPOX@sqzA`_poOpMC^qX]S
+XlvCFk[DqvMxF@{BlSpuCnNtokEcwN|_LVoFGkukvYZ]{~_{VwfwiuMhf`ukRMUkkWdjuuyl
+FgkmnZ\nFgkryjk[UNCXUb@VUtkJgU]ekjnU}^krQXf}_eNWasklnUx\yNWjseUwR]~`J[dfarF
+\LHgKinj]jU]xUWUujXubzjVdQub^TmPajNdjmUmZ`UylRgKnnJ]RUNnJkiRWUj]Enj|cjTajT
+x_C^NyqjLzxrBjcUVYPadub\n@gKlnEx\~sX^NgMn@gUjstYEuMSgsHur]N}zJwYYiVjsRRmXgS
+Kuix\juMEgSNub\NizJrYaiV`sIbvOaTswiszrwY^ifksqWWnNG[jcqyXP|QgZNNGU]yx\diNBg
+YWwH\N|TsrYfxfgbIdXlEcZHzW@cIF\ePQKRkGQ{HzOJzoMZMJZWQ_rhUCKxv[m}J]IxvIR_lmS
+l`vmfv]MmSMxh^ehT\DUWRNk`[{ktvOlm_S[uZccvvengEEYHQZKRuHtowb\tygeaNtLXmg}ux^
+]tQZOqlBNBQpQXMBeLmFa`B}cB}[CUMbGKdWIDe`CVD\p^BVqQphyAwZkmVQG^ZmjcVws~gUpA
+YMHE}_xIHuH]DDbhOb]Jpqe_VAG`u@T\Nt@F[@JNBXhigec@zVOrbTEvDBRDBDUtoJDQXMKln~
+XQJLIpyyug_^IeTNMxGM~\\ywxfdKqf]eP^ztQnEyr|f]QNKZREToP\uEVoPI}|]E^NyVDW^C[
+_{TZqfckXsk@WGLvBsqUMpxPwxAFJvzcdRkpdfzbk^qIeTUSEXjKnjdL~FeDUkWJI}`z_oxjPY
+}TmQYJiroxfAYZKF_UeLXUI}SeHI__}_yWuSXJZACscrUQekl^pz@kETCXM`UCVEXe`kDlB
+prAKClTpR@UCjBlXpb@KDl@p|AsCLWp\@sFLKPE`YBfAXz`rAeAJETBhXpt@SELEpdASBTDhPPA
+`IBf@pIH_P^`qCrELNpXAcALZph@y@FIH[pH@CGdEHSPF`tAiAFFpAXh`a@FLXP`k@LPp@@iBzO
+h_`~BzChw`^AzIhG`T@]GtMPr`d@]EtEPgA]BdHHAPGAvA]@DOpFpJHNPl`X@QCZOh]`h@mEDIH
+BPx`v@BCDJHDPp`VCBBDHH@``VA|CXAXFXBhMLOxgj@E`@PTyBDStHxr`KA~UpEAW@|K`_F|S`
+sC~QpO@~^pwA~Vpw@~Zpy@gE|U`oD|E`OG|oA_Fx_A~Tpg@~XpY@_DxCA_@x}ASp{A^Wp@|N`
+wF|V`wD|F`WG|Z`WE\Zpk@^YpKA^QpK@^^psA^Vps@^ZpSANExIAOAxqAgD|X`GE|H`GF|P`GD\
+BPC`cC^@p}CnOpq@nAuC\AnWpQAGA\XP]`{A\w`{B\g`{@\{`[C\k`[A\HpAAG@l_p~@wLXo`[B
+lGpMBvMxF@{BlSpuCnNpuBvAxZ@WMX{`mAvJhVpV@[FlIpFA[`J_XuHpz_AVKpz_AVKpz_AV
+Kpz_AVKpz_AVKpz_AVKpz_AVKpz_AVKpz_AVKjD`}@DXO@AvCP`}@DXO@AvCP`}@DXO@A
+vCP`}@DXO@AvCP`}@DXO@AvCP`}@DXO@AvCP`}@DXO@AvCP`}@DXO@AvCP`}@DXO@AvCP`}@DXO
+@AvCP`}@DXO@AVKpz_AVKpZ_AV{KpZ_AV{KpZ_AV{KpZ_AV{KpZ_AV{{{d`k~jP_OB~ozkhf
+vT]L|rgvTgrdgTQEV`s|s[|yNnqNfQOj\FYvcXxYeYFigvp\LtaLxA]EC\@iv~uwTz^wRnsIfP
+GmwAkQE^haD\PAx_k|sbYSZjXw{dst^VE[sUbE{RKQ{cXD]Sol}RP`RZV`b]YCarzwwFWvJvhYv
+~}mtAZyLZQK]pmtQSmTDbmAQCj[I[KS{v\}RYXWifrm@xw^FvKtfksYxGmaWKQcBAaBqGOzam
+LcjbLlyRTlmL]euRjhvLKNCL^uG`i[O}i{_wRfjw@`M@x\uY{Kl^QgGbpphtyLGX}Jd_Aiqz
+RMaLKi\WcKwBrLchcO~BMbQi[LVnLgnKKFcemYi_MS[uV}I_rZwVCaPeV\RAVn}rKYrExRmDtiZ
+UslvZwdkPSrUWlgaknlbOMJ\KO]WI[OcL]ed]LXyL~f~@DnLePHvmU{yI\q[\g}wGiDoQLgPHg
+gtmzwbM}XBuK}DnvpUHnbO^}kemv`CjTTpUMyV@WvFUZtnIGidTanTJVofSJkIBgzuTclffz^q
+vcWUUfE{}{eTQTnjiT[]KY|twx{Dpwh^[nTSlxRKkB]mdiWk}Lr`_neO~ESr@FGex}^Msz{QJh
+}eTLnIfe~ca\KpUJvWhkpmgFw@Dpf~{`YeWAF]q[w\E^znhbKs[o\eRfYh_]YKsZKNC~BT_llg[
+Ag`zmgOj~~XKzcu[jOTazWGnbL]|RIqLkm`rgaKkEG]yX~yLlUPtq{rQaxqWavKXzEjVr^Hnzr
+GaOnxM~DMzEnwZQkeMVNwRB~Yk@ehUKTmEBXKK|C{iMHTQHxueQQ}whiMH[EHbfdMC_J^[an{
+wMNh`ZBiOB}jTu{ZzcHzxKL^~kbKih}^MYJAW~ulqJDDhikI~syxeFwZ}KhnXKsigQsn@]Cj
+IoW`^Gm|kSE}gE^`QO|SuyHdUif@VybXJXXLBiVLJ[nhqYk@{Sw^avq\HGck@}{M}guFo_s
+IO{zroFom}NKI_WIn~TyRnhxQurBz^InrJiheoVMJO\crMU\DmhzleU[kVlgS^ujOxv}N`d
+MlBBwtfSL{RvZjauGltLKl{f}lJqnmPleUmet`gZJmvz]xhvEfYqULP}qp^veWk}|JXPQ[\mN~B
+VUtkPcJLJGQNygVwRF{}dV}vE[Nwz]Hv\^EUpIBaH[[NB\k`_qbSkpz{Hjk`SXcHGFQUtcjG
+To`M}BzctxQALZ_tgpAQuXTkfQ@creu``LbygLf`JkAENVHrXJHfFGsaQL}opKihj@ObqvmYZk
+\}WOklpJjmxBuW\QQbWex[aKa}aPnTlOdzEJfCtevg^ZnBp^ZzqGj^|arqMkGwBfXHbT`GNz{I
+U[qvq~TXBUATtB^jhj~PZkAO^ro`x_ihOWaqciZSFTTAnZURXo_SILRtnakSqH|p]USYeh_]PNK
+PooVRH{rJDS[eCHZRvnZEFaVy]DPKrrhOzSGQgJCo[pKPc~WCJxjfB]UXRz_hELkBMfNGbKZDvG
+H^msciiDu`RipZCs^oLV[beB~gpfteVakMJoBxHQcbxCkP~ade@qU^YvQUeUlM|tVcJKOLUgwK
+uhyHSG[IjextMph}VIi_[ifP@AyokVu]L`x[]_@]W_IiiDlTXa|EoQiMymAxsNDWA`khD[vcR
+o]@O]PUYk_m`owDnTu[zckOLyv@M^{KC{lh_Q[LRVPunBJalKA[~s}O@Dq^jrN{g~^DAx]LNEGu
+b~]^`xynZByw`g{t~rcoY_umdmk_x`~DSJzS`IvTauvr@nfTR]KYZYt`LBW[m~Et_^GxgW~ETS
+j^P[YbSMPCu{|biG|Lk]u~OsiE|`NOuNL~kQqC}Uk|EuuWijV}^zEo|V[uYm|@hXkpjAaQCL
+QTcKV}uLuZRelPC`FMMFZROLED~uDbdFhx~oHrHCzfeGEJ@JdM|KQxGIDi{HXMe`N^{[Pm_
+|~Z^{jaf]Cbn]_Curvqo^|Po|G\yWNeKAgKlAdryDi|~gyCNSH_wKGz@RiwgyMNSO{aHtxCu`p
+[mbEKa[v^GznR_{Tb}kw}nWCQio}IQ{]huJFqzSzPT{]obSQM\YdahhWVh~ZWjHuq^YsJkv~P
+gPoMEW{CN|`L[RIfhBk[CJaPr[RILhnGkEUKfUMygeNwtzPNsMsN|nVBMvHbLvp|sopbMrHbMT
+KW~}LuzK~}fZ}ofnv\u]jZ~Jf|P{hzMzo_JZfMwP\Qunn^Eqg}DBnMahEP[BItH}sRXaFXgsXr
+W^cQDc~XDSDQpcueGM^NVL]Pu[V}}i^Rv\DT{hH{nVlQfPP]iCmJTJe^_j^M`AHRyToqiB[@C@w
+~bHcLBc[hD{dPXfo}{SEbDSdoZkPto~i_[FQxfmhTjh{fLwfXcs_sAXnqWmqWu\PVBLvvGjb
+^txkZr\xqDgAE`HEQJfBtR`qu~ptLkLxF_]sAZIHTplfQkLE^tV}Op@D}phUhbPChqSCoY}xfC
+td|opMbt|aO|aO|aO|aO|aO|aO|aO|aO~_QQqG~pG~pG~pG~pG~pG~pG~pG~pG~pG~pG~pG~pG
+~pG~pG~pG~pG~pG~pG~pG~pG~pG_CZm~w~V@EoBQZGblwEsQ{yEuQkHzpZYPe|grYQ]gevmf
+GJZ]T\zp`L}jYyer@SClVoqOlzQhC[JPZRmDmKaqCXrAYSQcNlbfgQBmsPG@hg`qAFKxJQ|x@]
+R{zP{vNYQY{^n[mNc~CTgbAkUmTo~ERqhMUzpf_[Lv]}OAK`QQe}Jceq|wPeiuA|YALUJ|E@OS
+^zJnFnWb@DUSeLJxfciNPws_Wtjez`exhAwRtzDuCLVq}GxqhkpKmwPQJdnXZr^~X]tthCi
+~Bt|~sP[zta@sV[iTotQmFtvZpuBkv|Rr`n@Rs[|CiNNtouQs}OprP|eQ[S[_dCqYiCINkgB`vN
+hc@tI`SpxAKBqCEDeVttaTFBfiODO[S}ypXCT~HCvdrgyumxZ{MiCYvLFkmIvCXYF~Y@nGZF
+orCr`qYFjOE~l@ZuCy`gISC]lTvL^NOxgZj\aTLjEziQVq|qmSG@\s^u]CjvkO`zeixMODjm
+DuWdzgzzq{lVrlhL|b_Fz[RSnEDw_RLCLgBcV_h}`uOEyeq@fhlleEPEY~}ABFtvbuvFXv`~Peh
+~ktT~{`rbhDL_STB~}fTBZuA^}zGTKXlm@oqModVpVZA^c{Z_kpgQzM[lWoUgvyXLuFJAK]f
+RP}TT_[IFwkQvcV_|\Dmt}\Aq[Q[P|V^fOt`aVDpFhRPA`YbxaBvczIiMhEGmYqWzyM}RYjwJb
+{E}v@zjRLFZNb_ebQyrt^LWn~guocqXhwbg}YhibwG^F{_Hv`XLbFo{dcSqJOOmGFOW@z|Ucg
+reAs[cwseeeM]TFLV{Q|]h}GebWyT@]}aiDu~LJ^mj{A^VGoe\p|{q_OpuyNAWmW]c`QCvbW
+N[Nj{cz`iFh~vRTWJvSz@TG~CtEjPoXqPSejTmDj\ueayjGfrPy_QsUYLFzHTZ`FnxqiNjl[|Nz
+KhyJJcJQLOOoCJOWqTq~YS@m}sLHSc~a~H~Ih}`RS|Id]}~hlArjzwPIklZ\FwFIkJ}gRSI_l_V
+u`]j_j}e}chK}yJSxOFCW_dzt@FqntA@slEqvGXVBOh|MAnEp]YD_z`bU{HFoscXYAfiQ|CBVmZ
+gPylAsniqXUjAbrACBuHvaAwmrub~_c`CZD{K@_lBrqPyI@wOZ{cCNCrypH{cKM^POEoLrCym@o
+LCnWFmNx^{j`nBeuXhKQ|stUitSY~J^vb^NHjyasWoJZ`\NDM~LzgiqyKtx~uO[fsWhQwHw`q[d
+GpnhNJOoGOcscOCwSdF}Ag[kVGrMaOGFgWvx|uUsmA_fx|TsDmCSccfjiquxEdgIj_VhroZ\Fc}
+fNKC{mz}\kCi]_tLxsmp}vY}doqyQgaBU^nczfhivtYIKcOP]RTNFgGtl}nMagTz{k[j@ZSzgo
+XPmHWK]\`ui}BsGoN\vWOP{n]LGEh|lXO`QaztYXXheQfUzEmSe^yyl`U@BvX_e{Cw_s@znq\]
+EZtjjXmc\OayR]VKLZIhEbwSVm]djfSZG^YU`HMuOriik`\b{{pL]wtNM]]TyzhlEcwe~k~cF
+ok{gbIZwMQGq|^Ot|uqx}yhicX|~\a^YIx]TgHufe{XIfk@_FOOecI}|k|bw|AGg^n^MeougPjf
+oHxmy|Fmh~[yqi]A~}l^^jr\op}ISCX_a]rokMECZsyAURUY~{qXDG|_EElyh`z@TJMEmRhRmxG
+|KBywyA}{Qn[Xbmq\cofnEc|dBwK]BookaZ]srGJYSKCgAWCMQmm`zvB]C`]yMGGgzyo`{uCiC
+^wJLfolLoyd\w`Y{]nb^^Wr|HvGfsnOds]Jx~p_^~bvUc~LKtnKRssl]doSfh|thvZZ}HvgC~TZ
+Nj_Kr_iWp{AgoOMrjVY@lBDgaKLbcsuRGOWtg[}fX_}SyewTLHOE`||Zk~yDML\L~CAyDdcV
+^XnW^Hgj|pYZ|Y`Uj_nfzC`y[@mHhHMkPmqtlhiiM\\NVg}^VUOA]ux|gMvTNGzgstNr_}sz|nw
+\TjoFuAmFQ\lwMfKnGm^[\FZZf^CZOfZDeGIyoi|Qlg@lULw^{xZ{iaEhTurssEtO[FoocR]~x
+^sKXnzmkcr^E~klWzqtQ}~iM@fjA_`qba_NP}jeSk@gELMLOnkzsiAOd~|[S[dnAD[[zqeJ^Gm
+YPRRu[ldT^@jJpIejV{PN_mCkG|jjmeDJ_HNSx^Euj^IqQQy@PynilX\FBP}RH_R`eaP{jy`XWP
+}RtcwtZnyQ[@lBejp}TUTQJWEMAPuJNp~jNP|QRn@s|T{pXm_pRAKClDMWt\tFLrGxRtlACV\J
+Zkj}evjI\fdI\vde_F`sMlLHVM_Dz^uA~guXzvhaZzpthq}Ka~NTmcQYcx]E~IBUOwiB`D`Qb
+ryA]^xYQRpwGu_@gU_@l~}QqoxAP{N@rSK^J[zMvkxRX}OAsqCebU[gttT^Alo|YiRAybyG]
+P}mavOZujnQN[}C{GtOLwnutH@GETIXf@[`iCfChLpxMH]|lY{T{TWKvG\qXpCSIjVAnNNN^Fd
+MeBf[dczCScGWOcCl]ptAeBFHXfFWsG@s_N@fobv|Gn~z|_{ko^|g]}auGcP|KHGBWTNJGaFfr{
+QIh\GXNrGRSBgKwKes`x_HrSyKi\afkriiIJ^XjXPAwtWe}QiJNOuSeqSCRI[Lo\dTxJYa~dKu
+CeTiNhLQLVcFc}_wvUog\T[CeaiiApYifZkWm{`|@OGMFCfIM\SGG\K`WbzdiUQYB_fxl]}|yFa
+_caFAbMYKOG^_]I\n~ehQAJV_i~LSMRbSyAuK^qCvjsz}_{~ZzKM}EodBnSB[THtSRVHEhi
+PHCiPwQGCAIoHL~WHPUCMPRSY\P{LYCuxGmZzpdGQ^bRDKSlZqui|tJS[a[k}vbsVGlehm^X[`
+vN\|]pCrBmPtQEcWTLZyj|vrvXKJ[qXsfQKGPSmt{W^PJHZWvSO}dhLrgt{OE{tqW|cWCnVz
+L}itEEwlXxb[^oosMarGT\[F~[s[gTUGiznUOnz]iM@u[T}FTWmzZToZmAkzTmRuBTgkzYUO
+gzWk~Mj_kzwi~}j`zOj^^uIjNAmLtFfVfjcV]ox~LTJLJJJFJQjSTrxYs@iAQCar`rdrafHUHU
+DMUj\jBZqTUtriUPkQmFuEjnVu]jnBqyDJb`EaHZoHNQgEcSTdXJbYIfkXAbjEKAOIvbXkbmIvA
+nvo_qIEOnxiEOcxEUWgz|UWoznTsQ}^TOlzmi^ojKP}ZUlhn_qiUkPK[uCjDdzmjeezoh^AqwkM
+^ukS]eJ]U}gEojzltRVkkZ}R]LdI|bwB^GuJ|VKXjmTlT\dUJ^jGTOi^Q}abfFAMJcM[\lX}yP
+i|iYQsffCMOZeTAb[ThJtDfDfEVD~KBRDapjpfH^a]qTESCoEKUDkXyx]~ZDuHVkX]ZND[T|@bc
+KZP|`bgSTkxEhIHvL~}An^ZmbWVmJuehVdzdTKU]jjSSmLukQ]GjWiZyjSACAlX@Wf[dMG]rU
+VXmiPYnQv[bifBw@BL`|fXjABO|hpKTeG\eArKF}f[tQTYsMf\iAG]oIgBoXt[nQgSauVY`|BUV
+ieRViuJCEF[iIf\iipKFqVXgMGHsHcBoXt[nQgPB}F^`lUKu@sL`trLp\CHqHCMp@RNvPSWJ|RS
+iMw\iyvYWeFYtaFHrHcMJ|rTtUV[HABNuhpKSQWYmYEHxTcBodD]aqVZcEd[gqVY`@cBoLTXpaT
+Yi]FZtAbMs`cBo`EReevYhQGHt\CLJ|RPsMVYnQGHyTcLJ|BQeMwXeyF]`tbLvdcBopTYaQVZn]
+FHrHSLJ|RSaawUiQF]hARLsHCNJ|RPv]vUiQF]hARMrDcBoXt[nQgQiqVYr@bM`@CHRi`O~hPYn
+Qv[bifBx@BL`|fXjABO|hpKTeG\eArKF}f[tipKSUgXteG\eArKTIW]eQU^pUfBoHTXsUfQoyF]
+`|BUVieRViuJCEF[iIf\iipKFef\sQwPhEf\`HSLuhpKLEv\tMDZaIGHrDSMJ|RQnMv[def[gAr
+KWef[Ayv\iUd[c}FYiyvYJ|bQoyF]DUv\cIWZpQw[rArM`@CHRipKWeFYtav\`lEHtdCN]ycOJT
+f[d}fXjiPN`@CHoIfZ`pCOJ|BUyAWY`|BVOIfZeMF]J|rTuIF]yAWY`|bQoIW[J|bQoIW[TeG\e
+ARLJ|bPB}F^`lEL`@CHvPcKvXSM`TCMnLsLtteBotTXtIWZxArVq@BL`@CHq@BL`@SWJ|bTeMw[
+uIwXeMGH|pcBoXt[nQGH|pcBoXTL`TCHp@bTJ|bQs@BN`@CHRi`O~h`O~hpKFeF[tUf\`luKFqV
+XtUFQeMv[dUVWJ|BSeyvYtaFHr@SMvh`O~hp\tIWYaufBxi]s[ul[[\CD~n^JvKAXW`XV~wp_zq
+tfVtBdvdFCT`ftCNqrFnpqnQvMimOMzEhOO}uiCIWIm{JN{JjnniGblhHGNd_\fo]FnS^bwoxE
+]~GobsDB]eQsL\SEhYRYujeK~qj[Nl~Y\g\wX@iJLFarNCRT]In\NQplBSeqpLNWEXX\PDFqEq
+IILFi`YtPevs\ZYeeqmnJEsju[fhg\JNOWnxDTcrjS_{BibyDbJPrDFQui_ybO{kDUBfVhjN}bE
+oj~{~~gw|sUg~mQItb`Hxw`pRqiBcUuonnyDmo^YsI@T{wv\baW_yk[RbEVTO}tmkoIwhCW_J
+Ns[eGpz[`bT@s[\]AB]V`HhG_TQVft{iUtOuhuu_SCxj~FET|RNDWxLeRPCL[WoZ\PZUykw
+AzExLisV@NAhEfpU`^U_ZqIpq\FYykwprUEMwAKncqElaiPxJVryclzt@CD~MKOtgU{rX^KbK
+OY`TqEDqi|YV^RDZdulvEeeI@[EOmHDin`m]a{ovntintYzBR]IrLajazZgTj^R]|gIIHUpdHd`
+Vp\aLs^FFG]UQvobPWJMIhAC^jK_FpPNINqiOnLYdjIyVtMPOkQs]WNs]A_\pE}JaBAWJUqGZ
+DnGxjiqBE]WVzItQKE_VM]QNLHgwzx`K~GehKxjgD\iTDMvJimsdthd\hy~^Sh]RifGlUypaVLk
+@JelHsVJulGkZI^pVzn\GuDzfOJAEFuhWUNe@JGNqEAmdZbfn]onvCJdGRWeLajYujUGCshTJAU
+JJnIhDdjMajcpJif|xvBbOzwfgZ}@G@dFPnPNHF@qLHfZMxfuS@Ern^DDGRLgJYYg@TZjwn_R@V
+Nu@LS]BXfZF|SM@{Lro`GC\xHxWxLgSLEASC@JUu[oASmyaCD]hO@lG~QxxCX^\Ad^djVWLIDJ
+VxbDJabgTSZZFYMMOnaNX[C]dNPoGUosJqDrllCWPBiYBlmQj{Ry[PqdR]QAARjIE]P[ZzPKfF
+lEt`mZZpvLkVvAjEI`\tGQhKh\JQGC[\eNETcZrOR^xFztfGIY[K]W^zItNMTkzQsOSvuBV~[bX
+\hVpxvrljItcfN@\]Ossq@F~PF~~AFnuHuSD^HDdxYDrnXlfWips@pWLgBJVaTJdJZd\let|w
+ZZJEK}CD@zKprw[YLG\HBKsfMhmIxPPyt|rnLORUqgLUPE]Rv@}uMYK{Z@`G`|_D@ssKOGTLpV
+v}MQjiQRtVRgLxthka^B]tRigUtUclkbryETLKTvENQjiis]WMyM[N~mhnwDNrMNqgQbAY`|l\^
+AAsKKKhYJMMBmpHwBmXxUMOBjoGtNreiLoFn|tvlTZA|O~bRIdTQ}rvrQfNfZjDfEtiDzbCpNuL
+hgJePqCpmbxX`k|dT\Liil[ebROGxuQLIvhG^@NLc\qAfSO_JS`YdZq`toGQHGFfVUFzSihrnKB
+~q_e`jC|~fDGhCxL}ZZPJzcxutpL|r^WBTzQSG^vHYFzhIvMtI@IM}SOQP_Kdjx@|O@wIbBimar
+oRDfuVvSRitcf~uoBthJPGLgigTcBxv^NQ{VrX~C^y`sVqLF~BRUO^xK]PoTq~tOTJ}dqp^hwbG
+P^oEAJl\YW[vGl@k^PjcyCHAXFTsmumRLg@AYeNminSbJycKBEraanbPNmATukbedroEjIEW}zs
+ny|uMgHavZTyN|SQ}}q]rUqO_WsIBS}Ya_bWgDz|uxOJ}uizYy|ddWGG}gOF{SZGAhUcalR\`t~
+IxiPnM^YhpVNkAwEokAWFZCBxWolSqxDgDQwBqIlotq]dk~OWNBlwfT\KlckUNPzrFFcO\aCF]
+nGQ}DT]REnPEn`~UfzGo~QcizT\wShZYWUc~PPNWd_xYqSmW~tGwVrOqzjJv_XNxmqshzJs_Ohz
+`xxbBjzLzaNaclUROg_d]rvczSZuwG[wR^tMIwmw|EaRXzvOtxuuKW]VcrV_YxX_yzFiLYAlzvw
+DlFbvEoI|CW]}UwG]|XwTb_\\MazKVtaAnnmUjEjA|prFLUbzu{^|nj~QkQ{[TihmnVTaFkJ
+~U]plWzj_]STzqO_yqwnyNPqyhjlkHhxvAJXfk\WNKlFek~jsBexu]k[pu|mW`xan~n{q_SV_SC
+`ngaObMW]^@ZpqE`pUhsk@Pr`MGzJuFMGbwZC|tz~l|n{oz]IoNtU~ew}xFdZ]xXxQcyq[Cux
+ARxcnzrh_EaU`ta~PHggCEsfYc~|UQ{Y|DVIG\B_ur{FcEMUuO]lD}SxNGjhjlOAnTwyTuET`wl
+rEKFwyMw~^LOFwYefxEJPyOk~Os]n}Up\L~shynFl_R\hwpw]d^tRIfUf]kKmRMja`IhWTDo
+kBCPC`\OLYMQgJ\clzrpzyj[Bguq_xzHDl|bKb{leoEC^Zb@C^D]{MAj`x^ouZIv{[vJ|dDDG
+TykgjN]zbeOngkB`{WccMhc_i]batMT~nE[f{T{kW|r]CpX|mPYzgbE|~v^Agigxav}DGxJJqqX
+mBInmU|vv{DoMXLZqm`ogxav}DwXmYD_Cc[Tt@\uvNJZhauB[Pr^rehKwJVjYRJ|{aJyNkTIji]
+beZwJGO~JOsHwvwajWm[Svv^wf\wKYMGFa}FRXkkxav}DWha\XT[Pf[WummSkZlQHH~\{vvHDwI
+Wj]k\AvOWVyRacmUlTsdTfvgPgEaxLOntwnCSMwmASAtP@O|xI]GYCM{JkqgQvCzrHG`g{P_r`
+_|KV|ONM]ZPUf[dMG]rUVXmiPYnQv[bifBq@CHp@r[biFH|pcBoXTZlQWYrArVoXD[aQWYDUvXo
+QVY]ipKLUf[gQGZ`LSMJxcOJLG]rUVXmi@^ZoByjPnLWOcTp@`PXtIgKWz{[jedhAJxR~\EHPH@
+S^qAxWf[dMG]rUVXmiPYnQv[bifBqDCHp@r[biFH|pcBoPU^pUFHo@UXgUfBo@UXrUf[tARL`@C
+HRipKRUv\oUg\cUv\`pCOJ|BVOIfZeMF]`pCOJ|RSeQWXp@RN`@CHRi`O~h`O~hpKMUFYiEfPoa
+GH[ACHp@BMvTcKudSL`LSNqxbLqteBoLt[nQWYnQw\`lULp@BL`HUWJxcOJTf[d}fXjiPL`@CHo
+IfZ`pCOJ|BUyAWY`|BTa]VYsipKC}V]nQGHqhpKKeFYsArVJDSL`@CHRiPWJxcOJTf[d}fXji`L
+`@CHoIfZ`pCOJ|BUyAWY`|rPaQWXl}vYJ|BTa]VYsARL`@CHRi`O~hPYnQv[bifBxIWYfi@L`Dc
+LJ@CLp@CLp@CLp@CHvTSMsTCHfAbBp@CLp@SLr\cMt@BLp@CLp@b[`h@Lp@CLpDcLxHCM`@CLp@
+CL`xFHJ@CLp@CLp@CLqDCHp@CLp@CHnAbBp@CLp@CLpDSLx@BLp@CLp@b[`h@Lp@CLp@CLs\sM`
+@CLp@CL`xFHJ@CLp@CLp@SNq\CHp@CLp@CHnAbBp@CLp@CLy\SNx@BLp@CLp@b[`h@Lp@CLpDCL
+p\CM`@CLp@CL`xFHJ@CLp@CLq@cLtPCHp@CLp@CHnAbBp@CLp@SLrTSLs@BLp@CLp@b[`h@Lp@C
+LpDcLvHSL`@CLp@CL`xFHJPg\aeF[eIgB|pcBoLUZzUFHqHcBodd[f}FHs@BL`HeBoHu[oQGHr@
+BL`HeBodDQ`lEOvXDLBMdPCMSNEaCNpLdLqDCNqdcMAUdPEQDLDIsMwDdO|XcQpHtPBMtLyTDNx
+@sPrDSLxDSNvDTQBUDQpPdLw\SP~teB~xcBsQWXrQG^rUfYJDcLx\sLJTRIE}dQJ@
+
+%%%%%%%%%%%%%%%% End /document/graphics/P6BDD601__1.pdf %%%%%%%%%%%%%%%
