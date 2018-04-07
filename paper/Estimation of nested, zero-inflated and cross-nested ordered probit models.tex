@@ -26,7 +26,7 @@
 %TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
 %TCIDATA{BibliographyScheme=Manual}
 %TCIDATA{Created=Wednesday, April 07, 2010 09:52:31}
-%TCIDATA{LastRevised=Friday, April 06, 2018 21:42:54}
+%TCIDATA{LastRevised=Sunday, April 08, 2018 01:39:04}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
 %TCIDATA{Language=American English}
@@ -76,17 +76,18 @@
 \begin{document}
 
 \title{Estimation of nested and cross-nested zero-inflated ordered probit
-models\thanks{%
-We gratefully acknowledge support from the Basic Research Program of the
-Higher School of Economics.}\\
+models\\
 \bigskip }
 \date{}
-\author{David Dale\thanks{%
-Corresponding author. Email:} \\
+\author{David Dale \\
 %EndAName
-Yandex, Moscow \and Andrei Sirchenko \\
+Yandex\\
+Moscow, Russia\\
+dale.david@yandex.ru \and Andrei Sirchenko \\
 %EndAName
-Higher School of Economics, Moscow}
+Higher School of Economics\\
+Moscow, Russia\\
+andrei.sirchenko@gmail.com}
 \maketitle
 
 \begin{abstract}
@@ -133,7 +134,7 @@ the discrete-choice modeling when the set of alternatives faced by a
 decision-maker can be partitioned into subsets (or nests) with similar
 correlated alternatives. A choice among the nests and a choice among the
 alternatives within each nest can be driven by different sets of observed
-and unobserved factors (and common factors can have different weights).
+and unobserved factors (and common factors can have different weights). 
 
 In the case of unordered categorical data, in which choices can be grouped
 into the nests of similar options, the nested logit model is a popular
@@ -207,7 +208,7 @@ Mukherjee (2012) and Brooks, Harris and Spencer (2012) extended the model of
 Harris and Zhao (2007) and proposed the middle-inflated ordered probit model
 for an ordinal outcome, which ranges from negative to positive responses,
 and where an abundant outcome is situated in the middle of the choice
-spectrum (see the bottom right panel of Figure \ref{trees}).
+spectrum (see the bottom right panel of Figure \ref{trees}). 
 
 The three-part cross-nested zero-inflated ordered probit model (see the top
 right panel of Figure \ref{trees}), introduced in Sirchenko (2013), is a
@@ -275,7 +276,7 @@ probit models\label{trees}}%
 %BeginExpansion
 \includegraphics[
 natheight=4.0714in, natwidth=9.32in, height=2.8792in, width=6.5529in]
-{C:/Users/user/Documents/Dale/Our paper/graphics/P6RLIK08__1.pdf}%
+{C:/Users/Andrei/Documents/Dale/Our paper/graphics/P6RLIK08__1.pdf}%
 %EndExpansion
 \end{center}
 
@@ -345,7 +346,7 @@ decisions:%
 \end{tabular}%
 $
 
-\bigskip
+\bigskip 
 
 The probabilities of the outcome $j$ in the NOP model are given by%
 \begin{equation}
@@ -546,7 +547,7 @@ decisions:%
 \end{tabular}%
 $
 
-\bigskip
+\bigskip 
 
 The probabilities of the outcome $j$ in the ZIOP-3 model are given by
 
@@ -667,18 +668,18 @@ models. The likelihood function of the NOP model ---\ again in contrast with
 the ZIOP-2 and ZIOP-3 models --- is separable with respect to the parameters
 in the three equations. Thus, solving (\ref{LL}) for the NOP model is
 equivalent to maximizing separately the likelihoods of the three ordered
-probit models representing the regime and outcome decisions.\footnote{%
+probit models representing the regime and outcome decisions.\footnote{
 The data matrices in the outcome decisions should be truncated to contain
 only those rows of $\mathbf{x}_{t}^{-}$ or $\mathbf{x}_{t}^{+}$ for which $%
 y_{t}<0$ or $y_{t}>0$, respectively.}
 
-\subsubsection*{Marginal effects}
+\subsubsection*{Marginal effects (ME)}
 
-\noindent The marginal effect (ME) of a continuous covariate $k$ (the $k^{%
-\text{th}}$ element of $\mathbf{x}_{t}^{all}$) on the probability of each
-discrete outcome $j$ are computed for the ZIOP-3 model as
+\noindent The marginal effect of a continuous covariate $k$ (the $k^{\text{th%
+}}$ element of $\mathbf{x}_{t}^{all}$) on the probability of each discrete
+outcome $j$ are computed for the ZIOP-3 model as
 
-\bigskip
+\bigskip 
 
 $%
 \begin{array}{l}
@@ -686,7 +687,7 @@ ME_{k,j,t}=\frac{\partial \Pr (y_{t}=j|\mathbf{\theta })}{\partial \mathbf{x}%
 _{t,k}^{all}}=I_{j\leq 0}\left\{ \left[ \Phi \left( \frac{\mu _{1}-\mathbf{z}%
 _{t}\mathbf{\gamma }-\rho ^{-}(\alpha _{j}^{-}-\mathbf{x}_{t}^{-}\mathbf{%
 \beta ^{-})}}{\sqrt{1-(\rho ^{-})^{2}}}\right) f(\alpha _{j}^{-}-\mathbf{x}%
-_{t}^{-}\mathbf{\beta ^{-}})\right. \right. \\ 
+_{t}^{-}\mathbf{\beta ^{-}})\right. \right.  \\ 
 \left. -\Phi \left( \frac{\mu _{1}-\mathbf{z}_{t}\mathbf{\gamma }-\rho
 ^{-}(\alpha _{j+1}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta ^{-})}}{\sqrt{1-(\rho
 ^{-})^{2}}}\right) f(\alpha _{j+1}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta ^{-}})%
@@ -696,7 +697,7 @@ _{t}^{-}\mathbf{\beta ^{-}})\right. \right. \\
 1-(\rho ^{-})^{2}}}\right) -\Phi \left( \frac{\alpha _{j}^{-}-\mathbf{x}%
 _{t}^{-}\mathbf{\beta ^{-}}-\rho ^{-}(\mu _{1}-\mathbf{z}_{t}\mathbf{\gamma )%
 }}{\sqrt{1-(\rho ^{-})^{2}}}\right) \right] f(\mu _{1}-\mathbf{z}_{t}\mathbf{%
-\gamma })\mathbf{\gamma }_{k}^{all}\right\} \\ 
+\gamma })\mathbf{\gamma }_{k}^{all}\right\}  \\ 
 -I_{j=0}[f(\mu _{2}-\mathbf{z}_{t}\mathbf{\gamma })-f(\mu _{1}-\mathbf{z}_{t}%
 \mathbf{\gamma })]\mathbf{\gamma }_{k}^{all} \\ 
 +I_{j\geq 0}\left\{ \left[ \Phi \left( \frac{\mathbf{z}_{t}\mathbf{\gamma }%
@@ -716,24 +717,25 @@ _{t}\mathbf{\gamma }-\mu _{2})\mathbf{\gamma }_{k}^{all}\right\} ,%
 \end{array}%
 $
 
-\bigskip
+\bigskip 
 
 \noindent where $f$ is the probability density function of the standard
 normal distribution, and $\mathbf{\gamma }_{k}^{all}$, $\mathbf{\beta }%
-_{k}^{-all}$ and $\mathbf{\beta }_{k}^{+all}$ are the parameters on the $k^{%
-\text{th}}$ covariate in $\mathbf{x}_{t}^{all}$ in each equation ($\mathbf{%
-\gamma }_{k}^{all}$, $\mathbf{\beta }_{k}^{-all}$ or $\mathbf{\beta }%
-_{k}^{+all}$ is zero if the $k^{\text{th}}$ covariate in $\mathbf{x}%
-_{t}^{all}$ is not included into the corresponding equation). For a
-discrete-valued covariate, the ME can be computed as the change in the
-probabilities when this covariate changes by one increment and all other
-covariates are fixed.
+_{k}^{-all}$ and $\mathbf{\beta }_{k}^{+all}$ are the coefficients on the $%
+k^{\text{th}}$ covariate in $\mathbf{x}_{t}^{all}$ in the regime equation,
+outcome equation conditional on $s_{t}^{\ast }=1$ and outcome equation
+conditional on $s_{t}^{\ast }=-1$, respectively ($\mathbf{\gamma }_{k}^{all}$%
+, $\mathbf{\beta }_{k}^{-all}$ or $\mathbf{\beta }_{k}^{+all}$ is zero if
+the $k^{\text{th}}$ covariate in $\mathbf{x}_{t}^{all}$ is not included into
+the corresponding equation). For a discrete-valued covariate, the ME can be
+computed as the change in the probabilities when this covariate changes by
+one increment and all other covariates are fixed.
 
 The MEs for the NOP model are computed by replacing $I_{j\geq 0}$ with $%
 I_{j>0}$ and $I_{j\leq 0}$ with $I_{j<0}$. The MEs for the ZIOP-2 model are
 computed as
 
-\bigskip
+\bigskip 
 
 $%
 \begin{array}{l}
@@ -750,11 +752,16 @@ _{j-1}-\mathbf{x}_{t}\mathbf{\beta })-\Phi \left( \frac{\mathbf{z}_{t}%
 \mathbf{z}_{t}\mathbf{\gamma }-\mu \mathbf{)}}{\sqrt{1-\rho ^{2}}}\right)
 -\Phi \left( \frac{\alpha _{j-1}-\mathbf{x}_{t}\mathbf{\beta }+\rho (\mathbf{%
 z}_{t}\mathbf{\gamma }-\mu \mathbf{)}}{\sqrt{1-\rho ^{2}}}\right) \right] f(%
-\mathbf{z}_{t}\mathbf{\gamma }-\mu )\mathbf{\gamma }_{k}^{all}\text{.}%
+\mathbf{z}_{t}\mathbf{\gamma }-\mu )\mathbf{\gamma }_{k}^{all}\text{,}%
 \end{array}%
 $
 
-\bigskip
+\bigskip 
+
+\noindent where $\mathbf{\beta }_{k}^{all}$ is the coefficient on the $k^{%
+\text{th}}$ covariate in $\mathbf{x}_{t}^{all}$ in the outcome equation ($%
+\mathbf{\beta }_{k}^{all}$ is zero if the $k^{\text{th}}$ covariate in $%
+\mathbf{x}_{t}^{all}$ is not included into the outcome equation).
 
 The asymptotic standard errors of the MEs are computed using the Delta
 method as the square roots of the diagonal elements of
@@ -765,8 +772,7 @@ $\widehat{Var(\widehat{\underset{}{\mathbf{ME}_{k,j,t}}})}=\nabla _{\theta }%
 _{\theta }\widehat{\mathbf{ME}}_{k,j,t})^{\prime }$.
 \end{center}
 
-\subsubsection*{\noindent The relations among the models and their comparison%
-}
+\subsubsection*{\noindent Relations among the models and their comparison}
 
 The choice of a formal model-selection test depends on whether the models
 are nested in each other.
@@ -793,16 +799,144 @@ vice versa. However, they are not strictly non-nested and overlap if all
 their slope parameters are fixed to zeros. We can compare them using a
 likelihood-based test for non-nested overlapping models, such as the Vuong
 test (Vuong 1989). A special case when the ZIOP-3 model nests the ZIOP-2
-model emerges under some restrictions on the parameters provided: (i) $y_{t}$
-only has three choices, (ii) the regressors in $\mathbf{x}_{t}^{-}$ and $%
-\mathbf{x}_{t}^{+}$ in the outcome equations of the ZIOP-3 model contain all
-regressors in $\mathbf{z}_{t}$ in the ZIOP-2 regime equation, and (iii) the
-regressors in $\mathbf{z}_{t}$ in the regime equation of the ZIOP-3 model
-include all regressors in the $\mathbf{x}_{t}$ in the ZIOP-2 outcome
-equation (see Appendix for the details). In this case, the selection between
-the ZIOP-3 and ZIOP-2 models can be performed using any classical
-likelihood-based test for nested hypotheses, which can be interpreted as a
-misspecification test for the latter.
+model emerges under some restrictions on the parameters as explained below.
+In this case, the selection between the ZIOP-3 and ZIOP-2 models can be
+performed using any classical likelihood-based test for nested hypotheses,
+which can be interpreted as a misspecification test for the latter.
+
+The special case emerges if $y_{t}$ takes only three discrete choices $j\in
+\{-1,0,1\}$, the regressors in $\mathbf{x}_{t}^{-}$ and $\mathbf{x}_{t}^{+}$
+in the outcome equations of the ZIOP-3 model contain all regressors (denoted
+below by $\mathbf{z}_{2t}$ with the parameter vector $\mathbf{\gamma }_{2}$)
+in the ZIOP-2 regime equation, and the regressors (denoted below by $\mathbf{%
+z}_{3t}$ with the parameter vector $\mathbf{\gamma }_{3}$) in the regime
+equation of the ZIOP-3 model include all regressors in the $\mathbf{x}_{t}$
+in the ZIOP-2 outcome equation. According to\ (\ref{Prob MIOP}) the
+probabilities of the outcome $j$ in the ZIOP-2 model are given by
+
+\begin{flushleft}
+\begin{equation}
+\begin{array}{l}
+\Pr (y_{t}=-1|\mathbf{z}_{2t},\mathbf{x}_{t})=\Phi _{2}(-\mu +\mathbf{z}_{2t}%
+\mathbf{\gamma }_{2};\alpha _{-1}-\mathbf{x}_{t}\mathbf{\beta };\mathbf{-}%
+\rho ); \\ 
+\Pr (y_{t}=0|\mathbf{z}_{2t},\mathbf{x}_{t})=\Phi (\mu -\mathbf{z}_{2t}%
+\mathbf{\gamma }_{2}) \\ 
++\Phi _{2}(-\mu +\mathbf{z}_{2t}\mathbf{\gamma }_{2};\alpha _{0}-\mathbf{x}%
+_{t}\mathbf{\beta };\mathbf{-}\rho )-\Phi _{2}(-\mu +\mathbf{z}_{2t}\mathbf{%
+\gamma }_{2};\alpha _{-1}-\mathbf{x}_{t}\mathbf{\beta };\mathbf{-}\rho ) \\ 
+=1-\Phi _{2}(-\mu +\mathbf{z}_{2t}\mathbf{\gamma }_{2};-\alpha _{0}+\mathbf{x%
+}_{t}\mathbf{\beta };\rho )-\Phi _{2}(-\mu +\mathbf{z}_{2t}\mathbf{\gamma }%
+_{2};\alpha _{-1}-\mathbf{x}_{t}\mathbf{\beta };\mathbf{-}\rho ); \\ 
+\Pr (y_{t}=1|\mathbf{z}_{2t},\mathbf{x}_{t})=\Phi (-\mu +\mathbf{z}_{2t}%
+\mathbf{\gamma })-\Phi _{2}(-\mu +\mathbf{z}_{2t}\mathbf{\gamma }_{2};\alpha
+_{0}-\mathbf{x}_{t}\mathbf{\beta };\mathbf{-}\rho ) \\ 
+=\Phi _{2}(-\mu +\mathbf{z}_{2t}\mathbf{\gamma }_{2};-\alpha _{0}+\mathbf{x}%
+_{t}\mathbf{\beta };\rho ),%
+\end{array}
+\label{Prob spec ZIOP-2}
+\end{equation}
+\end{flushleft}
+
+\noindent since $\Phi _{2}(x;y;\rho )=\Phi (x)-\Phi _{2}(x;-y;-\rho )$.
+Similarly, according to (\ref{Prob CroNOP}) the probabilities of the outcome 
+$j$ in the ZIOP-3 model are given by
+
+\begin{flushleft}
+\begin{equation}
+\begin{array}{l}
+\Pr (y_{t}=-1|\mathbf{z}_{3t},\mathbf{x}_{t}^{-},\mathbf{x}_{t}^{+})=\Phi
+_{2}(\mu _{1}-\mathbf{z}_{3t}\mathbf{\gamma }_{3};\alpha _{0}^{-}-\mathbf{x}%
+_{t}^{-}\mathbf{\beta }^{-}\mathbf{;}\rho ^{-}); \\ 
+\Pr (y_{t}=0|\mathbf{z}_{3t},\mathbf{x}_{t}^{-},\mathbf{x}_{t}^{+})=\Phi
+(\mu _{1}-\mathbf{z}_{3t}\mathbf{\gamma }_{3})-\Phi _{2}(\mu _{1}-\mathbf{z}%
+_{3t}\mathbf{\gamma }_{3};\alpha _{0}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta }%
+^{-}\mathbf{;}\rho ^{-}) \\ 
++\Phi (\mu _{2}-\mathbf{z}_{3t}\mathbf{\gamma }_{3})-\Phi (\mu _{1}-\mathbf{z%
+}_{3t}\mathbf{\gamma }_{3})+\Phi _{2}(-\mu _{2}+\mathbf{z}_{3t}\mathbf{%
+\gamma }_{3};\alpha _{0}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta }^{+};\mathbf{-}%
+\rho ^{+}) \\ 
+=\Phi _{2}(\mu _{1}-\mathbf{z}_{3t}\mathbf{\gamma }_{3};-\alpha _{0}^{-}+%
+\mathbf{x}_{t}^{-}\mathbf{\beta }^{-}\mathbf{;-}\rho ^{-}) \\ 
++\Phi (\mu _{2}-\mathbf{z}_{3t}\mathbf{\gamma }_{3})-\Phi (\mu _{1}-\mathbf{z%
+}_{3t}\mathbf{\gamma }_{3})+\Phi _{2}(-\mu _{2}+\mathbf{z}_{3t}\mathbf{%
+\gamma }_{3};\alpha _{0}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta }^{+};\mathbf{-}%
+\rho ^{+}); \\ 
+\Pr (y_{t}=1|\mathbf{z}_{3t},\mathbf{x}_{t}^{-},\mathbf{x}_{t}^{+})=\Phi
+(-\mu _{2}+\mathbf{z}_{3t}\mathbf{\gamma }_{3})-\Phi _{2}(-\mu _{2}+\mathbf{z%
+}_{3t}\mathbf{\gamma }_{3};\alpha _{0}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta }%
+^{+};\mathbf{-}\rho ^{+}) \\ 
+=\Phi _{2}(-\mu _{2}+\mathbf{z}_{3t}\mathbf{\gamma }_{3};-\alpha _{0}^{+}+%
+\mathbf{x}_{t}^{+}\mathbf{\beta }^{+};\rho ^{+}).%
+\end{array}
+\label{Prob spec ZIOP-3}
+\end{equation}
+\end{flushleft}
+
+Suppose the covariates in $\mathbf{x}_{t}^{-}$ and $\mathbf{x}_{t}^{+}$ in
+the ZIOP-3 outcome equations are identical to the covariates in $\mathbf{z}%
+_{t}^{2}$ in the ZIOP-2 regime equation, the covariates in $\mathbf{z}_{3t}$
+in the ZIOP-3 regime equation are identical to the covariates in the $%
+\mathbf{x}_{t}$ in the ZIOP-2 outcome equation, and the parameters are
+restricted as follows: $-\mathbf{\beta }^{-}=\mathbf{\beta }^{+}=\mathbf{%
+\gamma }_{2},$ $\mathbf{\beta }=\mathbf{\gamma }_{3},$ $\mu _{1}=\alpha
+_{-1},$ $\mu _{2}=\alpha _{0},$ $-\alpha _{0}^{-}=\alpha _{0}^{+}=\mu $ and $%
+-\rho ^{-}=\rho ^{+}=\rho $. Then, since $\mathbf{x}_{t}^{-}=\mathbf{x}%
+_{t}^{+}=\mathbf{z}_{2t}$, $\mathbf{z}_{3t}=\mathbf{x}_{t}$ and $\Phi
+(-x)=1-\Phi (x)$, the probabilities for the ZIOP-3 model in (\ref{Prob spec
+ZIOP-3}) can be written as
+
+\bigskip 
+
+$%
+\begin{array}{l}
+\Pr (y_{t}=-1|\mathbf{x}_{t},\mathbf{z}_{2t})=\Phi _{2}(\alpha _{-1}-\mathbf{%
+x}_{t}\mathbf{\beta };-\mu +\mathbf{z}_{2t}\mathbf{\gamma }_{2}\mathbf{;-}%
+\rho ); \\ 
+\Pr (y_{t}=0|\mathbf{x}_{t},\mathbf{z}_{2t})=\Phi _{2}(\alpha _{-1}-\mathbf{x%
+}_{t}\mathbf{\beta };\mu -\mathbf{z}_{2t}\mathbf{\gamma }_{2}\mathbf{;}\rho )
+\\ 
++\Phi (\alpha _{0}-\mathbf{x}_{t}\mathbf{\beta })-\Phi (\alpha _{-1}-\mathbf{%
+x}_{t}\mathbf{\beta })+\Phi _{2}(-\alpha _{0}+\mathbf{x}_{t}\mathbf{\beta }%
+;\mu -\mathbf{z}_{2t}\mathbf{\gamma }_{2};\mathbf{-}\rho ) \\ 
+=-\Phi _{2}(\alpha _{-1}-\mathbf{x}_{t}\mathbf{\beta };-\mu +\mathbf{z}_{2t}%
+\mathbf{\gamma }_{2}\mathbf{;-}\rho )+1-\Phi _{2}(-\alpha _{0}+\mathbf{x}_{t}%
+\mathbf{\beta };-\mu +\mathbf{z}_{2t}\mathbf{\gamma }_{2};\rho ); \\ 
+\Pr (y_{t}=1|\mathbf{x}_{t},\mathbf{z}_{2t})=\Phi _{2}(-\alpha _{0}+\mathbf{x%
+}_{t}\mathbf{\beta };-\mu +\mathbf{z}_{2t}\mathbf{\gamma }_{2};\rho ),%
+\end{array}%
+$
+
+\bigskip 
+
+\noindent which are identical to the probabilities for the ZIOP-2 model in (%
+\ref{Prob spec ZIOP-2}). Notice that the restrictions $-\mathbf{\beta }^{-}=%
+\mathbf{\beta }^{+}=\mathbf{\gamma }_{2}$ and $-\alpha _{0}^{-}=\alpha
+_{0}^{+}=\mu $ impose a sort of symmetry in the ZIOP-3 model because they
+imply that the conditional probability of an increase $\Pr (y_{t}=1|\mathbf{z%
+}_{3t},\mathbf{x}_{t}^{+},s_{t}^{\ast }=1)$ is equal to the conditional
+probability of a decrease $\Pr (y_{t}=-1|\mathbf{z}_{3t},\mathbf{x}%
+_{t}^{-},s_{t}^{\ast }=-1)$:
+
+\medskip 
+
+\begin{gather*}
+\Pr (y_{t}=1|\mathbf{z}_{3t},\mathbf{x}_{t}^{+},s_{t}^{\ast }=1)=1-\Phi
+(\alpha _{0}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta }^{+})= \\
+=\Phi (-\alpha _{0}^{+}+\mathbf{x}_{t}^{+}\mathbf{\beta }^{+})=\Phi (\alpha
+_{0}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta }^{-})=\Pr (y_{t}=-1|\mathbf{z}_{t},%
+\mathbf{x}_{t}^{-},s_{t}^{\ast }=-1)\text{.}
+\end{gather*}
+
+\medskip 
+
+In general, if $\mathbf{x}_{t}^{-}$ and $\mathbf{x}_{t}^{+}$ are not
+identical to $\mathbf{z}_{2t}$ but contain all covariates in $\mathbf{z}_{2t}
+$, and if $\mathbf{z}_{3t}$ is not identical to $\mathbf{x}_{t}$ but
+contains all covariates in $\mathbf{x}_{t}$, the ZIOP-2 model is stil nested
+in the ZIOP-3 model with the additional zero restrictions for the
+coefficients on all extra covariates in $\mathbf{x}_{t}^{-}$, $\mathbf{x}%
+_{t}^{+}$ and $\mathbf{z}_{3t}$.
 
 \section{The nop, ziop-2 and ziop-3 commands}
 
@@ -966,10 +1100,6 @@ estimated model (either NOP, or ZIOP-2, or ZIOP-3), calculated between the
 specified points, along with confidence intervals. The points \texttt{at}
 and \texttt{to} are specified like \texttt{at} in \texttt{cnopmargins}.
 
-\subsection{Example}
-
-TBD
-
 \section{Monte Carlo simulations}
 
 We conducted extensive Monte Carlo experiments to illustrate the finite
@@ -1004,63 +1134,12 @@ frequency lower than 6\% were re-generated. The matrix of the MEs has $%
 regressors, are computed at the population medians of the covariates. The
 variances of the errors in the regime and outcome equations were fixed to
 one. The true values of all other parameters in the simulations are shown in
-Table \ref{True param}. The starting values for slope and threshold
-parameters were obtained using the independent ordered-probit estimations of
-each equation. The starting values for $\rho $, $\rho ^{-}$ and $\rho ^{+}$
-were obtained by maximizing the likelihood functions of the
+Table \ref{True param} in Appendix. The starting values for slope and
+threshold parameters were obtained using the independent ordered-probit
+estimations of each equation. The starting values for $\rho $, $\rho ^{-}$
+and $\rho ^{+}$ were obtained by maximizing the likelihood functions of the
 endogenous-switching models holding the other parameters fixed at their
 estimates in the corresponding exogenous-switching model.
-
-% Table generated by Excel2LaTeX from sheet 'params'
-
-%TCIMACRO{\TeXButton{Single}{\end{onehalfspace}}}%
-%BeginExpansion
-\end{onehalfspace}%
-%EndExpansion
-%TCIMACRO{%
-%\TeXButton{B}{\begin{table}[H] \captionsetup{singlelinecheck = false, justification=justified}}}%
-%BeginExpansion
-\begin{table}[H] \captionsetup{singlelinecheck = false, justification=justified}%
-%EndExpansion
-
-\caption{Monte Carlo simulations: The true values of parameters\label{True
-param}}%
-%TCIMACRO{\TeXButton{TeX field}{\centering}}%
-%BeginExpansion
-\centering%
-%EndExpansion
-
-\begin{center}
-%TCIMACRO{%
-%\FRAME{itbpF}{6.4284in}{2.6766in}{0in}{}{}{Figure}{%
-%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "T";width 6.4284in;height 2.6766in;depth 0in;original-width 6.4001in;original-height 2.6484in;cropleft "0";croptop "1";cropright "1";cropbottom "0";tempfilename 'P6RBO202.wmf';tempfile-properties "XPR";}}}%
-%BeginExpansion
-\includegraphics[
-natheight=2.6484in, natwidth=6.4001in, height=2.6766in, width=6.4284in]
-{C:/Users/user/Documents/Dale/Our paper/graphics/P6RBO202__2.pdf}%
-%EndExpansion
-\end{center}
-
-%TCIMACRO{\TeXButton{TeX field}{\justify}}%
-%BeginExpansion
-\justify%
-%EndExpansion
-%TCIMACRO{\TeXButton{TeX field}{\footnotesize}}%
-%BeginExpansion
-\footnotesize%
-%EndExpansion
-
-Notes: (exog) -- exogenous switching; the variances $\sigma ^{2},$ $\sigma
-_{-}^{2},$ $\sigma _{+}^{2},$ and $\sigma _{\nu }^{2}$ are all fixed to one.
-
-%TCIMACRO{\TeXButton{E}{\end{table}}}%
-%BeginExpansion
-\end{table}%
-%EndExpansion
-%TCIMACRO{\TeXButton{Onehalf}{\begin{onehalfspace}}}%
-%BeginExpansion
-\begin{onehalfspace}%
-%EndExpansion
 
 \subsection*{Monte Carlo results}
 
@@ -1113,7 +1192,7 @@ estimators\label{MC_results}}%
 %BeginExpansion
 \includegraphics[
 natheight=5.2154in, natwidth=6.2075in, height=5.2453in, width=6.2349in]
-{C:/Users/user/Documents/Dale/Our paper/graphics/P6BDD601__3.pdf}%
+{C:/Users/Andrei/Documents/Dale/Our paper/graphics/P6BDD601__2.pdf}%
 %EndExpansion
 \end{center}
 
@@ -1141,8 +1220,24 @@ covariates.
 %BeginExpansion
 \end{table}%
 %EndExpansion
+%TCIMACRO{\TeXButton{Onehalf}{\begin{onehalfspace}}}%
+%BeginExpansion
+\begin{onehalfspace}%
+%EndExpansion
+
+\section{Application}
 
 \section{\noindent \noindent Concluding remarks}
+
+\section{Acknowledgments}
+
+We gratefully acknowledge support from the Basic Research Program of the
+National Research University Higher School of Economics, Moscow.
+
+%TCIMACRO{\TeXButton{Single}{\end{onehalfspace}}}%
+%BeginExpansion
+\end{onehalfspace}%
+%EndExpansion
 
 \noindent
 
@@ -1237,6 +1332,62 @@ with endogenous dummy regressors.\ \textit{Economics Letters} 69 (3):
 
 \bibitem{} Winkelmann, R. 2008. \textit{Econometric analysis of count data}%
 .\ 5$^{\text{th}}$ edition, Springer.
+
+\bibitem{} 
 \end{thebibliography}
+
+\section*{Appendix}
+
+\subsection*{Design of Monte Carlo simulations}
+
+% Table generated by Excel2LaTeX from sheet 'params'
+
+%TCIMACRO{%
+%\TeXButton{A}{\setcounter{table}{0}
+%\renewcommand{\thetable}{A\arabic{table}}}}%
+%BeginExpansion
+\setcounter{table}{0}
+\renewcommand{\thetable}{A\arabic{table}}%
+%EndExpansion
+%TCIMACRO{%
+%\TeXButton{B}{\begin{table}[H] \captionsetup{singlelinecheck = false, justification=justified}}}%
+%BeginExpansion
+\begin{table}[H] \captionsetup{singlelinecheck = false, justification=justified}%
+%EndExpansion
+
+\caption{Monte Carlo simulations: The true values of parameters\label{True
+param}}%
+%TCIMACRO{\TeXButton{TeX field}{\centering}}%
+%BeginExpansion
+\centering%
+%EndExpansion
+
+\begin{center}
+%TCIMACRO{%
+%\FRAME{itbpF}{6.4284in}{2.6766in}{0in}{}{}{Figure}{%
+%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "T";width 6.4284in;height 2.6766in;depth 0in;original-width 6.4001in;original-height 2.6484in;cropleft "0";croptop "1";cropright "1";cropbottom "0";tempfilename 'P6TXE50A.wmf';tempfile-properties "XPR";}}}%
+%BeginExpansion
+\includegraphics[
+natheight=2.6484in, natwidth=6.4001in, height=2.6766in, width=6.4284in]
+{C:/Users/Andrei/Documents/Dale/Our paper/graphics/P6TXE50A__3.pdf}%
+%EndExpansion
+\end{center}
+
+%TCIMACRO{\TeXButton{TeX field}{\justify}}%
+%BeginExpansion
+\justify%
+%EndExpansion
+%TCIMACRO{\TeXButton{TeX field}{\footnotesize}}%
+%BeginExpansion
+\footnotesize%
+%EndExpansion
+
+Notes: (exog) -- exogenous switching; the variances $\sigma ^{2},$ $\sigma
+_{-}^{2},$ $\sigma _{+}^{2},$ and $\sigma _{\nu }^{2}$ are all fixed to one.
+
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
 
 \end{document}
