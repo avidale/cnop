@@ -20,13 +20,13 @@
 %                                                                     %
 % Files included:                                                     %
 %                                                                     %
-% "/document/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex", Document, 64242, 4/8/2018, 7:51:42, ""%
+% "/document/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex", Document, 64624, 4/13/2018, 6:12:51, ""%
 % "/document/P6UVVI00.wmf", PastePict, 1779614, 4/6/2018, 13:01:32, ""%
-% "/document/graphics/P6UVVI00__1.pdf", ImportPict, 57247, 4/8/2018, 7:51:42, ""%
+% "/document/graphics/P6UVVI00__1.pdf", ImportPict, 57247, 4/13/2018, 6:12:51, ""%
 % "/document/P6BDD601.wmf", PastePict, 16754, 3/28/2018, 18:43:54, "" %
-% "/document/graphics/P6BDD601__2.pdf", ImportPict, 13197, 4/8/2018, 7:51:42, ""%
+% "/document/graphics/P6BDD601__2.pdf", ImportPict, 13197, 4/13/2018, 6:12:51, ""%
 % "/document/P6TXE50A.wmf", PastePict, 9036, 4/6/2018, 9:28:50, ""    %
-% "/document/graphics/P6TXE50A__3.pdf", ImportPict, 11985, 4/8/2018, 7:51:42, ""%
+% "/document/graphics/P6TXE50A__3.pdf", ImportPict, 11985, 4/13/2018, 6:12:51, ""%
 %                                                                     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -60,7 +60,7 @@
 %TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
 %TCIDATA{BibliographyScheme=Manual}
 %TCIDATA{Created=Wednesday, April 07, 2010 09:52:31}
-%TCIDATA{LastRevised=Sunday, April 08, 2018 10:51:42}
+%TCIDATA{LastRevised=Friday, April 13, 2018 09:12:49}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
 %TCIDATA{Language=American English}
@@ -164,9 +164,10 @@ models including the zero- and middle-inflated models of Harris and Zhao
 The rationale behind the two-level nested decision process is standard in
 the discrete-choice modeling when the set of alternatives faced by a
 decision-maker can be partitioned into subsets (or nests) with similar
-correlated alternatives. A choice among the nests and a choice among the
-alternatives within each nest can be driven by different sets of observed
-and unobserved factors (and common factors can have different weights).
+alternatives correlated due to common unobserved factors. A choice among the
+nests and a choice among the alternatives within each nest can be driven by
+different sets of observed and unobserved factors (and common factors can
+have different weights).
 
 In the case of unordered categorical data, in which choices can be grouped
 into the nests of similar options, the nested logit model is a popular
@@ -207,9 +208,22 @@ natheight=4.0714in, natwidth=9.32in, height=2.8792in, width=6.5529in]
 %EndExpansion
 \end{center}
 
-%TCIMACRO{\TeXButton{E}{\end{figure}}}%
+%TCIMACRO{\TeXButton{TeX field}{\justify}}%
 %BeginExpansion
-\end{figure}%
+\justify%
+%EndExpansion
+%TCIMACRO{\TeXButton{TeX field}{\footnotesize}}%
+%BeginExpansion
+\footnotesize%
+%EndExpansion
+
+Notes: Decisionmakers are not assumed to choose sequentially. The tree
+diagrams simply represent a nesting structure of the system of ordered
+probit models.
+
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
 %EndExpansion
 %TCIMACRO{\TeXButton{Onehalf}{\begin{onehalfspace}}}%
 %BeginExpansion
@@ -33068,7 +33082,7 @@ Cp
 %%%%%%%%%%%%%%% Start /document/graphics/P6UVVI00__1.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLt@CNq@SMqPcLk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtDsLpdSLrTSLk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBoPU^pUFHo`uSbiVYcQgBoLU]bQW^pUFHodT[a]VYJ|rUiQF]hARLq
 XSMJ|BReevYhQGHu@SNJ|bPiQw\PUf\C}V[p}f[eyF]``cBoLt[l}f\SAWXcUFHoPTYvevXeIuQ
 BipKLUf[gQGZ`TcMpDsMJ|bQiqF]eIGH[}bQlEF]eQTYc}FYeueB~xcBsQg\eEV[J`gvmw[BtvQ
@@ -34083,8 +34097,8 @@ CHRueB~xcBeyFYoIfZJDCHp@r[biFH|pcBoPU^pUFHo@UXgUv\J|rPoUg[tARLJ|rRiQv\`leBw
 [`h@Lp@CLpTcMx`cM`@CLp@CL`xFHJ@CLp@CLp@CLqDCHp@CLp@CHnAbBp@CLp@CLpDSLx@BLp@
 CLp@b[`h@Lp@CLpTcMs@CN`@CLp@CL`xFHJ@CLp@CLuXSMwLCHp@CLp@CHnAbBp@CLp@SMvXCNu
 @BLp@CLp@b[`h@]rEVZlUf\JpCOJ|rTiiWY``cBodd[f}FHs@BL`HeBoHu[oQGHr@BL`HeBodDQ
-`lEOtPdQFITPEUSLCMcPsHDMCasMAItLvTsMCQcQDETNxHcO|PCQFYdPAUTMqLtLBMcPtLDNwDd
-PsXSMwLDMFQTPy`cL~teB~xcBsQWXrQG^rUfYJTcMyLSMJTRIE}dQJ@
+`lEOxPdPAUSLxDsPt\CQudSPrXSQvHSQCUsMr\cMr\sMuPdO|`CQBETMq`SLCQsMDUSNAIcMEYc
+LEMTMwHsMvHsMwTCQ~teB~xcBsQWXrQG^rUfYJTcMyLSMJTRIE}dQJ@
 
 %%%%%%%%%%%%%%%% End /document/graphics/P6UVVI00__1.pdf %%%%%%%%%%%%%%%
 
@@ -34394,7 +34408,7 @@ BB@@@@@pA@@@@VP@cB`p@A@P@@\@@@@`EDph@HLP@@D@@D@@@@\R@@@@@@@@@
 %%%%%%%%%%%%%%% Start /document/graphics/P6BDD601__2.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLt@CNq@SMqPcLk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtDsLpdSLrTSLk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKTeV[eMgSe
 ]gTouVXnipKFqVXgMGHsHcBoXt[nQgPB}F^`lUKuXCN`trLp\CHr@CLp@RLp@sM]ipKMev\sef[
 g]UZdQGZ`HSMphpKSQWYmaDHw\cBoLE]eufU`\sMJ|RRtEF[iMVPn]F[eABLJ|rPaAGReevYhQG
@@ -34567,13 +34581,13 @@ UFMSZqtRheSk`VmZujKT]Mj{T]EbsJTDaJBStVQ|bNIFkhPqdEsRLWqBDUHVJ^RlYqVD[Ul]\m
 CuUjtEu_U|zjsRkkZ]QkWjcfLaW|Vp{hV`wZaRmfZGEOYeR`zAuSjWT_hXiaSctx_{FGCV_NDJ_
 ZVtliyPscVIyR\cBUafpdplpbHPQHbhDVEvDIHlKfbXjxmXIbvIVN^goZQubuHVkfCqFDOhxXbz
 EOdxyEuH^QZ|bMa__`kgVcxUTWbzRUKT]bjehNEuijVjzujn]ukRmLui}dxF`E\YnQv\tIWYau
-fBeyFYoIfZJ\CHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKMYEUG
-YETkLTXlefXrefBoXD[a]v\`LcLJ|bQoyF]BIt[xArVmTCLs@RKs@sM`DcLt@CHyXCM]ipKMev\
+fBeyFYoIfZJ\CHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKNYeVN
+YESkLTXlefXrefBoXD[a]v\`LcLJ|bQoyF]BIt[xArVmTCLs@RKs@sM`DcLt@CHyXCM]ipKMev\
 sef[g]UZdQGZ`HcLvhpKSQWYmaDHxTcBoLE]eufU``SMJ|RRtEF[iMVPn]F[eABLJ|rPaAGReev
 YhQGHvLCNJ|BVHUVZgaF]`PsMphpKAMwXeyF]`dSMrhpKDUv\cUf[tARKrXSNJ|BSeEFYiyvY`H
 cLqhpKMEF^WeFYtaFHqLcLxhpKAYwYWeFYtaFHuHSLJ|bQoyF]FeF[eICHv@BL`HeB~xcBeyFYo
 IfZJ`CHp@r[biFH|pcBoPU^pUFHoXt[nQgBoLU]bQW^pUFHoPe\uUFUyAWYJ|bPaMWYF}f[tArK
-MYEUGYETkLTXlefXrefBoXTZrMG]CaVXrAbLqTcBopTXsQwPhEf\`HSLuhpKEyvXoQVZn]FHo\U
+NYeVNYESkLTXlefXrefBoXTZrMG]CaVXrAbLqTcBopTXsQwPhEf\`HSLuhpKEyvXoQVZn]FHo\U
 ZnEd[seVQnMv[def[gipKF}f[tQTYsMf\iAG]oIGHw@BL`HeBo\UZdQGZsArV`PSNxteO~hPYnQ
 v[bifBy@BL`|fXjABO|hpKTeG\eArKX}dXjUvXtipKSUgXteG\eArKF}f\mipKF}f\mQU^pUFHq
 hpKBIt[xArVp@BL`XCMnXcMu@RMtxrLsPSWJ|RSaQg\iaGH[ECHp@BL`DCHp@BL]ipKRUv\oUg\
@@ -34625,9 +34639,9 @@ uTsLu@bY`h@Lp@CLpDcLvdCM`@CLp@CL`xFHJ@CLp@CLqHsMuPCHp@CLp@CHnAbBp@CLp@CLp@S
 Lq@BLp@CLp@b[`h@Lp@CLp@CLqDCN`@CLp@CL`xFHJ@CLp@CLp@sLw\CHp@CLp@CHnAbBp@CLp@
 CLpdSLw@BLp@CLp@b[`h@Lp@CLp@SNwdcM`@CLp@CL`xFHJ@CLp@CLq@CLwHCHp@CLp@CHnAbBp
 @CLp@SLpHCMr@BLp@CLp@b[`h@Lp@CLpDcLtPsL`@CLp@CL`xFHJ@CLp@CLqHSMuDCHp@CLp@CH
-nAbBtIWXiqVYri@O|hpKSef^eARLrhpKIyfYoArL`@CHRipKR}v[tAbL`@CHRipKIQDH[qCMtLd
-PDMSMCITMCMTPyPDNFYtPuLCMCItLqDSQq\SLrxCOtPsPBQtLuLdPuLtPAeCQxXdQCUsLtLdPsD
-SLEEsMqHcO]i`O~hp\tEf\tag\eYfBqHCNpLcBeTRQOYdB
+nAbBtIWXiqVYri@O|hpKSef^eARLrhpKIyfYoArL`@CHRipKR}v[tAbL`@CHRipKIQDH[qcMrHD
+MrTDLwXsMqHTNvXCQCASQAUdQyDsLpTTNyDcMCyCOvHcPtHSQp\cMwDcPyXcMDMDLEETQFeSLs@
+SQydSLvLdO]i`O~hp\tEf\tag\eYfBqHCNpLcBeTRQOYdB
 %%%%%%%%%%%%%%%% End /document/graphics/P6BDD601__2.pdf %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%% Start /document/P6TXE50A.wmf %%%%%%%%%%%%%%%%%%%%
@@ -34798,7 +34812,7 @@ KE@HCD@@A@pA@@@@VPpRA@r@A@P@@P@@@@pIA|C@@@@@@@
 %%%%%%%%%%%%%%% Start /document/graphics/P6TXE50A__3.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLt@CNq@SMqPcLk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtDsLpdSLrTSLk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKTeV[eMgSe
 ]gTouVXnipKFqVXgMGHsHcBoXt[nQgPB}F^`lUKuXCN`trLp\CHr@CLp@RLp@sM]ipKMev\sef[
 g]UZdQGZ`HSMphpKSQWYmaDHw\cBoLE]eufU`\sMJ|RRtEF[iMVPn]F[eABLJ|rPaAGReevYhQG
@@ -34943,7 +34957,7 @@ QqO@dUoCjg{TE\klGusrpxi^oKU}^tsily~nGMQekz{|LewR}|fwPiC^|iz}fx}gb{fDax{Bqk^
 nrb`ckFGrcAoNTLNVcem_|Lw[j|PX]ypFH^vKVO{rpxUu}i`D{apvIh|L|{DYsCLk^xgjL_~_[
 vtflwj`{KpboixOW[`{CLBZo}}fbfBwf@x{jUIpc@bxgkX@lAcE@aOcVGH@tMt~znHWf[dMG
 ]rUVXmiPYnQv[bifBw@BL`|fXjABO|hpKTeG\eArKF}f[tQTYsMf\iAG]oIgBoXt[nQgSauVY`|
-bTVmTUVytJTeV[eMgSe]gTouVXnqRRtEF[iMfBoXD[a]v\`LcLJ|bQoyF]BIt[xArVmPSNx@RKs
+rTVYDVViuJTeV[eMgSe]gTouVXnqRRtEF[iMfBoXD[a]v\`LcLJ|bQoyF]BIt[xArVmPSNx@RKs
 @sM`DsLsLCHq@cLsteBotTZsMWZn]vUiQF]hAbLu@cBoLE]euFR`\sMJ|rTtUV[VArMwhpKIQWX
 levXAyvYlUFHmDcMnLSNyhpKCEF\HUVZgaF]`XcMrhpKXaTYi]FZtABMuPcBoDt\cUf[tABNyDc
 BoPTYsMVYnQGHmHSLvhpKLUVXdef[gARLu@cBotTXx]UZdQGZ`DcLw`cBoDd]g]UZdQGZ`PCLrh
@@ -34954,9 +34968,9 @@ h|mXb[QdXqwV|AXjSOXPMMHruxc~`[Ao{rqS_\hnZOb|nSBNe^DokSKA]PEVRx[sV{CXJBpUhvV
 dDFb]|Mn}L_Bpd_~z{{jIp_F~|jYbk_jKp_hDxmtnoXALKGSK_MaQB^KW@Nn^DPMUQkEw\JZmHP
 Kw{OWjj_XM]JCbiozj{imQHc~RJbQ_m@YEhl@eEhHCYtLlxjEt|PW[_Z~ievfBEsNWT|yM[VPI
 ihtpvrwZlijrg_q~oWhweyFYsQg\eEV[JTf[d}fXjiPN`@CHoIfZ`pCOJ|BUyAWY`|bQoyF]J|r
-TuIF]yAWY`|BUyAWYphpKBEv\eYt[nQGHoHeUKUeUNmBUiuVYsyTYwIu[mEf[ldD]aqVZcipKEy
+TuIF]yAWY`|BUyAWYphpKBEv\eYt[nQGHoLeUFaeUZmBUiuVYsyTYwIu[mEf[ldD]aqVZcipKEy
 vXoQVZn]FHodDYeyF]iQW^m`dBoPTYsMVYnQVXnQgQoyF]sArV|psKTeG\eArKF}f[tipKSUgXt
-eG\eArKCeDQF}f[tQU^pUfLJ|bPaMWYF}f[tArKRYuRUYeSkPUZmUv\NUv]R}V[ayFKIQWXlevX
+eG\eArKCeDQF}f[tQU^pUfLJ|bPaMWYF}f[tArKSYeQXYeVkPUZmUv\NUv]R}V[ayFKIQWXlevX
 J|bQoyF]DUv\cIWZpQw[rArM`@CHRipKCeDQSew\tUV[IyfYoABO|hpKRUvYiMG]reGHh@EQFau
 Ps@SJJ|rSrQVYref[gABJIyFYeyF]iQW^pdbBoLU]pAG[euVYnQGHp@bO~hpKWArVJLCLr@rVuH
 SM]iPMsLCH[QSNx@rLyPSWJTCMq@rVu@cL]iPMtTCH[QCNpteB]ipKD]EHq@CLph`O~teBoPu[U
@@ -35008,7 +35022,7 @@ CMxHCHp@CLp@CHnAbBp@CLp@CLp@SLq@BLp@CLp@b[`h@Lp@CLp@CLqDCN`@CLp@CL`xFHJ@CLp
 J@CLp@CLp`CMvTCHp@CLp@CHnAbBp@CLp@CLx`CLw@BLp@CLp@b[`h@Lp@CLp@SNqdcL`@CLp@C
 L`xFHJ@CLp@CLpdCMvTCHp@CLp@CHnAbBp@CLp@CLydCLt@BLp@CLp@b[`h@Lp@CLpDSLqXSN`@
 CLp@CL`xFHJ@CLp@CLqDcLw\CHp@CLp@CHnAbBtIWXiqVYri@O|hpKSef^eARLuhpKIyfYoArL`
-@CHRipKR}v[tAbL`@CHRipKIQDH[qSMqXDLxDsMyPsPFEtMsXtMsXCQxTTNuDSNuPSLqXTLwxCO
-uDcQp`SLwdCMCYTPwLcQwLcMDaSQyTSLyTCMqDcQq\cO]i`O~hp\tEf\tag\eYfBqDSMsDcBeTR
+@CHRipKR}v[tAbL`@CHRipKIQDH[qSPydcLsDDNtdSNFYsPuDCQw@CNAUCLAMTLw`SMCMDLpxCO
+AeSNrLSPxPSNyXdMCUSLD]CLxDTMpDtPq\CNuLtPp@cO]i`O~hp\tEf\tag\eYfBqDSMsDcBeTR
 QOYdB
 %%%%%%%%%%%%%%%% End /document/graphics/P6TXE50A__3.pdf %%%%%%%%%%%%%%%
