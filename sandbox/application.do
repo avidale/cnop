@@ -11,10 +11,14 @@ run stata_wrappers.ado
 
 import delimited Data_for_application.csv, clear 
 
-cnop y5 pb_l pb_t spread houst gdp in 3/193, zn(spread gdp) zp(pb_t spread gdp) infcat(3)
-cnop y3 pb spread houst gdp in 3/193, zn(spread gdp) zp(pb spread) infcat(2) correlated
-nop y5 pb spread houst gdp in 3/193, zn(spread gdp) zp(pb spread) infcat(3)
-nop y5 pb spread houst gdp in 3/193, zn(spread gdp) zp(pb spread) infcat(3) correlated
+cnop y5 pb spread houst gdp in 5/214, zn(spread gdp) zp(pb spread) infcat(3)
+cnop y5 pb spread houst gdp in 5/214, zn(spread gdp) zp(pb spread) infcat(3) correlated
+
+cnop y5 pb_l pb_t spread houst gdp in 5/214, zn(spread gdp) zp(pb_t spread gdp) infcat(3)
+cnop y5 pb_l pb_t spread houst gdp in 5/214, zn(spread gdp) zp(pb_t spread) infcat(3) correlated
+
+nop y5 pb spread houst gdp in 5/214, zn(spread ) zp(pb spread) infcat(3)
+nop y5 pb spread houst gdp in 5/214, zn(spread gdp) zp(pb spread) infcat(3) correlated
 
 gen pb2 = pb
 replace pb2 = 1 if pb != 0
