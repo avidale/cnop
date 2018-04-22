@@ -21,8 +21,20 @@ capture program drop ziopprobabilities
 capture program drop ziopcontrasts
 capture program drop ziop2
 capture program drop ZIOP_predict
+capture program drop ziopconfusion
 
 
+// confusion matrix (classification table) for the last ziop-like command
+program ziopconfusion
+	version 13
+	predict _predicted, output(mode)
+	gen _correct_predicted = _predicted == `e(depvar)'
+	display "Classification table"
+	tab _predicted `e(depvar)'
+	quietly sum _correct_predicted
+	display "% Correctly Predicted = " round(`r(mean)', 0.0001)
+	drop _predicted _correct_predicted 
+end
 
 // prediction for NOP, ZIOP2 and ZIOP3
 program ZIOP_predict
