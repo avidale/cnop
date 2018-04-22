@@ -1957,8 +1957,10 @@ function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robus
 	
 	class CNOPModel scalar model 
 	if (correlated) {
+		switching_type = "endogenous"
 		model = estimateCNOPC(y, x, zp, zn, infcat, 0, initial, robust, who)
 	} else {
+		switching_type = "exogenous"
 		model = estimateCNOP(y, x, zp, zn, infcat, 0, initial, robust, who)
 	}
 	
@@ -1992,6 +1994,13 @@ function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robus
 	st_matrixrowstripe("V", stripes)
 	st_local("depvar", yname)
 	st_local("N", strofreal(model.n))
+	st_local("ll", strofreal(model.logLik))
+	
+	// describe the model
+	"Three-part zero-inflated ordered probit model with " + switching_type + " switching"
+	"Number of observations = " + strofreal(model.n)
+	"Log likelihood = " + strofreal(model.logLik)
+	
 	return(model)
 }
 
@@ -2034,8 +2043,10 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 	
 	class CNOPModel scalar model 
 	if (correlated) {
+		switching_type = "endogenous"
 		model = estimateNOPC(y, x, zp, zn, infcat, 0, initial, robust, who)
 	} else {
+		switching_type = "exogenous"
 		model = estimateNOP(y, x, zp, zn, infcat, 0, initial, robust, who)
 	}
 	
@@ -2069,6 +2080,13 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 	st_matrixrowstripe("V", stripes)
 	st_local("depvar", yname)
 	st_local("N", strofreal(model.n))
+	st_local("ll", strofreal(model.logLik))
+	
+	// describe the model
+	"Three-part nested ordered probit model with " + switching_type + " switching"
+	"Number of observations = " + strofreal(model.n)
+	"Log likelihood = " + strofreal(model.logLik)
+	
 	return(model)
 }
 
@@ -2104,8 +2122,10 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 	
 	class CNOPModel scalar model
 	if (correlated) {
+		switching_type = "endogenous"
 		model = estimateMIOPRC(y, x, z, infcat, 0, initial, robust, who)
 	} else {
+		switching_type = "exogenous"
 		model = estimateMIOPR(y, x, z, infcat, 0, initial, robust, who)
 	}
 	model.XZnames 	= allvars
@@ -2140,6 +2160,13 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 	st_matrixrowstripe("V", stripes)
 	st_local("depvar", yname)
 	st_local("N", strofreal(model.n))
+	st_local("ll", strofreal(model.logLik))
+	
+	// describe the model
+	"Two-part zero-inflated ordered probit model with " + switching_type + " switching"
+	"Number of observations = " + strofreal(model.n)
+	"Log likelihood = " + strofreal(model.logLik)
+	
 	return(model)
 }
 

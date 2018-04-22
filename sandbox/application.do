@@ -43,4 +43,3 @@ replace houst_n = 0 if houst_g > 0
 
 ziop2 y5 pb_l pb_t in 5/214, x(pb spread houst gdp) infcat(3) endoswitch
 ziop2 y3 spreada  in 5/214, x(pb houst gdp ) infcat(2) endoswitch
-
