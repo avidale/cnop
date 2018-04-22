@@ -20,13 +20,13 @@
 %                                                                     %
 % Files included:                                                     %
 %                                                                     %
-% "/document/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex", Document, 64826, 4/22/2018, 2:10:58, ""%
+% "/document/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex", Document, 65521, 4/22/2018, 20:48:02, ""%
 % "/document/P6UVVI00.wmf", PastePict, 1779614, 4/6/2018, 13:01:32, ""%
-% "/document/graphics/P6UVVI00__1.pdf", ImportPict, 57247, 4/22/2018, 2:10:58, ""%
+% "/document/graphics/P6UVVI00__1.pdf", ImportPict, 57247, 4/22/2018, 20:48:02, ""%
 % "/document/P6BDD601.wmf", PastePict, 16754, 3/28/2018, 18:43:54, "" %
-% "/document/graphics/P6BDD601__2.pdf", ImportPict, 14111, 4/22/2018, 2:10:58, ""%
+% "/document/graphics/P6BDD601__2.pdf", ImportPict, 14111, 4/22/2018, 20:48:02, ""%
 % "/document/P6TXE50A.wmf", PastePict, 9036, 4/6/2018, 9:28:50, ""    %
-% "/document/graphics/P6TXE50A__3.pdf", ImportPict, 12165, 4/22/2018, 2:10:58, ""%
+% "/document/graphics/P6TXE50A__3.pdf", ImportPict, 12165, 4/22/2018, 20:48:02, ""%
 %                                                                     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -60,7 +60,7 @@
 %TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
 %TCIDATA{BibliographyScheme=Manual}
 %TCIDATA{Created=Wednesday, April 07, 2010 09:52:31}
-%TCIDATA{LastRevised=Sunday, April 22, 2018 05:10:57}
+%TCIDATA{LastRevised=Sunday, April 22, 2018 23:48:01}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
 %TCIDATA{Language=American English}
@@ -1048,13 +1048,14 @@ values for estimation, in the following order: $\beta $, $\alpha $, $\gamma
 \texttt{nop}, \texttt{ziop2}, and \texttt{ziop3} store the following in 
 \texttt{e()}:
 
-%Scalars
+Scalars
 
 \begin{tabular}{p{3cm}p{12cm}}
-\texttt{e(N)} & number of observations%
+\texttt{e(N)} & number of observations \\
+\texttt{e(ll)} & total log-likelihood of the model%
 \end{tabular}
 
-%Macros
+Macros
 
 \begin{tabular}{p{3.12cm}p{12cm}}
 \texttt{e(cmd)} & \texttt{nop}, \texttt{ziop2}, or \texttt{ziop3},
@@ -1063,14 +1064,15 @@ respectively \\
 \end{tabular}%
 \ss 
 
-%Matrices
+Matrices
 
 \begin{tabular}{p{3cm}p{12cm}}
 \texttt{e(b)} & parameters vector \\ 
-\texttt{e(V)} & variance-covariance matrix%
+\texttt{e(V)} & variance-covariance matrix \\
+\texttt{e(ll\_obs)} & vector of observation-wise log-likelihood%
 \end{tabular}
 
-%Functions
+Functions
 
 \begin{tabular}{p{3cm}p{12cm}}
 \texttt{e(sample)} & marks estimation sample%
@@ -1147,6 +1149,31 @@ This command prints differences in predicted probabilities for the last
 estimated model (either NOP, or ZIOP-2, or ZIOP-3), calculated between the
 specified points, along with confidence intervals. The points \texttt{at}
 and \texttt{to} are specified like \texttt{at} in \texttt{ziopmargins}.
+
+\subsubsection*{The ziopconfusion command}
+
+\texttt{ziopconfusion}
+
+This command prints the classification table (confusion matrix). It displays
+the predicted (most probable) outcome in rows, actual outcome in columns,
+and number of (mis)classifications in each cell. The command also prints the
+percentage of correct predictions.
+
+\subsubsection*{The ziopvuong command}
+
+\texttt{ziopvuong $modelspec_1$ $modelspec_2$}
+
+This command performs non-nested Vuong test which compares closeness of 
+two models to the true data distribution. Arguments $modelspec_1$ and 
+$modelspec_2$ are the names under which estimation results were saved
+using \texttt{estimates store} command. Any model that stores vector
+ \texttt{e(ll\_obs)} of observation-wise log-likelihood technically can be 
+used to perform the test.
+
+The command calculates and outputs a z-score for the 
+difference of pointwise log likelihoods of the two models. It can be used to 
+test the hypothesis that one of the models explains the data better 
+than the other.
 
 \section{Monte Carlo simulations}
 
@@ -33084,7 +33111,7 @@ Cp
 %%%%%%%%%%%%%%% Start /document/graphics/P6UVVI00__1.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHcLpTSLpTsMk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHcLrLCMx@SLk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBoPU^pUFHo`uSbiVYcQgBoLU]bQW^pUFHodT[a]VYJ|rUiQF]hARLq
 XSMJ|BReevYhQGHu@SNJ|bPiQw\PUf\C}V[p}f[eyF]``cBoLt[l}f\SAWXcUFHoPTYvevXeIuQ
 BipKLUf[gQGZ`TcMpDsMJ|bQiqF]eIGH[}bQlEF]eQTYc}FYeueB~xcBsQg\eEV[J`gvmw[BtvQ
@@ -34099,8 +34126,8 @@ CHRueB~xcBeyFYoIfZJDCHp@r[biFH|pcBoPU^pUFHo@UXgUv\J|rPoUg[tARLJ|rRiQv\`leBw
 [`h@Lp@CLpTcMx`cM`@CLp@CL`xFHJ@CLp@CLp@CLqDCHp@CLp@CHnAbBp@CLp@CLpDSLx@BLp@
 CLp@b[`h@Lp@CLpTcMs@CN`@CLp@CL`xFHJ@CLp@CLuXSMwLCHp@CLp@CHnAbBp@CLp@SMvXCNu
 @BLp@CLp@b[`h@]rEVZlUf\JpCOJ|rTiiWY``cBodd[f}FHs@BL`HeBoHu[oQGHr@BL`HeBodDQ
-`lEOq@sLxLdLqLTNEASLDMsPBACNw`cQw\SQt`sMAQCMDacO|DCLs`sPrDsPyTDLqPtLCIDLx\C
-NF]sMEQCNwDDMtPDN~teB~xcBsQWXrQG^rUfYJTcMyLSMJTRIE}dQJ@
+`lEOAaCLyHTPFeSNyPSPrHcLrXTLw@cQAaSQpTsPwHSMtXcO|DDNpdcPAYTNydCMAIcLrHcQq\C
+LFEDNEASMC]cLuPcM~teB~xcBsQWXrQG^rUfYJTcMyLSMJTRIE}dQJ@
 
 %%%%%%%%%%%%%%%% End /document/graphics/P6UVVI00__1.pdf %%%%%%%%%%%%%%%
 
@@ -34410,7 +34437,7 @@ BB@@@@@pA@@@@VP@cB`p@A@P@@\@@@@`EDph@HLP@@D@@D@@@@\R@@@@@@@@@
 %%%%%%%%%%%%%%% Start /document/graphics/P6BDD601__2.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHcLpTSLpTCNk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHcLrLCMx@cLk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKTeV[eMgSe
 ]gTouVXnipKFqVXgMGHsHcBoXt[nQgPB}F^`lUKuXCN`trLp\CHr@CMv@RLpPCL]ipKMev\sef[
 g]UZdQGZ`HSMphpKSQWYmaDHw\cBoLE]eufU`\sMJ|RRtEF[iMVPn]F[eABLJ|rPaAGReevYhQG
@@ -34598,13 +34625,13 @@ TbgW|uWh~FuoJ}\toC}Ch_Szwm~bto\M{z{V|RzUYI[}}jEe~MZIK}_QWE_geih_EzkQkgzl
 xeugke^YigVF`~dHkxEo]|NjUxmVtT{hNQ]f\RIQ}czOM@ZPdCZ|tyZ|[hgLV_NZj@Znt|hySK
 `VCyS\MB]aEaUaMa]QxbhDqK\J\IRRxVLKqlq[qRE]RlJ|N_}bzD[P\~V|Hvlx~DGRthx~EOch^
 qsQSUlU|wGxJiMHNj~rtWn^QzSWoT}YiO[}rtoT}KS|tKWobG@sZ_zHVf[dMG]rUVXmiPYnQv
-[bifBw@BL`|fXjABO|hpKTeG\eArKF}f[tQTYsMf\iAG]oIgBoXt[nQgSauVY`|bTVEUQVEuJCE
+[bifBw@BL`|fXjABO|hpKTeG\eArKF}f[tQTYsMf\iAG]oIgBoXt[nQgSauVY`|bVVAETVeuJCE
 F[iIf\iipKFqVXgMGHsHcBoXt[nQgPB}F^`lUKu@sL`trLqLCHqHCMp@RLpHcM]ipKMev\sef[g
 ]UZdQGZ`HcLvhpKSQWYmaDHxTcBoLE]eufU``SMJ|RRtEF[iMVPn]F[eABLJ|rPaAGReevYhQGH
 vLCNJ|BVHUVZgaF]`PsMphpKAMwXeyF]`dSMrhpKDUv\cUf[tARKrXSNJ|BSeEFYiyvY`HcLqhp
 KMEF^WeFYtaFHqLcLxhpKAYwYWeFYtaFHuHSLJ|bQoyF]FeF[eICHv@BL`HeB~xcBeyFYoIfZJ`
-CHp@r[biFH|pcBoPU^pUFHoXt[nQgBoLU]bQW^pUFHoPe\uUFUyAWYJ|bPaMWYF}f[tArKRYUTE
-YUTkLTXlefXrefBoXTZrMG]CaVXrAbLqTcBopTXsQwPhEf\`HSLuhpKEyvXoQVZn]FHo\UZnEd[
+CHp@r[biFH|pcBoPU^pUFHoXt[nQgBoLU]bQW^pUFHoPe\uUFUyAWYJ|bPaMWYF}f[tArKZYETP
+YUVkLTXlefXrefBoXTZrMG]CaVXrAbLqTcBopTXsQwPhEf\`HSLuhpKEyvXoQVZn]FHo\UZnEd[
 seVQnMv[def[gipKF}f[tQTYsMf\iAG]oIGHw@BL`HeBo\UZdQGZsArV`PSNxteO~hPYnQv[bif
 By@BL`|fXjABO|hpKTeG\eArKX}dXjUvXtipKSUgXteG\eArKF}f\mipKF}f\mQU^pUFHqhpKBI
 t[xArVp@BL`XCMnXcMu@RMtxrLsPSWJ|RSaQg\iaGH[ECHp@BL`DCHp@BL]ipKRUv\oUg\cUv\`
@@ -34658,8 +34685,8 @@ Lp@b[`h@Lp@CLp@CLpDSL`@CLp@CL`xFHJ@CLp@CLp@SLq`CHp@CLp@CHnAbBp@CLp@CLpLsMw@
 BLp@CLp@b[`h@Lp@CLp@CLyDsM`@CLp@CL`xFHJ@CLp@CLq@cMsTCHp@CLp@CHnAbBp@CLp@SLp
 dSLr@BLp@CLp@b[`h@Lp@CLpDSLp`cL`@CLp@CL`xFHJ@CLp@CLqLsLu\CHp@CLp@CHnAbBp@CL
 p@SLsPcMu@BLp@CLp@b[`h@]rEVZlUf\JpCOJ|rTiiWY`DcLJ|RRnYv[`LCHp@bTJ|bTo}F]`HC
-Hp@bTJ|RRDArV|HSMFISNCMtPqTtMp@cMx@SMEACLuHTPEIdPxdcMAYcP~pcLuXdLyLtPCESQw@
-CLv`CLuTDLpTcPAUdPBaSNvDdMBySWJxcOJLG]aIG]xIWYfiPLs\SLwhPIeTtSFi@
+Hp@bTJ|RRDArV|`SQyLCNq`CQsPSQAMTMr\SNqLDQD]cQDITPu\SPrHDM~pCNEesLxDCNDMCMEE
+tPuHsMyDsPDQtMFQdPAUsMAIcPtxSWJxcOJLG]aIG]xIWYfiPLs\SLwhPIeTtSFi@
 
 %%%%%%%%%%%%%%%% End /document/graphics/P6BDD601__2.pdf %%%%%%%%%%%%%%%
 
@@ -34831,7 +34858,7 @@ KE@HCD@@A@pA@@@@VPpRA@r@A@P@@P@@@@pIA|C@@@@@@@
 %%%%%%%%%%%%%%% Start /document/graphics/P6TXE50A__3.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHcLpTSLpTCNk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHcLrLCMx@cLk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKTeV[eMgSe
 ]gTouVXnipKFqVXgMGHsHcBoXt[nQgPB}F^`lUKuXCN`trLp\CHr@CMv@RLpPCL]ipKMev\sef[
 g]UZdQGZ`HSMphpKSQWYmaDHw\cBoLE]eufU`\sMJ|RRtEF[iMVPn]F[eABLJ|rPaAGReevYhQG
@@ -34977,8 +35004,8 @@ cyGZwv_or^Z^HGCO_xPjgC_FX\]GWc`Gg_Yln{kksQpsaa}k^^x|aIhYlPMl|`aj^^t``IJ~A`
 lz]P]]gj`[e]i^VFFOu}]ijwc^VeMts}hIh\M_ggi|vjgw|fJmqcOUowDoT\gdpEOMDgzyJKDN
 jZ\HOF|FPaxXMFv^qs\oerCczrfu_|lWTO{JpxTk{SAIvCcmSPYc|{DYsCLk^xgjL_~RxhMIo
 U@j@Z{Vbw\xAlGpHh}NwO[Zr\[t_SxZPQpsCZpOWq@XCFK@B]PkFD@zN@KqEAWYnQv\tIWYa
-ufBeyFYoIfZJ\CHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKBYER
-RYeSkPUZmUv\NUv]R}V[ayFKIQWXlevXJ|bQlEvYsArLrhpKF}f[tIdPoaGH[uBMy`CHmLCLw@R
+ufBeyFYoIfZJ\CHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKKYeU
+AYuPkPUZmUv\NUv]R}V[ayFKIQWXlevXJ|bQlEvYsArLrhpKF}f[tIdPoaGH[uBMy`CHmLCLw@R
 LsLsL`DCLrLSWJ|RSiMw\iyvYWeFYtaFHrTCLJ|rTtUV[HArMwhpKSQWYmYEHw\cBodD]aqVZcE
 d[gqVY`tRLvxrLydcBoLTXpaTYi]FZtAbMvHcBo`EReevYhQGHtTCMJ|RPsMVYnQGHxdSLJ|BQe
 MwXeyF]`tbLqXcBopTYaQVZn]FHqTCLJ|RSaawUiQF]hARLsPCLJ|RPv]vUiQF]hABMpHcBoXt[
@@ -34989,9 +35016,9 @@ nEQbE_[qG`iN}`Aut`HWcOzCnE|nKGO}qazj}Hr{NIxTzQ|nNmDtAUXIaoM[mO`iH@WaZ[QRXHv
 qwxvs|I@S~ykookf@YxskfIn~in@aR`wR{~bEpl\Lm|uDFIxm\AxxzQ@uTEmV\sihub@m|_o
 \ij~autiLHf~jkngvFaLzKiHF}uBdU`rBTV`bLdQspbkVPsC]m}iygVZ[JTL{\QqgwlYAedbRC[
 K_kqfjJ_~E{^a^Wf[dMG]rUVXmiPYnQv[bifBy@BL`|fXjABO|hpKTeG\eArKF}f[tipKSUgXt
-eG\eArKTeG\eAcBoHTXsUfQoyF]`|bPVadTVytJTeV[eMgSe]gTouVXnqRRtEF[iMfBoTd[c}FY
+eG\eArKTeG\eAcBoHTXsUfQoyF]`|rRVYUPVMtJTeV[eMgSe]gTouVXnqRRtEF[iMfBoTd[c}FY
 iyvY`|RRdUf[teF]yuBRJ|BQeMwXeyFYayF]F}f[tMGH[qCOoPU^pUFHoXt[nQgBoLU]bQW^pUF
-HoLTRDYt[nQGUyAWYrhpKBEv\eYt[nQGHoHdUHIeUNmBUiuVYsyTYwIu[mEf[ldD]aqVZcipKF}
+HoLTRDYt[nQGUyAWYrhpKBEv\eYt[nQGHoldUVEdUCmBUiuVYsyTYwIu[mEf[ldD]aqVZcipKF}
 f[tQTYsMf\iAG]oIGHw@BL`HeBoLTRDMU^sQWYmed[f}FH|pcBoHUYgev\tIW^``BTDYDVCMCLi
 hpKOIGYeIWZn]FHhdd[dUf[teF]yASJJ|rTuAG\lUV[eyF]`@CH~xcBo\EH[ipLpHCH[UcLuteB
 uLsL`lEMy`CHsdCM]iPMtDCH[UCLrteBuPSM`lEMx@SWJteBoPtU`DCLp@cB~xSWJ|BUoUe[iMv
@@ -35044,7 +35071,7 @@ CLp@CL`xFHJ@CLp@CLp@sLw\CHp@CLp@CHnAbBp@CLp@CLp`cMs@BLp@CLp@b[`h@Lp@CLp@CNr
 \CN`@CLp@CL`xFHJ@CLp@CLp`SMwPCHp@CLp@CHnAbBp@CLp@CLxdSLv@BLp@CLp@b[`h@Lp@CL
 p@SNs@SL`@CLp@CL`xFHJ@CLp@CLpdSMwPCHp@CLp@CHnAbBp@CLp@SLp@SLs@BLp@CLp@b[`h@
 Lp@CLpDSLsPSN`@CLp@CL`xFHJ@CLp@CLqDCMu\CHp@CLp@CHnAbBtIWXiqVYri@O|hpKSef^eA
-RLuhpKIyfYoArL`@CHRipKR}v[tAbL`@CHRipKIQDH[qcMwXDNBYSLtXsPrPSLCASPwPsPFAcQq
-DCLAYcMv`cPvxCOv\cQxHdMqPcMCICMqLDLA]CMCYDLFESLpDdMvXCNBYcO]i`O~hp\tEf\tag\
+RLuhpKIyfYoArL`@CHRipKR}v[tAbL`@CHRipKIQDH[qcPuHTPsHTMtHcPrDTQq`sMAECLEYSNx
+PTLAMdPEMsLAyCOBUcPAMcPuPcLBISPEECNwDTLpTdMy`CQqDtPBUtLsDdO]i`O~hp\tEf\tag\
 eYfBqDsMqDcBeTRQOYdB
 %%%%%%%%%%%%%%%% End /document/graphics/P6TXE50A__3.pdf %%%%%%%%%%%%%%%

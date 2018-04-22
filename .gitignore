@@ -47,12 +47,13 @@ Temporary Items
 .apdisk
 
 # latex trash files
-.aaa
-.aux
-.bak
-.log
+*.aaa
+*.aux
+*.bak
+*.log
 .upd.synctex.gz
 ~*.docx
 paper/graphics
-.wmf
-.tmp
+*.wmf
+paper/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex
+paper/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex
