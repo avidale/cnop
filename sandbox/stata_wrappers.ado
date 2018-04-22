@@ -22,18 +22,72 @@ capture program drop ziopcontrasts
 capture program drop ziop2
 capture program drop ZIOP_predict
 capture program drop ziopconfusion
+capture program drop ziopvuong
 
 
 // confusion matrix (classification table) for the last ziop-like command
-program ziopconfusion
+program ziopconfusion, rclass
 	version 13
+	// todo: use the marked sample
 	predict _predicted, output(mode)
 	gen _correct_predicted = _predicted == `e(depvar)'
 	display "Classification table"
 	tab _predicted `e(depvar)'
+	// todo: don't store unwanted results of sum
 	quietly sum _correct_predicted
 	display "% Correctly Predicted = " round(`r(mean)', 0.0001)
 	drop _predicted _correct_predicted 
+	return local accuracy = `r(mean)'
+end
+
+capture program drop argdisp
+program argdisp
+	version 13
+	args first second third
+	display "1st argument = ‘first’"
+	display "2nd argument = ‘second’"
+	display "3rd argument = ‘third’"
+	display "3rd argument = `third'"
+end
+
+
+// vuong test to compare two models
+capture program drop ziopvuong
+
+program ziopvuong, rclass
+	version 13
+	args modelspec1 modelspec2
+	// todo: try to est store current environment
+	quietly est restore `modelspec1'
+	mat ll_1 = e(ll_obs)
+	quietly est restore `modelspec2'
+	mat ll_2 = e(ll_obs)
+	mat ll_diff = ll_1 - ll_2
+	display "Vuong non-nested test for `modelspec1' vs `modelspec2'"
+	mata: vuong_calc()
+	// todo: try to restore current environment
+	return local mean_diff = `mean_diff'
+	return local std_diff = `std_diff'
+	return local N = `n_obs'
+	return local vuong = `vuong'
+end
+
+mata:
+	void vuong_calc(){
+		ll_diff = st_matrix("ll_diff")
+		mean_diff = mean(ll_diff)
+		std_diff = sqrt(variance(ll_diff))
+		n_obs = rows(ll_diff)
+		vuong = mean_diff / (std_diff / sqrt(n_obs))
+		"Mean difference in log likelihood                  " + strofreal(mean_diff)
+		"Standard deviation of difference in log likelihood " + strofreal(std_diff)
+		"Number of observations                             " + strofreal(n_obs)
+		"Vuong test statistic                               " + strofreal(vuong)
+		st_local("mean_diff", strofreal(mean_diff))
+		st_local("std_diff", strofreal(std_diff))
+		st_local("n_obs", strofreal(n_obs))
+		st_local("vuong", strofreal(vuong))
+	}
 end
 
 // prediction for NOP, ZIOP2 and ZIOP3
@@ -87,6 +141,8 @@ program ziop3, eclass
 	ereturn post b V, esample(`touse') obs(`N') depname(`depvar')
 	ereturn local predict "ZIOP_predict"
 	ereturn local cmd "ziop3"
+	ereturn local ll `ll'
+	ereturn matrix ll_obs=ll_obs
 	ereturn display
 end
 
@@ -100,7 +156,8 @@ program ziop2, eclass
 	ereturn post b V, esample(`touse')  depname(`depvar') obs(`N')
 	ereturn local predict "ZIOP_predict"
 	ereturn local cmd "ziop2"
-	
+	ereturn local ll `ll'
+	ereturn matrix ll_obs ll_obs
 	ereturn display
 end
 
@@ -114,6 +171,8 @@ program nop, eclass
 	ereturn post b V, esample(`touse') obs(`N') depname(`depvar')
 	ereturn local predict "ZIOP_predict"
 	ereturn local cmd "nop"
+	ereturn local ll `ll'
+	ereturn matrix ll_obs ll_obs
 	ereturn display
 end
 

@@ -45,6 +45,7 @@ class CNOPModel {
 	
 	// probabilities
 	real matrix probabilities
+	real matrix ll_obs
 	// probability of r == 1
 	real scalar p1_sorted
 	real scalar p1_range
@@ -90,29 +91,5 @@ class CNOPModel {
 	string vector parnames
 }
 
-
-function Vuongtest(class CNOPModel scalar model1, class CNOPModel scalar model2, real matrix trueClassification){
-	if(model1.n != model2.n){
-		 _error("Vuong test failed: two models are estimated on different numpber of observations")
-	}
-	if(model1.ncat != model2.ncat){
-		 _error("Vuong test failed: two models include different number of categories")
-	}
-	f1      = colsum((model1.probabilities :* trueClassification)');
-	f2      = colsum((model2.probabilities :* trueClassification)');
-	mi      = ln(f1 :/ f2);
-	vtop    = mean(mi') * sqrt(model1.n);
-	vbot    = sqrt(variance(mi'));
-	return(vtop / vbot)
-}
-
-function Vuong(real matrix prob1, real matrix prob2, real matrix trueClassification){
-	f1      = colsum((prob1 :* trueClassification)');
-	f2      = colsum((prob2 :* trueClassification)');
-	mi      = ln(f1 :/ f2);
-	vtop    = mean(mi') * sqrt(rows(prob1));
-	vbot    = sqrt(variance(mi'));
-	return(vtop / vbot)
-}
   
 end

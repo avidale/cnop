@@ -229,6 +229,7 @@ class CNOPModel scalar estimateNOP(y, x, zp, zn, infcat, |quiet, startvalues, ro
 	ncat = rows(allcat)
 	ncatp = sum(allcat :> infcat)
 	ncatn = sum(allcat :< infcat)
+	infcat_index = selectindex(allcat :== infcat)
 	
 	q = J(n, ncat, 0)
 	for(i=1;i<=ncat; i++){
@@ -341,7 +342,7 @@ class CNOPModel scalar estimateNOP(y, x, zp, zn, infcat, |quiet, startvalues, ro
 		optimize_init_argument(S, 3, zn)
 		optimize_init_argument(S, 4, q)
 		optimize_init_argument(S, 5, ncat)
-		optimize_init_argument(S, 6, selectindex(allcat :== infcat))
+		optimize_init_argument(S, 6, infcat_index)
 		optimize_init_argument(S, 7, 1) // coded
 		optimize_init_evaluator(S, &_nop_optim())
 		optimize_init_evaluatortype(S, "gf0") // not concave if use GF1
@@ -395,7 +396,7 @@ class CNOPModel scalar estimateNOP(y, x, zp, zn, infcat, |quiet, startvalues, ro
 	optimize_init_argument(S2, 3, zn)
 	optimize_init_argument(S2, 4, q)
 	optimize_init_argument(S2, 5, ncat)
-	optimize_init_argument(S2, 6, selectindex(allcat :== infcat))
+	optimize_init_argument(S2, 6, infcat_index)
 	optimize_init_argument(S2, 7, 0)
 	optimize_init_params(S2, params')
 	
@@ -410,7 +411,6 @@ class CNOPModel scalar estimateNOP(y, x, zp, zn, infcat, |quiet, startvalues, ro
 	if (cols(who) > 0 && who != .) {
 		optimize_init_cluster(S2, who) // added!!!
 	}
-	
 	
 	errorcode2 = _optimize_evaluate(S2)
 	
@@ -431,6 +431,8 @@ class CNOPModel scalar estimateNOP(y, x, zp, zn, infcat, |quiet, startvalues, ro
 		covMat	= optimize_result_V(S2)
 		covMat_rob = optimize_result_V_robust(S2)
 	}
+	// calculate log-likelihood of each observation
+	_nop_optim(0, params', x, zp, zn, q, ncat, infcat_index, 0, ll_obs, _, _)
 	
 	// calculate model statistics
 	se		= sqrt(diagonal(covMat))
@@ -446,7 +448,7 @@ class CNOPModel scalar estimateNOP(y, x, zp, zn, infcat, |quiet, startvalues, ro
 	model.ncat	= ncat
 	model.ncatn = ncatn
 	model.ncatp = ncatp
-	model.infcat= selectindex(allcat :== infcat)
+	model.infcat = infcat_index
 	model.allcat = allcat
 	
 	model.params = params
@@ -467,6 +469,7 @@ class CNOPModel scalar estimateNOP(y, x, zp, zn, infcat, |quiet, startvalues, ro
 	model.V	= covMat
 	model.V_rob	= covMat_rob
 	model.logLik	= maxLik
+	model.ll_obs = ll_obs
 	
 	model.retCode = retCode
 	model.error_code = errorcode
@@ -518,6 +521,7 @@ class CNOPModel scalar estimateMIOPR(y, x, z, infcat, |quiet, startvalues, robus
 	kz	= cols(z)
 	allcat = uniqrows(y)
 	ncat = rows(allcat)
+	infcat_index = selectindex(allcat :== infcat)
 	
 	// compute categories
 	q = J(n, ncat, 0)
@@ -613,7 +617,7 @@ class CNOPModel scalar estimateMIOPR(y, x, z, infcat, |quiet, startvalues, robus
 		optimize_init_argument(S, 2, z)
 		optimize_init_argument(S, 3, q)
 		optimize_init_argument(S, 4, ncat)
-		optimize_init_argument(S, 5, selectindex(allcat :== infcat))
+		optimize_init_argument(S, 5, infcat_index)
 		optimize_init_argument(S, 6, 1) // coded
 		optimize_init_evaluator(S, &_miopr_optim())
 		
@@ -667,7 +671,7 @@ class CNOPModel scalar estimateMIOPR(y, x, z, infcat, |quiet, startvalues, robus
 	optimize_init_argument(S2, 2, z)
 	optimize_init_argument(S2, 3, q)
 	optimize_init_argument(S2, 4, ncat)
-	optimize_init_argument(S2, 5, selectindex(allcat :== infcat))
+	optimize_init_argument(S2, 5, infcat_index)
 	optimize_init_argument(S2, 6, 0) // flag that params are coded to avoid inequality constraints
 	optimize_init_evaluator(S2, &_miopr_optim())
 	optimize_init_evaluatortype(S2, "gf0")
@@ -714,7 +718,8 @@ class CNOPModel scalar estimateMIOPR(y, x, z, infcat, |quiet, startvalues, robus
 		covMat_rob = optimize_result_V_robust(S2)
 		//covMat_rob
 	}
-	//"TEST: MATRICES EXTRACTED"
+	// calculate log-likelihood of each observation
+	_miopr_optim(0, params', x, z, q, ncat, infcat_index, 0, ll_obs, _, _)
 	
 	// calculate model statistics
 	se		= sqrt(diagonal(covMat))
@@ -727,7 +732,7 @@ class CNOPModel scalar estimateMIOPR(y, x, z, infcat, |quiet, startvalues, robus
 	model.n	= n
 	model.k	= kx + kz
 	model.ncat	= ncat
-	model.infcat= selectindex(allcat :== infcat)
+	model.infcat = infcat_index
 	model.allcat = allcat
 	
 	model.params = params
@@ -745,6 +750,7 @@ class CNOPModel scalar estimateMIOPR(y, x, z, infcat, |quiet, startvalues, robus
 	model.V	= covMat
 	model.V_rob	= covMat_rob
 	model.logLik	= maxLik
+	model.ll_obs = ll_obs
 	
 	model.retCode = retCode
 	model.error_code = errorcode
@@ -791,6 +797,7 @@ class CNOPModel scalar estimateMIOPRC(y, x, z, infcat, |quiet, startvalues, robu
 	kz	= cols(z)
 	allcat = uniqrows(y)
 	ncat = rows(allcat)
+	infcat_index = selectindex(allcat :== infcat)
 	
 	q = J(n, ncat, 0)
 	for(i=1; i<=ncat; i++) {
@@ -882,7 +889,7 @@ class CNOPModel scalar estimateMIOPRC(y, x, z, infcat, |quiet, startvalues, robu
 		optimize_init_argument(S, 2, z)
 		optimize_init_argument(S, 3, q)
 		optimize_init_argument(S, 4, ncat)
-		optimize_init_argument(S, 5, selectindex(allcat :== infcat))
+		optimize_init_argument(S, 5, infcat_index)
 		optimize_init_argument(S, 6, 1) // flag that params are coded to avoid inequality constraints
 		optimize_init_evaluator(S, &_mioprc_optim())
 		optimize_init_evaluatortype(S, "gf0") // not concave if use GF1
@@ -934,7 +941,7 @@ class CNOPModel scalar estimateMIOPRC(y, x, z, infcat, |quiet, startvalues, robu
 	optimize_init_argument(S2, 2, z)
 	optimize_init_argument(S2, 3, q)
 	optimize_init_argument(S2, 4, ncat)
-	optimize_init_argument(S2, 5, selectindex(allcat :== infcat))
+	optimize_init_argument(S2, 5, infcat_index)
 	optimize_init_argument(S2, 6, 0) // flag that params are coded to avoid inequality constraints
 	optimize_init_evaluator(S2, &_mioprc_optim())
 	optimize_init_evaluatortype(S2, "gf0")
@@ -969,7 +976,8 @@ class CNOPModel scalar estimateMIOPRC(y, x, z, infcat, |quiet, startvalues, robu
 		covMat	= optimize_result_V(S2)
 		covMat_rob = optimize_result_V_robust(S2)
 	}
-	
+	// calculate log-likelihood of each observation
+	_mioprc_optim(0, params', x, z, q, ncat, infcat_index, 0, ll_obs, _, _)
 	
 	// calculate model statistics
 	se		= sqrt(diagonal(covMat))
@@ -982,7 +990,7 @@ class CNOPModel scalar estimateMIOPRC(y, x, z, infcat, |quiet, startvalues, robu
 	model.n	= n
 	model.k	= kx + kz
 	model.ncat	= ncat
-	model.infcat= selectindex(allcat :== infcat)
+	model.infcat = infcat_index
 	model.allcat = allcat
 	
 	model.params = params
@@ -1000,7 +1008,7 @@ class CNOPModel scalar estimateMIOPRC(y, x, z, infcat, |quiet, startvalues, robu
 	model.V	= covMat
 	model.V_rob	= covMat_rob
 	model.logLik	= maxLik
-	
+	model.ll_obs = ll_obs
 	
 	model.retCode = retCode
 	model.error_code = errorcode
@@ -1048,6 +1056,7 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 	ncat = rows(allcat)
 	ncatp = sum(allcat :> infcat)
 	ncatn = sum(allcat :< infcat)
+	infcat_index = selectindex(allcat :== infcat)
 	
 	q = J(n, ncat, 0)
 	for(i=1;i<=ncat; i++){
@@ -1087,7 +1096,7 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 
 		for(i=1; i<=latn; i++){
 			for(j=1; j<=latn; j++) {
-				lik[i,j] = sum(MLnopc((start_param, ros[i], ros[j])', x, zp, zn, q, ncat, selectindex(allcat :== infcat)))
+				lik[i,j] = sum(MLnopc((start_param, ros[i], ros[j])', x, zp, zn, q, ncat, infcat_index))
 			}
 		}
 		tmp = 0
@@ -1166,7 +1175,7 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 		optimize_init_argument(S, 3, zn)
 		optimize_init_argument(S, 4, q)
 		optimize_init_argument(S, 5, ncat)
-		optimize_init_argument(S, 6, selectindex(allcat :== infcat))
+		optimize_init_argument(S, 6, infcat_index)
 		optimize_init_argument(S, 7, 1)
 		/* optimize_init_argument(S, 8, lambda)  total L2 regularization term */
 		optimize_init_evaluator(S, &_nopc_optim())
@@ -1221,7 +1230,7 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 	optimize_init_argument(S2, 3, zn)
 	optimize_init_argument(S2, 4, q)
 	optimize_init_argument(S2, 5, ncat)
-	optimize_init_argument(S2, 6, selectindex(allcat :== infcat))
+	optimize_init_argument(S2, 6, infcat_index)
 	optimize_init_argument(S2, 7, 0)
 	optimize_init_params(S2, params')
 	
@@ -1252,6 +1261,8 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 		covMat	= optimize_result_V(S2)
 		covMat_rob = optimize_result_V_robust(S2)
 	}
+	// calculate log-likelihood of each observation
+	_nopc_optim(0, params', x, zp, zn, q, ncat, infcat_index, 0, ll_obs, _, _)
 	
 	// calculate model statistics
 	se		= sqrt(diagonal(covMat))
@@ -1267,7 +1278,7 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 	model.ncat	= ncat
 	model.ncatn = ncatn
 	model.ncatp = ncatp
-	model.infcat= selectindex(allcat :== infcat)
+	model.infcat = infcat_index
 	model.allcat = allcat
 	
 	model.params = params
@@ -1288,6 +1299,7 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 	model.V	= covMat
 	model.V_rob	= covMat_rob
 	model.logLik	= maxLik
+	model.ll_obs = ll_obs
 	
 	model.retCode = retCode
 	model.error_code = errorcode
@@ -1334,6 +1346,7 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 	ncat = rows(allcat)
 	ncatp = sum(allcat :> infcat)
 	ncatn = sum(allcat :< infcat)
+	infcat_index = selectindex(allcat :== infcat)
 	
 	// incopmlete!!! fill all parameters as in ZIOP
 	
@@ -1465,7 +1478,7 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 		optimize_init_argument(S, 3, zn)
 		optimize_init_argument(S, 4, q)
 		optimize_init_argument(S, 5, ncat)
-		optimize_init_argument(S, 6, selectindex(allcat :== infcat))
+		optimize_init_argument(S, 6, infcat_index)
 		optimize_init_evaluator(S, &_cnop_optim())
 		optimize_init_evaluatortype(S, "gf0") // not concave if use GF1
 		optimize_init_conv_maxiter(S, maxiter)
@@ -1522,7 +1535,7 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 	optimize_init_argument(S2, 3, zn)
 	optimize_init_argument(S2, 4, q)
 	optimize_init_argument(S2, 5, ncat)
-	optimize_init_argument(S2, 6, selectindex(allcat :== infcat))
+	optimize_init_argument(S2, 6, infcat_index)
 	
 	optimize_init_evaluatortype(S2, "gf0")
 	optimize_init_conv_maxiter(S2, maxiter)
@@ -1556,8 +1569,10 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 		covMat	= optimize_result_V(S2)
 		covMat_rob = optimize_result_V_robust(S2)
 	}
+	// calculate log-likelihood of each observation
+	_cnop_optim(0, params', x, zp, zn, q, ncat, infcat_index, 0, ll_obs, _, _)
 	
-		// calculate model statistics
+	// calculate model statistics
 	se		= sqrt(diagonal(covMat))
 	tstat	= abs(params :/ se)
 	se_rob		= sqrt(diagonal(covMat_rob))
@@ -1571,7 +1586,7 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 	model.ncat	= ncat
 	model.ncatn = ncatn
 	model.ncatp = ncatp
-	model.infcat= selectindex(allcat :== infcat)
+	model.infcat = infcat_index
 	model.allcat = allcat
 	
 	model.params = params
@@ -1592,6 +1607,7 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 	model.V	= covMat
 	model.V_rob	= covMat_rob
 	model.logLik	= maxLik
+	model.ll_obs = ll_obs
 	
 	model.retCode = retCode
 	model.error_code = errorcode
@@ -1637,6 +1653,7 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 	ncat = rows(allcat)
 	ncatp = sum(allcat:>infcat)
 	ncatn = sum(allcat:< infcat)
+	infcat_index = selectindex(allcat :== infcat)
 	// incopmlete!!! fill all parameters as in ZIOP
 	
 	// compute categories
@@ -1677,7 +1694,7 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 		lik = J(latn, latn, 0)
 		for(i=1; i<=latn; i++){
 			for(j=1; j<=latn; j++) {
-				lik[i,j] = sum(MLcnopc((start_param, ros[i], ros[j])', x, zp, zn, q, ncat, selectindex(allcat :== infcat)))
+				lik[i,j] = sum(MLcnopc((start_param, ros[i], ros[j])', x, zp, zn, q, ncat, infcat_index))
 			}
 		}
 		tmp = 0
@@ -1759,7 +1776,7 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 		optimize_init_argument(S, 3, zn)
 		optimize_init_argument(S, 4, q)
 		optimize_init_argument(S, 5, ncat)
-		optimize_init_argument(S, 6, selectindex(allcat :== infcat))
+		optimize_init_argument(S, 6, infcat_index)
 		optimize_init_argument(S, 7, 1)
 		optimize_init_argument(S, 8, lambda) /* total L2 regularization term */
 		optimize_init_evaluator(S, &_cnopc_optim())
@@ -1821,7 +1838,7 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 	optimize_init_argument(S2, 3, zn)
 	optimize_init_argument(S2, 4, q)
 	optimize_init_argument(S2, 5, ncat)
-	optimize_init_argument(S2, 6, selectindex(allcat :== infcat))
+	optimize_init_argument(S2, 6, infcat_index)
 	optimize_init_evaluatortype(S2, "gf0")
 	optimize_init_conv_maxiter(S2, maxiter)
 	optimize_init_conv_ptol(S2, ptol)
@@ -1856,8 +1873,10 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 		covMat	= optimize_result_V(S2)
 		covMat_rob = optimize_result_V_robust(S2)
 	}
+	// calculate log-likelihood of each observation
+	_cnopc_optim(0, params', x, zp, zn, q, ncat, infcat_index, 0, ll_obs, _, _)
 	
-		// calculate model statistics
+	// calculate model statistics
 	se		= sqrt(diagonal(covMat))
 	tstat	= abs(params :/ se)
 	se_rob		= sqrt(diagonal(covMat_rob))
@@ -1871,7 +1890,7 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 	model.ncat	= ncat
 	model.ncatn = ncatn
 	model.ncatp = ncatp
-	model.infcat= selectindex(allcat :== infcat)
+	model.infcat = infcat_index
 	model.allcat = allcat
 	
 	model.params = params
@@ -1892,6 +1911,7 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 	model.V	= covMat
 	model.V_rob	= covMat_rob
 	model.logLik	= maxLik
+	model.ll_obs = ll_obs
 
 	model.retCode = retCode
 	model.error_code = errorcode
@@ -1995,6 +2015,7 @@ function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robus
 	st_local("depvar", yname)
 	st_local("N", strofreal(model.n))
 	st_local("ll", strofreal(model.logLik))
+	st_matrix("ll_obs", model.ll_obs)
 	
 	// describe the model
 	"Three-part zero-inflated ordered probit model with " + switching_type + " switching"
@@ -2060,7 +2081,7 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 	st_view(xz = ., ., invtokens(allvars))
 	model.XZmeans = mean(xz)
 	
-	model.eqnames = J(1, cols(tokens(xnames))+2, "Upper-level decision"),  J(1, cols(tokens(zpnames)) + model.ncatn - 1, "Outcome equation (+)"),  J(1, cols(tokens(znnames)) + model.ncatn - 1, "Outcome equation (-)")
+	model.eqnames = J(1, cols(tokens(xnames))+2, "Regime equation"),  J(1, cols(tokens(zpnames)) + model.ncatn - 1, "Outcome equation (+)"),  J(1, cols(tokens(znnames)) + model.ncatn - 1, "Outcome equation (-)")
 	model.parnames = tokens(xnames), "/cut1", "/cut2", tokens(zpnames),  "/cut" :+ strofreal(1..(model.ncatp-1)), tokens(znnames),  "/cut" :+ strofreal(1..(model.ncatn-1))
 	
 	if (correlated) {
@@ -2081,6 +2102,7 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 	st_local("depvar", yname)
 	st_local("N", strofreal(model.n))
 	st_local("ll", strofreal(model.logLik))
+	st_matrix("ll_obs", model.ll_obs)
 	
 	// describe the model
 	"Three-part nested ordered probit model with " + switching_type + " switching"
@@ -2135,8 +2157,6 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 	model.corresp	= corresp
 	st_view(xz = ., ., invtokens(allvars))
 	model.XZmeans = mean(xz)
-	//model.eqnames = J(1, cols(tokens(xnames)) + 1, "select"), J(1, cols(tokens(znames))+rows(model.allcat)-1, yname)  
-	//model.parnames = tokens(xnames), "cut", tokens(znames), "cut" :+ strofreal(1..(rows(model.allcat)-1))
 	model.eqnames = J(1, cols(tokens(xnames)) + 1, "Regime equation"), J(1, cols(tokens(znames)) + rows(model.allcat)-1, "Outcome equation")
 	model.parnames = tokens(xnames), "/cut1", tokens(znames), "/cut" :+ strofreal(1..(rows(model.allcat)-1))
 	
@@ -2161,6 +2181,7 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 	st_local("depvar", yname)
 	st_local("N", strofreal(model.n))
 	st_local("ll", strofreal(model.logLik))
+	st_matrix("ll_obs", model.ll_obs)
 	
 	// describe the model
 	"Two-part zero-inflated ordered probit model with " + switching_type + " switching"
