@@ -47,6 +47,11 @@ Temporary Items
 .apdisk
 
 # latex trash files
+.aaa
 .aux
+.bak
 .log
 .upd.synctex.gz
+~*.docx
+paper/graphics
+.wmf
