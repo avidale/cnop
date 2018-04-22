@@ -26,7 +26,7 @@
 %TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
 %TCIDATA{BibliographyScheme=Manual}
 %TCIDATA{Created=Wednesday, April 07, 2010 09:52:31}
-%TCIDATA{LastRevised=Saturday, April 14, 2018 19:56:43}
+%TCIDATA{LastRevised=Sunday, April 22, 2018 05:10:57}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
 %TCIDATA{Language=American English}
@@ -170,7 +170,7 @@ probit models\label{trees}}%
 %BeginExpansion
 \includegraphics[
 natheight=4.0714in, natwidth=9.32in, height=2.8792in, width=6.5529in]
-{C:/Users/user/Documents/Dale/Our paper on Github/cnop/paper/graphics/P6UVVI00__1.pdf}%
+{C:/Users/David/YandexDisk/hsework/gauss-mata/cnop/paper/graphics/P6UVVI00__1.pdf}%
 %EndExpansion
 \end{center}
 
@@ -950,33 +950,32 @@ in the ZIOP-3 model with the additional zero restrictions for the
 coefficients on all extra covariates in $\mathbf{x}_{t}^{-}$, $\mathbf{x}%
 _{t}^{+}$ and $\mathbf{z}_{3t}$.
 
-\section{The nop, ziop-2 and ziop-3 commands}
+\section{The nop, ziop2 and ziop3 commands}
 
 \subsection{Syntax}
 
 %\subsubsection{Syntax}
 
-\hangindent=\parindent\noindent \texttt{ziop-3 $depvar$ $indepvars$ [$if$] [$%
-in$] [, zp($varlist$) zn($varlist$) infcat($integer$ $0$) correlated cluster(%
-$varname$) robust initial($string$)] }
+\hangindent=\parindent\noindent \texttt{ziop3 $depvar$ $indepvars$ [$if$] [$%
+in$] [, xp($varlist$) xn($varlist$) infcat($integer$ $0$) }\linebreak 
+\texttt{endoswitch cluster($varname$) robust initial($string$)] }
 
 This command estimates by ML the three-part cross-nested zero-inflated
 ordered probit model with possibly different sets of covariates in the
 regime and outcome equations and possibly endogenous switching among three
 latent regimes.
 
-\hangindent=\parindent\noindent \texttt{ziop-2 $depvar$ $indepvars$ [$if$] [$%
-in$] [, z ($varlist$) infcat($integer$ $0$) correlated cluster($varname$)
-robust initial($string$)] }
+\hangindent=\parindent\noindent \texttt{ziop2 $depvar$ $indepvars$ [$if$] [$%
+in$] [, x ($varlist$) infcat($integer$ $0$) endoswitch }\linebreak \texttt{%
+cluster($varname$) robust initial($string$)] }
 
 This command estimates by ML the two-part cross-nested zero-inflated ordered
 probit model with possibly different sets of covariates in the regime and
 outcome equations and possibly endogenous switching among two latent regimes.
 
-\hangindent=\parindent
-\noindent \texttt{nop $depvar$ $indepvars$ [$if$] [$in$] [, zp($varlist$) zn(%
-$varlist$) infcat($integer$ $0$) correlated cluster($varname$) robust
-initial($string$)] }
+\hangindent=\parindent\noindent \texttt{nop $depvar$ $indepvars$ [$if$] [$in$%
+] [, xp($varlist$) xn($varlist$) infcat($integer$ $0$) }\linebreak \texttt{%
+endoswitch cluster($varname$) robust initial($string$)] }
 
 This command estimates by ML the three-part nested ordered probit model with
 possibly different sets of covariates in the regime and outcome equations
@@ -988,19 +987,19 @@ and possibly endogenous switching among three latent regimes..
 
 \begin{tabular}{lp{12cm}}
 \textit{options} & Description \\ 
-\midrule\texttt{zp($varlist$)} & list of covariates for positive response in
-NOP and CNOP models; by default, it equals $indepvars$, the list of
+\midrule\texttt{xp($varlist$)} & list of covariates for positive response in
+NOP and ZIOP models; by default, it equals $indepvars$, the list of
 covariates for initial stage \\ 
-\texttt{zn($varlist$)} & list of covariates for negative response in NOP and
-CNOP models; by default, it equals $indepvars$, the list of covariates for
+\texttt{xn($varlist$)} & list of covariates for negative response in NOP and
+ZIOP models; by default, it equals $indepvars$, the list of covariates for
 initial stage \\ 
-\texttt{z($varlist$)} & list of covariates for non-zero response in ZIOP
+\texttt{x($varlist$)} & list of covariates for non-zero response in ZIOP
 models; by default, it equals $indepvars$, the list of covariates for
 initial stage \\ 
 \texttt{infcat($integer$)} & value of the response variable that should be
 modeled as inflated; by default, it equals 0 \\ 
-\texttt{correlated} & flag that errors in the first and second stages may be
-correlated, forcing estimation of CNOPc, NOPc or ZIOPc model \\ 
+\texttt{endoswitch} & flag that errors in the first and second stages may be
+correlated, forcing estimation of endogenous switching models \\ 
 \texttt{robust} & flag that variance-covariance estimator must be robust
 (based on \textquotedblleft sandwich\textquotedblleft ) estimate \\ 
 \texttt{cluster($varname$)} & clustering variable for robust variance
@@ -1012,7 +1011,7 @@ values for estimation, in the following order: $\beta $, $\alpha $, $\gamma
 
 \subsubsection*{Stored results}
 
-\texttt{nop}, \texttt{ziop-2}, and \texttt{ziop-3} store the following in 
+\texttt{nop}, \texttt{ziop2}, and \texttt{ziop3} store the following in 
 \texttt{e()}:
 
 %Scalars
@@ -1024,10 +1023,11 @@ values for estimation, in the following order: $\beta $, $\alpha $, $\gamma
 %Macros
 
 \begin{tabular}{p{3.12cm}p{12cm}}
-\texttt{e(cmd)} & \texttt{cnop}, \texttt{nop}, or \texttt{miop}, respectively
-\\ 
+\texttt{e(cmd)} & \texttt{nop}, \texttt{ziop2}, or \texttt{ziop3},
+respectively \\ 
 \texttt{e(depvar)} & dependent variable of regression%
-\end{tabular}
+\end{tabular}%
+\ss 
 
 %Matrices
 
@@ -1046,23 +1046,25 @@ values for estimation, in the following order: $\beta $, $\alpha $, $\gamma
 
 \subsubsection*{The predict command}
 
-The \texttt{predict} command after the nop, ziop-2 and ziop-3 estimation
+The \texttt{predict} command after the nop, ziop2 and ziop3 estimation
 commands produces either predicted probabilities or expected values of the
 responses.
 
-\texttt{predict $varname$ [$if$] [$in$] [, zeroes regime output($string$) at(%
-$string$)]}
+\texttt{predict $varname$ [$if$] [$in$] [, zeros regime output($string$) at($%
+string$)]}
 
 \texttt{name} is the name of predicted variable, if it is single, or prefix
 for names, if there are several predicted variables
 
-\texttt{zeroes} indicates that different types of zeroes (i.e. ``intrinsic
-zeroes``, or ``positive zeroes``, or ``negative zeroes``) must be predicted
-instead of different response values.
+\texttt{zeros} indicates that different types of zeros (i.e.
+\textquotedblleft intrinsic zeros\textquotedblleft , or \textquotedblleft
+positive zeros\textquotedblleft , or \textquotedblleft negative
+zeros\textquotedblleft ) must be predicted instead of different response
+values.
 
 \texttt{regime} indicates that different groups of response (negative,
 positive or zero) must be predicted instead of different response values.
-This option is ignored if \texttt{zeroes} option is on.
+This option is ignored if \texttt{zeros} option is on.
 
 \texttt{output(string)} specifies type of aggregating predicted
 probabilities of different response. Possible values are \texttt{mode} and 
@@ -1072,9 +1074,9 @@ cum} for predicting cumulative response probabilities (i.e. $\Pr (y_{t}<=-2)$%
 probabilities are predicted ($\Pr (y_{t}=-2)$, $\Pr (y_{t}=-1)$, $\Pr
 (y_{t}=0)$ etc.).
 
-\subsubsection*{The cnopmargins command}
+\subsubsection*{The ziopmargins command}
 
-\texttt{cnopmargins [, at($string$) nominal($varlist$) zeroes regime]}
+\texttt{ziopmargins [, at($string$) nominal($varlist$) zeros regime]}
 
 This command prints marginal effects for the last estimated model (either
 NOP, or ZIOP-2, or ZIOP-3), calculated at the specified point, along with
@@ -1090,27 +1092,27 @@ specified, their mean value is taken instead.
 considered as nominal; marginal effect is then calculated as difference
 between values at 0 and at 1.
 
-\texttt{zeroes} and \texttt{regime} indicate that marginal effects should be
-calculated for different zeroes or for groups of response variable, as in 
+\texttt{zeros} and \texttt{regime} indicate that marginal effects should be
+calculated for different zeros or for groups of response variable, as in 
 \texttt{predict} command.
 
-\subsubsection*{The cnopprobabilities command}
+\subsubsection*{The ziopprobabilities command}
 
-\texttt{cnopprobabilities [, at($string$) zeroes regime]}
+\texttt{ziopprobabilities [, at($string$) zeros regime]}
 
 This command prints predicted probabilities for the last estimated model
 (either NOP, or ZIOP-2, or ZIOP-3) , calculated at the specified point,
 along with confidence intervals. The point \texttt{at} is specified like in 
-\texttt{cnopmargins}.
+\texttt{ziopmargins}.
 
-\subsubsection*{The cnopcontrasts command}
+\subsubsection*{The ziopcontrasts command}
 
-\texttt{cnopcontrasts [, at($string$) to($string$) zeroes regime] }
+\texttt{ziopcontrasts [, at($string$) to($string$) zeros regime] }
 
 This command prints differences in predicted probabilities for the last
 estimated model (either NOP, or ZIOP-2, or ZIOP-3), calculated between the
 specified points, along with confidence intervals. The points \texttt{at}
-and \texttt{to} are specified like \texttt{at} in \texttt{cnopmargins}.
+and \texttt{to} are specified like \texttt{at} in \texttt{ziopmargins}.
 
 \section{Monte Carlo simulations}
 
@@ -1204,7 +1206,7 @@ estimators\label{MC_results}}%
 %BeginExpansion
 \includegraphics[
 natheight=5.2154in, natwidth=6.2075in, height=5.2453in, width=6.2349in]
-{C:/Users/user/Documents/Dale/Our paper on Github/cnop/paper/graphics/P6BDD601__2.pdf}%
+{C:/Users/David/YandexDisk/hsework/gauss-mata/cnop/paper/graphics/P6BDD601__2.pdf}%
 %EndExpansion
 \end{center}
 
@@ -1377,7 +1379,7 @@ param}}%
 %BeginExpansion
 \includegraphics[
 natheight=2.6484in, natwidth=6.4001in, height=2.6766in, width=6.4284in]
-{C:/Users/user/Documents/Dale/Our paper on Github/cnop/paper/graphics/P6TXE50A__3.pdf}%
+{C:/Users/David/YandexDisk/hsework/gauss-mata/cnop/paper/graphics/P6TXE50A__3.pdf}%
 %EndExpansion
 \end{center}
 
