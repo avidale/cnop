@@ -40,20 +40,7 @@ program ziopconfusion, rclass
 	return local accuracy = `r(mean)'
 end
 
-capture program drop argdisp
-program argdisp
-	version 13
-	args first second third
-	display "1st argument = ‘first’"
-	display "2nd argument = ‘second’"
-	display "3rd argument = ‘third’"
-	display "3rd argument = `third'"
-end
-
-
 // vuong test to compare two models
-capture program drop ziopvuong
-
 program ziopvuong, rclass
 	version 13
 	args modelspec1 modelspec2
@@ -100,32 +87,35 @@ program ZIOP_predict
 end
 
 // produces marginal effects for NOP, ZIOP2 and ZIOP3
-program ziopmargins
+program ziopmargins, rclass
 	version 13
 	syntax [, at(string asis) nominal(varlist) zeros regime]
 	mata: CNOPmargins(CNOP_last_model, "`at'", "`nominal'", "`zeros'" == "zeros", "`regime'"=="regime")
 	display "Marginal effects of all variables on probabilities"
 	mat list r(me)
+	display ""
 	display "Standard errors of marginal effects"
 	mat list r(se)
 end
 
-program ziopprobabilities
+program ziopprobabilities, rclass
 	version 13
 	syntax [, at(string asis) zeros regime]
 	mata: CNOPprobabilities(CNOP_last_model, "`at'", "`zeros'" == "zeros", "`regime'"=="regime")
 	display "Predicted probabilities"
 	mat list r(me)
+	display ""
 	display "Standard errors of probabilities"
 	mat list r(se)
 end
 
-program ziopcontrasts
+program ziopcontrasts, rclass
 	version 13
 	syntax [, at(string asis) to(string asis) zeros regime]
 	mata: CNOPcontrasts(CNOP_last_model, "`at'", "`to'", "`zeros'" == "zeros", "`regime'"=="regime")
 	display "Contrasts of predicted probabilities"
 	mat list r(me)
+	display ""
 	display "Standard errors of contrasts"
 	mat list r(se)
 end

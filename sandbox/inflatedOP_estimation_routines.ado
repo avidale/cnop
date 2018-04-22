@@ -2192,6 +2192,28 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 }
 
 
+function get_colstripes(model_class, loop, allcat, infcat) {
+	if (loop == 1) {
+		colstripes = "P(y=" :+ strofreal(allcat) :+ ")"
+	}
+	if (loop == 2) {
+		if (model_class == "MIOPR" || model_class == "MIOPRC") {
+			colstripes = ("P(y=0|s=0)" \ "P(y=0|s=1)")
+		} else {
+			colstripes = ("P(y=0|s=0)" \ "P(y=0|s=-1)" \  "P(y=0|s=+1)")
+		}
+	}
+	if (loop == 3) {
+		if (model_class == "MIOPR" || model_class == "MIOPRC") {
+			colstripes = ("P(s=0)" \ "P(s=1)")
+		} else {
+			colstripes = ("P(s=-1)" \ "P(s=0)" \  "P(s=+1)")
+		}
+	}
+	colstripes = J(rows(colstripes),1, ""), colstripes
+	return(colstripes)
+}
+
 
 // marginal effects for MIOP(r), CNOP, CNOP(c)
 
@@ -2226,23 +2248,8 @@ function CNOPmargins(class CNOPModel scalar model, string atVarlist, string dumm
 	"Evaluated at:"
 	model.XZnames \ strofreal(xzbar)
 	
-	rowstripes = J(cols(model.XZnames),1, "") , model.XZnames'
-	colstripes = "y=" :+ strofreal(model.allcat)
-	if (loop == 2) {
-		if (model.model_class == "MIOPR" || model.model_class == "MIOPRC") {
-			colstripes = ("neutral" \ "active") :+ " zero"
-		} else {
-			colstripes = ("neutral"\ "negative"\  "positive") :+ " zero"
-		}
-	}
-	if (loop ==3) {
-		if (model.model_class == "MIOPR" || model.model_class == "MIOPRC") {
-			colstripes = ("neutral" \ "active") :+ " regime"
-		} else {
-			colstripes = ("negative"\ "neutral"\  "positive") :+ " regime"
-		}
-	}
-	colstripes = J(rows(colstripes),1, ""), colstripes
+	rowstripes = J(cols(model.XZnames), 1, "") , model.XZnames'
+	colstripes = get_colstripes(model.model_class, loop, model.allcat, model.infcat)
 	
 	mese = generalMEwithSE(xzbar, model, dummiesVector, loop)
 	kxz = cols(xzbar)
@@ -2300,23 +2307,7 @@ function CNOPprobabilities(class CNOPModel scalar model, string atVarlist, zeroe
 	"Evaluated at:"
 	model.XZnames \ strofreal(xz_from)
 	
-	
-	colstripes = "y=" :+ strofreal(model.allcat)
-	if (loop == 2) {
-		if (model.model_class == "MIOPR" || model.model_class == "MIOPRC") {
-			colstripes = ("neutral" \ "active") :+ " zero"
-		} else {
-			colstripes = ("neutral"\ "negative"\  "positive") :+ " zero"
-		}
-	}
-	if (loop ==3) {
-		if (model.model_class == "MIOPR" || model.model_class == "MIOPRC") {
-			colstripes = ("neutral" \ "active") :+ " regime"
-		} else {
-			colstripes = ("negative"\ "neutral"\  "positive") :+ " regime"
-		}
-	}
-	colstripes = J(rows(colstripes),1, ""), colstripes
+	colstripes = get_colstripes(model.model_class, loop, model.allcat, model.infcat)
 	
 	mese = generalPredictWithSE(xz_from, model, loop)
 	
@@ -2356,7 +2347,7 @@ function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string to
 				}
 				xz_from[index] = newValue
 			} else {
-				atTable[i,1] + " was not applied in the last CNOP regression"
+				atTable[i,1] + " was not applied in the last ZIOP regression"
 			}
 		}
 	}
@@ -2374,7 +2365,7 @@ function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string to
 				}
 				xz_to[index] = newValue
 			} else {
-				toTable[i,1] + " was not applied in the last CNOP regression"
+				toTable[i,1] + " was not applied in the last ZIOP regression"
 			}
 		}
 	}
@@ -2393,23 +2384,7 @@ function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string to
 	"Evaluated between:"
 	model.XZnames \ strofreal(xz_from) \ strofreal(xz_to)
 	
-	colstripes = "y=" :+ strofreal(model.allcat)
-	if (loop == 2) {
-		if (model.model_class == "MIOPR" || model.model_class == "MIOPRC") {
-			colstripes = ("neutral" \ "active") :+ " zero"
-		} else {
-			colstripes = ("neutral"\ "negative"\  "positive") :+ " zero"
-		}
-	}
-	if (loop ==3) {
-		if (model.model_class == "MIOPR" || model.model_class == "MIOPRC") {
-			colstripes = ("neutral" \ "active") :+ " regime"
-		} else {
-			colstripes = ("negative"\ "neutral"\  "positive") :+ " regime"
-		}
-	}
-	colstripes = J(rows(colstripes),1, ""), colstripes
-	
+	colstripes = get_colstripes(model.model_class, loop, model.allcat, model.infcat)
 	
 	mese = generalContrastsWithSE(xz_from, xz_to, model, loop)
 	kxz = cols(xz_from)
@@ -2421,7 +2396,7 @@ function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string to
 	st_matrix("r(se)", se)
 	st_matrix("r(t)", t)
 	st_matrix("r(pval)", pval)
-		
+	
 	st_matrixcolstripe("r(me)", colstripes)
 	st_matrixcolstripe("r(se)", colstripes)
 	st_matrixcolstripe("r(t)", colstripes)
