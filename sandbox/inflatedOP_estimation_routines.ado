@@ -1974,12 +1974,12 @@ function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robus
 	st_view(xz = ., ., invtokens(allvars))
 	model.XZmeans = mean(xz)
 	
-	model.eqnames = J(1, cols(tokens(xnames)), "select"), "cut1", "cut2",  J(1, cols(tokens(zpnames)), yname + "_positive"),  "cut" :+ strofreal(1..model.ncatp),  J(1, cols(tokens(znnames)), yname + "_negative"),  "cut" :+ strofreal(1..model.ncatn)
-	model.parnames = tokens(xnames), "_cons", "_cons", tokens(zpnames), J(1, model.ncatp, "_cons"), tokens(znnames), J(1, model.ncatn, "_cons")
+	model.eqnames = J(1, cols(tokens(xnames)) + 2, "Regime equation"),  J(1, cols(tokens(zpnames)) + model.ncatp, "Outcome equation (+)"),  J(1, cols(tokens(znnames)) + model.ncatn, "Outcome equation (-)")
+	model.parnames = tokens(xnames), "/cut1", "/cut2", tokens(zpnames),  "/cut" :+ strofreal(1..model.ncatp), tokens(znnames),  "/cut" :+ strofreal(1..model.ncatn)
 	
 	if (correlated) {
-		model.eqnames = model.eqnames, "rho n", "rho p"
-		model.parnames = model.parnames, "_cons", "_cons"
+		model.eqnames = model.eqnames, J(1, 2, "Correlation coefficients")
+		model.parnames = model.parnames, "rho(-)", "rho(+)"
 	}
 	st_matrix("b", model.params')
 	if (robust == 1) {
@@ -2060,12 +2060,12 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 	st_view(xz = ., ., invtokens(allvars))
 	model.XZmeans = mean(xz)
 	
-	model.eqnames = J(1, cols(tokens(xnames)), "select"), "cut1", "cut2",  J(1, cols(tokens(zpnames)), yname + "_positive"),  "cut" :+ strofreal(1..(model.ncatp-1)),  J(1, cols(tokens(znnames)), yname + "_negative"),  "cut" :+ strofreal(1..(model.ncatn-1))
-	model.parnames = tokens(xnames), "_cons", "_cons", tokens(zpnames), J(1, model.ncatp - 1, "_cons"), tokens(znnames), J(1, model.ncatn - 1, "_cons")
+	model.eqnames = J(1, cols(tokens(xnames))+2, "Upper-level decision"),  J(1, cols(tokens(zpnames)) + model.ncatn - 1, "Outcome equation (+)"),  J(1, cols(tokens(znnames)) + model.ncatn - 1, "Outcome equation (-)")
+	model.parnames = tokens(xnames), "/cut1", "/cut2", tokens(zpnames),  "/cut" :+ strofreal(1..(model.ncatp-1)), tokens(znnames),  "/cut" :+ strofreal(1..(model.ncatn-1))
 	
 	if (correlated) {
-		model.eqnames = model.eqnames, "rho n", "rho p"
-		model.parnames = model.parnames, "_cons", "_cons"
+		model.eqnames = model.eqnames, J(1, 2, "Correlation coefficients")
+		model.parnames = model.parnames, "rho(-)", "rho(+)"
 	}
 	st_matrix("b", model.params')
 	if (robust == 1) {
@@ -2137,12 +2137,12 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 	model.XZmeans = mean(xz)
 	//model.eqnames = J(1, cols(tokens(xnames)) + 1, "select"), J(1, cols(tokens(znames))+rows(model.allcat)-1, yname)  
 	//model.parnames = tokens(xnames), "cut", tokens(znames), "cut" :+ strofreal(1..(rows(model.allcat)-1))
-	model.eqnames = J(1, cols(tokens(xnames)), "select"), "cut", J(1, cols(tokens(znames)), yname),  "cut" :+ strofreal(1..(rows(model.allcat)-1))
-	model.parnames = tokens(xnames), "_cons", tokens(znames), J(1, rows(model.allcat)-1, "_cons")
+	model.eqnames = J(1, cols(tokens(xnames)) + 1, "Regime equation"), J(1, cols(tokens(znames)) + rows(model.allcat)-1, "Outcome equation")
+	model.parnames = tokens(xnames), "/cut1", tokens(znames), "/cut" :+ strofreal(1..(rows(model.allcat)-1))
 	
 	if (correlated) {
-		model.eqnames = model.eqnames, "rho"
-		model.parnames = model.parnames, "_cons"
+		model.eqnames = model.eqnames, "Correlation coefficient"
+		model.parnames = model.parnames, "rho"
 	}
 	
 	st_matrix("b", model.params')
