@@ -20,13 +20,13 @@
 %                                                                     %
 % Files included:                                                     %
 %                                                                     %
-% "/document/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex", Document, 64679, 4/14/2018, 16:56:44, ""%
+% "/document/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex", Document, 64693, 4/22/2018, 1:50:33, ""%
 % "/document/P6UVVI00.wmf", PastePict, 1779614, 4/6/2018, 13:01:32, ""%
-% "/document/graphics/P6UVVI00__1.pdf", ImportPict, 57247, 4/14/2018, 16:56:44, ""%
+% "/document/graphics/P6UVVI00__1.pdf", ImportPict, 57247, 4/22/2018, 1:50:32, ""%
 % "/document/P6BDD601.wmf", PastePict, 16754, 3/28/2018, 18:43:54, "" %
-% "/document/graphics/P6BDD601__2.pdf", ImportPict, 14111, 4/14/2018, 16:56:44, ""%
+% "/document/graphics/P6BDD601__2.pdf", ImportPict, 14111, 4/22/2018, 1:50:32, ""%
 % "/document/P6TXE50A.wmf", PastePict, 9036, 4/6/2018, 9:28:50, ""    %
-% "/document/graphics/P6TXE50A__3.pdf", ImportPict, 12165, 4/14/2018, 16:56:44, ""%
+% "/document/graphics/P6TXE50A__3.pdf", ImportPict, 12165, 4/22/2018, 1:50:32, ""%
 %                                                                     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -60,7 +60,7 @@
 %TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
 %TCIDATA{BibliographyScheme=Manual}
 %TCIDATA{Created=Wednesday, April 07, 2010 09:52:31}
-%TCIDATA{LastRevised=Saturday, April 14, 2018 19:56:43}
+%TCIDATA{LastRevised=Sunday, April 22, 2018 04:50:32}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
 %TCIDATA{Language=American English}
@@ -984,13 +984,13 @@ in the ZIOP-3 model with the additional zero restrictions for the
 coefficients on all extra covariates in $\mathbf{x}_{t}^{-}$, $\mathbf{x}%
 _{t}^{+}$ and $\mathbf{z}_{3t}$.
 
-\section{The nop, ziop-2 and ziop-3 commands}
+\section{The nop, ziop2 and ziop3 commands}
 
 \subsection{Syntax}
 
 %\subsubsection{Syntax}
 
-\hangindent=\parindent\noindent \texttt{ziop-3 $depvar$ $indepvars$ [$if$] [$%
+\hangindent=\parindent\noindent \texttt{ziop3 $depvar$ $indepvars$ [$if$] [$%
 in$] [, zp($varlist$) zn($varlist$) infcat($integer$ $0$) correlated cluster(%
 $varname$) robust initial($string$)] }
 
@@ -999,7 +999,7 @@ ordered probit model with possibly different sets of covariates in the
 regime and outcome equations and possibly endogenous switching among three
 latent regimes.
 
-\hangindent=\parindent\noindent \texttt{ziop-2 $depvar$ $indepvars$ [$if$] [$%
+\hangindent=\parindent\noindent \texttt{ziop2 $depvar$ $indepvars$ [$if$] [$%
 in$] [, z ($varlist$) infcat($integer$ $0$) correlated cluster($varname$)
 robust initial($string$)] }
 
@@ -1023,10 +1023,10 @@ and possibly endogenous switching among three latent regimes..
 \begin{tabular}{lp{12cm}}
 \textit{options} & Description \\ 
 \midrule\texttt{zp($varlist$)} & list of covariates for positive response in
-NOP and CNOP models; by default, it equals $indepvars$, the list of
+NOP and ZIOP models; by default, it equals $indepvars$, the list of
 covariates for initial stage \\ 
 \texttt{zn($varlist$)} & list of covariates for negative response in NOP and
-CNOP models; by default, it equals $indepvars$, the list of covariates for
+ZIOP models; by default, it equals $indepvars$, the list of covariates for
 initial stage \\ 
 \texttt{z($varlist$)} & list of covariates for non-zero response in ZIOP
 models; by default, it equals $indepvars$, the list of covariates for
@@ -1034,7 +1034,7 @@ initial stage \\
 \texttt{infcat($integer$)} & value of the response variable that should be
 modeled as inflated; by default, it equals 0 \\ 
 \texttt{correlated} & flag that errors in the first and second stages may be
-correlated, forcing estimation of CNOPc, NOPc or ZIOPc model \\ 
+correlated, forcing estimation of endogenous switching models \\ 
 \texttt{robust} & flag that variance-covariance estimator must be robust
 (based on \textquotedblleft sandwich\textquotedblleft ) estimate \\ 
 \texttt{cluster($varname$)} & clustering variable for robust variance
@@ -1046,7 +1046,7 @@ values for estimation, in the following order: $\beta $, $\alpha $, $\gamma
 
 \subsubsection*{Stored results}
 
-\texttt{nop}, \texttt{ziop-2}, and \texttt{ziop-3} store the following in 
+\texttt{nop}, \texttt{ziop2}, and \texttt{ziop3} store the following in 
 \texttt{e()}:
 
 %Scalars
@@ -1058,10 +1058,11 @@ values for estimation, in the following order: $\beta $, $\alpha $, $\gamma
 %Macros
 
 \begin{tabular}{p{3.12cm}p{12cm}}
-\texttt{e(cmd)} & \texttt{cnop}, \texttt{nop}, or \texttt{miop}, respectively
-\\ 
+\texttt{e(cmd)} & \texttt{nop}, \texttt{ziop2}, or \texttt{ziop3},
+respectively \\ 
 \texttt{e(depvar)} & dependent variable of regression%
-\end{tabular}
+\end{tabular}%
+\ss 
 
 %Matrices
 
@@ -1080,7 +1081,7 @@ values for estimation, in the following order: $\beta $, $\alpha $, $\gamma
 
 \subsubsection*{The predict command}
 
-The \texttt{predict} command after the nop, ziop-2 and ziop-3 estimation
+The \texttt{predict} command after the nop, ziop2 and ziop3 estimation
 commands produces either predicted probabilities or expected values of the
 responses.
 
@@ -1106,9 +1107,9 @@ cum} for predicting cumulative response probabilities (i.e. $\Pr (y_{t}<=-2)$%
 probabilities are predicted ($\Pr (y_{t}=-2)$, $\Pr (y_{t}=-1)$, $\Pr
 (y_{t}=0)$ etc.).
 
-\subsubsection*{The cnopmargins command}
+\subsubsection*{The ziopmargins command}
 
-\texttt{cnopmargins [, at($string$) nominal($varlist$) zeroes regime]}
+\texttt{ziopmargins [, at($string$) nominal($varlist$) zeroes regime]}
 
 This command prints marginal effects for the last estimated model (either
 NOP, or ZIOP-2, or ZIOP-3), calculated at the specified point, along with
@@ -1124,27 +1125,27 @@ specified, their mean value is taken instead.
 considered as nominal; marginal effect is then calculated as difference
 between values at 0 and at 1.
 
-\texttt{zeroes} and \texttt{regime} indicate that marginal effects should be
-calculated for different zeroes or for groups of response variable, as in 
-\texttt{predict} command.
+\texttt{zeroes} and \texttt{regime} indi$\frac{{}}{{}}$cate that marginal
+effects should be calculated for different zeroes or for groups of response
+variable, as in \texttt{predict} command.
 
-\subsubsection*{The cnopprobabilities command}
+\subsubsection*{The ziopprobabilities command}
 
-\texttt{cnopprobabilities [, at($string$) zeroes regime]}
+\texttt{ziopprobabilities [, at($string$) zeroes regime]}
 
 This command prints predicted probabilities for the last estimated model
 (either NOP, or ZIOP-2, or ZIOP-3) , calculated at the specified point,
 along with confidence intervals. The point \texttt{at} is specified like in 
-\texttt{cnopmargins}.
+\texttt{ziopmargins}.
 
-\subsubsection*{The cnopcontrasts command}
+\subsubsection*{The ziopcontrasts command}
 
-\texttt{cnopcontrasts [, at($string$) to($string$) zeroes regime] }
+\texttt{ziopcontrasts [, at($string$) to($string$) zeroes regime] }
 
 This command prints differences in predicted probabilities for the last
 estimated model (either NOP, or ZIOP-2, or ZIOP-3), calculated between the
 specified points, along with confidence intervals. The points \texttt{at}
-and \texttt{to} are specified like \texttt{at} in \texttt{cnopmargins}.
+and \texttt{to} are specified like \texttt{at} in \texttt{ziopmargins}.
 
 \section{Monte Carlo simulations}
 
@@ -33082,7 +33083,7 @@ Cp
 %%%%%%%%%%%%%%% Start /document/graphics/P6UVVI00__1.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtDCMqdSMvPsLk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHcLpPSMpLcLk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBoPU^pUFHo`uSbiVYcQgBoLU]bQW^pUFHodT[a]VYJ|rUiQF]hARLq
 XSMJ|BReevYhQGHu@SNJ|bPiQw\PUf\C}V[p}f[eyF]``cBoLt[l}f\SAWXcUFHoPTYvevXeIuQ
 BipKLUf[gQGZ`TcMpDsMJ|bQiqF]eIGH[}bQlEF]eQTYc}FYeueB~xcBsQg\eEV[J`gvmw[BtvQ
@@ -34097,8 +34098,8 @@ CHRueB~xcBeyFYoIfZJDCHp@r[biFH|pcBoPU^pUFHo@UXgUv\J|rPoUg[tARLJ|rRiQv\`leBw
 [`h@Lp@CLpTcMx`cM`@CLp@CL`xFHJ@CLp@CLp@CLqDCHp@CLp@CHnAbBp@CLp@CLpDSLx@BLp@
 CLp@b[`h@Lp@CLpTcMs@CN`@CLp@CL`xFHJ@CLp@CLuXSMwLCHp@CLp@CHnAbBp@CLp@SMvXCNu
 @BLp@CLp@b[`h@]rEVZlUf\JpCOJ|rTiiWY``cBodd[f}FHs@BL`HeBoHu[oQGHr@BL`HeBodDQ
-`lEOsXTMyLSQAAcQwDsMAYCQrTCNBUSLs`cQDesPq\CLsXdO|LcQudsLEEDLF]SLwDdMDISMxHT
-MqLCNFQTNCEsMpLcQ~teB~xcBsQWXrQG^rUfYJTcMyLSMJTRIE}dQJ@
+`lEOAIsPqXdPD]SNvTsMxdcLuHCLxHtLsLdPuLcPyXdPDIdO|DdLCEcQBQtMyXSMw`SNrTcLp`c
+PsLsPBUsLBecQBQdP~teB~xcBsQWXrQG^rUfYJTcMyLSMJTRIE}dQJ@
 
 %%%%%%%%%%%%%%%% End /document/graphics/P6UVVI00__1.pdf %%%%%%%%%%%%%%%
 
@@ -34408,7 +34409,7 @@ BB@@@@@pA@@@@VP@cB`p@A@P@@\@@@@`EDph@HLP@@D@@D@@@@\R@@@@@@@@@
 %%%%%%%%%%%%%%% Start /document/graphics/P6BDD601__2.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtDCMqdSMvPCMk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHcLpPSMpLcLk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKTeV[eMgSe
 ]gTouVXnipKFqVXgMGHsHcBoXt[nQgPB}F^`lUKuXCN`trLp\CHr@CMv@RLpPCL]ipKMev\sef[
 g]UZdQGZ`HSMphpKSQWYmaDHw\cBoLE]eufU`\sMJ|RRtEF[iMVPn]F[eABLJ|rPaAGReevYhQG
@@ -34596,13 +34597,13 @@ TbgW|uWh~FuoJ}\toC}Ch_Szwm~bto\M{z{V|RzUYI[}}jEe~MZIK}_QWE_geih_EzkQkgzl
 xeugke^YigVF`~dHkxEo]|NjUxmVtT{hNQ]f\RIQ}czOM@ZPdCZ|tyZ|[hgLV_NZj@Znt|hySK
 `VCyS\MB]aEaUaMa]QxbhDqK\J\IRRxVLKqlq[qRE]RlJ|N_}bzD[P\~V|Hvlx~DGRthx~EOch^
 qsQSUlU|wGxJiMHNj~rtWn^QzSWoT}YiO[}rtoT}KS|tKWobG@sZ_zHVf[dMG]rUVXmiPYnQv
-[bifBw@BL`|fXjABO|hpKTeG\eArKF}f[tQTYsMf\iAG]oIgBoXt[nQgSauVY`|bVVUuTV]uJCE
+[bifBw@BL`|fXjABO|hpKTeG\eArKF}f[tQTYsMf\iAG]oIgBoXt[nQgSauVY`|rQVetRVmtJCE
 F[iIf\iipKFqVXgMGHsHcBoXt[nQgPB}F^`lUKu@sL`trLqLCHqHCMp@RLpHcM]ipKMev\sef[g
 ]UZdQGZ`HcLvhpKSQWYmaDHxTcBoLE]eufU``SMJ|RRtEF[iMVPn]F[eABLJ|rPaAGReevYhQGH
 vLCNJ|BVHUVZgaF]`PsMphpKAMwXeyF]`dSMrhpKDUv\cUf[tARKrXSNJ|BSeEFYiyvY`HcLqhp
 KMEF^WeFYtaFHqLcLxhpKAYwYWeFYtaFHuHSLJ|bQoyF]FeF[eICHv@BL`HeB~xcBeyFYoIfZJ`
-CHp@r[biFH|pcBoPU^pUFHoXt[nQgBoLU]bQW^pUFHoPe\uUFUyAWYJ|bPaMWYF}f[tArKZYUUS
-YuUkLTXlefXrefBoXTZrMG]CaVXrAbLqTcBopTXsQwPhEf\`HSLuhpKEyvXoQVZn]FHo\UZnEd[
+CHp@r[biFH|pcBoPU^pUFHoXt[nQgBoLU]bQW^pUFHoPe\uUFUyAWYJ|bPaMWYF}f[tArKGYURK
+YuRkLTXlefXrefBoXTZrMG]CaVXrAbLqTcBopTXsQwPhEf\`HSLuhpKEyvXoQVZn]FHo\UZnEd[
 seVQnMv[def[gipKF}f[tQTYsMf\iAG]oIGHw@BL`HeBo\UZdQGZsArV`PSNxteO~hPYnQv[bif
 By@BL`|fXjABO|hpKTeG\eArKX}dXjUvXtipKSUgXteG\eArKF}f\mipKF}f\mQU^pUFHqhpKBI
 t[xArVp@BL`XCMnXcMu@RMtxrLsPSWJ|RSaQg\iaGH[ECHp@BL`DCHp@BL]ipKRUv\oUg\cUv\`
@@ -34656,8 +34657,8 @@ Lp@b[`h@Lp@CLp@CLpDSL`@CLp@CL`xFHJ@CLp@CLp@SLq`CHp@CLp@CHnAbBp@CLp@CLpLsMw@
 BLp@CLp@b[`h@Lp@CLp@CLyDsM`@CLp@CL`xFHJ@CLp@CLq@cMsTCHp@CLp@CHnAbBp@CLp@SLp
 dSLr@BLp@CLp@b[`h@Lp@CLpDSLp`cL`@CLp@CL`xFHJ@CLp@CLqLsLu\CHp@CLp@CHnAbBp@CL
 p@SLsPcMu@BLp@CLp@b[`h@]rEVZlUf\JpCOJ|rTiiWY`DcLJ|RRnYv[`LCHp@bTJ|bTo}F]`HC
-Hp@bTJ|RRDArV|PdLwDTQrdcQDMcPy@CMFMcQCAsLwdcLCIdMvHcPDYSN~pCQr\SPEISNFQtLBe
-CLtXtLFMDLs\SNrLdPvXcLBQdMyxSWJxcOJLG]aIG]xIWYfiPLs\SLwhPIeTtSFi@
+Hp@bTJ|RRDArV|DcLEMtLuTSPrLCMvPtMBESPtTcMpPcPDUTMqTTMuPDQ~pSLrTtPsTSMAIsLtX
+CQwHTLAQSMv@CMBQTQuDSQuTCQDySWJxcOJLG]aIG]xIWYfiPLs\SLwhPIeTtSFi@
 
 %%%%%%%%%%%%%%%% End /document/graphics/P6BDD601__2.pdf %%%%%%%%%%%%%%%
 
@@ -34829,7 +34830,7 @@ KE@HCD@@A@pA@@@@VPpRA@r@A@P@@P@@@@pIA|C@@@@@@@
 %%%%%%%%%%%%%%% Start /document/graphics/P6TXE50A__3.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtDCMqdSMvPCMk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHcLpPSMpLcLk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKTeV[eMgSe
 ]gTouVXnipKFqVXgMGHsHcBoXt[nQgPB}F^`lUKuXCN`trLp\CHr@CMv@RLpPCL]ipKMev\sef[
 g]UZdQGZ`HSMphpKSQWYmaDHw\cBoLE]eufU`\sMJ|RRtEF[iMVPn]F[eABLJ|rPaAGReevYhQG
@@ -34975,8 +34976,8 @@ cyGZwv_or^Z^HGCO_xPjgC_FX\]GWc`Gg_Yln{kksQpsaa}k^^x|aIhYlPMl|`aj^^t``IJ~A`
 lz]P]]gj`[e]i^VFFOu}]ijwc^VeMts}hIh\M_ggi|vjgw|fJmqcOUowDoT\gdpEOMDgzyJKDN
 jZ\HOF|FPaxXMFv^qs\oerCczrfu_|lWTO{JpxTk{SAIvCcmSPYc|{DYsCLk^xgjL_~RxhMIo
 U@j@Z{Vbw\xAlGpHh}NwO[Zr\[t_SxZPQpsCZpOWq@XCFK@B]PkFD@zN@KqEAWYnQv\tIWYa
-ufBeyFYoIfZJ\CHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKKYUP
-KYUPkPUZmUv\NUv]R}V[ayFKIQWXlevXJ|bQlEvYsArLrhpKF}f[tIdPoaGH[uBMy`CHmLCLw@R
+ufBeyFYoIfZJ\CHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKRYET
+ZYuSkPUZmUv\NUv]R}V[ayFKIQWXlevXJ|bQlEvYsArLrhpKF}f[tIdPoaGH[uBMy`CHmLCLw@R
 LsLsL`DCLrLSWJ|RSiMw\iyvYWeFYtaFHrTCLJ|rTtUV[HArMwhpKSQWYmYEHw\cBodD]aqVZcE
 d[gqVY`tRLvxrLydcBoLTXpaTYi]FZtAbMvHcBo`EReevYhQGHtTCMJ|RPsMVYnQGHxdSLJ|BQe
 MwXeyF]`tbLqXcBopTYaQVZn]FHqTCLJ|RSaawUiQF]hARLsPCLJ|RPv]vUiQF]hABMpHcBoXt[
@@ -34987,9 +34988,9 @@ nEQbE_[qG`iN}`Aut`HWcOzCnE|nKGO}qazj}Hr{NIxTzQ|nNmDtAUXIaoM[mO`iH@WaZ[QRXHv
 qwxvs|I@S~ykookf@YxskfIn~in@aR`wR{~bEpl\Lm|uDFIxm\AxxzQ@uTEmV\sihub@m|_o
 \ij~autiLHf~jkngvFaLzKiHF}uBdU`rBTV`bLdQspbkVPsC]m}iygVZ[JTL{\QqgwlYAedbRC[
 K_kqfjJ_~E{^a^Wf[dMG]rUVXmiPYnQv[bifBy@BL`|fXjABO|hpKTeG\eArKF}f[tipKSUgXt
-eG\eArKTeG\eAcBoHTXsUfQoyF]`|rRVEtRVEtJTeV[eMgSe]gTouVXnqRRtEF[iMfBoTd[c}FY
+eG\eArKTeG\eAcBoHTXsUfQoyF]`|bTVAeVV}tJTeV[eMgSe]gTouVXnqRRtEF[iMfBoTd[c}FY
 iyvY`|RRdUf[teF]yuBRJ|BQeMwXeyFYayF]F}f[tMGH[qCOoPU^pUFHoXt[nQgBoLU]bQW^pUF
-HoLTRDYt[nQGUyAWYrhpKBEv\eYt[nQGHoldUAmdUAmBUiuVYsyTYwIu[mEf[ldD]aqVZcipKF}
+HoLTRDYt[nQGUyAWYrhpKBEv\eYt[nQGHoHeUPieUOmBUiuVYsyTYwIu[mEf[ldD]aqVZcipKF}
 f[tQTYsMf\iAG]oIGHw@BL`HeBoLTRDMU^sQWYmed[f}FH|pcBoHUYgev\tIW^``BTDYDVCMCLi
 hpKOIGYeIWZn]FHhdd[dUf[teF]yASJJ|rTuAG\lUV[eyF]`@CH~xcBo\EH[ipLpHCH[UcLuteB
 uLsL`lEMy`CHsdCM]iPMtDCH[UCLrteBuPSM`lEMx@SWJteBoPtU`DCLp@cB~xSWJ|BUoUe[iMv
@@ -35042,7 +35043,7 @@ CLp@CL`xFHJ@CLp@CLp@sLw\CHp@CLp@CHnAbBp@CLp@CLp`cMs@BLp@CLp@b[`h@Lp@CLp@CNr
 \CN`@CLp@CL`xFHJ@CLp@CLp`SMwPCHp@CLp@CHnAbBp@CLp@CLxdSLv@BLp@CLp@b[`h@Lp@CL
 p@SNs@SL`@CLp@CL`xFHJ@CLp@CLpdSMwPCHp@CLp@CHnAbBp@CLp@SLp@SLs@BLp@CLp@b[`h@
 Lp@CLpDSLsPSN`@CLp@CL`xFHJ@CLp@CLqDCMu\CHp@CLp@CHnAbBtIWXiqVYri@O|hpKSef^eA
-RLuhpKIyfYoArL`@CHRipKR}v[tAbL`@CHRipKIQDH[qSLvdSMvTtLsDCNqDdPr@CMtHcQwHsPA
-AsPs\SQBEcLCyCOqXSNuXSQsLSLxDSPBICLtPcLF]cLCEDLCMsMEITLrLdO]i`O~hp\tEf\tag\
+RLuhpKIyfYoArL`@CHRipKR}v[tAbL`@CHRipKIQDH[qsMt@CMCUCLpLsPx@CNFACQtPtPrDSNw
+`SNtHSLqPTQrxCOwPCLtLTMp@sLCaCLxXDLDQCQCISLy\CNyPcLqDCQEIcO]i`O~hp\tEf\tag\
 eYfBqDsMqDcBeTRQOYdB
 %%%%%%%%%%%%%%%% End /document/graphics/P6TXE50A__3.pdf %%%%%%%%%%%%%%%
