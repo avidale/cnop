@@ -19,7 +19,7 @@ capture program drop nop
 capture program drop ziopmargins
 capture program drop ziopprobabilities
 capture program drop ziopcontrasts
-capture program drop miop
+capture program drop ziop2
 capture program drop ZIOP_predict
 
 
@@ -70,7 +70,7 @@ program ziop3, eclass
 	version 13
 	syntax varlist(min=2) [if] [in] [, xp(varlist) xn(varlist) infcat(integer 0) endoswitch cluster(varname) robust initial(string asis)]
 	marksample touse
-	mata: CNOP_last_model = processCNOP("`varlist'", "`xp'", "`xn'", `infcat', "`endoswitch'" == "correlated", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'")
+	mata: CNOP_last_model = processCNOP("`varlist'", "`xp'", "`xn'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'")
 
 	ereturn post b V, esample(`touse') obs(`N') depname(`depvar')
 	ereturn local predict "ZIOP_predict"
@@ -83,7 +83,7 @@ program ziop2, eclass
 	version 13
 	syntax varlist(min=2) [if] [in] [, x(varlist) infcat(integer 0) endoswitch cluster(varname) robust initial(string asis)]
 	marksample touse
-	mata: CNOP_last_model = processMIOPR("`varlist'", "`x'", `infcat', "`endoswitch'" == "correlated", "`touse'", "`robust'"=="robust","`cluster'", "`initial'")
+	mata: CNOP_last_model = processMIOPR("`varlist'", "`x'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'"=="robust","`cluster'", "`initial'")
 	
 	ereturn post b V, esample(`touse')  depname(`depvar') obs(`N')
 	ereturn local predict "ZIOP_predict"
@@ -97,7 +97,7 @@ program nop, eclass
 	version 13
 	syntax varlist(min=2) [if] [in] [, xp(varlist) xn(varlist) infcat(integer 0) endoswitch cluster(varname) robust initial(string asis)]
 	marksample touse
-	mata: CNOP_last_model = processNOP("`varlist'", "`xp'", "`xn'", `infcat', "`endoswitch'" == "correlated", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'")
+	mata: CNOP_last_model = processNOP("`varlist'", "`xp'", "`xn'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'")
 
 	ereturn post b V, esample(`touse') obs(`N') depname(`depvar')
 	ereturn local predict "ZIOP_predict"

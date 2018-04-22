@@ -416,7 +416,7 @@ class CNOPModel scalar estimateNOP(y, x, zp, zn, infcat, |quiet, startvalues, ro
 	
 	
 	if(!quiet){
-		"Calculation completed"
+		"Estimation completed"
 	}
 	
 	if (estimation_successful == 0) {
@@ -1541,7 +1541,7 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 	//" DDCheck: evaluate end "
 	
 	if(!quiet){
-		"Calculation completed"
+		"Estimation completed"
 	}
 	
 	if (estimation_successful == 0) {

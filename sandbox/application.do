@@ -3,7 +3,7 @@
 drop _all
 mata: mata clear
 // make the current directory working directory (change the address to that on your own computer!)
-//cd C:\Users\David\YandexDisk\hsework\gauss-mata\sandbox\
+//cd C:\Users\David\YandexDisk\hsework\gauss-mata\cnop\sandbox\
 cd "C:\Users\user\Documents\Dale\Our paper on Github\cnop\sandbox"
 // load the required procedures
 run stata_wrappers.ado
@@ -11,14 +11,14 @@ run stata_wrappers.ado
 
 import delimited Data_for_application.csv, clear 
 
-cnop y5 pb spread houst gdp in 5/214, zn(spread gdp) zp(pb spread) infcat(3)
-cnop y5 pb spread houst gdp in 5/214, zn(spread gdp) zp(pb spread) infcat(3) correlated
+ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3)
+ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3) endoswitch
 
-cnop y5 pb_l pb_t spread houst gdp in 5/214, zn(spread gdp) zp(pb_t spread gdp) infcat(3)
-cnop y5 pb_l pb_t spread houst gdp in 5/214, zn(spread gdp) zp(pb_t spread) infcat(3) correlated
+ziop3 y5 pb_l pb_t spread houst gdp in 5/214, xn(spread gdp) xp(pb_t spread gdp) infcat(3)
+ziop3 y5 pb_l pb_t spread houst gdp in 5/214, xn(spread gdp) xp(pb_t spread) infcat(3) endoswitch
 
-nop y5 pb spread houst gdp in 5/214, zn(spread ) zp(pb spread) infcat(3)
-nop y5 pb spread houst gdp in 5/214, zn(spread gdp) zp(pb spread) infcat(3) correlated
+nop y5 pb spread houst gdp in 5/214, xn(spread ) xp(pb spread) infcat(3)
+nop y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3) endoswitch
 
 gen pb2 = pb
 replace pb2 = 1 if pb != 0
@@ -41,6 +41,6 @@ gen houst_n = houst_g
 replace houst_p = 0 if houst_g < 0
 replace houst_n = 0 if houst_g > 0
 
-miop y5 pb_l pb_t in 5/214, z(pb spread houst gdp) infcat(3) correlated
-miop y3 spreada  in 5/214, z(pb houst gdp ) infcat(2) correlated
+ziop2 y5 pb_l pb_t in 5/214, x(pb spread houst gdp) infcat(3) endoswitch
+ziop2 y3 spreada  in 5/214, x(pb houst gdp ) infcat(2) endoswitch
 
