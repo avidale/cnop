@@ -248,14 +248,13 @@ class CNOPModel scalar estimateNOP(y, x, zp, zn, infcat, |quiet, startvalues, ro
 	}
 	if(rows(start_param) < 1 || start_param == .) {
 		if(!quiet){
-			"Calculating initial values"
-			"1-stage OP: z-p-n"
+			"Upper-level decision"
 		}
 		params1 = coeffOP(x, q3, 3, quiet, ., lambda, maxiter, ptol, vtol, nrtol)
 		
 		fltr = (y:>infcat)
 		if(!quiet){
-			"2 stage OP on positive only"
+			"Lower-level decision for y>0"
 		}
 		y2 = select(y, fltr)
 		q2 = select(q, fltr)
@@ -264,7 +263,7 @@ class CNOPModel scalar estimateNOP(y, x, zp, zn, infcat, |quiet, startvalues, ro
 		
 		params2 = coeffOP(zp2, q2, ncatp, quiet, ., lambda, maxiter, ptol, vtol, nrtol)
 		if(!quiet){
-			"2 stage OP on negative only"
+			"Lower-level decision for y<0"
 		}
 		fltr = (y:<infcat)
 		y2 = select(y, fltr)
@@ -277,7 +276,7 @@ class CNOPModel scalar estimateNOP(y, x, zp, zn, infcat, |quiet, startvalues, ro
 		start_param = params1 \ params2 \ params3
 	}
 	if(!quiet){
-		"Estimating NOP core stage"
+		"Estimating NOP with exogenous switching"
 	}
 	
 	// initially transform arguments to avoid inequality constraints
@@ -536,13 +535,13 @@ class CNOPModel scalar estimateMIOPR(y, x, z, infcat, |quiet, startvalues, robus
 	}
 	if(rows(start_param) < 1 || start_param == .) {
 		if(!quiet){
-			"Calculating initial values"
-			"First stage OP"
+			"Computing starting values:"
+			"Independent regime equation"
 		}
 		q0	=	(y :== infcat)
 		params1 = coeffOP(x, (q0, 1 :- q0), 2, quiet, ., lambda, maxiter, ptol, vtol, nrtol)
 		if(!quiet){
-			"Second stage OP"
+			"Independent outcome equation"
 		}
 		params2 = coeffOP(z, q, ncat, quiet, ., lambda, maxiter, ptol, vtol, nrtol)
 			
@@ -550,7 +549,7 @@ class CNOPModel scalar estimateMIOPR(y, x, z, infcat, |quiet, startvalues, robus
 	}
 	
 	if(!quiet){
-		"Estimating ZIOP core stage"
+		"Estimating ZIOP-2 with exogenous switching"
 	}
 	
 	// initially transform arguments to avoid inequality constraints
@@ -647,7 +646,7 @@ class CNOPModel scalar estimateMIOPR(y, x, z, infcat, |quiet, startvalues, robus
 			}
 		} else {
 			if(!quiet) {
-				"ZIOP final optimization encountered error code " + strofreal(errorcode) + ": " + retCode
+				"ZIOP-2 final optimization encountered error code " + strofreal(errorcode) + ": " + retCode
 			}
 		}
 	}
@@ -689,7 +688,7 @@ class CNOPModel scalar estimateMIOPR(y, x, z, infcat, |quiet, startvalues, robus
 	errorcode2 = _optimize_evaluate(S2)
 	
 	if(!quiet){
-		"Calculation completed"
+		"Estimation completed"
 	}
 	//"TEST: CALCULATION REALLY COMPLETED"
 	//estimation_successful
@@ -807,19 +806,19 @@ class CNOPModel scalar estimateMIOPRC(y, x, z, infcat, |quiet, startvalues, robu
 	}
 	if(rows(start_param) < 1 || start_param == .) {
 		if(!quiet) {
-			"Run initial ZIOP estimation"
+			"Run estimation of two-part zero-inflated ordered probit (ZIOP-2) model with endogenous switching"
 		}
 		class CNOPModel scalar initial_model 
 		initial_model = estimateMIOPR(y, x, z, infcat, quiet, ., ., ., ., lambda, maxiter, ptol, vtol, nrtol)
 		if(!quiet) {
-			"ZIOP estimation completed"
+			"Estimation of ZIOP-2 with exogenous switching successful"
 		}
 		start_param = initial_model.params \ 0
 		/* Here I could have started looping through different ro, but I just set ro = 0, and it's okay; more quick and stable. */
 	}
 	
 	if(!quiet){
-		"Estimating ZIOPC core stage"
+		"Estimating ZIOP-2 with endogenous switching"
 	}
 	
 	// initially transform arguments to avoid inequality constraints
@@ -915,7 +914,7 @@ class CNOPModel scalar estimateMIOPRC(y, x, z, infcat, |quiet, startvalues, robu
 			}
 		} else {
 			if(!quiet) {
-				"ZIOPC final optimization encountered error code " + strofreal(errorcode) + ": " + retCode
+				"ZIOP-2 final optimization encountered error code " + strofreal(errorcode) + ": " + retCode
 			}
 		}
 	}
@@ -955,7 +954,7 @@ class CNOPModel scalar estimateMIOPRC(y, x, z, infcat, |quiet, startvalues, robu
 	errorcode = _optimize_evaluate(S2)
 	
 	if(!quiet){
-		"Calculation completed"
+		"Estimation completed"
 	}
 	
 	if (estimation_successful == 0) {
@@ -1069,17 +1068,18 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 	if(rows(start_param) < 1 || start_param == .) {
 		
 		if(!quiet){
-			"Estimating NOP (without correlation)"
+			"Run estimation of three-part nested ordered probit (NOP) model with endogenous switching"
+			"Computing starting values:"
 		}
 		class CNOPModel scalar initial_model 
 		initial_model = estimateNOP(y, x, zp, zn, infcat, quiet, ., ., ., ., lambda, maxiter, ptol, vtol, nrtol)
 		if(!quiet) {
-			"NOP estimation successful"
+			"Estimation of NOP with exogenous switching successful"
 		}
 		start_param = initial_model.params'
 		
 		if(!quiet) { 
-			"Seeking rhos"
+			"Computing starting values for correlation coefficients"
 		}
 		latn = 11
 		ros = rangen(-0.95,0.95,latn)
@@ -1097,12 +1097,12 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 		rop = ros[j[1,1]]
 		start_param = (start_param, ron, rop)'
 		if(!quiet) { 
-			"Best correlations", strofreal(ron), strofreal(rop)
+			"Starting values for correlation coefficients", strofreal(ron), strofreal(rop)
 		}
 	}
 	
 	if(!quiet) {
-		"Estimating NOPC core"
+		"Estimating NOP with endogenous switching"
 	}
 	
 	// initially transform arguments to avoid inequality constraints
@@ -1237,7 +1237,7 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 	errorcode2 = _optimize_evaluate(S2)
 	
 	if(!quiet){
-		"Calculation completed"
+		"Estimation completed"
 	}
 	
 	if (estimation_successful == 0) {
@@ -1357,8 +1357,8 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 	}
 	if(rows(start_param) < 1 || start_param == .) {
 		if (!quiet){
-			"Calculating initial values"
-			"1-stage OP: z-p-n"
+			"Computing starting values:"
+			"Independent regime equation"
 		}
 		//start_mu1	= invnormal(runningsum(mean(q3))[1::2])';
 		//start_b1		= invsym(x'*x)*x'*(qp-qn);
@@ -1367,7 +1367,7 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 		
 		fltr = (y:>=infcat)
 		if (!quiet){
-			"2 stage OP on positive and 0"
+			"Independent outcome equation for y>=0"
 		}
 		y2 = select(y, fltr)
 		q2 = select(q, fltr)
@@ -1380,7 +1380,7 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 		
 		params2 = coeffOP(zp2, q2, ncatp+1,quiet, ., lambda, maxiter, ptol, vtol, nrtol)
 		if (!quiet) {
-			"2 stage OP on negative and 0"
+			"Independent outcome equation for y<=0"
 		}
 		fltr = (y:<=infcat)
 		y2 = select(y, fltr)
@@ -1397,7 +1397,7 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 		start_param = params1 \ params2 \ params3
 	}
 	if(!quiet){
-		"Estimating CNOP core stage"
+		"ZIOP-3 with exogenous switching"
 	}
 	
 	// initially transform arguments to avoid inequality constraints
@@ -1500,7 +1500,7 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 			}
 		} else {
 			if(!quiet) {
-				"CNOP final optimization encountered error code " + strofreal(errorcode) + ": " + retCode
+				"ZIOP-3 final optimization encountered error code " + strofreal(errorcode) + ": " + retCode
 			}
 		}
 	}
@@ -1660,17 +1660,17 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 	if(rows(start_param) < 1 || start_param == .) {
 		
 		if(!quiet) {
-			"Run CNOP estimation"
+			"Run estimation of three-part zero-inflated ordered probit (ZIOP-3) model with endogenous switching"
 		}
 		class CNOPModel scalar initial_model 
 		initial_model = estimateCNOP(y, x, zp, zn, infcat, quiet, ., ., ., ., lambda, maxiter, ptol, vtol, nrtol)
 		if(!quiet) {
-			"CNOP estimation successful"
+			"Estimation of ZIOP-3 with exogenous switching successful"
 		}
 		start_param = initial_model.params'
 		
 		if(!quiet) { 
-			"Seeking rhos"
+			"Computing starting values for correlation coefficients"
 		}
 		latn = 11
 		ros = rangen(-0.95,0.95,latn)
@@ -1687,12 +1687,12 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 		rop = ros[j[1,1]]
 		start_param = (start_param, ron, rop)'
 		if(!quiet) { 
-			"Best correlations", strofreal(ron), strofreal(rop)
+			"Starting values for correlation coefficients", strofreal(ron), strofreal(rop)
 		}
 	}
 	
 	if(!quiet) {
-		"Estimating CNOPC core"
+		"Estimating ZIOP-3 with endogenous switching"
 	}
 	
 	// initially transform arguments to avoid inequality constraints
@@ -1797,7 +1797,7 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 			}
 		} else {
 			if(!quiet) {
-				"CNOPC final optimization encountered error code " + strofreal(errorcode) + ": " + retCode
+				"ZIOP-3  final optimization encountered error code " + strofreal(errorcode) + ": " + retCode
 			}
 		}
 	}
@@ -1840,7 +1840,7 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 	
 	// estimate main miopr stage
 	if(!quiet) {
-		"Calculation completed"
+		"Estimation completed"
 	}
 	// incomplete: bad convergence even at good starting values. CHECK CONVEXITY
 	
