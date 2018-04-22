@@ -365,12 +365,10 @@ function generalPredictWrapper(real matrix params, real matrix xzvalues, class C
 
 function generalPredictWithSE(real matrix xzvalues, class CNOPModel scalar model, real scalar loop) {
 	generalPredictWrapper(model.params', xzvalues, model, loop, probs = .)
-		// need to reshape probs
-	probs  = colshape(probs, model.ncat)
+	probs = rowshape(probs, 1)
 	
 	nc = cols(probs)
 	nr = rows(probs)
-	np = rows(model.params)
 	D = deriv_init()
 	deriv_init_evaluator(D, &generalPredictWrapper())
 	deriv_init_evaluatortype(D, "t")

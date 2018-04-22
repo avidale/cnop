@@ -2214,6 +2214,23 @@ function get_colstripes(model_class, loop, allcat, infcat) {
 	return(colstripes)
 }
 
+function output_mesetp(me, se, rowstripes, colstripes) {
+	t = me :/ se
+	pval = (1:-normal(abs(t))) :* 2
+	st_matrix("r(me)", me)
+	st_matrix("r(se)", se)
+	st_matrix("r(t)", t)
+	st_matrix("r(pval)", pval)
+	st_matrixrowstripe("r(me)", rowstripes)
+	st_matrixrowstripe("r(se)", rowstripes)
+	st_matrixrowstripe("r(t)", rowstripes)
+	st_matrixrowstripe("r(pval)", rowstripes)
+	st_matrixcolstripe("r(me)", colstripes)
+	st_matrixcolstripe("r(se)", colstripes)
+	st_matrixcolstripe("r(t)", colstripes)
+	st_matrixcolstripe("r(pval)", colstripes)
+}
+
 
 // marginal effects for MIOP(r), CNOP, CNOP(c)
 
@@ -2255,22 +2272,8 @@ function CNOPmargins(class CNOPModel scalar model, string atVarlist, string dumm
 	kxz = cols(xzbar)
 	me = mese[1::kxz,]
 	se = mese[(1::kxz) :+ kxz,]
-	t = me :/ se
-	pval = (1:-normal(abs(t))) :* 2
-	st_matrix("r(me)", me)
-	st_matrix("r(se)", se)
-	st_matrix("r(t)", t)
-	st_matrix("r(pval)", pval)
 	
-	st_matrixrowstripe("r(me)", rowstripes)
-	st_matrixrowstripe("r(se)", rowstripes)
-	st_matrixrowstripe("r(t)", rowstripes)
-	st_matrixrowstripe("r(pval)", rowstripes)
-	st_matrixcolstripe("r(me)", colstripes)
-	st_matrixcolstripe("r(se)", colstripes)
-	st_matrixcolstripe("r(t)", colstripes)
-	st_matrixcolstripe("r(pval)", colstripes)
-	
+	output_mesetp(me, se, rowstripes, colstripes)	
 }
 
 
@@ -2306,26 +2309,13 @@ function CNOPprobabilities(class CNOPModel scalar model, string atVarlist, zeroe
 	
 	"Evaluated at:"
 	model.XZnames \ strofreal(xz_from)
-	
+
 	colstripes = get_colstripes(model.model_class, loop, model.allcat, model.infcat)
-	
+	rowstripes = "", " " // rowstripes made invisible
 	mese = generalPredictWithSE(xz_from, model, loop)
-	
-	kxz = cols(xz_from)
 	me = mese[1,]
 	se = mese[2,]
-	t = me :/ se
-	pval = (1:-normal(abs(t))) :* 2
-	st_matrix("r(me)", me)
-	st_matrix("r(se)", se)
-	st_matrix("r(t)", t)
-	st_matrix("r(pval)", pval)
-	
-	st_matrixcolstripe("r(me)", colstripes)
-	st_matrixcolstripe("r(se)", colstripes)
-	st_matrixcolstripe("r(t)", colstripes)
-	st_matrixcolstripe("r(pval)", colstripes)
-	
+	output_mesetp(me, se, rowstripes, colstripes)
 }
 
 function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string toVarlist, zeroes, regime) {
@@ -2385,23 +2375,12 @@ function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string to
 	model.XZnames \ strofreal(xz_from) \ strofreal(xz_to)
 	
 	colstripes = get_colstripes(model.model_class, loop, model.allcat, model.infcat)
+	rowstripes = "", " " // rowstripes made invisible
 	
 	mese = generalContrastsWithSE(xz_from, xz_to, model, loop)
-	kxz = cols(xz_from)
 	me = mese[1,]
 	se = mese[2,]
-	t = me :/ se
-	pval = (1:-normal(abs(t))) :* 2
-	st_matrix("r(me)", me)
-	st_matrix("r(se)", se)
-	st_matrix("r(t)", t)
-	st_matrix("r(pval)", pval)
-	
-	st_matrixcolstripe("r(me)", colstripes)
-	st_matrixcolstripe("r(se)", colstripes)
-	st_matrixcolstripe("r(t)", colstripes)
-	st_matrixcolstripe("r(pval)", colstripes)
-	
+	output_mesetp(me, se, rowstripes, colstripes)
 }
 
 // prediction for MIOP(r), CNOP, CNOP(c)
