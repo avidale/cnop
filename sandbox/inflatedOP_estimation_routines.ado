@@ -1106,7 +1106,8 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 		rop = ros[j[1,1]]
 		start_param = (start_param, ron, rop)'
 		if(!quiet) { 
-			"Starting values for correlation coefficients", strofreal(ron), strofreal(rop)
+			"Starting values for correlation coefficients"
+			strofreal(ron), strofreal(rop)
 		}
 	}
 	
@@ -1704,7 +1705,8 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 		rop = ros[j[1,1]]
 		start_param = (start_param, ron, rop)'
 		if(!quiet) { 
-			"Starting values for correlation coefficients", strofreal(ron), strofreal(rop)
+			"Starting values for correlation coefficients"
+			strofreal(ron), strofreal(rop)
 		}
 	}
 	
