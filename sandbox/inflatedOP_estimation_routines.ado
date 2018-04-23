@@ -1090,8 +1090,8 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 		if(!quiet) { 
 			"Computing starting values for correlation coefficients"
 		}
-		latn = 11
-		ros = rangen(-0.95,0.95,latn)
+		latn = 19 * 2 + 1
+		ros = rangen(-0.95, 0.95, latn)
 		lik = J(latn, latn, 0)
 
 		for(i=1; i<=latn; i++){
@@ -1106,7 +1106,6 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 		rop = ros[j[1,1]]
 		start_param = (start_param, ron, rop)'
 		if(!quiet) { 
-			"Starting values for correlation coefficients"
 			strofreal(ron), strofreal(rop)
 		}
 	}
@@ -1690,7 +1689,7 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 		if(!quiet) { 
 			"Computing starting values for correlation coefficients"
 		}
-		latn = 11
+		latn = 19 * 2 + 1
 		ros = rangen(-0.95,0.95,latn)
 		lik = J(latn, latn, 0)
 		for(i=1; i<=latn; i++){
@@ -1701,12 +1700,11 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 		tmp = 0
 		maxindex(rowmax(lik),1,i,tmp)
 		maxindex(colmax(lik),1,j,tmp)
-		ron = ros[i[1,1]]
-		rop = ros[j[1,1]]
-		start_param = (start_param, ron, rop)'
+		rop = ros[i[1,1]]
+		ron = ros[j[1,1]]
+		start_param = (start_param, rop, ron)'
 		if(!quiet) { 
-			"Starting values for correlation coefficients"
-			strofreal(ron), strofreal(rop)
+			strofreal(rop), strofreal(ron)
 		}
 	}
 	
@@ -1715,8 +1713,8 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 	}
 	
 	// initially transform arguments to avoid inequality constraints
-	_cnopc_params(start_param, kx, kzp, kzn, ncatp, ncatn, b = ., a = ., gp = ., mup = ., gn = ., mun = ., ron = ., rop = .)
-	coded_param = b \ codeIncreasingSequence(a) \ gp \ codeIncreasingSequence(mup) \ gn \ codeIncreasingSequence(mun) \ logit((ron + 1) * 0.5) \ logit((rop + 1) * 0.5)
+	_cnopc_params(start_param, kx, kzp, kzn, ncatp, ncatn, b = ., a = ., gp = ., mup = ., gn = ., mun = ., rop = ., ron = .)
+	coded_param = b \ codeIncreasingSequence(a) \ gp \ codeIncreasingSequence(mup) \ gn \ codeIncreasingSequence(mun) \ logit((rop + 1) * 0.5) \ logit((ron + 1) * 0.5)
 	/* if coded params contain mistake, replace them by total zero */
 	/* INCOMPLETE: need to do it before seeking ros */
 	if (max(coded_param :==.)  > 0){
@@ -1828,8 +1826,8 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 	}
 
 	// After optimization, transform argument back
-	_cnopc_params(params, kx, kzp, kzn, ncatp, ncatn, b = ., a = ., gp = ., mup = ., gn = ., mun = ., ron = ., rop = .)
-	params = b \ decodeIncreasingSequence(a) \ gp \ decodeIncreasingSequence(mup) \ gn \ decodeIncreasingSequence(mun) \ invlogit(ron) * 2 - 1 \ invlogit(rop) * 2 - 1
+	_cnopc_params(params, kx, kzp, kzn, ncatp, ncatn, b = ., a = ., gp = ., mup = ., gn = ., mun = ., rop = ., ron = .)
+	params = b \ decodeIncreasingSequence(a) \ gp \ decodeIncreasingSequence(mup) \ gn \ decodeIncreasingSequence(mun) \ invlogit(rop) * 2 - 1 \ invlogit(ron) * 2 - 1
 	
 	
 	S2 = optimize_init()
@@ -2000,7 +1998,7 @@ function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robus
 	
 	if (correlated) {
 		model.eqnames = model.eqnames, J(1, 2, "Correlation coefficients")
-		model.parnames = model.parnames, "rho(-)", "rho(+)"
+		model.parnames = model.parnames, "rho(+)", "rho(-)"
 	}
 	st_matrix("b", model.params')
 	if (robust == 1) {

@@ -1214,15 +1214,15 @@ function cnop_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {
 ////////////////////////////////////////////////////////////////
 // CNOPC model - with correlation
 ////////////////////////////////////////////////////////////////
-void _cnopc_params(params, kx, kzp, kzn, ncatp, ncatn, b, a, gp, mup, gn, mun, ron, rop) {
+void _cnopc_params(params, kx, kzp, kzn, ncatp, ncatn, b, a, gp, mup, gn, mun, rop, ron) {
 	b 	= params[1::kx]
 	a	= params[(kx+1)::(kx+2)]
 	gp	= params[(kx+2+1)::(kx+2+kzp)]
 	mup	= params[(kx+2+kzp+1)::(kx+2+kzp+ncatp)]
 	gn	= params[(kx+2+kzp+ncatp+1)::(kx+2+kzp+ncatp+kzn)]
 	mun	= params[(kx+2+kzp+ncatp+kzn+1)::(kx+2+kzp+ncatp+kzn+ncatn)]
-	ron = params[(kx+2+kzp+ncatp+kzn+ncatn+1)]
-	rop = params[(kx+2+kzp+ncatp+kzn+ncatn+2)]
+	rop = params[(kx+2+kzp+ncatp+kzn+ncatn+1)]
+	ron = params[(kx+2+kzp+ncatp+kzn+ncatn+2)]
 }
 void _cnopc_optim(todo, params, x, zp, zn, q, ncat, infcat, coded, lambda, v, g, H) {
 	n	= rows(x)
@@ -1232,7 +1232,7 @@ void _cnopc_optim(todo, params, x, zp, zn, q, ncat, infcat, coded, lambda, v, g,
 	// incomplete: assumption
 	ncatp = ncat - infcat
 	ncatn = infcat - 1
-	_cnopc_params(params', kx, kzp, kzn, ncatp, ncatn, b = ., a = ., gp = ., mup = ., gn = ., mun = ., ron = ., rop = .)
+	_cnopc_params(params', kx, kzp, kzn, ncatp, ncatn, b = ., a = ., gp = ., mup = ., gn = ., mun = ., rop = ., ron = .)
 	if (coded == 1) {
 		a  = decodeIncreasingSequence(a);
 		mup = decodeIncreasingSequence(mup);
@@ -1240,7 +1240,7 @@ void _cnopc_optim(todo, params, x, zp, zn, q, ncat, infcat, coded, lambda, v, g,
 		ron = invlogit(ron) * 2 - 1
 		rop = invlogit(rop) * 2 - 1
 	}
-	decoded_params = b \ a \ gp \ mup \ gn \ mun \ ron \ rop
+	decoded_params = b \ a \ gp \ mup \ gn \ mun \ rop \ ron
 	
 	v = MLcnopc(decoded_params, x, zp, zn, q, ncat, infcat, 0)
 	
@@ -1248,7 +1248,7 @@ void _cnopc_optim(todo, params, x, zp, zn, q, ncat, infcat, coded, lambda, v, g,
 	Add L2 regularization, making all params closer to 0 in optimum 
 	Because v is vector of n observation, penalize each by lambda/n 
 	*/
-	v = v :- lambda / n * sum(params :^ 2)
+	//v = v :- lambda / n * sum(params :^ 2)
 	
 	if(todo==1){
 		// alas! gradient is not available so far
@@ -1264,7 +1264,7 @@ function MLcnopc(params, x, zp, zn, q, ncat, infcat, | loop) {
 	// incomplete: assumption
 	ncatp = ncat - infcat
 	ncatn = infcat - 1
-	_cnopc_params(params, kx, kzp, kzn, ncatp, ncatn, b = ., a = ., gp = ., mup = ., gn = ., mun = ., ron = ., rop = .)
+	_cnopc_params(params, kx, kzp, kzn, ncatp, ncatn, b = ., a = ., gp = ., mup = ., gn = ., mun = ., rop = ., ron = .)
 	
 	a = punishSort(a)
 	mup = punishSort(mup)
@@ -1340,8 +1340,8 @@ function cnopc_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {
 	mup	= params[(kx+2+kzp+1)::(kx+2+kzp+ncatp)]
 	gn	= params[(kx+2+kzp+ncatp+1)::(kx+2+kzp+ncatp+kzn)]
 	mun	= params[(kx+2+kzp+ncatp+kzn+1)::(kx+2+kzp+ncatp+kzn+ncatn)]
-	ron = params[(kx+2+kzp+ncatp+kzn+ncatn+1)]
-	rop = params[(kx+2+kzp+ncatp+kzn+ncatn+2)]
+	rop = params[(kx+2+kzp+ncatp+kzn+ncatn+1)]
+	ron = params[(kx+2+kzp+ncatp+kzn+ncatn+2)]
 
 	corrmax = 0.9999
 	if(ron >= corrmax)	{ron = corrmax;	}
@@ -1424,8 +1424,8 @@ function cnopc_deriv(params, x, zp, zn, q, ncat, infcat) {
 	gn	= params[(kx+2+kzp+ncatp+1)::(kx+2+kzp+ncatp+kzn)]
 	mun	= params[(kx+2+kzp+ncatp+kzn+1)::(kx+2+kzp+ncatp+kzn+ncatn)]
 	mun = punishSort(mun)
-	ron = params[(kx+2+kzp+ncatp+kzn+ncatn+1)]
-	rop = params[(kx+2+kzp+ncatp+kzn+ncatn+2)]
+	rop = params[(kx+2+kzp+ncatp+kzn+ncatn+1)]
+	ron = params[(kx+2+kzp+ncatp+kzn+ncatn+2)]
 	
 	corrmax = 0.9999
 	
