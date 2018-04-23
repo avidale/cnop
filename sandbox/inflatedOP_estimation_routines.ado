@@ -1102,11 +1102,11 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 		tmp = 0
 		maxindex(rowmax(lik),1,i,tmp)
 		maxindex(colmax(lik),1,j,tmp)
-		ron = ros[i[1,1]]
-		rop = ros[j[1,1]]
-		start_param = (start_param, ron, rop)'
+		ron = ros[j[1,1]]
+		rop = ros[i[1,1]]
+		start_param = (start_param, rop, ron)'
 		if(!quiet) { 
-			strofreal(ron), strofreal(rop)
+			strofreal(rop), strofreal(ron)
 		}
 	}
 	
@@ -1115,8 +1115,8 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 	}
 	
 	// initially transform arguments to avoid inequality constraints
-	_nopc_params(start_param, kx, kzp, kzn, ncatp, ncatn, b = ., a = ., gp = ., mup = ., gn = ., mun = ., ron = ., rop = .)
-	coded_param = b \ codeIncreasingSequence(a) \ gp \ codeIncreasingSequence(mup) \ gn \ codeIncreasingSequence(mun) \ logit((ron + 1) * 0.5) \ logit((rop + 1) * 0.5)
+	_nopc_params(start_param, kx, kzp, kzn, ncatp, ncatn, b = ., a = ., gp = ., mup = ., gn = ., mun = ., rop = ., ron = .)
+	coded_param = b \ codeIncreasingSequence(a) \ gp \ codeIncreasingSequence(mup) \ gn \ codeIncreasingSequence(mun) \ logit((rop + 1) * 0.5) \ logit((ron + 1) * 0.5)
 	/* if coded params contain mistake, replace them by total zero */
 	if (max(coded_param :==.)  > 0){
 		coded_param = J(rows(coded_param), cols(coded_param), 0)
@@ -1220,8 +1220,8 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 	
 	// After optimization, transform argument back
 	
-	_nopc_params(params, kx, kzp, kzn, ncatp, ncatn, b = ., a = ., gp = ., mup = ., gn = ., mun = ., ron = ., rop = .)
-	params = b \ decodeIncreasingSequence(a) \ gp \ decodeIncreasingSequence(mup) \ gn \ decodeIncreasingSequence(mun) \ invlogit(ron) * 2 - 1 \ invlogit(rop) * 2 - 1
+	_nopc_params(params, kx, kzp, kzn, ncatp, ncatn, b = ., a = ., gp = ., mup = ., gn = ., mun = ., rop = ., ron = .)
+	params = b \ decodeIncreasingSequence(a) \ gp \ decodeIncreasingSequence(mup) \ gn \ decodeIncreasingSequence(mun) \ invlogit(rop) * 2 - 1 \ invlogit(ron) * 2 - 1
 	
 	S2 = optimize_init()
 	optimize_init_evaluator(S2, &_nopc_optim())
@@ -2085,7 +2085,7 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 	
 	if (correlated) {
 		model.eqnames = model.eqnames, J(1, 2, "Correlation coefficients")
-		model.parnames = model.parnames, "rho(-)", "rho(+)"
+		model.parnames = model.parnames, "rho(+)", "rho(-)"
 	}
 	st_matrix("b", model.params')
 	if (robust == 1) {

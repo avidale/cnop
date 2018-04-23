@@ -1842,15 +1842,15 @@ function nop_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {
 ////////////////////////////////////////////////////////////////
 // NOP-C model// add constraints!
 ////////////////////////////////////////////////////////////////
-void _nopc_params(params, kx, kzp, kzn, ncatp, ncatn, b, a, gp, mup, gn, mun, ron, rop) {
+void _nopc_params(params, kx, kzp, kzn, ncatp, ncatn, b, a, gp, mup, gn, mun, rop, ron) {
 	b 	= params[1::kx]
 	a	= params[(kx+1)::(kx+2)]
 	gp	= params[(kx+2+1)::(kx+2+kzp)]
 	mup	= params[(kx+2+kzp+1)::(kx+2+kzp+ncatp-1)]
 	gn	= params[(kx+2+kzp+ncatp)::(kx+2+kzp+ncatp+kzn-1)]
 	mun	= params[(kx+2+kzp+ncatp+kzn)::(kx+2+kzp+ncatp+kzn+ncatn-2)]
-	ron = params[(kx+2+kzp+ncatp+kzn+ncatn-1)]
-	rop = params[(kx+2+kzp+ncatp+kzn+ncatn-0)]
+	rop = params[(kx+2+kzp+ncatp+kzn+ncatn-1)]
+	ron = params[(kx+2+kzp+ncatp+kzn+ncatn-0)]
 }
 void _nopc_optim(todo, params, x, zp, zn, q, ncat, infcat, coded, v, g, H){
 	kx	= cols(x)
@@ -1858,7 +1858,7 @@ void _nopc_optim(todo, params, x, zp, zn, q, ncat, infcat, coded, v, g, H){
 	kzn	= cols(zn)
 	ncatp = ncat - infcat
 	ncatn = infcat - 1
-	_nopc_params(params', kx, kzp, kzn, ncatp, ncatn, b = ., a = ., gp = ., mup = ., gn = ., mun = ., ron = ., rop = .)
+	_nopc_params(params', kx, kzp, kzn, ncatp, ncatn, b = ., a = ., gp = ., mup = ., gn = ., mun = ., rop = ., ron = .)
 	if (coded == 1) {
 		a  = decodeIncreasingSequence(a);
 		mup = decodeIncreasingSequence(mup);
@@ -1868,7 +1868,7 @@ void _nopc_optim(todo, params, x, zp, zn, q, ncat, infcat, coded, v, g, H){
 	} else {
 		//"I AM THE LIKELIHOOD WRAPPER AND I DO NOT REPARAMETRIZE NOTHING!!!"
 	}
-	decoded_params = b \ a \ gp \ mup \ gn \ mun \ ron \ rop
+	decoded_params = b \ a \ gp \ mup \ gn \ mun \ rop \ ron
 	v = MLnopc(decoded_params, x, zp, zn, q, ncat, infcat, 0)
 	if(todo==1){
 		// alas! gradient is not available so far
@@ -1892,8 +1892,8 @@ function MLnopc(params, x, zp, zn, q, ncat, infcat, | loop){
 	mup	= params[(kx+2+kzp+1)::(kx+2+kzp+ncatp-1)]
 	gn	= params[(kx+2+kzp+ncatp)::(kx+2+kzp+ncatp+kzn-1)]
 	mun	= params[(kx+2+kzp+ncatp+kzn)::(kx+2+kzp+ncatp+kzn+ncatn-2)]
-	ron = params[(kx+2+kzp+ncatp+kzn+ncatn-1)]
-	rop = params[(kx+2+kzp+ncatp+kzn+ncatn-0)]
+	rop = params[(kx+2+kzp+ncatp+kzn+ncatn-1)]
+	ron = params[(kx+2+kzp+ncatp+kzn+ncatn-0)]
 	
 	punishment = 0
 	mu = punishSort(mu, 10^-3, diff1=.)
@@ -1965,8 +1965,8 @@ function nopc_deriv(params, x, zp, zn, q, ncat, infcat,| ofLogLik) {
 	mup	= params[(kx+2+kzp+1)::(kx+2+kzp+ncatp-1)]
 	gn	= params[(kx+2+kzp+ncatp)::(kx+2+kzp+ncatp+kzn-1)]
 	mun	= params[(kx+2+kzp+ncatp+kzn)::(kx+2+kzp+ncatp+kzn+ncatn-2)]
-	ron = params[(kx+2+kzp+ncatp+kzn+ncatn-1)]
-	rop = params[(kx+2+kzp+ncatp+kzn+ncatn-0)]
+	rop = params[(kx+2+kzp+ncatp+kzn+ncatn-1)]
+	ron = params[(kx+2+kzp+ncatp+kzn+ncatn-0)]
 	
 	punishment = 0
 	mu = punishSort(mu, 10^-3, diff1=.)
@@ -2108,8 +2108,8 @@ function nopc_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {
 	mup	= params[(kx+2+kzp+1)::(kx+2+kzp+ncatp-1)]
 	gn	= params[(kx+2+kzp+ncatp)::(kx+2+kzp+ncatp+kzn-1)]
 	mun	= params[(kx+2+kzp+ncatp+kzn)::(kx+2+kzp+ncatp+kzn+ncatn-2)]
-	ron = params[(kx+2+kzp+ncatp+kzn+ncatn-1)]
-	rop = params[(kx+2+kzp+ncatp+kzn+ncatn-0)]
+	rop = params[(kx+2+kzp+ncatp+kzn+ncatn-1)]
+	ron = params[(kx+2+kzp+ncatp+kzn+ncatn-0)]
 	
 
 	mu = punishSort(mu, 10^-3, diff1=.)
