@@ -1839,6 +1839,8 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 	optimize_init_argument(S2, 4, q)
 	optimize_init_argument(S2, 5, ncat)
 	optimize_init_argument(S2, 6, infcat_index)
+	optimize_init_argument(S2, 7, 0)
+	optimize_init_argument(S2, 8, 0)
 	optimize_init_evaluatortype(S2, "gf0")
 	optimize_init_conv_maxiter(S2, maxiter)
 	optimize_init_conv_ptol(S2, ptol)
@@ -1847,9 +1849,6 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 	optimize_init_singularHmethod(S2, "hybrid")
 	optimize_init_conv_warning(S2, "off") // show that convergence not achieved
 	optimize_init_technique(S2, "nr") 
-	
-	optimize_init_argument(S2, 7, 0)
-	optimize_init_argument(S2, 8, 0)
 	optimize_init_params(S2, params')
 	//" DDCheck: evaluate start "
 	errorcode = _optimize_evaluate(S2)
@@ -1874,7 +1873,7 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 		covMat_rob = optimize_result_V_robust(S2)
 	}
 	// calculate log-likelihood of each observation
-	_cnopc_optim(0, params', x, zp, zn, q, ncat, infcat_index, 0, ll_obs, _, _)
+	_cnopc_optim(0, params', x, zp, zn, q, ncat, infcat_index, 0, 0, ll_obs, _, _)
 	
 	// calculate model statistics
 	se		= sqrt(diagonal(covMat))
