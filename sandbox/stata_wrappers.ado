@@ -97,7 +97,15 @@ program ziopmargins, rclass
 	display "Evaluated at:"
 	mat list r(at_all)
 	display ""
-	display "Marginal effects of all variables on probabilities"
+	if "`zeros'" == "zeros" {
+		display "Marginal effects of all variables on the probabilities of different types of zeros"
+	} 
+	else if "`regime'" == "regime" {
+		display "Marginal effects of all variables on the probabilities of different latent regimes"
+	} 
+	else {
+		display "Marginal effects of all variables on the probabilities of different outcomes"
+	}
 	mat list r(me)
 	display ""
 	display "Standard errors of marginal effects"
@@ -111,10 +119,18 @@ program ziopprobabilities, rclass
 	display "Evaluated at:"
 	mat list r(at_all)
 	display ""
-	display "Predicted probabilities"
+	if "`zeros'" == "zeros" {
+		display "Predicted probabilities of different types of zeros"
+	} 
+	else if "`regime'" == "regime" {
+		display "Predicted probabilities of different latent regimes"
+	} 
+	else {
+		display "Predicted probabilities of different outcomes"
+	}
 	mat list r(me)
 	display ""
-	display "Standard errors of probabilities"
+	display "Standard errors of the probabilities"
 	mat list r(se)
 end
 
@@ -125,10 +141,18 @@ program ziopcontrasts, rclass
 	display "Evaluated between:"
 	mat list r(between_all)
 	display ""
-	display "Contrasts of predicted probabilities"
+	if "`zeros'" == "zeros" {
+		display "Contrasts of the predicted probabilities of different types of zeros"
+	} 
+	else if "`regime'" == "regime" {
+		display "Contrasts of the predicted probabilities of different latent regimes"
+	} 
+	else {
+		display "Contrasts of the predicted probabilities of different outcomes"
+	}
 	mat list r(me)
 	display ""
-	display "Standard errors of contrasts"
+	display "Standard errors of the contrasts"
 	mat list r(se)
 end
 
