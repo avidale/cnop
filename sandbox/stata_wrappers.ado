@@ -95,7 +95,7 @@ program ziopmargins, rclass
 	syntax [, at(string asis) nominal(varlist) zeros regime]
 	mata: CNOPmargins(CNOP_last_model, "`at'", "`nominal'", "`zeros'" == "zeros", "`regime'"=="regime")
 	display "Evaluated at:"
-	mat list r(at_all)
+	mat list r(at_all), noheader
 	display ""
 	if "`zeros'" == "zeros" {
 		display "Marginal effects of all variables on the probabilities of different types of zeros"
@@ -106,10 +106,10 @@ program ziopmargins, rclass
 	else {
 		display "Marginal effects of all variables on the probabilities of different outcomes"
 	}
-	mat list r(me)
+	mat list r(me), noheader
 	display ""
 	display "Standard errors of marginal effects"
-	mat list r(se)
+	mat list r(se), noheader
 end
 
 program ziopprobabilities, rclass
@@ -117,7 +117,7 @@ program ziopprobabilities, rclass
 	syntax [, at(string asis) zeros regime]
 	mata: CNOPprobabilities(CNOP_last_model, "`at'", "`zeros'" == "zeros", "`regime'"=="regime")
 	display "Evaluated at:"
-	mat list r(at_all)
+	mat list r(at_all), noheader
 	display ""
 	if "`zeros'" == "zeros" {
 		display "Predicted probabilities of different types of zeros"
@@ -128,10 +128,10 @@ program ziopprobabilities, rclass
 	else {
 		display "Predicted probabilities of different outcomes"
 	}
-	mat list r(me)
+	mat list r(me), noheader
 	display ""
 	display "Standard errors of the probabilities"
-	mat list r(se)
+	mat list r(se), noheader
 end
 
 program ziopcontrasts, rclass
@@ -139,7 +139,7 @@ program ziopcontrasts, rclass
 	syntax [, at(string asis) to(string asis) zeros regime]
 	mata: CNOPcontrasts(CNOP_last_model, "`at'", "`to'", "`zeros'" == "zeros", "`regime'"=="regime")
 	display "Evaluated between:"
-	mat list r(between_all)
+	mat list r(between_all), noheader
 	display ""
 	if "`zeros'" == "zeros" {
 		display "Contrasts of the predicted probabilities of different types of zeros"
@@ -150,10 +150,10 @@ program ziopcontrasts, rclass
 	else {
 		display "Contrasts of the predicted probabilities of different outcomes"
 	}
-	mat list r(me)
+	mat list r(me), noheader
 	display ""
 	display "Standard errors of the contrasts"
-	mat list r(se)
+	mat list r(se), noheader
 end
 
 

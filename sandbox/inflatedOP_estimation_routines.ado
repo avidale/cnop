@@ -2218,7 +2218,6 @@ function output_matrix(matrix_name, matrix_value, rowstripes, colstripes){
 	st_matrix(matrix_name, matrix_value)
 	st_matrixrowstripe(matrix_name, (J(rows(rowstripes), 1, ""), rowstripes))
 	st_matrixcolstripe(matrix_name, (J(rows(colstripes), 1, ""), colstripes))
-	"success!"
 }
 
 function output_mesetp(me, se, rowstripes, colstripes) {
