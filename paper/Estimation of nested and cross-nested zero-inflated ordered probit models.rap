@@ -1111,12 +1111,14 @@ positive or zero) must be predicted instead of different response values.
 This option is ignored if \texttt{zeros} option is on.
 
 \texttt{output(string)} specifies type of aggregating predicted
-probabilities of different response. Possible values are \texttt{mode} and 
-\texttt{mean}, for predicting average or most probable outcome, and \texttt{%
+probabilities of different response. Possible values are: \texttt{mode} for 
+reporting the outcome with the highest predicted probability, and
+\texttt{mean}, for predicting the expected outcome computed as
+$\sum_i Pr(y_{t}=i) \times i$, and \texttt{%
 cum} for predicting cumulative response probabilities (i.e. $\Pr (y_{t}<=-2)$%
 , $\Pr (y_{t}<=-1)$, $\Pr (y_{t}<=0)$ etc.). If not specified, raw response
 probabilities are predicted ($\Pr (y_{t}=-2)$, $\Pr (y_{t}=-1)$, $\Pr
-(y_{t}=0)$ etc.).
+(y_{t}=0)$ etc.), and placed into multiple variables.
 
 \subsubsection*{The ziopmargins command}
 
