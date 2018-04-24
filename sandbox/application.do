@@ -11,20 +11,44 @@ run stata_wrappers.ado
 
 import delimited Data_for_application.csv, clear 
 
+gen spreada = abs(spread)
+set more off
+nop y5 pb spread houst gdp in 5/214, xn(spread ) xp(pb spread) infcat(3)
+set more off
+nop y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3) endoswitch
+ziop2 y3 spreada  in 5/214, x(pb houst gdp ) infcat(2)
+ziop2 y3 spreada  in 5/214, x(pb houst gdp ) infcat(2) endoswitch
 ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3)
-ziopprobabilities, regime
 ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3) endoswitch
 
-ziop3 y5 pb_l pb_t spread houst gdp in 5/214, xn(spread gdp) xp(pb_t spread gdp) infcat(3)
-ziop3 y5 pb_l pb_t spread houst gdp in 5/214, xn(spread gdp) xp(pb_t spread) infcat(3) endoswitch
+predict yfit
+predict pr0, zeros
+predict pr, regime
+predict emode, output(mode)
+predict emean, output(mean)
+predict pcum, output(cum)
 
-nop y5 pb spread houst gdp in 5/214, xn(spread ) xp(pb spread) infcat(3)
-nop y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3) endoswitch
+ziopmargins
+ziopmargins, zeros
+ziopmargins, regime
+
+ziopprobabilities
+ziopprobabilities, zeros
+ziopprobabilities, regime
+
+ziopcontrasts, at(pb=1) to(pb=0)
+ziopcontrasts, at(pb=1) to(pb=0) zeros
+ziopcontrasts, at(pb=1) to(pb=0) regime
+
+ziopconfusion
+
+//ziop3 y5 pb_l pb_t spread houst gdp in 5/214, xn(spread gdp) xp(pb_t spread gdp) infcat(3)
+//ziop3 y5 pb_l pb_t spread houst gdp in 5/214, xn(spread gdp) xp(pb_t spread) infcat(3) endoswitch
+
 
 gen pb2 = pb
 replace pb2 = 1 if pb != 0
 
-gen spreada = abs(spread)
 gen spread_p = spread
 replace spread_p = 0 if spread < 0
 gen spread_n = spread
@@ -43,14 +67,13 @@ replace houst_p = 0 if houst_g < 0
 replace houst_n = 0 if houst_g > 0
 
 
-ziop2 y5 pb_l pb_t in 5/214, x(pb spread houst gdp) infcat(3) endoswitch
-ziop2 y3 spreada  in 5/214, x(pb houst gdp ) infcat(2) endoswitch
+//ziop2 y5 pb_l pb_t in 5/214, x(pb spread houst gdp) infcat(3) endoswitch
 
 
 // vuong example
 ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3)
 est store firstmodel
-nop y5 pb spread houst gdp in 5/214, xn(spread ) xp(pb spread) infcat(3)
+ziop2 y3 spreada  in 5/214, x(pb houst gdp ) infcat(2) endoswitch
 est store secondmodel
 ziopvuong firstmodel secondmodel
 
