@@ -94,6 +94,9 @@ program ziopmargins, rclass
 	version 13
 	syntax [, at(string asis) nominal(varlist) zeros regime]
 	mata: CNOPmargins(CNOP_last_model, "`at'", "`nominal'", "`zeros'" == "zeros", "`regime'"=="regime")
+	display "Evaluated at:"
+	mat list r(at_all)
+	display ""
 	display "Marginal effects of all variables on probabilities"
 	mat list r(me)
 	display ""
@@ -105,6 +108,9 @@ program ziopprobabilities, rclass
 	version 13
 	syntax [, at(string asis) zeros regime]
 	mata: CNOPprobabilities(CNOP_last_model, "`at'", "`zeros'" == "zeros", "`regime'"=="regime")
+	display "Evaluated at:"
+	mat list r(at_all)
+	display ""
 	display "Predicted probabilities"
 	mat list r(me)
 	display ""
@@ -116,6 +122,9 @@ program ziopcontrasts, rclass
 	version 13
 	syntax [, at(string asis) to(string asis) zeros regime]
 	mata: CNOPcontrasts(CNOP_last_model, "`at'", "`to'", "`zeros'" == "zeros", "`regime'"=="regime")
+	display "Evaluated between:"
+	mat list r(between_all)
+	display ""
 	display "Contrasts of predicted probabilities"
 	mat list r(me)
 	display ""

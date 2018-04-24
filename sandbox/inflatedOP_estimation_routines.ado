@@ -2195,41 +2195,39 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 
 function get_colstripes(model_class, loop, allcat, infcat) {
 	if (loop == 1) {
-		colstripes = "P(y=" :+ strofreal(allcat) :+ ")"
+		colstripes = "Pr(y=" :+ strofreal(allcat) :+ ")"
 	}
 	if (loop == 2) {
 		if (model_class == "MIOPR" || model_class == "MIOPRC") {
-			colstripes = ("P(y=0|s=0)" \ "P(y=0|s=1)")
+			colstripes = ("Pr(y=0|s=0)" \ "Pr(y=0|s=1)")
 		} else {
-			colstripes = ("P(y=0|s=0)" \ "P(y=0|s=-1)" \  "P(y=0|s=+1)")
+			colstripes = ("Pr(y=0|s=0)" \ "Pr(y=0|s=-1)" \  "Pr(y=0|s=+1)")
 		}
 	}
 	if (loop == 3) {
 		if (model_class == "MIOPR" || model_class == "MIOPRC") {
-			colstripes = ("P(s=0)" \ "P(s=1)")
+			colstripes = ("Pr(s=0)" \ "Pr(s=1)")
 		} else {
-			colstripes = ("P(s=-1)" \ "P(s=0)" \  "P(s=+1)")
+			colstripes = ("Pr(s=-1)" \ "Pr(s=0)" \  "Pr(s=+1)")
 		}
 	}
-	colstripes = J(rows(colstripes),1, ""), colstripes
 	return(colstripes)
+}
+
+function output_matrix(matrix_name, matrix_value, rowstripes, colstripes){
+	st_matrix(matrix_name, matrix_value)
+	st_matrixrowstripe(matrix_name, (J(rows(rowstripes), 1, ""), rowstripes))
+	st_matrixcolstripe(matrix_name, (J(rows(colstripes), 1, ""), colstripes))
+	"success!"
 }
 
 function output_mesetp(me, se, rowstripes, colstripes) {
 	t = me :/ se
 	pval = (1:-normal(abs(t))) :* 2
-	st_matrix("r(me)", me)
-	st_matrix("r(se)", se)
-	st_matrix("r(t)", t)
-	st_matrix("r(pval)", pval)
-	st_matrixrowstripe("r(me)", rowstripes)
-	st_matrixrowstripe("r(se)", rowstripes)
-	st_matrixrowstripe("r(t)", rowstripes)
-	st_matrixrowstripe("r(pval)", rowstripes)
-	st_matrixcolstripe("r(me)", colstripes)
-	st_matrixcolstripe("r(se)", colstripes)
-	st_matrixcolstripe("r(t)", colstripes)
-	st_matrixcolstripe("r(pval)", colstripes)
+	output_matrix("r(me)",     me, rowstripes, colstripes)
+	output_matrix("r(se)",     se, rowstripes, colstripes)
+	output_matrix("r(t)",       t, rowstripes, colstripes)
+	output_matrix("r(pval)", pval, rowstripes, colstripes)
 }
 
 
@@ -2263,10 +2261,9 @@ function CNOPmargins(class CNOPModel scalar model, string atVarlist, string dumm
 	} else if (regime) {
 		loop = 3
 	}
-	"Evaluated at:"
-	model.XZnames \ strofreal(xzbar)
+	output_matrix("r(at_all)", xzbar, " ", model.XZnames')
 	
-	rowstripes = J(cols(model.XZnames), 1, "") , model.XZnames'
+	rowstripes = model.XZnames'
 	colstripes = get_colstripes(model.model_class, loop, model.allcat, model.infcat)
 	
 	mese = generalMEwithSE(xzbar, model, dummiesVector, loop)
@@ -2308,11 +2305,10 @@ function CNOPprobabilities(class CNOPModel scalar model, string atVarlist, zeroe
 		loop = 3
 	}
 	
-	"Evaluated at:"
-	model.XZnames \ strofreal(xz_from)
+	output_matrix("r(at_all)", xz_from, " ", model.XZnames')
 
 	colstripes = get_colstripes(model.model_class, loop, model.allcat, model.infcat)
-	rowstripes = "", " " // rowstripes made invisible
+	rowstripes = " " // rowstripes made invisible
 	mese = generalPredictWithSE(xz_from, model, loop)
 	me = mese[1,]
 	se = mese[2,]
@@ -2372,11 +2368,10 @@ function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string to
 		"Trying to contrast the same point"
 	}
 	
-	"Evaluated between:"
-	model.XZnames \ strofreal(xz_from) \ strofreal(xz_to)
+	output_matrix("r(between_all)", xz_from \ xz_to, "from" \ "to", model.XZnames')
 	
 	colstripes = get_colstripes(model.model_class, loop, model.allcat, model.infcat)
-	rowstripes = "", " " // rowstripes made invisible
+	rowstripes = " " // rowstripes made invisible
 	
 	mese = generalContrastsWithSE(xz_from, xz_to, model, loop)
 	me = mese[1,]
