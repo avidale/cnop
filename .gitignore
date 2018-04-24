@@ -58,3 +58,4 @@ paper/graphics
 paper/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex
 paper/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex
 *.dvi
+*.tmp

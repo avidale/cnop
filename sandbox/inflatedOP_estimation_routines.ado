@@ -1088,7 +1088,7 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 		start_param = initial_model.params'
 		
 		if(!quiet) { 
-			"Computing starting values for correlation coefficients"
+			"Computing starting values for correlation coefficients:"
 		}
 		latn = 19 * 2 + 1
 		ros = rangen(-0.95, 0.95, latn)
@@ -1106,7 +1106,8 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 		rop = ros[i[1,1]]
 		start_param = (start_param, rop, ron)'
 		if(!quiet) { 
-			strofreal(rop), strofreal(ron)
+			"rho(+) = " + strofreal(rop)
+			"rho(-) = " + strofreal(ron)
 		}
 	}
 	
@@ -1687,7 +1688,7 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 		start_param = initial_model.params'
 		
 		if(!quiet) { 
-			"Computing starting values for correlation coefficients"
+			"Computing starting values for correlation coefficients:"
 		}
 		latn = 19 * 2 + 1
 		ros = rangen(-0.95,0.95,latn)
@@ -1704,7 +1705,8 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 		ron = ros[j[1,1]]
 		start_param = (start_param, rop, ron)'
 		if(!quiet) { 
-			strofreal(rop), strofreal(ron)
+			"rho(+) = " + strofreal(rop)
+			"rho(-) = " + strofreal(ron)
 		}
 	}
 	
@@ -2438,7 +2440,7 @@ function CNOP_predict(class CNOPModel scalar model, string scalar newVarName, re
 		st_view(x  = ., ., model.xnames, touse)
 		st_view(zp = ., ., model.zpnames, touse)
 		st_view(zn = ., ., model.znnames, touse)
-		if (model.model_class == "CNOP") {
+		if (model.model_class == "NOP") {
 			p 	= MLnop(model.params, x, zp, zn, q=., model.ncat, model.infcat, loop)
 		} else {
 			p 	= MLnopc(model.params, x, zp, zn, q=., model.ncat, model.infcat, loop)

@@ -21,22 +21,25 @@ capture program drop ziopprobabilities
 capture program drop ziopcontrasts
 capture program drop ziop2
 capture program drop ZIOP_predict
-capture program drop ziopconfusion
+capture program drop ziopclassification
 capture program drop ziopvuong
 
 
 // confusion matrix (classification table) for the last ziop-like command
-program ziopconfusion, rclass
+program ziopclassification, rclass
 	version 13
 	// todo: use the marked sample
 	predict _predicted, output(mode)
-	gen _correct_predicted = _predicted == `e(depvar)'
+	label variable _predicted "Predicted outcomes"
+	gen _actual = `e(depvar)'
+	label variable _actual "Actual outcomes"
+	gen _correct_predicted = _predicted == _actual
 	display "Classification table"
-	tab _predicted `e(depvar)'
+	tab _actual _predicted
 	// todo: don't store unwanted results of sum
 	quietly sum _correct_predicted
 	display "% Correctly Predicted = " round(`r(mean)', 0.0001)
-	drop _predicted _correct_predicted 
+	drop _predicted _correct_predicted _actual
 	return local accuracy = `r(mean)'
 end
 

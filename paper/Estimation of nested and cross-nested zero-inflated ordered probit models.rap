@@ -1158,9 +1158,9 @@ estimated model (either NOP, or ZIOP-2, or ZIOP-3), calculated between the
 specified points, along with confidence intervals. The points \texttt{at}
 and \texttt{to} are specified like \texttt{at} in \texttt{ziopmargins}.
 
-\subsubsection*{The ziopconfusion command}
+\subsubsection*{The ziopclassification command}
 
-\texttt{ziopconfusion}
+\texttt{ziopclassification}
 
 This command prints the classification table (confusion matrix). It displays
 the predicted (most probable) outcome in rows, actual outcome in columns,
