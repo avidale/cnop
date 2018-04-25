@@ -21,6 +21,9 @@ ziop2 y3 spreada  in 5/214, x(pb houst gdp ) infcat(2) endoswitch
 ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3)
 ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3) endoswitch
 
+ziop2 y5 spreada pb2  in 5/214, x( houst gdp ) infcat(2) endoswitch
+
+
 predict yfit
 predict pr0, zeros
 predict pr, regime
@@ -45,7 +48,8 @@ ziopconfusion
 //ziop3 y5 pb_l pb_t spread houst gdp in 5/214, xn(spread gdp) xp(pb_t spread gdp) infcat(3)
 //ziop3 y5 pb_l pb_t spread houst gdp in 5/214, xn(spread gdp) xp(pb_t spread) infcat(3) endoswitch
 
-
+gen yz = y5 -3
+replace yz = 0 if y5 < 3
 gen pb2 = pb
 replace pb2 = 1 if pb != 0
 
@@ -72,11 +76,14 @@ replace houst_n = 0 if houst_g > 0
 
 // vuong example
 ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3)
+set more off
 est store firstmodel
-ziop2 y3 spreada  in 5/214, x(pb houst gdp ) infcat(2) endoswitch
+nop y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3)
+set more off
 est store secondmodel
 ziopvuong firstmodel secondmodel
 
 //confusion example
 ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3)
-ziopconfusion
+set more off
+ziopclassification
