@@ -20,13 +20,13 @@
 %                                                                     %
 % Files included:                                                     %
 %                                                                     %
-% "/document/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex", Document, 69113, 4/25/2018, 14:10:19, ""%
+% "/document/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex", Document, 68773, 4/25/2018, 17:39:12, ""%
 % "/document/P7QPOX02.wmf", PastePict, 1804050, 4/25/2018, 12:07:45, ""%
-% "/document/graphics/P7QPOX02__1.pdf", ImportPict, 58000, 4/25/2018, 14:10:19, ""%
+% "/document/graphics/P7QPOX02__1.pdf", ImportPict, 58000, 4/25/2018, 17:39:12, ""%
 % "/document/P6BDD601.wmf", PastePict, 16754, 3/28/2018, 18:43:54, "" %
-% "/document/graphics/P6BDD601__2.pdf", ImportPict, 13197, 4/25/2018, 14:10:19, ""%
+% "/document/graphics/P6BDD601__2.pdf", ImportPict, 13197, 4/25/2018, 17:39:12, ""%
 % "/document/P6TXE50A.wmf", PastePict, 9036, 4/6/2018, 9:28:50, ""    %
-% "/document/graphics/P6TXE50A__3.pdf", ImportPict, 11985, 4/25/2018, 14:10:19, ""%
+% "/document/graphics/P6TXE50A__3.pdf", ImportPict, 11985, 4/25/2018, 17:39:12, ""%
 %                                                                     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -60,7 +60,7 @@
 %TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
 %TCIDATA{BibliographyScheme=Manual}
 %TCIDATA{Created=Wednesday, April 07, 2010 09:52:31}
-%TCIDATA{LastRevised=Wednesday, April 25, 2018 17:10:19}
+%TCIDATA{LastRevised=Wednesday, April 25, 2018 20:39:11}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
 %TCIDATA{Language=American English}
@@ -681,12 +681,12 @@ ZIOP-2 model of Harris and Zhao (2007).
 
 \subsection{Maximum likelihood (ML) estimation}
 
-The probabilities in each ordered probit model representing the regime and
-outcome decisions can be consistently estimated under fairly general
-conditions by an asymptotically normal ML estimator (Basu and de Jong 2007).
-The simultaneous estimation of the ordered probit equations in the NOP,
-ZIOP-2 and ZIOP-3 models can be performed using an ML estimator of the
-vector of the parameters $\mathbf{\theta }$ that solves
+The probabilities in each ordered probit equation can be consistently
+estimated under fairly general conditions by an asymptotically normal ML
+estimator (Basu and de Jong 2007). The simultaneous estimation of the
+ordered probit equations in the NOP, ZIOP-2 and ZIOP-3 models can be also
+performed using an ML estimator of the vector of the parameters $\mathbf{%
+\theta }$ that solves
 
 \begin{equation}
 \underset{\mathbf{\theta \epsilon \Theta }}{\max }\overset{}{\underset{}{%
@@ -696,22 +696,20 @@ vector of the parameters $\mathbf{\theta }$ that solves
 \end{equation}
 
 \noindent where $I_{tj}$ is an indicator function such that $I_{tj}=1$ if $%
-y_{t}=j$ and $I_{tj}=0$ otherwise; $\mathbf{\theta }$ includes: $\mathbf{%
+y_{t}=j$ and $I_{tj}=0$ otherwise; $\mathbf{\theta }$ includes $\mathbf{%
 \gamma ,}$ $\mathbf{\mu ,}$ $\mathbf{\beta }^{-},$ $\mathbf{\beta }^{+},$ $%
-\mathbf{\alpha }^{-}$ and $\mathbf{\alpha }^{+}$ (for the NOP model), $%
-\mathbf{\gamma },$ $\mu ,$ $\mathbf{\beta },$ $\mathbf{\alpha }$ and $\rho $
-(for the ZIOP-2 model) and $\mathbf{\gamma },$ $\mathbf{\mu },$ $\mathbf{%
-\beta }^{-},$ $\mathbf{\beta }^{+},$ $\mathbf{\alpha }^{-},$ $\mathbf{\alpha 
-}^{+},$ $\rho ^{-}$ and $\rho ^{+}$ (for the ZIOP-3 model); $\Theta $ is a
-parameters' space; $\mathbf{x}_{t}^{all}$ is a vector that contains the
+\mathbf{\alpha }^{-},$ $\mathbf{\alpha }^{+},$ $\rho ^{-}$ and $\rho ^{+}$
+for the NOP and ZIOP-3 models, and $\mathbf{\gamma },$ $\mu ,$ $\mathbf{%
+\beta },$ $\mathbf{\alpha }$ and $\rho $ for the ZIOP-2 model; $\Theta $ is
+a parameters' space; $\mathbf{x}_{t}^{all}$ is a vector that contains the
 values of all covariates in the model; and $\Pr (y_{t}=j|\mathbf{x}%
-_{t}^{all},\mathbf{\theta })$ are probabilities in either (\ref{Prob NOP})
-or (\ref{Prob MIOP}) or (\ref{Prob CroNOP}) for, respectively, the NOP,
-ZIOP-2 and ZIOP-3 models. The asymptotic standard errors of $\widehat{%
-\mathbf{\theta }}$ can be computed from the Hessian matrix.
+_{t}^{all},\mathbf{\theta })$ are the probabilities from either (\ref{Prob
+NOP}) or (\ref{Prob MIOP}) or (\ref{Prob CroNOP}). The asymptotic standard
+errors of $\widehat{\mathbf{\theta }}$ can be computed from the Hessian
+matrix.
 
 The intercept components of $\mathbf{\beta ,}$ $\mathbf{\beta }^{-},$ $%
-\mathbf{\beta }$ and $\mathbf{\gamma }$ are identified up to scale and
+\mathbf{\beta }^{+}$ and $\mathbf{\gamma }$ are identified up to scale and
 location, that is only jointly with the corresponding threshold parameters $%
 \mathbf{\alpha ,}$ $\mathbf{\alpha }^{-}\mathbf{,}$ $\mathbf{\alpha }^{+}$
 and $\mathbf{\mu }$ and variances $\sigma ^{2},$ $\sigma _{-}^{2},$ $\sigma
@@ -719,16 +717,17 @@ _{+}^{2},$ and $\sigma _{\nu }^{2}$. As is common in the identification of
 discrete choice models, the variances $\sigma ^{2},$ $\sigma _{-}^{2},$ $%
 \sigma _{+}^{2},$ and $\sigma _{\nu }^{2}$ are fixed to one, and the
 intercept components of $\mathbf{\beta ,}$ $\mathbf{\beta }^{-},$ $\mathbf{%
-\beta }$ and $\mathbf{\gamma }$ are fixed to zero. The probabilities are
-invariant to these (arbitrary) identifying assumptions: up to scale and
-location, we can identify all parameters in $\mathbf{\theta }$ because of
-the nonlinearity of ordered probit equations, i.e. via the functional form
-(Heckman 1978; Wilde 2000). However, since the normal CDF is approximately
-linear in the middle of its support, the simultaneous estimation of two or
-three equations may experience a weak identification problem if regime and
-outcome equations contain the same set of covariates. To enhance the
-precision of parameter estimates we may impose exclusion restrictions on the
-specification of covariates in each equation.
+\beta }^{+}$ and $\mathbf{\gamma }$ are fixed to zero. The probabilities in (%
+\ref{Prob NOP}), (\ref{Prob MIOP}) and (\ref{Prob CroNOP}) are invariant to
+these (arbitrary) identifying assumptions: up to scale and location, we can
+identify all parameters in $\mathbf{\theta }$ because of the nonlinearity of
+ordered probit equations, i.e. via the functional form (Heckman 1978; Wilde
+2000). However, since the normal CDF is approximately linear in the middle
+of its support, the simultaneous estimation of two or three equations may
+experience a weak identification problem if regime and outcome equations
+contain the same set of covariates. To enhance the precision of parameter
+estimates we may impose exclusion restrictions on the specification of
+covariates in each equation.
 
 The three regimes (nests) in the NOP model are fully observable, contrary to
 the latent (only partially observed) regimes in the ZIOP-2 and ZIOP-3
@@ -736,10 +735,10 @@ models. The likelihood function of the NOP model ---\ again in contrast with
 the ZIOP-2 and ZIOP-3 models --- is separable with respect to the parameters
 in the three equations. Thus, solving (\ref{LL}) for the NOP model is
 equivalent to maximizing separately the likelihoods of the three ordered
-probit models representing the regime and outcome decisions.\footnote{%
-The data matrices in the outcome decisions should be truncated to contain
-only those rows of $\mathbf{x}_{t}^{-}$ or $\mathbf{x}_{t}^{+}$ for which $%
-y_{t}<0$ or $y_{t}>0$, respectively.}
+probit models representing the upper- and lower-level decisions.\footnote{%
+The data matrices in the lower-level decisions should be truncated to
+contain only those rows of $\mathbf{x}_{t}^{-}$ or $\mathbf{x}_{t}^{+}$ for
+which $y_{t}<0$ or $y_{t}>0$, respectively.}
 
 \subsection{Marginal effects (ME)}
 
@@ -751,11 +750,11 @@ outcome $j$ are computed for the ZIOP-3 model as
 
 $%
 \begin{array}{l}
-ME_{k,j,t}=\frac{\partial \Pr (y_{t}=j|\mathbf{\theta })}{\partial \mathbf{x}%
-_{t,k}^{all}}=I_{j\leq 0}\left\{ \left[ \Phi \left( \frac{\mu _{1}-\mathbf{z}%
-_{t}\mathbf{\gamma }-\rho ^{-}(\alpha _{j}^{-}-\mathbf{x}_{t}^{-}\mathbf{%
-\beta ^{-})}}{\sqrt{1-(\rho ^{-})^{2}}}\right) f(\alpha _{j}^{-}-\mathbf{x}%
-_{t}^{-}\mathbf{\beta ^{-}})\right. \right. \\ 
+\text{ME}_{k,j,t}=\frac{\partial \Pr (y_{t}=j|\mathbf{\theta })}{\partial 
+\mathbf{x}_{t,k}^{all}}=I_{j\leq 0}\left\{ \left[ \Phi \left( \frac{\mu _{1}-%
+\mathbf{z}_{t}\mathbf{\gamma }-\rho ^{-}(\alpha _{j}^{-}-\mathbf{x}_{t}^{-}%
+\mathbf{\beta ^{-})}}{\sqrt{1-(\rho ^{-})^{2}}}\right) f(\alpha _{j}^{-}-%
+\mathbf{x}_{t}^{-}\mathbf{\beta ^{-}})\right. \right.  \\ 
 \left. -\Phi \left( \frac{\mu _{1}-\mathbf{z}_{t}\mathbf{\gamma }-\rho
 ^{-}(\alpha _{j+1}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta ^{-})}}{\sqrt{1-(\rho
 ^{-})^{2}}}\right) f(\alpha _{j+1}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta ^{-}})%
@@ -765,7 +764,7 @@ _{t}^{-}\mathbf{\beta ^{-}})\right. \right. \\
 1-(\rho ^{-})^{2}}}\right) -\Phi \left( \frac{\alpha _{j}^{-}-\mathbf{x}%
 _{t}^{-}\mathbf{\beta ^{-}}-\rho ^{-}(\mu _{1}-\mathbf{z}_{t}\mathbf{\gamma )%
 }}{\sqrt{1-(\rho ^{-})^{2}}}\right) \right] f(\mu _{1}-\mathbf{z}_{t}\mathbf{%
-\gamma })\mathbf{\gamma }_{k}^{all}\right\} \\ 
+\gamma })\mathbf{\gamma }_{k}^{all}\right\}  \\ 
 -I_{j=0}[f(\mu _{2}-\mathbf{z}_{t}\mathbf{\gamma })-f(\mu _{1}-\mathbf{z}_{t}%
 \mathbf{\gamma })]\mathbf{\gamma }_{k}^{all} \\ 
 +I_{j\geq 0}\left\{ \left[ \Phi \left( \frac{\mathbf{z}_{t}\mathbf{\gamma }%
@@ -800,16 +799,17 @@ computed as the change in the probabilities when this covariate changes by
 one increment and all other covariates are fixed.
 
 The MEs for the NOP model are computed by replacing $I_{j\geq 0}$ with $%
-I_{j>0}$ and $I_{j\leq 0}$ with $I_{j<0}$. The MEs for the ZIOP-2 model are
-computed as
+I_{j>0}$ and $I_{j\leq 0}$ with $I_{j<0}$. 
+
+The MEs for the ZIOP-2 model are computed as
 
 \bigskip
 
 $%
 \begin{array}{l}
-ME_{k,j,t}=\frac{\partial \Pr (y_{t}=j|\mathbf{\theta })}{\partial \mathbf{x}%
-_{t,k}^{all}}=-I_{j=0}[f(\mu -\mathbf{z}_{t}\mathbf{\gamma })]\mathbf{\gamma 
-}_{k}^{all} \\ 
+\text{ME}_{k,j,t}=\frac{\partial \Pr (y_{t}=j|\mathbf{\theta })}{\partial 
+\mathbf{x}_{t,k}^{all}}=-I_{j=0}[f(\mu -\mathbf{z}_{t}\mathbf{\gamma })]%
+\mathbf{\gamma }_{k}^{all} \\ 
 +\left[ \Phi \left( \frac{\mathbf{z}_{t}\mathbf{\gamma }-\mu +\rho (\alpha
 _{j-1}-\mathbf{x}_{t}\mathbf{\beta )}}{\sqrt{1-\rho ^{2}}}\right) f(\alpha
 _{j-1}-\mathbf{x}_{t}\mathbf{\beta })-\Phi \left( \frac{\mathbf{z}_{t}%
@@ -842,8 +842,8 @@ _{\theta }\widehat{\mathbf{ME}}_{k,j,t})^{\prime }$.
 
 \subsection{\noindent Relations among the models and their comparison}
 
-The choice of a formal model-selection test depends on whether the models
-are nested in each other.
+We discuss now the choice of a formal model-selection test, which depends on
+whether the models are nested in each other.
 
 The exogenous-switching version of each model is nested in its
 endogenous-switching version as its uncorrelated special case; their
@@ -852,15 +852,16 @@ nested hypotheses, such as the likelihood ratio (LR) test.
 
 The NOP model is nested in the ZIOP-3 model. The latter becomes a NOP model
 if $\alpha _{-1}^{-}\rightarrow \infty $ and $\alpha _{1}^{+}\rightarrow
--\infty $; therefore, $\Pr (y_{t}=0|\mathbf{x}_{t}^{+},s_{t}=1)\rightarrow 0$
-and $\Pr (y_{t}=0|\mathbf{x}_{t}^{-},s_{t}=-1)\rightarrow 0$. Thus, the
-comparison of the NOP and ZIOP-3 models can also be performed with the LR
-test; however, the critical values of the classical LR test are invalid
-since some standard regularity conditions of the classical LR test fail to
-hold. In particular, the values of $\alpha _{-1}^{-}$ and $\alpha _{1}^{+}$
-in the null hypothesis are not the interior points of the parameter space;
-hence, the asymptotic distribution of the LR statistics is not standard.
-Instead, we may use the simulated critical values provided in Andrews (2001).
+-\infty $; therefore, $\Pr (y_{t}=0|\mathbf{x}_{t}^{+},s_{t}^{\ast
+}=1)\rightarrow 0$ and $\Pr (y_{t}=0|\mathbf{x}_{t}^{-},s_{t}^{\ast
+}=-1)\rightarrow 0$. Thus, the comparison of the NOP and ZIOP-3 models can
+also be performed with the LR test; however, the critical values of the
+classical LR test are invalid since some standard regularity conditions of
+the classical LR test fail to hold. In particular, the values of $\alpha
+_{-1}^{-}$ and $\alpha _{1}^{+}$ in the null hypothesis are not the interior
+points of the parameter space; hence, the asymptotic distribution of the LR
+statistics is not standard. Instead, one may use the simulated critical
+values provided in Andrews (2001).
 
 Generally, the ZIOP-2 model is not a special case of the ZIOP-3 model, and
 vice versa. However, they are not strictly non-nested and overlap if all
@@ -869,18 +870,17 @@ likelihood-based test for non-nested overlapping models, such as the Vuong
 test (Vuong 1989). A special case when the ZIOP-3 model nests the ZIOP-2
 model emerges under some restrictions on the parameters as explained below.
 In this case, the selection between the ZIOP-3 and ZIOP-2 models can be
-performed using any classical likelihood-based test for nested hypotheses,
-which can be interpreted as a misspecification test for the latter.
+performed using any classical likelihood-based test for nested hypotheses.
 
-The special case emerges if $y_{t}$ takes only three discrete choices $j\in
-\{-1,0,1\}$, the regressors in $\mathbf{x}_{t}^{-}$ and $\mathbf{x}_{t}^{+}$
-in the outcome equations of the ZIOP-3 model contain all regressors (denoted
-below by $\mathbf{z}_{2t}$ with the parameter vector $\mathbf{\gamma }_{2}$)
-in the ZIOP-2 regime equation, and the regressors (denoted below by $\mathbf{%
-z}_{3t}$ with the parameter vector $\mathbf{\gamma }_{3}$) in the regime
-equation of the ZIOP-3 model include all regressors in the $\mathbf{x}_{t}$
-in the ZIOP-2 outcome equation. According to\ (\ref{Prob MIOP}) the
-probabilities of the outcome $j$ in the ZIOP-2 model are given by
+The special case emerges if $y_{t}$ takes on only three discrete values $%
+j\in \{-1,0,1\}$, the regressors in $\mathbf{x}_{t}^{-}$ and $\mathbf{x}%
+_{t}^{+}$ in the outcome equations of the ZIOP-3 model contain all
+regressors in the ZIOP-2 regime equation (denoted below by $\mathbf{z}_{2t}$
+with the parameter vector $\mathbf{\gamma }_{2}$), and the regressors in the
+regime equation of the ZIOP-3 model (denoted below by $\mathbf{z}_{3t}$ with
+the parameter vector $\mathbf{\gamma }_{3}$) include all regressors in the $%
+\mathbf{x}_{t}$ in the ZIOP-2 outcome equation. According to\ (\ref{Prob
+MIOP}) the probabilities of the outcome $j$ in the ZIOP-2 model are given by
 
 \begin{flushleft}
 \begin{equation}
@@ -889,13 +889,13 @@ probabilities of the outcome $j$ in the ZIOP-2 model are given by
 \mathbf{\gamma }_{2};\alpha _{-1}-\mathbf{x}_{t}\mathbf{\beta };\mathbf{-}%
 \rho ); \\ 
 \Pr (y_{t}=0|\mathbf{z}_{2t},\mathbf{x}_{t})=\Phi (\mu -\mathbf{z}_{2t}%
-\mathbf{\gamma }_{2}) \\ 
-+\Phi _{2}(-\mu +\mathbf{z}_{2t}\mathbf{\gamma }_{2};\alpha _{0}-\mathbf{x}%
-_{t}\mathbf{\beta };\mathbf{-}\rho )-\Phi _{2}(-\mu +\mathbf{z}_{2t}\mathbf{%
-\gamma }_{2};\alpha _{-1}-\mathbf{x}_{t}\mathbf{\beta };\mathbf{-}\rho ) \\ 
-=1-\Phi _{2}(-\mu +\mathbf{z}_{2t}\mathbf{\gamma }_{2};-\alpha _{0}+\mathbf{x%
-}_{t}\mathbf{\beta };\rho )-\Phi _{2}(-\mu +\mathbf{z}_{2t}\mathbf{\gamma }%
-_{2};\alpha _{-1}-\mathbf{x}_{t}\mathbf{\beta };\mathbf{-}\rho ); \\ 
+\mathbf{\gamma }_{2})+\Phi _{2}(-\mu +\mathbf{z}_{2t}\mathbf{\gamma }%
+_{2};\alpha _{0}-\mathbf{x}_{t}\mathbf{\beta };\mathbf{-}\rho ) \\ 
+-\Phi _{2}(-\mu +\mathbf{z}_{2t}\mathbf{\gamma }_{2};\alpha _{-1}-\mathbf{x}%
+_{t}\mathbf{\beta };\mathbf{-}\rho )=1-\Phi _{2}(-\mu +\mathbf{z}_{2t}%
+\mathbf{\gamma }_{2};-\alpha _{0}+\mathbf{x}_{t}\mathbf{\beta };\rho ) \\ 
+-\Phi _{2}(-\mu +\mathbf{z}_{2t}\mathbf{\gamma }_{2};\alpha _{-1}-\mathbf{x}%
+_{t}\mathbf{\beta };\mathbf{-}\rho ); \\ 
 \Pr (y_{t}=1|\mathbf{z}_{2t},\mathbf{x}_{t})=\Phi (-\mu +\mathbf{z}_{2t}%
 \mathbf{\gamma })-\Phi _{2}(-\mu +\mathbf{z}_{2t}\mathbf{\gamma }_{2};\alpha
 _{0}-\mathbf{x}_{t}\mathbf{\beta };\mathbf{-}\rho ) \\ 
@@ -906,7 +906,8 @@ _{t}\mathbf{\beta };\rho ),%
 \end{equation}
 \end{flushleft}
 
-\noindent since $\Phi _{2}(x;y;\rho )=\Phi (x)-\Phi _{2}(x;-y;-\rho )$.
+\noindent since $\Phi _{2}(x;y;\rho )=\Phi (x)-\Phi _{2}(x;-y;-\rho )$. 
+
 Similarly, according to (\ref{Prob CroNOP}) the probabilities of the outcome 
 $j$ in the ZIOP-3 model are given by
 
@@ -925,11 +926,11 @@ _{3t}\mathbf{\gamma }_{3};\alpha _{0}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta }%
 \gamma }_{3};\alpha _{0}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta }^{+};\mathbf{-}%
 \rho ^{+}) \\ 
 =\Phi _{2}(\mu _{1}-\mathbf{z}_{3t}\mathbf{\gamma }_{3};-\alpha _{0}^{-}+%
-\mathbf{x}_{t}^{-}\mathbf{\beta }^{-}\mathbf{;-}\rho ^{-}) \\ 
-+\Phi (\mu _{2}-\mathbf{z}_{3t}\mathbf{\gamma }_{3})-\Phi (\mu _{1}-\mathbf{z%
-}_{3t}\mathbf{\gamma }_{3})+\Phi _{2}(-\mu _{2}+\mathbf{z}_{3t}\mathbf{%
-\gamma }_{3};\alpha _{0}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta }^{+};\mathbf{-}%
-\rho ^{+}); \\ 
+\mathbf{x}_{t}^{-}\mathbf{\beta }^{-}\mathbf{;-}\rho ^{-})+\Phi (\mu _{2}-%
+\mathbf{z}_{3t}\mathbf{\gamma }_{3}) \\ 
+-\Phi (\mu _{1}-\mathbf{z}_{3t}\mathbf{\gamma }_{3})+\Phi _{2}(-\mu _{2}+%
+\mathbf{z}_{3t}\mathbf{\gamma }_{3};\alpha _{0}^{+}-\mathbf{x}_{t}^{+}%
+\mathbf{\beta }^{+};\mathbf{-}\rho ^{+}); \\ 
 \Pr (y_{t}=1|\mathbf{z}_{3t},\mathbf{x}_{t}^{-},\mathbf{x}_{t}^{+})=\Phi
 (-\mu _{2}+\mathbf{z}_{3t}\mathbf{\gamma }_{3})-\Phi _{2}(-\mu _{2}+\mathbf{z%
 }_{3t}\mathbf{\gamma }_{3};\alpha _{0}^{+}-\mathbf{x}_{t}^{+}\mathbf{\beta }%
@@ -943,16 +944,16 @@ _{3t}\mathbf{\gamma }_{3};\alpha _{0}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta }%
 
 Suppose the covariates in $\mathbf{x}_{t}^{-}$ and $\mathbf{x}_{t}^{+}$ in
 the ZIOP-3 outcome equations are identical to the covariates in $\mathbf{z}%
-_{t}^{2}$ in the ZIOP-2 regime equation, the covariates in $\mathbf{z}_{3t}$
-in the ZIOP-3 regime equation are identical to the covariates in the $%
-\mathbf{x}_{t}$ in the ZIOP-2 outcome equation, and the parameters are
-restricted as follows: $-\mathbf{\beta }^{-}=\mathbf{\beta }^{+}=\mathbf{%
-\gamma }_{2},$ $\mathbf{\beta }=\mathbf{\gamma }_{3},$ $\mu _{1}=\alpha
-_{-1},$ $\mu _{2}=\alpha _{0},$ $-\alpha _{0}^{-}=\alpha _{0}^{+}=\mu $ and $%
--\rho ^{-}=\rho ^{+}=\rho $. Then, since $\mathbf{x}_{t}^{-}=\mathbf{x}%
-_{t}^{+}=\mathbf{z}_{2t}$, $\mathbf{z}_{3t}=\mathbf{x}_{t}$ and $\Phi
-(-x)=1-\Phi (x)$, the probabilities for the ZIOP-3 model in (\ref{Prob spec
-ZIOP-3}) can be written as
+_{2t}$ in the ZIOP-2 regime equation, the covariates in $\mathbf{z}_{3t}$ in
+the ZIOP-3 regime equation are identical to the covariates in the $\mathbf{x}%
+_{t}$ in the ZIOP-2 outcome equation, and the parameters are restricted as
+follows: $-\mathbf{\beta }^{-}=\mathbf{\beta }^{+}=\mathbf{\gamma }_{2},$ $%
+\mathbf{\beta }=\mathbf{\gamma }_{3},$ $\mu _{1}=\alpha _{-1},$ $\mu
+_{2}=\alpha _{0},$ $-\alpha _{0}^{-}=\alpha _{0}^{+}=\mu $ and $-\rho
+^{-}=\rho ^{+}=\rho $. Then, since $\mathbf{x}_{t}^{-}=\mathbf{x}_{t}^{+}=%
+\mathbf{z}_{2t}$, $\mathbf{z}_{3t}=\mathbf{x}_{t}$ and $\Phi (-x)=1-\Phi (x)$%
+, the probabilities for the ZIOP-3 model in (\ref{Prob spec ZIOP-3}) can be
+written as
 
 \bigskip
 
@@ -962,14 +963,15 @@ $%
 x}_{t}\mathbf{\beta };-\mu +\mathbf{z}_{2t}\mathbf{\gamma }_{2}\mathbf{;-}%
 \rho ); \\ 
 \Pr (y_{t}=0|\mathbf{x}_{t},\mathbf{z}_{2t})=\Phi _{2}(\alpha _{-1}-\mathbf{x%
-}_{t}\mathbf{\beta };\mu -\mathbf{z}_{2t}\mathbf{\gamma }_{2}\mathbf{;}\rho )
+}_{t}\mathbf{\beta };\mu -\mathbf{z}_{2t}\mathbf{\gamma }_{2}\mathbf{;}\rho
+)+\Phi (\alpha _{0}-\mathbf{x}_{t}\mathbf{\beta })-\Phi (\alpha _{-1}-%
+\mathbf{x}_{t}\mathbf{\beta }) \\ 
++\Phi _{2}(-\alpha _{0}+\mathbf{x}_{t}\mathbf{\beta };\mu -\mathbf{z}_{2t}%
+\mathbf{\gamma }_{2};\mathbf{-}\rho )=-\Phi _{2}(\alpha _{-1}-\mathbf{x}_{t}%
+\mathbf{\beta };-\mu +\mathbf{z}_{2t}\mathbf{\gamma }_{2}\mathbf{;-}\rho )+1
 \\ 
-+\Phi (\alpha _{0}-\mathbf{x}_{t}\mathbf{\beta })-\Phi (\alpha _{-1}-\mathbf{%
-x}_{t}\mathbf{\beta })+\Phi _{2}(-\alpha _{0}+\mathbf{x}_{t}\mathbf{\beta }%
-;\mu -\mathbf{z}_{2t}\mathbf{\gamma }_{2};\mathbf{-}\rho ) \\ 
-=-\Phi _{2}(\alpha _{-1}-\mathbf{x}_{t}\mathbf{\beta };-\mu +\mathbf{z}_{2t}%
-\mathbf{\gamma }_{2}\mathbf{;-}\rho )+1-\Phi _{2}(-\alpha _{0}+\mathbf{x}_{t}%
-\mathbf{\beta };-\mu +\mathbf{z}_{2t}\mathbf{\gamma }_{2};\rho ); \\ 
+-\Phi _{2}(-\alpha _{0}+\mathbf{x}_{t}\mathbf{\beta };-\mu +\mathbf{z}_{2t}%
+\mathbf{\gamma }_{2};\rho ); \\ 
 \Pr (y_{t}=1|\mathbf{x}_{t},\mathbf{z}_{2t})=\Phi _{2}(-\alpha _{0}+\mathbf{x%
 }_{t}\mathbf{\beta };-\mu +\mathbf{z}_{2t}\mathbf{\gamma }_{2};\rho ),%
 \end{array}%
@@ -978,13 +980,13 @@ $
 \bigskip
 
 \noindent which are identical to the probabilities for the ZIOP-2 model in (%
-\ref{Prob spec ZIOP-2}). Notice that the restrictions $-\mathbf{\beta }^{-}=%
-\mathbf{\beta }^{+}=\mathbf{\gamma }_{2}$ and $-\alpha _{0}^{-}=\alpha
-_{0}^{+}=\mu $ impose a sort of symmetry in the ZIOP-3 model because they
-imply that the conditional probability of an increase $\Pr (y_{t}=1|\mathbf{z%
-}_{3t},\mathbf{x}_{t}^{+},s_{t}^{\ast }=1)$ is equal to the conditional
-probability of a decrease $\Pr (y_{t}=-1|\mathbf{z}_{3t},\mathbf{x}%
-_{t}^{-},s_{t}^{\ast }=-1)$:
+\ref{Prob spec ZIOP-2}). 
+
+Notice that the restrictions $-\mathbf{\beta }^{-}=\mathbf{\beta }^{+}=%
+\mathbf{\gamma }_{2}$ and $-\alpha _{0}^{-}=\alpha _{0}^{+}=\mu $ impose a
+sort of symmetry in the ZIOP-3 model, because they imply that the
+conditional probability of a positive response is equal to the conditional
+probability of a negative response:
 
 \medskip
 
@@ -1217,10 +1219,11 @@ sample performance of the ML estimators of each model.
 
 \subsection{Monte Carlo design}
 
-We simulated six processes generated by the NOP, ZIOP-2 and ZIOP-3 models
-with both exogenous and endogenous switching. The repeated samples with 200,
-500 and 1000 observations were independently generated and then estimated by
-the true model. The number of replications was 10,000 in each experiment.
+We simulated six processes generated by the NOP, ZIOP-2 and ZIOP-3 models,
+each of them with both exogenous and endogenous switching. The repeated
+samples with 200, 500 and 1000 observations were independently generated and
+then estimated by the true model. The number of replications was 10,000 in
+each experiment.
 
 Three covariates $\mathbf{w}_{\mathbf{1}}$, $\mathbf{w}_{\mathbf{2}}$ and $%
 \mathbf{w}_{\mathbf{3}}$ were drawn in each replication as\noindent\ $%
@@ -1229,23 +1232,23 @@ Three covariates $\mathbf{w}_{\mathbf{1}}$, $\mathbf{w}_{\mathbf{2}}$ and $%
 \mathbf{w}_{\mathbf{3}}=-1$ if $\mathbf{u}\leq 0.3$, $0$ if $0.3<\mathbf{u}%
 \leq 0.7$, or $1$ if $\mathbf{u}>0.7$, where $\mathbf{u}\overset{\emph{iid}}{%
 \sim }\mathcal{U}[0,1]$. The repeated samples were generated for the NOP and
-ZIOP-2 DGPs\textit{\ }with $\mathbf{Z=(w_{1}},\mathbf{w_{2}}$), $\mathbf{%
+ZIOP-3 models\textit{\ }with $\mathbf{Z=(w_{1}},\mathbf{w_{2}}$), $\mathbf{%
 \mathbf{X}^{-}=(w_{1}},\mathbf{w_{3}}$), $\mathbf{\mathbf{X}^{+}=(w_{2}},%
-\mathbf{w_{3}}$), and for the ZIOP-2 DGP with $\mathbf{Z=(w}_{1},\mathbf{w}%
+\mathbf{w_{3}}$), and for the ZIOP-2 model with $\mathbf{Z=(w}_{1},\mathbf{w}%
 _{3})$, $\mathbf{\mathbf{X}=(w}_{2},\mathbf{w}_{3})$. The dependent variable 
-$y$ was generated with five outcome categories: -2, -1, 0, 1 and 2. The
-parameters were calibrated to yield on average the following frequencies of
-the above outcomes: 7\%, 14\%, 58\%, 14\% and 7\%, respectively. To avoid
-the divergence of ML estimates due to the problem of complete separation
-(perfect prediction), which could happen if actual number of observations in
-any outcome category is very low, the samples with any outcome category
-frequency lower than 6\% were re-generated. The matrix of the MEs has $%
-3\times 5=15$ elements; their values, which depend on the values of the
-regressors, are computed at the population medians of the covariates. The
-variances of the errors in the regime and outcome equations were fixed to
-one. The true values of all other parameters in the simulations are shown in
+$y$ was generated with five values: -2, -1, 0, 1 and 2. The parameters were
+calibrated to yield on average the following frequencies of the above
+outcomes: 7\%, 14\%, 58\%, 14\% and 7\%, respectively. To avoid the
+divergence of ML estimates due to the problem of complete separation
+(perfect prediction), which could happen if the actual number of
+observations in any outcome category is very low, the samples with any
+outcome category frequency lower than 6\% were re-generated. The matrix of
+the MEs has $3\times 5=15$ elements; their values, which depend on the
+values of the regressors, are computed at the population medians of the
+covariates. The variances of the errors in all equations were fixed to one.
+The true values of all other parameters in the simulations are shown in
 Table \ref{True param} in Appendix. The starting values for slope and
-threshold parameters were obtained using the independent ordered-probit
+threshold parameters were obtained using the independent ordered probit
 estimations of each equation. The starting values for $\rho $, $\rho ^{-}$
 and $\rho ^{+}$ were obtained by maximizing the likelihood functions of the
 endogenous-switching models holding the other parameters fixed at their
@@ -1266,16 +1269,16 @@ Standard error estimates for parameters on average correspond to the actual
 standard errors. Large deviations make standard errors estimates biased,
 especially in small samples, but this problem rapidly decreases as sample
 size grows. Anyway, rare large deviations do not prevent asymptotic coverage
-probabilities to be close to the nominal values even with only 200
-obsevations. The simulations show that estimators of the proposed nested and
-zero-inflated ordered probit models are consistent and reliable even in
+rates to be close to the nominal values even with only 200 obsevations. The
+simulations show that the ML estimators are consistent and reliable even in
 samples with only 200 observations: the biases of probability estimates are
 smaller than five percent and coverage rates differ from the nominal level
 by less than one percent. The ME estimates are less precise and approach the
 similar accuracy with about 1000 observations: however, with 500
-observations the biases are smaller than ten percent and the coverage rates
-differ from the nominal level by less than four percent only. The accuracy
-in the NOP models is higher than in the cross-nested zero-inflated models.
+observations the ME biases are smaller than ten percent and the ME coverage
+rates differ from the nominal level by less than four percent only. The
+accuracy in the NOP models is expectedly higher than in the cross-nested
+zero-inflated models.
 
 %TCIMACRO{\TeXButton{Single}{\end{onehalfspace}}}%
 %BeginExpansion
@@ -33597,7 +33600,7 @@ jC@@|vP~
 %%%%%%%%%%%%%%% Start /document/graphics/P7QPOX02__1.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHSMq\SLpDSNk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHSMr@sLyDSLk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBoPU^pUFHo`uSbiVYcQgBoLU]bQW^pUFHodT[a]VYJ|rUiQF]hARLq
 PSMJ|BReevYhQGHuHSMJ|bPiQw\PUf\C}V[p}f[eyF]``cBoLt[l}f\SAWXcUFHoPTYvevXeIuQ
 BipKLUf[gQGZ`TcMw\cLJ|bQiqF]eIGH[}bQlEF]eQTYc}FYeueB~xcBsQg\eEV[J`gvmw[BXVQ
@@ -34625,8 +34628,8 @@ KCEF]aqv[gipKPEvYeMGHq@BL`HeB~xcBeyFYoIfZJ`g\eYfBp@BNJ@CLp@CLp@CLp@CHvTSMsT
 CHfAbBp@CLp@SMwTCNp@BLp@CLp@b[`h@Lp@CLpTsMvLSN`@CLp@CL`xFHJ@CLp@CLp@CLqDCHp
 @CLp@CHnAbBp@CLp@CLpDSLx@BLp@CLp@b[`h@Lp@CLpTsMpXsL`@CLp@CL`xFHJ@CLp@CLu\sL
 sDCHp@CLp@CHnAbBp@CLp@SMwPsLx@BLp@CLp@b[`h@]rEVZlUf\JpCOJ|rTiiWY``cBodd[f}F
-Hs@BL`HeBoHu[oQGHr@BL`HeBodDQ`lEOEQDLwLtMFACLqLtLpdCLCYTPq@CLvXdQDYTPFYTMvP
-cO|TDQp\sPwXDLpDsPs@SNpLdQAECLpXcQFQdQAYdQuXCM~teB~xcBsQWXrQG^rUfYJTsMv`CNJ
+Hs@BL`HeBoHu[oQGHr@BL`HeBodDQ`lEOuLcLAECLqXSLDQCLpHsPtLsMwTTNDQsLtDtPtPdLvD
+dO|TsLrDTLpDcMqPDMp@cLCQsLw\SQyPDMsPSPCQCQrXSP~teB~xcBsQWXrQG^rUfYJTsMv`CNJ
 TRIE}dQJ@
 
 %%%%%%%%%%%%%%%% End /document/graphics/P7QPOX02__1.pdf %%%%%%%%%%%%%%%
@@ -34937,7 +34940,7 @@ BB@@@@@pA@@@@VP@cB`p@A@P@@\@@@@`EDph@HLP@@D@@D@@@@\R@@@@@@@@@
 %%%%%%%%%%%%%%% Start /document/graphics/P6BDD601__2.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHSMq\SLpDSNk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHSMr@sLyDcLk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKTeV[eMgSe
 ]gTouVXnipKFqVXgMGHsHcBoXt[nQgPB}F^`lUKuXCN`trLp\CHr@CLp@RLp@sM]ipKMev\sef[
 g]UZdQGZ`HSMphpKSQWYmaDHw\cBoLE]eufU`\sMJ|RRtEF[iMVPn]F[eABLJ|rPaAGReevYhQG
@@ -35110,13 +35113,13 @@ UFMSZqtRheSk`VmZujKT]Mj{T]EbsJTDaJBStVQ|bNIFkhPqdEsRLWqBDUHVJ^RlYqVD[Ul]\m
 CuUjtEu_U|zjsRkkZ]QkWjcfLaW|Vp{hV`wZaRmfZGEOYeR`zAuSjWT_hXiaSctx_{FGCV_NDJ_
 ZVtliyPscVIyR\cBUafpdplpbHPQHbhDVEvDIHlKfbXjxmXIbvIVN^goZQubuHVkfCqFDOhxXbz
 EOdxyEuH^QZ|bMa__`kgVcxUTWbzRUKT]bjehNEuijVjzujn]ukRmLui}dxF`E\YnQv\tIWYau
-fBeyFYoIfZJ\CHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKFYETF
-YePkLTXlefXrefBoXD[a]v\`LcLJ|bQoyF]BIt[xArVmTCLs@RKs@sM`DcLt@CHyXCM]ipKMev\
+fBeyFYoIfZJ\CHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKXYEUD
+YUSkLTXlefXrefBoXD[a]v\`LcLJ|bQoyF]BIt[xArVmTCLs@RKs@sM`DcLt@CHyXCM]ipKMev\
 sef[g]UZdQGZ`HcLvhpKSQWYmaDHxTcBoLE]eufU``SMJ|RRtEF[iMVPn]F[eABLJ|rPaAGReev
 YhQGHvLCNJ|BVHUVZgaF]`PsMphpKAMwXeyF]`dSMrhpKDUv\cUf[tARKrXSNJ|BSeEFYiyvY`H
 cLqhpKMEF^WeFYtaFHqLcLxhpKAYwYWeFYtaFHuHSLJ|bQoyF]FeF[eICHv@BL`HeB~xcBeyFYo
 IfZJ`CHp@r[biFH|pcBoPU^pUFHoXt[nQgBoLU]bQW^pUFHoPe\uUFUyAWYJ|bPaMWYF}f[tArK
-FYETFYePkLTXlefXrefBoXTZrMG]CaVXrAbLqTcBopTXsQwPhEf\`HSLuhpKEyvXoQVZn]FHo\U
+XYEUDYUSkLTXlefXrefBoXTZrMG]CaVXrAbLqTcBopTXsQwPhEf\`HSLuhpKEyvXoQVZn]FHo\U
 ZnEd[seVQnMv[def[gipKF}f[tQTYsMf\iAG]oIGHw@BL`HeBo\UZdQGZsArV`PSNxteO~hPYnQ
 v[bifBy@BL`|fXjABO|hpKTeG\eArKX}dXjUvXtipKSUgXteG\eArKF}f\mipKF}f\mQU^pUFHq
 hpKBIt[xArVp@BL`XCMnXcMu@RMtxrLsPSWJ|RSaQg\iaGH[ECHp@BL`DCHp@BL]ipKRUv\oUg\
@@ -35168,9 +35171,9 @@ uTsLu@bY`h@Lp@CLpDcLvdCM`@CLp@CL`xFHJ@CLp@CLqHsMuPCHp@CLp@CHnAbBp@CLp@CLp@S
 Lq@BLp@CLp@b[`h@Lp@CLp@CLqDCN`@CLp@CL`xFHJ@CLp@CLp@sLw\CHp@CLp@CHnAbBp@CLp@
 CLpdSLw@BLp@CLp@b[`h@Lp@CLp@SNwdcM`@CLp@CL`xFHJ@CLp@CLq@CLwHCHp@CLp@CHnAbBp
 @CLp@SLpHCMr@BLp@CLp@b[`h@Lp@CLpDcLtPsL`@CLp@CL`xFHJ@CLp@CLqHSMuDCHp@CLp@CH
-nAbBtIWXiqVYri@O|hpKSef^eARLrhpKIyfYoArL`@CHRipKR}v[tAbL`@CHRipKIQDH[qSPvDS
-QxDTMpDDNAMsMFYcMsHdQtPdPsPCLEAcLpXtLsxCOAYSLEaSPu@SPxDtLwXdMvLcPFQCQBMCMpT
-DLr@cQsLcO]i`O~hp\tEf\tag\eYfBqHCNpLcBeTRQOYdB
+nAbBtIWXiqVYri@O|hpKSef^eARLrhpKIyfYoArL`@CHRipKR}v[tAbL`@CHRipKIQDH[qsPrHs
+PyHDNyDSQwdSLDYDLsHSPrDsMEMdPuHdQwLSPCyCOCIcLCecPxdSLE]SNqPdQpLcLAISLwTtPBU
+cPF]sLAMdO]i`O~hp\tEf\tag\eYfBqHCNpLcBeTRQOYdB
 %%%%%%%%%%%%%%%% End /document/graphics/P6BDD601__2.pdf %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%% Start /document/P6TXE50A.wmf %%%%%%%%%%%%%%%%%%%%
@@ -35341,7 +35344,7 @@ KE@HCD@@A@pA@@@@VPpRA@r@A@P@@P@@@@pIA|C@@@@@@@
 %%%%%%%%%%%%%%% Start /document/graphics/P6TXE50A__3.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHSMq\SLpDSNk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHSMr@sLyDcLk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKTeV[eMgSe
 ]gTouVXnipKFqVXgMGHsHcBoXt[nQgPB}F^`lUKuXCN`trLp\CHr@CLp@RLp@sM]ipKMev\sef[
 g]UZdQGZ`HSMphpKSQWYmaDHw\cBoLE]eufU`\sMJ|RRtEF[iMVPn]F[eABLJ|rPaAGReevYhQG
@@ -35486,7 +35489,7 @@ QqO@dUoCjg{TE\klGusrpxi^oKU}^tsily~nGMQekz{|LewR}|fwPiC^|iz}fx}gb{fDax{Bqk^
 nrb`ckFGrcAoNTLNVcem_|Lw[j|PX]ypFH^vKVO{rpxUu}i`D{apvIh|L|{DYsCLk^xgjL_~_[
 vtflwj`{KpboixOW[`{CLBZo}}fbfBwf@x{jUIpc@bxgkX@lAcE@aOcVGH@tMt~znHWf[dMG
 ]rUVXmiPYnQv[bifBw@BL`|fXjABO|hpKTeG\eArKF}f[tQTYsMf\iAG]oIgBoXt[nQgSauVY`|
-rRV}TTViuJTeV[eMgSe]gTouVXnqRRtEF[iMfBoXD[a]v\`LcLJ|bQoyF]BIt[xArVmPSNx@RKs
+rPVMUQVmtJTeV[eMgSe]gTouVXnqRRtEF[iMfBoXD[a]v\`LcLJ|bQoyF]BIt[xArVmPSNx@RKs
 @sM`DsLsLCHq@cLsteBotTZsMWZn]vUiQF]hAbLu@cBoLE]euFR`\sMJ|rTtUV[VArMwhpKIQWX
 levXAyvYlUFHmDcMnLSNyhpKCEF\HUVZgaF]`XcMrhpKXaTYi]FZtABMuPcBoDt\cUf[tABNyDc
 BoPTYsMVYnQGHmHSLvhpKLUVXdef[gARLu@cBotTXx]UZdQGZ`DcLw`cBoDd]g]UZdQGZ`PCLrh
@@ -35497,9 +35500,9 @@ h|mXb[QdXqwV|AXjSOXPMMHruxc~`[Ao{rqS_\hnZOb|nSBNe^DokSKA]PEVRx[sV{CXJBpUhvV
 dDFb]|Mn}L_Bpd_~z{{jIp_F~|jYbk_jKp_hDxmtnoXALKGSK_MaQB^KW@Nn^DPMUQkEw\JZmHP
 Kw{OWjj_XM]JCbiozj{imQHc~RJbQ_m@YEhl@eEhHCYtLlxjEt|PW[_Z~ievfBEsNWT|yM[VPI
 ihtpvrwZlijrg_q~oWhweyFYsQg\eEV[JTf[d}fXjiPN`@CHoIfZ`pCOJ|BUyAWY`|bQoyF]J|r
-TuIF]yAWY`|BUyAWYphpKBEv\eYt[nQGHoldUOEeUZmBUiuVYsyTYwIu[mEf[ldD]aqVZcipKEy
+TuIF]yAWY`|BUyAWYphpKBEv\eYt[nQGHoLdUSUdUKmBUiuVYsyTYwIu[mEf[ldD]aqVZcipKEy
 vXoQVZn]FHodDYeyF]iQW^m`dBoPTYsMVYnQVXnQgQoyF]sArV|psKTeG\eArKF}f[tipKSUgXt
-eG\eArKCeDQF}f[tQU^pUfLJ|bPaMWYF}f[tArKKYuSQYeVkPUZmUv\NUv]R}V[ayFKIQWXlevX
+eG\eArKCeDQF}f[tQU^pUfLJ|bPaMWYF}f[tArKCYuTEYuRkPUZmUv\NUv]R}V[ayFKIQWXlevX
 J|bQoyF]DUv\cIWZpQw[rArM`@CHRipKCeDQSew\tUV[IyfYoABO|hpKRUvYiMG]reGHh@EQFau
 Ps@SJJ|rSrQVYref[gABJIyFYeyF]iQW^pdbBoLU]pAG[euVYnQGHp@bO~hpKWArVJLCLr@rVuH
 SM]iPMsLCH[QSNx@rLyPSWJTCMq@rVu@cL]iPMtTCH[QCNpteB]ipKD]EHq@CLph`O~teBoPu[U
@@ -35551,7 +35554,7 @@ CMxHCHp@CLp@CHnAbBp@CLp@CLp@SLq@BLp@CLp@b[`h@Lp@CLp@CLqDCN`@CLp@CL`xFHJ@CLp
 J@CLp@CLp`CMvTCHp@CLp@CHnAbBp@CLp@CLx`CLw@BLp@CLp@b[`h@Lp@CLp@SNqdcL`@CLp@C
 L`xFHJ@CLp@CLpdCMvTCHp@CLp@CHnAbBp@CLp@CLydCLt@BLp@CLp@b[`h@Lp@CLpDSLqXSN`@
 CLp@CL`xFHJ@CLp@CLqDcLw\CHp@CLp@CHnAbBtIWXiqVYri@O|hpKSef^eARLuhpKIyfYoArL`
-@CHRipKR}v[tAbL`@CHRipKIQDH[qCNuXtLpPSNrDtLqHsPu@cPsTdLFYDNqLTLCYSMuXcMvxCO
-xTcQs@CMyHSPsDcLCUCLBMSQrXdQxDsPqLdMuTcMvXcO]i`O~hp\tEf\tag\eYfBqDSMsDcBeTR
+@CHRipKR}v[tAbL`@CHRipKIQDH[qSLDETLEYCNvPCQBMSPp\SPCEDLvXsMwDcQqdSNDUCNvxCO
+qPTPqTdMxXCMDItLAAsMAMTPpXcMw\SLFESNyPTMxXcO]i`O~hp\tEf\tag\eYfBqDSMsDcBeTR
 QOYdB
 %%%%%%%%%%%%%%%% End /document/graphics/P6TXE50A__3.pdf %%%%%%%%%%%%%%%
