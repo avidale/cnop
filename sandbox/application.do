@@ -11,19 +11,24 @@ run stata_wrappers.ado
 
 import delimited Data_for_application.csv, clear 
 
-gen spreada = abs(spread)
 set more off
 nop y5 pb spread houst gdp in 5/214, xn(spread ) xp(pb spread) infcat(3)
 set more off
 nop y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3) endoswitch
-ziop2 y3 spreada  in 5/214, x(pb houst gdp ) infcat(2)
-ziop2 y3 spreada  in 5/214, x(pb houst gdp ) infcat(2) endoswitch
+set more off
+ziop2 y5 houst_p houst_n spread_p spread_n in 5/214, x( houst spread pb  gdp ) infcat(3)
+set more off
+ziop2 y5 houst_p houst_n spread_p spread_n in 5/214, x( houst spread pb  gdp ) infcat(3) endoswitch
+set more off
 ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3)
+set more off
 ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3) endoswitch
 
-set more off
-ziop2 y3 spreada in 5/214, x(houst pb gdp ) infcat(2) endoswitch
 
+ziop2 y3 spreada in 5/214, x(houst spread pb gdp ) infcat(2) endoswitch
+set more off
+ziop2 y3 spreada  in 5/214, x(pb houst gdp ) infcat(2)
+ziop2 y3 spreada  in 5/214, x(pb houst gdp ) infcat(2) endoswitch
 
 
 predict yfit
@@ -45,10 +50,21 @@ ziopcontrasts, at(pb=1) to(pb=0)
 ziopcontrasts, at(pb=1) to(pb=0) zeros
 ziopcontrasts, at(pb=1) to(pb=0) regime
 
-ziopconfusion
+// vuong example
+set more off
+ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3)
+est store firstmodel
+set more off
+ziop2 y5 houst_p houst_n spread_p spread_n in 5/214, x( houst spread pb  gdp ) infcat(3) endoswitch
+est store secondmodel
+ziopvuong firstmodel secondmodel
 
-//ziop3 y5 pb_l pb_t spread houst gdp in 5/214, xn(spread gdp) xp(pb_t spread gdp) infcat(3)
-//ziop3 y5 pb_l pb_t spread houst gdp in 5/214, xn(spread gdp) xp(pb_t spread) infcat(3) endoswitch
+//classification example
+ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3)
+set more off
+ziopclassification
+
+gen spreada = abs(spread)
 
 gen yz = y5 -3
 replace yz = 0 if y5 < 3
@@ -67,25 +83,12 @@ gen y_Ln = 1
 replace y_Lp = 0 if y5_01 < 4
 replace y_Ln = 0 if y5_01 > 2
 gen houst_g = houst - 1.4664
+gen housta = abs(houst_g)
 gen houst_p = houst_g
 gen houst_n = houst_g
 replace houst_p = 0 if houst_g < 0
 replace houst_n = 0 if houst_g > 0
 
 
-//ziop2 y5 pb_l pb_t in 5/214, x(pb spread houst gdp) infcat(3) endoswitch
 
 
-// vuong example
-ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3)
-set more off
-est store firstmodel
-nop y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3)
-set more off
-est store secondmodel
-ziopvuong firstmodel secondmodel
-
-//confusion example
-ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3)
-set more off
-ziopclassification
