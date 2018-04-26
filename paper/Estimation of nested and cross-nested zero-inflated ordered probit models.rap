@@ -20,13 +20,13 @@
 %                                                                     %
 % Files included:                                                     %
 %                                                                     %
-% "/document/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex", Document, 68757, 4/25/2018, 18:13:50, ""%
+% "/document/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex", Document, 69005, 4/26/2018, 12:41:26, ""%
 % "/document/P7QPOX02.wmf", PastePict, 1804050, 4/25/2018, 12:07:45, ""%
-% "/document/graphics/P7QPOX02__1.pdf", ImportPict, 58000, 4/25/2018, 18:13:49, ""%
+% "/document/graphics/P7QPOX02__1.pdf", ImportPict, 58000, 4/26/2018, 12:41:26, ""%
 % "/document/P7R68V2K.wmf", PastePict, 17810, 4/25/2018, 18:05:19, "" %
-% "/document/graphics/P7R68V2K__2.pdf", ImportPict, 21631, 4/25/2018, 18:13:49, ""%
+% "/document/graphics/P7R68V2K__2.pdf", ImportPict, 21631, 4/26/2018, 12:41:26, ""%
 % "/document/P6TXE50A.wmf", PastePict, 9036, 4/6/2018, 9:28:50, ""    %
-% "/document/graphics/P6TXE50A__3.pdf", ImportPict, 11985, 4/25/2018, 18:13:50, ""%
+% "/document/graphics/P6TXE50A__3.pdf", ImportPict, 11985, 4/26/2018, 12:41:26, ""%
 %                                                                     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -60,7 +60,7 @@
 %TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
 %TCIDATA{BibliographyScheme=Manual}
 %TCIDATA{Created=Wednesday, April 07, 2010 09:52:31}
-%TCIDATA{LastRevised=Wednesday, April 25, 2018 21:13:49}
+%TCIDATA{LastRevised=Thursday, April 26, 2018 15:41:25}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
 %TCIDATA{Language=American English}
@@ -217,7 +217,7 @@ is also well-recognized and sometimes labeled as the middle category
 endorsement or inflation (Bagozzi and Mukhetjee 2012; Hern\'{a}ndez, Drasgow
 and Gonz\'{a}les-Rom\'{a} 2004; Kulas and Stachowski 2009).
 
-\medskip 
+\medskip
 
 %TCIMACRO{\TeXButton{Single}{\end{onehalfspace}}}%
 %BeginExpansion
@@ -337,8 +337,8 @@ $\Phi _{2}(g_{1}\mathbf{;}g_{2}\mathbf{;}\sigma _{1}^{2};\sigma
 _{2}^{2};\rho )=\frac{1}{2\pi \sigma _{1}\sigma _{2}\sqrt{1-\rho ^{2}}}%
 \underset{}{\underset{-\infty }{\overset{g_{1}}{\int }}}\underset{-\infty }{%
 \overset{g_{2}}{\int }}\exp \left( -\frac{u^{2}/\sigma _{1}^{2}-2\rho
-uw/\sigma _{1}\sigma _{2}+w^{2}/\sigma _{2}^{2}}{2(1-\rho ^{2})}\right) dudw.
-$
+uw/\sigma _{1}\sigma _{2}+w^{2}/\sigma _{2}^{2}}{2(1-\rho ^{2})}\right)
+dudw. $
 \end{center}
 
 \subsection{Three-part nested ordered probit (NOP) model}
@@ -506,8 +506,8 @@ decisions:%
 \end{array}%
 ,\left[ 
 \begin{array}{cc}
-\sigma _{\nu }^{2} & \rho \sigma _{\nu }\sigma  \\ 
-\rho \sigma _{\nu }\sigma  & \sigma ^{2}%
+\sigma _{\nu }^{2} & \rho \sigma _{\nu }\sigma \\ 
+\rho \sigma _{\nu }\sigma & \sigma ^{2}%
 \end{array}%
 \right] \right) .$%
 \end{tabular}%
@@ -754,7 +754,7 @@ $%
 \mathbf{x}_{t,k}^{all}}=I_{j\leq 0}\left\{ \left[ \Phi \left( \frac{\mu _{1}-%
 \mathbf{z}_{t}\mathbf{\gamma }-\rho ^{-}(\alpha _{j}^{-}-\mathbf{x}_{t}^{-}%
 \mathbf{\beta ^{-})}}{\sqrt{1-(\rho ^{-})^{2}}}\right) f(\alpha _{j}^{-}-%
-\mathbf{x}_{t}^{-}\mathbf{\beta ^{-}})\right. \right.  \\ 
+\mathbf{x}_{t}^{-}\mathbf{\beta ^{-}})\right. \right. \\ 
 \left. -\Phi \left( \frac{\mu _{1}-\mathbf{z}_{t}\mathbf{\gamma }-\rho
 ^{-}(\alpha _{j+1}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta ^{-})}}{\sqrt{1-(\rho
 ^{-})^{2}}}\right) f(\alpha _{j+1}^{-}-\mathbf{x}_{t}^{-}\mathbf{\beta ^{-}})%
@@ -764,7 +764,7 @@ $%
 1-(\rho ^{-})^{2}}}\right) -\Phi \left( \frac{\alpha _{j}^{-}-\mathbf{x}%
 _{t}^{-}\mathbf{\beta ^{-}}-\rho ^{-}(\mu _{1}-\mathbf{z}_{t}\mathbf{\gamma )%
 }}{\sqrt{1-(\rho ^{-})^{2}}}\right) \right] f(\mu _{1}-\mathbf{z}_{t}\mathbf{%
-\gamma })\mathbf{\gamma }_{k}^{all}\right\}  \\ 
+\gamma })\mathbf{\gamma }_{k}^{all}\right\} \\ 
 -I_{j=0}[f(\mu _{2}-\mathbf{z}_{t}\mathbf{\gamma })-f(\mu _{1}-\mathbf{z}_{t}%
 \mathbf{\gamma })]\mathbf{\gamma }_{k}^{all} \\ 
 +I_{j\geq 0}\left\{ \left[ \Phi \left( \frac{\mathbf{z}_{t}\mathbf{\gamma }%
@@ -798,8 +798,8 @@ the corresponding equation). For a discrete-valued covariate, the ME can be
 computed as the change in the probabilities when this covariate changes by
 one increment and all other covariates are fixed.
 
-The MEs for the NOP model are computed by replacing $I_{j\geq 0}$ with $%
-I_{j>0}$ and $I_{j\leq 0}$ with $I_{j<0}$. 
+The MEs for the NOP model are computed by replacing in the above formula $%
+I_{j\geq 0}$ with $I_{j>0}$ and $I_{j\leq 0}$ with $I_{j<0}$.
 
 The MEs for the ZIOP-2 model are computed as
 
@@ -906,7 +906,7 @@ _{t}\mathbf{\beta };\rho ),%
 \end{equation}
 \end{flushleft}
 
-\noindent since $\Phi _{2}(x;y;\rho )=\Phi (x)-\Phi _{2}(x;-y;-\rho )$. 
+\noindent since $\Phi _{2}(x;y;\rho )=\Phi (x)-\Phi _{2}(x;-y;-\rho )$.
 
 Similarly, according to (\ref{Prob CroNOP}) the probabilities of the outcome 
 $j$ in the ZIOP-3 model are given by
@@ -980,7 +980,7 @@ $
 \bigskip
 
 \noindent which are identical to the probabilities for the ZIOP-2 model in (%
-\ref{Prob spec ZIOP-2}). 
+\ref{Prob spec ZIOP-2}).
 
 Notice that the restrictions $-\mathbf{\beta }^{-}=\mathbf{\beta }^{+}=%
 \mathbf{\gamma }_{2}$ and $-\alpha _{0}^{-}=\alpha _{0}^{+}=\mu $ impose a
@@ -1201,16 +1201,15 @@ are predicted with a unit probability.
 
 \texttt{ziopvuong $modelspec_1$ $modelspec_2$}
 
-This command performs non-nested Vuong test which compares closeness of two
-models to the true data distribution. Arguments $modelspec_1$ and $%
-modelspec_2$ are the names under which estimation results were saved using 
-\texttt{estimates store} command. Any model that stores vector \texttt{%
-e(ll\_obs)} of observation-wise log-likelihood technically can be used to
-perform the test.
-
-The command calculates and outputs a z-score for the difference of pointwise
-log likelihoods of the two models. It can be used to test the hypothesis
-that one of the models explains the data better than the other.
+This command performs the non-nested Vuong test (Vuong 1989) which compares
+the closeness of two models to the true data distribution. Arguments $%
+modelspec_{1}$ and $modelspec_{2}$ are the names under which the estimation
+results were saved using the \texttt{estimates store} command. Any model
+that stores the vector \texttt{e(ll\_obs)} of observation-wise
+log-likelihood technically can be used to perform the test. The command
+provides a z-score for the difference of the pointwise log likelihoods of
+the two models. It can be used to test the hypothesis that one of the models
+explains the data better than the other.
 
 \section{Monte Carlo simulations}
 
@@ -1321,7 +1320,7 @@ MEs are also averaged across all three covariates.
 \begin{onehalfspace}%
 %EndExpansion
 
-\bigskip 
+\bigskip
 
 Standard error estimates for parameters on average correspond to the actual
 standard errors. Large deviations make standard errors estimates biased,
@@ -1339,6 +1338,10 @@ accuracy in the NOP models is expectedly higher than in the cross-nested
 zero-inflated models.
 
 \section{Application}
+
+The real-data application analyzes a time-series sample of 210 decisions of
+the U.S. Federal Open Market Committee on the federal funds rate target
+during the  
 
 \section{\noindent \noindent Concluding remarks}
 
@@ -1417,8 +1420,8 @@ Journal of Econometrics} 141 (2): 1073--1099.
 \bibitem{} Heckman, J. J. 1978. Dummy endogenous variables in a simultaneous
 equation system. \textit{Econometrica} 46: 931--959.
 
-\bibitem{} Hern\'{a}ndez, A., F. Drasgow and V. Gonz\'{a}les-Rom\'{a}. 2004.
-Investigating the functioning of a middle category by means of a
+\bibitem{} Hern\'{a}ndez, A., F. Drasgow, and V. Gonz\'{a}les-Rom\'{a}.
+2004. Investigating the functioning of a middle category by means of a
 mixed-measurement model. \textit{Journal of Applied Psychology} 89 (4):
 687-699.
 
@@ -1426,7 +1429,7 @@ mixed-measurement model. \textit{Journal of Applied Psychology} 89 (4):
 ordinal data: incorporating susceptibility to response through the use of a
 mixture model.\ \textit{Statistics in Medicine} 27: 3674--3688.
 
-\bibitem{} Kulas, J. T. and A. A. Stachowski. 2009. Middle category
+\bibitem{} Kulas, J. T., and A. A. Stachowski. 2009. Middle category
 endorsement in odd-numbered Likert response scales: Associated item
 characteristics, cognitive demands, and preferred meanings. \textit{Journal
 of Research in Personality }43: 489-493.
@@ -1508,8 +1511,9 @@ natheight=2.6484in, natwidth=6.4001in, height=2.6766in, width=6.4284in]
 \footnotesize%
 %EndExpansion
 
-Notes: (exog) -- exogenous switching; the variances $\sigma ^{2},$ $\sigma
-_{-}^{2},$ $\sigma _{+}^{2},$ and $\sigma _{\nu }^{2}$ are all fixed to one.
+Notes: (exog) -- exogenous switching:  $\rho =\rho ^{-}=\rho ^{+}=0$. The
+variances $\sigma ^{2},$ $\sigma _{-}^{2},$ $\sigma _{+}^{2},$ and $\sigma
+_{\nu }^{2}$ are all fixed to one in all models.
 
 %TCIMACRO{\TeXButton{E}{\end{table}}}%
 %BeginExpansion
@@ -33600,7 +33604,7 @@ jC@@|vP~
 %%%%%%%%%%%%%%% Start /document/graphics/P7QPOX02__1.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHSMrDSLsPSNk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHcMqTCMqHSMk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBoPU^pUFHo`uSbiVYcQgBoLU]bQW^pUFHodT[a]VYJ|rUiQF]hARLq
 PSMJ|BReevYhQGHuHSMJ|bPiQw\PUf\C}V[p}f[eyF]``cBoLt[l}f\SAWXcUFHoPTYvevXeIuQ
 BipKLUf[gQGZ`TcMw\cLJ|bQiqF]eIGH[}bQlEF]eQTYc}FYeueB~xcBsQg\eEV[J`gvmw[BXVQ
@@ -34628,8 +34632,8 @@ KCEF]aqv[gipKPEvYeMGHq@BL`HeB~xcBeyFYoIfZJ`g\eYfBp@BNJ@CLp@CLp@CLp@CHvTSMsT
 CHfAbBp@CLp@SMwTCNp@BLp@CLp@b[`h@Lp@CLpTsMvLSN`@CLp@CL`xFHJ@CLp@CLp@CLqDCHp
 @CLp@CHnAbBp@CLp@CLpDSLx@BLp@CLp@b[`h@Lp@CLpTsMpXsL`@CLp@CL`xFHJ@CLp@CLu\sL
 sDCHp@CLp@CHnAbBp@CLp@SMwPsLx@BLp@CLp@b[`h@]rEVZlUf\JpCOJ|rTiiWY``cBodd[f}F
-Hs@BL`HeBoHu[oQGHr@BL`HeBodDQ`lEOwLCQt`SMBeSQBQsLpXcQEETLEASPBUCNvHCMs`sPxD
-dO|\sLDQCNuHTNEIDMs@cMFUTPqTDLAITMxXcLtLCNCaSP~teB~xcBsQWXrQG^rUfYJTsMv`CNJ
+Hs@BL`HeBoHu[oQGHr@BL`HeBodDQ`lEOFISLDASMsXtLs\SPvTDNwPtMBEcPtHsMFEcMqPsPqD
+dO|XdLqPDLuLcQsLsMAYSQx\CQwHTLBQcLwXTLvDCMCESP~teB~xcBsQWXrQG^rUfYJTsMv`CNJ
 TRIE}dQJ@
 
 %%%%%%%%%%%%%%%% End /document/graphics/P7QPOX02__1.pdf %%%%%%%%%%%%%%%
@@ -34959,7 +34963,7 @@ B`p@A@P@@\@@@@`EDLi@HLP@@D@@D@@@@\R@@@@@@@@@
 %%%%%%%%%%%%%%% Start /document/graphics/P7R68V2K__2.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHSMrDSLsPSNk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHcMqTCMqHcMk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBopTYn]F]hECHrPCMsXcBopTYn]F]hArMp`sLJ|bQiqF]eIGH[}bQl
 EF]eQTYc}FYeueB~xcBsQg\eEV[J`gvmsu^xQUQV~SUu}v]gG]RgP^R@zNiSG^tIfP@DHtRz|hC
 PRTBoSsBfND^CZBfD\TAInLhXPE|q`bcBhnHlF]xfNJSCzJQgqqeqqA\U|uxHxJ~\dQFDYGEHw}
@@ -35102,7 +35106,7 @@ p@BL`@CHp@BMtPCHu@CLJPCMt@RMp@CHtPCM`LsLs@RMp@CHu@CL`HsMx@BL`@CHr\CN`\sMx@R
 Mp@CHu@CL`TCLp@BL`LsLshpLxdCHr\CN`TCLp@RMp@CHp@BL`TCLp@BMtPCHp@BL`@CHp@BL`@
 CHp@BLJ@CHp@BL`@CHp@BL`@CHp@BL`@CHp@BL`@CHp@BL`@cBp@BL`@CHp@BL`@CHp@BL`@CHp
 @BL`@CHp@bLu@CHp@BLJ@CHp@BL`@CHp@BL`@CHp@BL`@CHsLsL]ycOJTf[d}fXjipM`@CHoIfZ
-`pCOJ|BUyAWY`|bQoyF]DUv\cIWZpQw[ripKF}f[tyTXmUFHo@eUSMdUJmBUiuVYsyTYwIu[mEf
+`pCOJ|BUyAWY`|bQoyF]DUv\cIWZpQw[ripKF}f[tyTXmUFHopdUS}dUHmBUiuVYsyTYwIu[mEf
 [J|bQlEvYsArLrhpKF}f[tIdPoaGH[uRMv`CHmLCLw@bLp@CL`DCLp\SWJ|RSiMw\iyvYWeFYta
 FHrTCLJ|rTtUV[HArMwhpKSQWYmYEHw\cBodD]aqVZcEd[gqVY`@cBoLTXpaTYi]FZtAbMvHcBo
 `EReevYhQGHtPsMJ|RPsMVYnQGHxdSLJ|BQeMwXeyF]`tbLqXcBopTYaQVZn]FHqTCLJ|RSaawU
@@ -35113,9 +35117,9 @@ kL@QzhFU^HXg}R`N@SZdTsiJmL~dU~eFacpRI_[IDASONZImmDvudsPtoPw]yxiwOtT}Ba}fWA^
 MNQwucJ@czxRV~vls}AXRBtJRWGQAciJ~jp]VX@J{{Oznv@aspckVc@i[~oox@JopkWgIiUAAg
 PB^ANAdvjduQ[OelNB`jyoYMkaqB_HE~FpwweEyUklUhQeEy|zL{ItHkKuwJe[U~plmErYoO
 m`ekWYvsSmFamClszrYU^@\oP~aTYnQv\tIWYaufBeyFYoIfZJdCHp@r[biFH|pcBoPU^pUFHo
-Xt[nQgBoLU]bQW^pUFHoPU^pUFLJ|bPaMWYF}f[tArKPYuTCYeRkPUZmUv\NUv]R}V[ayfBoTd[
+Xt[nQgBoLU]bQW^pUFHoPU^pUFLJ|bPaMWYF}f[tArKLYuTOYERkPUZmUv\NUv]R}V[ayfBoTd[
 c}FYiyvY`|RRdUf[teF]yuBRJ|BQeMwXeyFYayF]F}f[tMGH[qCOoPU^pUFHoXt[nQgBoLU]bQW
-^pUFHoLTRDYt[nQGUyAWYrhpKBEv\eYt[nQGHo@eUSMdUJmBUiuVYsyTYwIu[mEf[J|bQoyF]DU
+^pUFHoLTRDYt[nQGUyAWYrhpKBEv\eYt[nQGHopdUS}dUHmBUiuVYsyTYwIu[mEf[J|bQoyF]DU
 v\cIWZpQw[rArM`@CHRipKCeDQSew\tUV[IyfYoABO|hpKRUvYiMG]reGHh@EQFauPs@SJJ|rSr
 QVYref[gABJIyFYeyF]iQW^pdbBoLU]pAG[euVYnQGHp@bO~hpKWArVJDSL`luLsLSWJLcL`lUM
 vPSWJTCMu@rVtdSN]iPWJ|BQWARLp@CLJxcO]ipKT}VUnevXoQVY``CHp@bTJxcOJTf[d}fXjiP
@@ -35277,12 +35281,12 @@ weZNjwczaUoMu{U]AjWgbEu}K^MuYjemzAUBQ}VurR}wTOoxGuFgzNTWiRWTUqkkNKmnjuEm^i
 NZrD^q[AocZA^kEJuZj]T|dUJAjGTOi^Q}abeFNMRcm[\LX}yPh|iYQsffCMOZedKqMJTEZBSB
 sBKb@EaHbRXUXSd`pnXJbibwbeHZgXyx]~jEUKVcXmZND[P|`bcIjW|PbgWTcxEiqKvD~}An^ZM
 bWQ]IjKUmPuIjVbzTTgjZijWkzvUoJurTgvSb[@VpeyFYsQg\eEV[JTf[d}fXjiPLq@BL`|fXj
-ABO|hpKTeG\eArKF}f[tQTYsMf\iAG]oIgBoXt[nQgSauVY`|bQVQDUVutJCEF[iIf\iipKFqVX
+ABO|hpKTeG\eArKF}f[tQTYsMf\iAG]oIgBoXt[nQgSauVY`|bPV]uUVmtJCEF[iIf\iipKFqVX
 gMGHsHcBoXt[nQgPB}F^`lUKu@sL`trLp\CHqHCMp@RNvPSWJ|RSiMw\iyvYWeFYtaFHrHcMJ|r
 TtUV[HABNuhpKSQWYmYEHxTcBodD]aqVZcEd[gqVY`@cBoLTXpaTYi]FZtAbMs`cBo`EReevYhQ
 GHt\CLJ|RPsMVYnQGHyTcLJ|BQeMwXeyF]`tbLvdcBopTYaQVZn]FHrHSLJ|RSaawUiQF]hARLs
 HCNJ|RPv]vUiQF]hARMrDcBoXt[nQgQiqVYr@RLp@BL`HeB~xcBeyFYoIfZJDcL`@CHoIfZ`pCO
-J|BUyAWY`|bQoyF]J|rTuIF]yAWY`|BUrUWYTeG\eipKBEv\eYt[nQGHoXdUDQeUMmrPaqVZbIW
+J|BUyAWY`|bQoyF]J|rTuIF]yAWY`|BUrUWYTeG\eipKBEv\eYt[nQGHoHdUW]eUKmrPaqVZbIW
 ZJ|bQiIw\tMDZaIGHrDSMJ|BSaMG]CaVXrAbLqTcBoTd[c}FYiyvY`|rUiyVPnMWZEyvXoQVZn]
 fBoXt[nQGQeMwXreF\t}f\`DSL`@CHRipKWeFYtav\`lEHtdCN]ycOJTf[d}fXjiPLs@BL`|fXj
 ABO|hpKTeG\eArKX}dXjUvXtipKSUgXteG\eArKF}f\mipKF}f\mQU^pUFHqhpKBIt[xArVp@BL
@@ -35340,9 +35344,9 @@ CHnAbBp@CLp@CLwHSNp@BLp@CLp@b[`h@Lp@CLp@sMuPSN`@CLp@CL`xFHJ@CLp@CLp`CLyLCHp
 @CLp@CHnAbBp@CLp@CLxLsMv@BLp@CLp@b[`h@Lp@CLp@CNw@SL`@CLp@CL`xFHJ@CLp@CLpdCL
 uXCHp@CLp@CHnAbBp@CLp@SLwdsLv@BLp@CLp@b[`h@Lp@CLpDCNrDCM`@CLp@CL`xFHJ@CLp@C
 Lq`sLxXCHp@CLp@CHnAbBp@CLp@cLp\SNu@BLp@CLp@b[`h@Lp@CLpHCLy@sL`@CLp@CL`xFHJP
-g\aeF[eIgB|pcBoLUZzUFHqXcBodd[f}FHs@BL`HeBoHu[oQGHr@BL`HeBodDQ`lEOqPDMuXCNE
-IcLEYsMtPcPtXTMtDDNrDDLAItLy@SPBIdO|DCQtTcMxTdLrTdMwPCMBQcQuPSPxHSPpDdPsdCL
-AIdP~teB~xcBsQWXrQG^rUfYJHSLqTsMJTRIE}dQJ@
+g\aeF[eIgB|pcBoLUZzUFHqXcBodd[f}FHs@BL`HeBoHu[oQGHr@BL`HeBodDQ`lEOEQsPv`sPB
+UDNtTCMsPTNrLCLr@cMw\SQv\SMA]cLvdcO|TDMCYCNCITQxPSMtLCQyHsLpHCLv\sMEYsMuDtM
+rXSN~teB~xcBsQWXrQG^rUfYJHSLqTsMJTRIE}dQJ@
 
 %%%%%%%%%%%%%%%% End /document/graphics/P7R68V2K__2.pdf %%%%%%%%%%%%%%%
 
@@ -35514,7 +35518,7 @@ KE@HCD@@A@pA@@@@VPpRA@r@A@P@@P@@@@pIA|C@@@@@@@
 %%%%%%%%%%%%%%% Start /document/graphics/P6TXE50A__3.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHSMrDSLsPSNk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLtHcMqTCMqHcMk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKTeV[eMgSe
 ]gTouVXnipKFqVXgMGHsHcBoXt[nQgPB}F^`lUKuXCN`trLp\CHr@CLp@RLp@sM]ipKMev\sef[
 g]UZdQGZ`HSMphpKSQWYmaDHw\cBoLE]eufU`\sMJ|RRtEF[iMVPn]F[eABLJ|rPaAGReevYhQG
@@ -35659,7 +35663,7 @@ QqO@dUoCjg{TE\klGusrpxi^oKU}^tsily~nGMQekz{|LewR}|fwPiC^|iz}fx}gb{fDax{Bqk^
 nrb`ckFGrcAoNTLNVcem_|Lw[j|PX]ypFH^vKVO{rpxUu}i`D{apvIh|L|{DYsCLk^xgjL_~_[
 vtflwj`{KpboixOW[`{CLBZo}}fbfBwf@x{jUIpc@bxgkX@lAcE@aOcVGH@tMt~znHWf[dMG
 ]rUVXmiPYnQv[bifBw@BL`|fXjABO|hpKTeG\eArKF}f[tQTYsMf\iAG]oIgBoXt[nQgSauVY`|
-rRVYuQVmtJTeV[eMgSe]gTouVXnqRRtEF[iMfBoXD[a]v\`LcLJ|bQoyF]BIt[xArVmPSNx@RKs
+rQVytPVetJTeV[eMgSe]gTouVXnqRRtEF[iMfBoXD[a]v\`LcLJ|bQoyF]BIt[xArVmPSNx@RKs
 @sM`DsLsLCHq@cLsteBotTZsMWZn]vUiQF]hAbLu@cBoLE]euFR`\sMJ|rTtUV[VArMwhpKIQWX
 levXAyvYlUFHmDcMnLSNyhpKCEF\HUVZgaF]`XcMrhpKXaTYi]FZtABMuPcBoDt\cUf[tABNyDc
 BoPTYsMVYnQGHmHSLvhpKLUVXdef[gARLu@cBotTXx]UZdQGZ`DcLw`cBoDd]g]UZdQGZ`PCLrh
@@ -35670,9 +35674,9 @@ h|mXb[QdXqwV|AXjSOXPMMHruxc~`[Ao{rqS_\hnZOb|nSBNe^DokSKA]PEVRx[sV{CXJBpUhvV
 dDFb]|Mn}L_Bpd_~z{{jIp_F~|jYbk_jKp_hDxmtnoXALKGSK_MaQB^KW@Nn^DPMUQkEw\JZmHP
 Kw{OWjj_XM]JCbiozj{imQHc~RJbQ_m@YEhl@eEhHCYtLlxjEt|PW[_Z~ievfBEsNWT|yM[VPI
 ihtpvrwZlijrg_q~oWhweyFYsQg\eEV[JTf[d}fXjiPN`@CHoIfZ`pCOJ|BUyAWY`|bQoyF]J|r
-TuIF]yAWY`|BUyAWYphpKBEv\eYt[nQGHoldUV]dUKmBUiuVYsyTYwIu[mEf[ldD]aqVZcipKEy
+TuIF]yAWY`|BUyAWYphpKBEv\eYt[nQGHo\dUNMdUImBUiuVYsyTYwIu[mEf[ldD]aqVZcipKEy
 vXoQVZn]FHodDYeyF]iQW^m`dBoPTYsMVYnQVXnQgQoyF]sArV|psKTeG\eArKF}f[tipKSUgXt
-eG\eArKCeDQF}f[tQU^pUfLJ|bPaMWYF}f[tArKKYeUGYuRkPUZmUv\NUv]R}V[ayFKIQWXlevX
+eG\eArKCeDQF}f[tQU^pUfLJ|bPaMWYF}f[tArKGYeSCYURkPUZmUv\NUv]R}V[ayFKIQWXlevX
 J|bQoyF]DUv\cIWZpQw[rArM`@CHRipKCeDQSew\tUV[IyfYoABO|hpKRUvYiMG]reGHh@EQFau
 Ps@SJJ|rSrQVYref[gABJIyFYeyF]iQW^pdbBoLU]pAG[euVYnQGHp@bO~hpKWArVJLCLr@rVuH
 SM]iPMsLCH[QSNx@rLyPSWJTCMq@rVu@cL]iPMtTCH[QCNpteB]ipKD]EHq@CLph`O~teBoPu[U
@@ -35724,7 +35728,7 @@ CMxHCHp@CLp@CHnAbBp@CLp@CLp@SLq@BLp@CLp@b[`h@Lp@CLp@CLqDCN`@CLp@CL`xFHJ@CLp
 J@CLp@CLp`CMvTCHp@CLp@CHnAbBp@CLp@CLx`CLw@BLp@CLp@b[`h@Lp@CLp@SNqdcL`@CLp@C
 L`xFHJ@CLp@CLpdCMvTCHp@CLp@CHnAbBp@CLp@CLydCLt@BLp@CLp@b[`h@Lp@CLpDSLqXSN`@
 CLp@CL`xFHJ@CLp@CLqDcLw\CHp@CLp@CHnAbBtIWXiqVYri@O|hpKSef^eARLuhpKIyfYoArL`
-@CHRipKR}v[tAbL`@CHRipKIQDH[qSMqPcPDQCMvPdMDUCNDISNwLSLydsPAUTQp\sMpDSNrxCO
-uDCMBQDMtXCQvPTMxPdLy\sLqdSNCETQEAsMw@SLyHcO]i`O~hp\tEf\tag\eYfBqDSMsDcBeTR
+@CHRipKR}v[tAbL`@CHRipKIQDH[qcPv`cQEACQxDcLxPSPBUCMDQSPtPCQFMdQAMcLvPsLyxCO
+BYCNFUDLDaSLr`CMAITMtPDMAQCMDYtPFEtLrXCMsdcO]i`O~hp\tEf\tag\eYfBqDSMsDcBeTR
 QOYdB
 %%%%%%%%%%%%%%%% End /document/graphics/P6TXE50A__3.pdf %%%%%%%%%%%%%%%

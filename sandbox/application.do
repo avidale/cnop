@@ -21,7 +21,9 @@ ziop2 y3 spreada  in 5/214, x(pb houst gdp ) infcat(2) endoswitch
 ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3)
 ziop3 y5 pb spread houst gdp in 5/214, xn(spread gdp) xp(pb spread) infcat(3) endoswitch
 
-ziop2 y5 spreada pb2  in 5/214, x( houst gdp ) infcat(2) endoswitch
+set more off
+ziop2 y3 spreada in 5/214, x(houst pb gdp ) infcat(2) endoswitch
+
 
 
 predict yfit
