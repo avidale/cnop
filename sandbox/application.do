@@ -17,11 +17,14 @@ nop rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(3) endo
 set more off
 ziop2 rate_change spread_u spread_d houst_u houst_d, x(spread pb houst gdp ) infcat(3)
 set more off
-ziop2 rate_change spread_u spread_d houst_u houst_d, x(spread pb houst gdp ) infcat(3) endoswitch
+ziop2 rate_change spread_u spread_d  gdp_u gdp_d houst_u houst_d, x(spread pb houst gdp ) infcat(3) endoswitch
 set more off
 ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(3)
 set more off
 ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(3) endoswitch
+
+set more off
+ziop2 rate_change spread_u spread_d pb_u pb_d houst_u houst_d gdp_u gdp_d in 1/241, x(spread pb houst gdp ) infcat(3) endoswitch
 
 
 predict yfit
