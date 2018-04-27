@@ -8,21 +8,20 @@ cd "C:\Users\user\Documents\Dale\Our paper on Github\cnop\sandbox"
 // load the required procedures
 run stata_wrappers.ado
 
-
 import delimited Data_for_application.csv, clear 
 
 set more off
-nop rate_change pb spread houst gdp, xn(spread ) xp(pb spread) infcat(3)
+nop rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(3)
 set more off
-nop rate_change pb spread houst gdp, xn(spread gdp) xp(pb spread) infcat(3) endoswitch
+nop rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(3) endoswitch
 set more off
-ziop2 rate_change houst_u houst_d spread_u spread_d, x( houst spread pb  gdp ) infcat(3)
+ziop2 rate_change spread_u spread_d houst_u houst_d, x(spread pb houst gdp ) infcat(3)
 set more off
-ziop2 rate_change houst_u houst_d spread_u spread_d, x( houst spread pb  gdp ) infcat(3) endoswitch
+ziop2 rate_change spread_u spread_d houst_u houst_d, x(spread pb houst gdp ) infcat(3) endoswitch
 set more off
-ziop3 rate_change pb spread houst gdp, xn(spread gdp) xp(pb spread) infcat(3)
+ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(3)
 set more off
-ziop3 rate_change pb spread houst gdp, xn(spread gdp )xp(pb spread) infcat(3) endoswitch
+ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(3) endoswitch
 
 
 predict yfit
