@@ -11,29 +11,32 @@ run stata_wrappers.ado
 import delimited Data_for_application.csv, clear 
 
 set more off
-nop rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(3)
+nop rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0)
 set more off
-nop rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(3) endoswitch
+nop rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) endoswitch
 set more off
-ziop2 rate_change spread_u spread_d houst_u houst_d, x(spread pb houst gdp ) infcat(3)
+ziop2 rate_change spread_u spread_d houst_u houst_d, x(spread pb houst gdp ) infcat(0)
 set more off
-ziop2 rate_change spread_u spread_d  gdp_u gdp_d houst_u houst_d, x(spread pb houst gdp ) infcat(3) endoswitch
+ziop2 rate_change spread_u spread_d  gdp_u gdp_d houst_u houst_d, x(spread pb houst gdp ) infcat(0) endoswitch
 set more off
-ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(3)
+ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0)
 set more off
-ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(3) endoswitch
+ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) endoswitch
 
 set more off
-ziop2 rate_change spread_u spread_d pb_u pb_d houst_u houst_d gdp_u gdp_d in 1/241, x(spread pb houst gdp ) infcat(3) endoswitch
+ziop3 or_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) endoswitch
 
-
+set more off
+quietly ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) endoswitch
 predict yfit
+
 predict pr0, zeros
 predict pr, regime
 predict emode, output(mode)
 predict emean, output(mean)
 predict pcum, output(cum)
 
+quietly ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) endoswitch
 ziopmargins
 ziopmargins, zeros
 ziopmargins, regime
@@ -47,15 +50,13 @@ ziopcontrasts, at(pb=1) to(pb=0) zeros
 ziopcontrasts, at(pb=1) to(pb=0) regime
 
 // vuong example
-set more off
-ziop3 rate_change pb spread houst gdp, xn(spread gdp )xp(pb spread) infcat(3) endoswitch
+quietly ziop3 rate_change pb spread houst gdp, xn(spread gdp )xp(pb spread) infcat(0) endoswitch
 est store firstmodel
-set more off
-ziop2 rate_change houst_u houst_d spread_u spread_d, x( houst spread pb  gdp ) infcat(3) endoswitch
+quietly ziop2 rate_change houst_u houst_d spread_u spread_d, x( houst spread pb  gdp ) infcat(0) endoswitch
 est store secondmodel
 ziopvuong firstmodel secondmodel
 
 //classification example
 set more off
-ziop3 rate_change pb spread houst gdp, xn(spread gdp )xp(pb spread) infcat(3) endoswitch
+ziop3 rate_change pb spread houst gdp, xn(spread gdp )xp(pb spread) infcat(0) endoswitch
 ziopclassification
