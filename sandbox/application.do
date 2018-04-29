@@ -28,10 +28,10 @@ ziop3 or_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) endo
 
 set more off
 quietly ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) endoswitch
-predict yfit
+predict proby
 
-predict pr0, zeros
-predict pr, regime
+predict przeros, zeros
+predict prregim, regime
 predict emode, output(mode)
 predict emean, output(mean)
 predict pcum, output(cum)
@@ -41,7 +41,10 @@ ziopmargins
 ziopmargins, zeros
 ziopmargins, regime
 
-ziopprobabilities
+ziopprobabilities, at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
+
+
+
 ziopprobabilities, zeros
 ziopprobabilities, regime
 
