@@ -1981,6 +1981,13 @@ function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robus
 	} else {
 		initial = .
 	}
+	
+	if ( (sum(uniqrows(y) :< infcat) < 1) | (sum(uniqrows(y) :> infcat) < 1) ) {
+		errprintf("The dependent variable takes on less than three discrete values. ")
+		errprintf("The ZIOP-3 model is designed for a dependent variable with at least three outcome choices.")
+		exit(3498)
+	}
+	
 	class CNOPModel scalar model 
 	if (correlated) {
 		switching_type = "endogenous"
@@ -2070,8 +2077,9 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 		initial = .
 	}
 	
-	if ( (sum(uniqrows(y):<infcat) < 2) | (sum(uniqrows(y):>infcat) < 2)){
-		errprintf("The dependent variable takes on less than four discrete values. ")
+	if ( (sum(uniqrows(y) :< infcat) < 2) | (sum(uniqrows(y) :> infcat) < 2) ) {
+		errprintf("The dependent variable takes on less than five discrete values. ")
+		errprintf("The NOP model is designed for a dependent variable with at least five outcome choices.")
 		errprintf("With only three or two outcome choices the NOP model reduces to the conventional ordered probit model. ")
 		errprintf("Use the oprobit command. ")
 		exit(3498)
