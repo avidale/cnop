@@ -417,6 +417,7 @@ class CNOPModel scalar estimateNOP(y, x, zp, zn, infcat, |quiet, startvalues, ro
 	
 	if(!quiet){
 		"Estimation completed"
+		""
 	}
 	
 	if (estimation_successful == 0) {
@@ -693,6 +694,7 @@ class CNOPModel scalar estimateMIOPR(y, x, z, infcat, |quiet, startvalues, robus
 	
 	if(!quiet){
 		"Estimation completed"
+		""
 	}
 	//"TEST: CALCULATION REALLY COMPLETED"
 	//estimation_successful
@@ -962,6 +964,7 @@ class CNOPModel scalar estimateMIOPRC(y, x, z, infcat, |quiet, startvalues, robu
 	
 	if(!quiet){
 		"Estimation completed"
+		""
 	}
 	
 	if (estimation_successful == 0) {
@@ -1248,6 +1251,7 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 	
 	if(!quiet){
 		"Estimation completed"
+		""
 	}
 	
 	if (estimation_successful == 0) {
@@ -1556,6 +1560,7 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 	
 	if(!quiet){
 		"Estimation completed"
+		""
 	}
 	
 	if (estimation_successful == 0) {
@@ -1859,6 +1864,7 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 	// estimate main miopr stage
 	if(!quiet) {
 		"Estimation completed"
+		""
 	}
 	// incomplete: bad convergence even at good starting values. CHECK CONVEXITY
 	
@@ -1938,7 +1944,7 @@ function positionsInList(candidates, subset) {
 }
 
 // passes CNOP and CNOP(c) specification from Stata to Mata and back
-function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust, cluster, initial) {
+function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust, cluster, initial, nolog) {
 	xytokens = tokens(yxnames)
 	yname = xytokens[1]
 	xnames = invtokens(xytokens[,2::cols(xytokens)])
@@ -1975,14 +1981,13 @@ function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robus
 	} else {
 		initial = .
 	}
-	
 	class CNOPModel scalar model 
 	if (correlated) {
 		switching_type = "endogenous"
-		model = estimateCNOPC(y, x, zp, zn, infcat, 0, initial, robust, who)
+		model = estimateCNOPC(y, x, zp, zn, infcat, nolog, initial, robust, who)
 	} else {
 		switching_type = "exogenous"
-		model = estimateCNOP(y, x, zp, zn, infcat, 0, initial, robust, who)
+		model = estimateCNOP(y, x, zp, zn, infcat, nolog, initial, robust, who)
 	}
 	
 	model.yname = yname
@@ -2026,7 +2031,7 @@ function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robus
 	return(model)
 }
 
-function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust, cluster, initial) {
+function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust, cluster, initial, nolog) {
 	xytokens = tokens(yxnames)
 	yname = xytokens[1]
 	xnames = invtokens(xytokens[,2::cols(xytokens)])
@@ -2066,10 +2071,10 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 	class CNOPModel scalar model 
 	if (correlated) {
 		switching_type = "endogenous"
-		model = estimateNOPC(y, x, zp, zn, infcat, 0, initial, robust, who)
+		model = estimateNOPC(y, x, zp, zn, infcat, nolog, initial, robust, who)
 	} else {
 		switching_type = "exogenous"
-		model = estimateNOP(y, x, zp, zn, infcat, 0, initial, robust, who)
+		model = estimateNOP(y, x, zp, zn, infcat, nolog, initial, robust, who)
 	}
 	
 	model.yname = yname
@@ -2115,7 +2120,7 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 
 
 // passes ZIOP specification from Stata to Mata and back
-function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluster, initial) {
+function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluster, initial, nolog) {
 	xytokens = tokens(yxnames)
 	yname = xytokens[1]
 	xnames = invtokens(xytokens[,2::cols(xytokens)])
@@ -2146,10 +2151,10 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 	class CNOPModel scalar model
 	if (correlated) {
 		switching_type = "endogenous"
-		model = estimateMIOPRC(y, x, z, infcat, 0, initial, robust, who)
+		model = estimateMIOPRC(y, x, z, infcat, nolog, initial, robust, who)
 	} else {
 		switching_type = "exogenous"
-		model = estimateMIOPR(y, x, z, infcat, 0, initial, robust, who)
+		model = estimateMIOPR(y, x, z, infcat, nolog, initial, robust, who)
 	}
 	model.XZnames 	= allvars
 	model.yname = yname

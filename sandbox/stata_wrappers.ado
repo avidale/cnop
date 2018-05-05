@@ -60,6 +60,7 @@ program ziopvuong, rclass
 	return local std_diff = `std_diff'
 	return local N = `n_obs'
 	return local vuong = `vuong'
+	return local pvalue = `pvalue'
 end
 
 mata:
@@ -69,14 +70,17 @@ mata:
 		std_diff = sqrt(variance(ll_diff))
 		n_obs = rows(ll_diff)
 		vuong = mean_diff / (std_diff / sqrt(n_obs))
+		pvalue = 1-normal(vuong)
 		"Mean difference in log likelihood                  " + strofreal(mean_diff)
 		"Standard deviation of difference in log likelihood " + strofreal(std_diff)
 		"Number of observations                             " + strofreal(n_obs)
-		"Vuong test statistic                               " + strofreal(vuong)
+		"Vuong test statistic (z)                           " + strofreal(vuong)
+		"P-Value (Pr>z)                                     " + strofreal(pvalue)
 		st_local("mean_diff", strofreal(mean_diff))
 		st_local("std_diff", strofreal(std_diff))
 		st_local("n_obs", strofreal(n_obs))
 		st_local("vuong", strofreal(vuong))
+		st_local("pvalue", strofreal(pvalue))
 	}
 end
 
@@ -160,9 +164,9 @@ end
 // estimates ZIOP3 and ZIOP3(c) models
 program ziop3, eclass
 	version 13
-	syntax varlist(min=2) [if] [in] [, xp(varlist) xn(varlist) infcat(integer 0) endoswitch cluster(varname) robust initial(string asis)]
+	syntax varlist(min=2) [if] [in] [, xp(varlist) xn(varlist) infcat(integer 0) endoswitch cluster(varname) robust initial(string asis) nolog]
 	marksample touse
-	mata: CNOP_last_model = processCNOP("`varlist'", "`xp'", "`xn'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'")
+	mata: CNOP_last_model = processCNOP("`varlist'", "`xp'", "`xn'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'", "`log'" == "nolog")
 
 	ereturn post b V, esample(`touse') obs(`N') depname(`depvar')
 	ereturn local predict "ZIOP_predict"
@@ -175,9 +179,9 @@ end
 // estimates MIOP(r) model
 program ziop2, eclass
 	version 13
-	syntax varlist(min=2) [if] [in] [, x(varlist) infcat(integer 0) endoswitch cluster(varname) robust initial(string asis)]
+	syntax varlist(min=2) [if] [in] [, x(varlist) infcat(integer 0) endoswitch cluster(varname) robust initial(string asis) nolog]
 	marksample touse
-	mata: CNOP_last_model = processMIOPR("`varlist'", "`x'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'"=="robust","`cluster'", "`initial'")
+	mata: CNOP_last_model = processMIOPR("`varlist'", "`x'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'"=="robust","`cluster'", "`initial'", "`log'" == "nolog")
 	
 	ereturn post b V, esample(`touse')  depname(`depvar') obs(`N')
 	ereturn local predict "ZIOP_predict"
@@ -190,9 +194,9 @@ end
 // estimates NOP and NOP(c) models
 program nop, eclass
 	version 13
-	syntax varlist(min=2) [if] [in] [, xp(varlist) xn(varlist) infcat(integer 0) endoswitch cluster(varname) robust initial(string asis)]
+	syntax varlist(min=2) [if] [in] [, xp(varlist) xn(varlist) infcat(integer 0) endoswitch cluster(varname) robust initial(string asis) nolog]
 	marksample touse
-	mata: CNOP_last_model = processNOP("`varlist'", "`xp'", "`xn'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'")
+	mata: CNOP_last_model = processNOP("`varlist'", "`xp'", "`xn'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'", "`log'" == "nolog")
 
 	ereturn post b V, esample(`touse') obs(`N') depname(`depvar')
 	ereturn local predict "ZIOP_predict"
