@@ -736,10 +736,10 @@ void _miopr_optim(todo, params, x, z, q, ncat, infcat, coded, v, g, H) {
 
 function miopr_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {	 
 	
-	xbar = select(xzbar, corresp[1,]);
-	zbar = select(xzbar, corresp[2,]);
-	wherex = selectindex(corresp[1,]')
-	wherez = selectindex(corresp[2,]')
+	wherex = selectOrderedIndex(corresp[1,])
+	wherez = selectOrderedIndex(corresp[2,])
+	xbar = xzbar[wherex]
+	zbar = xzbar[wherez]
 	
 	kx 	= cols(xbar)
 	kz 	= cols(zbar)
@@ -849,10 +849,10 @@ void _mioprc_optim(todo, params, x, z, q, ncat, infcat, coded, v, g, H) {
 	}
 }
 function mioprc_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {
-	xbar = select(xzbar, corresp[1,]);
-	zbar = select(xzbar, corresp[2,]);
-	wherex = selectindex(corresp[1,]')
-	wherez = selectindex(corresp[2,]')
+	wherex = selectOrderedIndex(corresp[1,])
+	wherez = selectOrderedIndex(corresp[2,])
+	xbar = xzbar[wherex]
+	zbar = xzbar[wherez]
 	
 	kx 	= cols(xbar)
 	kz 	= cols(zbar)
@@ -1128,13 +1128,13 @@ function cnop_deriv(params, x, zp, zn, q, ncat, infcat,| ofLogLik) {
 }
 
 
-function cnop_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {
-	xbar 	= select(xzbar, corresp[1,]);
-	zpbar 	= select(xzbar, corresp[2,]);
-	znbar 	= select(xzbar, corresp[3,]);
-	wherex 	= selectindex(corresp[1,]')
-	wherezp = selectindex(corresp[2,]')
-	wherezn = selectindex(corresp[3,]')
+function cnop_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {	
+	wherex = selectOrderedIndex(corresp[1,])
+	wherezp = selectOrderedIndex(corresp[2,])
+	wherezn = selectOrderedIndex(corresp[3,])
+	xbar = xzbar[wherex]
+	zpbar = xzbar[wherezp]
+	znbar = xzbar[wherezn]
 	
 	kx	= cols(xbar)
 	kzp	= cols(zpbar)
@@ -1319,12 +1319,12 @@ function MLcnopc(params, x, zp, zn, q, ncat, infcat, | loop) {
 
 function cnopc_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {
 
-	xbar 	= select(xzbar, corresp[1,]);
-	zpbar 	= select(xzbar, corresp[2,]);
-	znbar 	= select(xzbar, corresp[3,]);
-	wherex 	= selectindex(corresp[1,]')
-	wherezp = selectindex(corresp[2,]')
-	wherezn = selectindex(corresp[3,]')
+	wherex = selectOrderedIndex(corresp[1,])
+	wherezp = selectOrderedIndex(corresp[2,])
+	wherezn = selectOrderedIndex(corresp[3,])
+	xbar = xzbar[wherex]
+	zpbar = xzbar[wherezp]
+	znbar = xzbar[wherezn]
 	
 	kx	= cols(xbar)
 	kzp	= cols(zpbar)
@@ -1760,12 +1760,12 @@ function nop_deriv(params, x, zp, zn, q, ncat, infcat,| ofLogLik) {
 
 
 function nop_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {
-	xbar 	= select(xzbar, corresp[1,]);
-	zpbar 	= select(xzbar, corresp[2,]);
-	znbar 	= select(xzbar, corresp[3,]);
-	wherex 	= selectindex(corresp[1,]')
-	wherezp = selectindex(corresp[2,]')
-	wherezn = selectindex(corresp[3,]')
+	wherex = selectOrderedIndex(corresp[1,])
+	wherezp = selectOrderedIndex(corresp[2,])
+	wherezn = selectOrderedIndex(corresp[3,])
+	xbar = xzbar[wherex]
+	zpbar = xzbar[wherezp]
+	znbar = xzbar[wherezn]
 	
 	kx	= cols(xbar)
 	kzp	= cols(zpbar)
@@ -2086,12 +2086,12 @@ function nopc_deriv(params, x, zp, zn, q, ncat, infcat,| ofLogLik) {
 
 function nopc_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {
 
-	xbar 	= select(xzbar, corresp[1,]);
-	zpbar 	= select(xzbar, corresp[2,]);
-	znbar 	= select(xzbar, corresp[3,]);
-	wherex 	= selectindex(corresp[1,]')
-	wherezp = selectindex(corresp[2,]')
-	wherezn = selectindex(corresp[3,]')
+	wherex = selectOrderedIndex(corresp[1,])
+	wherezp = selectOrderedIndex(corresp[2,])
+	wherezn = selectOrderedIndex(corresp[3,])
+	xbar = xzbar[wherex]
+	zpbar = xzbar[wherezp]
+	znbar = xzbar[wherezn]
 	
 	kx	= cols(xbar)
 	kzp	= cols(zpbar)
