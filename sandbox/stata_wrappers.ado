@@ -39,6 +39,8 @@ program ziopclassification, rclass
 	// todo: don't store unwanted results of sum
 	quietly sum _correct_predicted
 	display "% Correctly Predicted = " round(`r(mean)', 0.0001)
+	mata: "Brier score              = " + strofreal(CNOP_last_model.brier_score)
+	mata: "Ranked probability score = " + strofreal(CNOP_last_model.ranked_probability_score)
 	drop _predicted _correct_predicted _actual
 	return local accuracy = `r(mean)'
 end
