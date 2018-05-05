@@ -1925,13 +1925,13 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 
 
 
-// 
-function tokensListContains(alltokens, subset) {
-	ans = J(1, cols(alltokens), 0)
+// for each element of candidates, return its position in subset or 0
+function positionsInList(candidates, subset) {
+	ans = J(1, cols(candidates), 0)
 	for(i = 1; i <= cols(subset); i++) {
-		filter = alltokens :== subset[i]
+		filter = candidates :== subset[i]
 		if(sum(filter) > 0){
-			ans[selectindex(filter)] = 1
+			ans[selectindex(filter)] = i
 		}
 	}
 	return(ans)
@@ -1954,7 +1954,7 @@ function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robus
 	}
 	
 	allvars = uniqrows( (tokens(xnames),tokens(zpnames),tokens(znnames))' )'
-	corresp = (tokensListContains(allvars, tokens(xnames)) \ tokensListContains(allvars, tokens(zpnames)) \ tokensListContains(allvars, tokens(znnames)) )
+	corresp = (positionsInList(allvars, tokens(xnames)) \ positionsInList(allvars, tokens(zpnames)) \ positionsInList(allvars, tokens(znnames)) )
 	st_view(y  = ., ., yname, touse)
 	st_view(x  = ., ., xnames, touse)
 	st_view(zp = ., ., zpnames, touse)
@@ -2042,7 +2042,7 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 	}
 	
 	allvars = uniqrows( (tokens(xnames),tokens(zpnames),tokens(znnames))' )'
-	corresp = (tokensListContains(allvars, tokens(xnames)) \ tokensListContains(allvars, tokens(zpnames)) \ tokensListContains(allvars, tokens(znnames)) )
+	corresp = (positionsInList(allvars, tokens(xnames)) \ positionsInList(allvars, tokens(zpnames)) \ positionsInList(allvars, tokens(znnames)) )
 	st_view(y  = ., ., yname, touse)
 	st_view(x  = ., ., xnames, touse)
 	st_view(zp = ., ., zpnames, touse)
@@ -2123,7 +2123,7 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 		znames = xnames
 	}
 	allvars = uniqrows( (tokens(xnames),tokens(znames))' )'
-	corresp = (tokensListContains(allvars, tokens(xnames)) \ tokensListContains(allvars, tokens(znames)))
+	corresp = (positionsInList(allvars, tokens(xnames)) \ positionsInList(allvars, tokens(znames)))
 	st_view(y  = ., ., yname, touse)
 	st_view(x  = ., ., xnames, touse)
 	st_view(z = ., ., znames, touse)
@@ -2255,7 +2255,7 @@ function update_named_vector(values, names, tokens) {
 // marginal effects for MIOP(r), CNOP, CNOP(c)
 
 function CNOPmargins(class CNOPModel scalar model, string atVarlist, string dummiesVarlist, zeroes, regime) {
-	dummiesVector = tokensListContains(model.XZnames, tokens(dummiesVarlist))
+	dummiesVector = positionsInList(model.XZnames, tokens(dummiesVarlist))
 	xzbar = model.XZmeans
 	atTokens = tokens(atVarlist, " =")
 	
