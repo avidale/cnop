@@ -2211,6 +2211,10 @@ function get_colstripes(model_class, loop, allcat, infcat) {
 			colstripes = ("Pr(s=-1)" \ "Pr(s=0)" \  "Pr(s=+1)")
 		}
 	}
+	// workaround: stata does not allow colstripes containing dots
+	colstripes = subinstr(colstripes, "=.", "=0.")
+	colstripes = subinstr(colstripes, "=-.", "=-0.")
+	colstripes = subinstr(colstripes, ".", ",")
 	return(colstripes)
 }
 
