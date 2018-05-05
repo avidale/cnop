@@ -38,7 +38,7 @@ program ziopclassification, rclass
 	tab _actual _predicted
 	// todo: don't store unwanted results of sum
 	quietly sum _correct_predicted
-	display "% Correctly Predicted = " round(`r(mean)', 0.0001)
+    display "% Correctly Predicted    = " round(`r(mean)', 0.0001)
 	mata: "Brier score              = " + strofreal(CNOP_last_model.brier_score)
 	mata: "Ranked probability score = " + strofreal(CNOP_last_model.ranked_probability_score)
 	drop _predicted _correct_predicted _actual
@@ -52,8 +52,10 @@ program ziopvuong, rclass
 	// todo: try to est store current environment
 	quietly est restore `modelspec1'
 	mat ll_1 = e(ll_obs)
+	local k_1 = e(k)
 	quietly est restore `modelspec2'
 	mat ll_2 = e(ll_obs)
+	local k_2 = e(k)
 	mat ll_diff = ll_1 - ll_2
 	display "Vuong non-nested test for `modelspec1' vs `modelspec2'"
 	mata: vuong_calc()
@@ -72,17 +74,38 @@ mata:
 		std_diff = sqrt(variance(ll_diff))
 		n_obs = rows(ll_diff)
 		vuong = mean_diff / (std_diff / sqrt(n_obs))
+		
+		// AIC and BIC corrections
+		k_1 = strtoreal(st_local("k_1"))
+		k_2 = strtoreal(st_local("k_2"))
+		
+		vuongAIC = (mean_diff - (k_1-k_2) / n_obs) / (std_diff / sqrt(n_obs))
+		vuongBIC = (mean_diff - (k_1-k_2) * log(n_obs) / (2 * n_obs)) / (std_diff / sqrt(n_obs))
+		
 		pvalue = 1-normal(vuong)
+		pvalueAIC = 1-normal(vuongAIC)
+		pvalueBIC = 1-normal(vuongBIC)
+		
+		
 		"Mean difference in log likelihood                  " + strofreal(mean_diff)
 		"Standard deviation of difference in log likelihood " + strofreal(std_diff)
 		"Number of observations                             " + strofreal(n_obs)
-		"Vuong test statistic (z)                           " + strofreal(vuong)
-		"P-Value (Pr>z)                                     " + strofreal(pvalue)
+		"Vuong test statistic                           z = " + strofreal(vuong)
+		"P-Value                                     Pr>z = " + strofreal(pvalue)
+		"   with AIC (Akaike) correction                z = " + strofreal(vuongAIC)
+		"P-Value                                     Pr>z = " + strofreal(pvalueAIC)
+		"   with BIC (Schwarz) correction               z = " + strofreal(vuongBIC)
+		"P-Value                                     Pr>z = " + strofreal(pvalueBIC)
+		
 		st_local("mean_diff", strofreal(mean_diff))
 		st_local("std_diff", strofreal(std_diff))
 		st_local("n_obs", strofreal(n_obs))
 		st_local("vuong", strofreal(vuong))
+		st_local("vuongAIC", strofreal(vuongAIC))
+		st_local("vuongBIC", strofreal(vuongBIC))
 		st_local("pvalue", strofreal(pvalue))
+		st_local("pvalueAIC", strofreal(pvalueAIC))
+		st_local("pvalueBIC", strofreal(pvalueBIC))
 	}
 end
 
@@ -174,6 +197,7 @@ program ziop3, eclass
 	ereturn local predict "ZIOP_predict"
 	ereturn local cmd "ziop3"
 	ereturn local ll `ll'
+	ereturn local k `k'
 	ereturn matrix ll_obs=ll_obs
 	ereturn display
 end
@@ -189,6 +213,7 @@ program ziop2, eclass
 	ereturn local predict "ZIOP_predict"
 	ereturn local cmd "ziop2"
 	ereturn local ll `ll'
+	ereturn local k `k'
 	ereturn matrix ll_obs ll_obs
 	ereturn display
 end
@@ -204,6 +229,7 @@ program nop, eclass
 	ereturn local predict "ZIOP_predict"
 	ereturn local cmd "nop"
 	ereturn local ll `ll'
+	ereturn local k `k'
 	ereturn matrix ll_obs ll_obs
 	ereturn display
 end

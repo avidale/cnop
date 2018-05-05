@@ -1846,6 +1846,47 @@ function positionsInList(candidates, subset) {
 	return(ans)
 }
 
+//
+function passModelToStata(class CNOPModel scalar model) {
+
+	if (model.model_class == "NOPC" | model.model_class == "MIOPRC" | model.model_class == "CNOPC") {
+		switching_type = "endogenous"
+	} else {
+		switching_type = "exogenous"
+	}
+	
+	if (model.model_class == "NOP" | model.model_class == "NOPC") {
+		model_type = "Three-part nested ordered probit model"
+	} else if (model.model_class == "CNOP" | model.model_class == "CNOPC") {
+		model_type = "Three-part zero-inflated ordered probit model"
+	} else if (model.model_class == "MIOPR" | model.model_class == "MIOPRC") {
+		model_type = "Two-part zero-inflated ordered probit model"
+	}
+
+	st_matrix("b", model.params')
+	if (model.robust == 1) {
+		st_matrix("V", model.V_rob)
+	} else {
+		st_matrix("V", model.V)
+	}
+	stripes = model.eqnames' , model.parnames'
+	st_matrixcolstripe("b", stripes)
+	st_matrixcolstripe("V", stripes)
+	st_matrixrowstripe("V", stripes)
+	st_local("depvar", model.yname)
+	st_local("N", strofreal(model.n))
+	st_local("ll", strofreal(model.logLik))
+	st_local("k", strofreal(rows(model.params)))
+	st_matrix("ll_obs", model.ll_obs)
+	
+	// describe the model
+	model_type + " with " + switching_type + " switching"
+	"Number of observations = " + strofreal(model.n)
+	"Log likelihood = " + strofreal(model.logLik)
+	"AIC            = " + strofreal(model.AIC)
+	"BIC            = " + strofreal(model.BIC)
+}
+
 // passes CNOP and CNOP(c) specification from Stata to Mata and back
 function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust, cluster, initial, nolog) {
 	xytokens = tokens(yxnames)
@@ -1905,6 +1946,8 @@ function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robus
 	model.zpnames = zpnames
 	model.znnames = znnames
 	
+	model.robust = robust
+	
 	model.XZnames 	= allvars
 	model.corresp	= corresp
 	st_view(xz = ., ., invtokens(allvars))
@@ -1917,28 +1960,8 @@ function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robus
 		model.eqnames = model.eqnames, J(1, 2, "Correlation coefficients")
 		model.parnames = model.parnames, "rho(+)", "rho(-)"
 	}
-	st_matrix("b", model.params')
-	if (robust == 1) {
-		st_matrix("V", model.V_rob)
-	} else {
-		st_matrix("V", model.V)
-	}
-	model.robust = robust
-	stripes = model.eqnames' , model.parnames'
-	st_matrixcolstripe("b", stripes)
-	st_matrixcolstripe("V", stripes)
-	st_matrixrowstripe("V", stripes)
-	st_local("depvar", yname)
-	st_local("N", strofreal(model.n))
-	st_local("ll", strofreal(model.logLik))
-	st_matrix("ll_obs", model.ll_obs)
 	
-	// describe the model
-	"Three-part zero-inflated ordered probit model with " + switching_type + " switching"
-	"Number of observations = " + strofreal(model.n)
-	"Log likelihood = " + strofreal(model.logLik)
-	"AIC            = " + strofreal(model.AIC)
-	"BIC            = " + strofreal(model.BIC)
+	passModelToStata(model)
 	
 	return(model)
 }
@@ -2002,6 +2025,8 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 	model.zpnames = zpnames
 	model.znnames = znnames
 	
+	model.robust = robust
+	
 	model.XZnames 	= allvars
 	model.corresp	= corresp
 	st_view(xz = ., ., invtokens(allvars))
@@ -2014,28 +2039,8 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 		model.eqnames = model.eqnames, J(1, 2, "Correlation coefficients")
 		model.parnames = model.parnames, "rho(+)", "rho(-)"
 	}
-	st_matrix("b", model.params')
-	if (robust == 1) {
-		st_matrix("V", model.V_rob)
-	} else {
-		st_matrix("V", model.V)
-	}
-	model.robust = robust
-	stripes = model.eqnames' , model.parnames'
-	st_matrixcolstripe("b", stripes)
-	st_matrixcolstripe("V", stripes)
-	st_matrixrowstripe("V", stripes)
-	st_local("depvar", yname)
-	st_local("N", strofreal(model.n))
-	st_local("ll", strofreal(model.logLik))
-	st_matrix("ll_obs", model.ll_obs)
 	
-	// describe the model
-	"Three-part nested ordered probit model with " + switching_type + " switching"
-	"Number of observations = " + strofreal(model.n)
-	"Log likelihood = " + strofreal(model.logLik)
-	"AIC            = " + strofreal(model.AIC)
-	"BIC            = " + strofreal(model.BIC)
+	passModelToStata(model)
 	
 	return(model)
 }
@@ -2082,6 +2087,9 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 	model.yname = yname
 	model.xnames = xnames
 	model.znames = znames
+	
+	model.robust = robust
+	
 	model.corresp	= corresp
 	st_view(xz = ., ., invtokens(allvars))
 	model.XZmeans = mean(xz)
@@ -2092,31 +2100,8 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 		model.eqnames = model.eqnames, "Correlation coefficient"
 		model.parnames = model.parnames, "rho"
 	}
-	
-	st_matrix("b", model.params')
-	if (robust == 1) {
-		st_matrix("V", model.V_rob)
-	} else {
-		st_matrix("V", model.V)
-	}
-	model.robust = robust
-	//kk = rows(model.params)
-	//stripes = J(kk, 1, ""), "coef" :+ strofreal(1::kk)
-	stripes = model.eqnames' , model.parnames'
-	st_matrixcolstripe("b", stripes)
-	st_matrixcolstripe("V", stripes)
-	st_matrixrowstripe("V", stripes)
-	st_local("depvar", yname)
-	st_local("N", strofreal(model.n))
-	st_local("ll", strofreal(model.logLik))
-	st_matrix("ll_obs", model.ll_obs)
-	
-	// describe the model
-	"Two-part zero-inflated ordered probit model with " + switching_type + " switching"
-	"Number of observations = " + strofreal(model.n)
-	"Log likelihood = " + strofreal(model.logLik)
-	"AIC            = " + strofreal(model.AIC)
-	"BIC            = " + strofreal(model.BIC)
+		
+	passModelToStata(model)
 	
 	return(model)
 }
