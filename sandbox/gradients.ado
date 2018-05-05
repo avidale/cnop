@@ -1600,13 +1600,8 @@ function MLnop(params, x, zp, zn, q, ncat, infcat, | loop){
 	ncatp = ncat - infcat
 	ncatn = infcat - 1
 	
-	b 	= params[1::kx]
-	a	= params[(kx+1)::(kx+2)]
+	_nop_params(params, kx, kzp, kzn, ncatp, ncatn, b = ., a = ., gp = ., mup = ., gn = ., mun = .)	
 	a 	= punishSort(a)
-	gp	= params[(kx+2+1)::(kx+2+kzp)]
-	mup	= params[(kx+2+kzp+1)::(kx+2+kzp+ncatp-1)]
-	gn	= params[(kx+2+kzp+ncatp)::(kx+2+kzp+ncatp+kzn-1)]
-	mun	= params[(kx+2+kzp+ncatp+kzn)::(kx+2+kzp+ncatp+kzn+ncatn-2)]
 	
 	punishment = 0
 	mu = punishSort(mu, 10^-3, diff1=.)

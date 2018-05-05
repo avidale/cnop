@@ -5,8 +5,47 @@ version 12
 
 mata
 
+function matrix_mse(residual) {
+	result = mean(rowsum(residual :* residual))
+	return(result)
+}
 
+function running_rowsum(input_matrix) {
+	result = input_matrix
+	for(i=2; i<=cols(input_matrix); i++) {
+		result[,i] = result[,i-1] + result[,i]
+	}
+	return(result)
+}
 
+// calculate and remember various postestimation statistics
+class CNOPModel scalar describeModel(class CNOPModel scalar model, params, covMat, covMat_rob, maxLik, n, q, prob_obs) {
+	
+	model.params = params
+	model.se		= sqrt(diagonal(covMat))
+	model.t			= abs(params :/ model.se)
+	model.se_rob	= sqrt(diagonal(covMat_rob))
+	model.t_rob		= abs(params :/ model.se_rob)
+	
+	model.AIC	= -2 * maxLik + 2 * rows(params) 
+	model.BIC	= -2 * maxLik + ln(n) * rows(params)
+	model.CAIC	= -2 * maxLik + (1 + ln(n)) * rows(params)
+	model.AICc	= model.AIC + 2 * rows(params) * (rows(params) + 1) / (n - rows(params) - 1)
+	model.HQIC	= -2 * maxLik + 2*rows(params)*ln(ln(n))
+	model.logLik0 	= sum(log(q :* mean(q)))
+	model.R2 	= 1 - maxLik /  model.logLik0
+	
+	model.brier_score = matrix_mse(prob_obs - q)
+	model.ranked_probability_score = matrix_mse(running_rowsum(prob_obs) - running_rowsum(q))
+	
+	model.V	= covMat
+	model.V_rob	= covMat_rob
+	model.logLik	= maxLik
+	model.probabilities = prob_obs
+	model.ll_obs = log(rowsum(prob_obs :* q))
+	
+	return (model)
+}
 
 
 // workfunction that returns OP model (as an instance of CNOPModel class)
@@ -432,14 +471,8 @@ class CNOPModel scalar estimateNOP(y, x, zp, zn, infcat, |quiet, startvalues, ro
 		covMat	= optimize_result_V(S2)
 		covMat_rob = optimize_result_V_robust(S2)
 	}
-	// calculate log-likelihood of each observation
-	_nop_optim(0, params', x, zp, zn, q, ncat, infcat_index, 0, ll_obs, _, _)
-	
-	// calculate model statistics
-	se		= sqrt(diagonal(covMat))
-	tstat	= abs(params :/ se)
-	se_rob		= sqrt(diagonal(covMat_rob))
-	tstat_rob	= abs(params :/ se_rob)
+	// calculate predicted probabilities for each observation
+	prob_obs = MLnop(params, x, zp, zn, q, ncat, infcat_index, 1)
 	
 	class CNOPModel scalar model 
 	model.model_class = "NOP"
@@ -452,25 +485,7 @@ class CNOPModel scalar estimateNOP(y, x, zp, zn, infcat, |quiet, startvalues, ro
 	model.infcat = infcat_index
 	model.allcat = allcat
 	
-	model.params = params
-	
-	model.se		= se
-	model.t			= tstat
-	model.se_rob	= se_rob
-	model.t_rob		= tstat_rob
-	
-	model.AIC	= -2 * maxLik + 2 * rows(params) 
-	model.BIC	= -2 * maxLik + ln(n) * rows(params)
-	model.CAIC	= -2 * maxLik + (1 + ln(n)) * rows(params)
-	model.AICc	= model.AIC + 2 * rows(params) * (rows(params) + 1) / (n - rows(params) - 1)
-	model.HQIC	= -2 * maxLik + 2*rows(params)*ln(ln(n))
-	model.logLik0 	= sum(log(q :* mean(q)))
-	model.R2 	= 1 - maxLik /  model.logLik0
-	
-	model.V	= covMat
-	model.V_rob	= covMat_rob
-	model.logLik	= maxLik
-	model.ll_obs = ll_obs
+	model = describeModel(model, params, covMat, covMat_rob, maxLik, n, q, prob_obs)
 	
 	model.retCode = retCode
 	model.error_code = errorcode
@@ -720,14 +735,9 @@ class CNOPModel scalar estimateMIOPR(y, x, z, infcat, |quiet, startvalues, robus
 		covMat_rob = optimize_result_V_robust(S2)
 		//covMat_rob
 	}
-	// calculate log-likelihood of each observation
-	_miopr_optim(0, params', x, z, q, ncat, infcat_index, 0, ll_obs, _, _)
+	// calculate predicted probabilities for each observation
+	prob_obs = MLmiopr(params, x, z, q, ncat, infcat_index, 1)
 	
-	// calculate model statistics
-	se		= sqrt(diagonal(covMat))
-	tstat	= abs(params :/ se)
-	se_rob		= sqrt(diagonal(covMat_rob))
-	tstat_rob	= abs(params :/ se_rob)
 	class CNOPModel scalar model 
 	model.model_class = "MIOPR"
 	
@@ -737,22 +747,7 @@ class CNOPModel scalar estimateMIOPR(y, x, z, infcat, |quiet, startvalues, robus
 	model.infcat = infcat_index
 	model.allcat = allcat
 	
-	model.params = params
-	model.se		= se
-	model.t			= tstat
-	model.se_rob	= se_rob
-	model.t_rob		= tstat_rob
-	model.AIC	= -2 * maxLik + 2 * rows(params) 
-	model.BIC	= -2 * maxLik + ln(n) * rows(params)
-	model.CAIC	= -2 * maxLik + (1 + ln(n)) * rows(params)
-	model.AICc	= model.AIC + 2 * rows(params) * (rows(params) + 1) / (n - rows(params) - 1)
-	model.HQIC	= -2 * maxLik + 2*rows(params)*ln(ln(n))
-	model.logLik0 	= sum(log(q :* mean(q)))
-	model.R2 	= 1 - maxLik / model.logLik0
-	model.V	= covMat
-	model.V_rob	= covMat_rob
-	model.logLik	= maxLik
-	model.ll_obs = ll_obs
+	model = describeModel(model, params, covMat, covMat_rob, maxLik, n, q, prob_obs)
 	
 	model.retCode = retCode
 	model.error_code = errorcode
@@ -979,14 +974,9 @@ class CNOPModel scalar estimateMIOPRC(y, x, z, infcat, |quiet, startvalues, robu
 		covMat	= optimize_result_V(S2)
 		covMat_rob = optimize_result_V_robust(S2)
 	}
-	// calculate log-likelihood of each observation
-	_mioprc_optim(0, params', x, z, q, ncat, infcat_index, 0, ll_obs, _, _)
+	// calculate predicted probabilities for each observation
+	prob_obs = MLmioprc(params, x, z, q, ncat, infcat_index, 1)
 	
-	// calculate model statistics
-	se		= sqrt(diagonal(covMat))
-	tstat	= abs(params :/ se)
-	se_rob		= sqrt(diagonal(covMat_rob))
-	tstat_rob	= abs(params :/ se_rob)
 	class CNOPModel scalar model 
 	model.model_class = "MIOPRC"
 	
@@ -996,22 +986,7 @@ class CNOPModel scalar estimateMIOPRC(y, x, z, infcat, |quiet, startvalues, robu
 	model.infcat = infcat_index
 	model.allcat = allcat
 	
-	model.params = params
-	model.se		= se
-	model.t			= tstat
-	model.se_rob	= se_rob
-	model.t_rob		= tstat_rob
-	model.AIC	= -2 * maxLik + 2 * rows(params) 
-	model.BIC	= -2 * maxLik + ln(n) * rows(params)
-	model.CAIC	= -2 * maxLik + (1 + ln(n)) * rows(params)
-	model.AICc	= model.AIC + 2 * rows(params) * (rows(params) + 1) / (n - rows(params) - 1)
-	model.HQIC	= -2 * maxLik + 2*rows(params)*ln(ln(n))
-	model.logLik0 	= sum(log(q :* mean(q)))
-	model.R2 	= 1 - maxLik / model.logLik0
-	model.V	= covMat
-	model.V_rob	= covMat_rob
-	model.logLik	= maxLik
-	model.ll_obs = ll_obs
+	model = describeModel(model, params, covMat, covMat_rob, maxLik, n, q, prob_obs)
 	
 	model.retCode = retCode
 	model.error_code = errorcode
@@ -1266,14 +1241,8 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 		covMat	= optimize_result_V(S2)
 		covMat_rob = optimize_result_V_robust(S2)
 	}
-	// calculate log-likelihood of each observation
-	_nopc_optim(0, params', x, zp, zn, q, ncat, infcat_index, 0, ll_obs, _, _)
-	
-	// calculate model statistics
-	se		= sqrt(diagonal(covMat))
-	tstat	= abs(params :/ se)
-	se_rob		= sqrt(diagonal(covMat_rob))
-	tstat_rob	= abs(params :/ se_rob)
+	// calculate predicted probabilities for each observation
+	prob_obs = MLnopc(params, x, zp, zn, q, ncat, infcat_index, 1)
 	
 	class CNOPModel scalar model 
 	model.model_class = "NOPC"
@@ -1286,25 +1255,7 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 	model.infcat = infcat_index
 	model.allcat = allcat
 	
-	model.params = params
-	
-	model.se		= se
-	model.t			= tstat
-	model.se_rob	= se_rob
-	model.t_rob		= tstat_rob
-	
-	model.AIC	= -2 * maxLik + 2 * rows(params) 
-	model.BIC	= -2 * maxLik + ln(n) * rows(params)
-	model.CAIC	= -2 * maxLik + (1 + ln(n)) * rows(params)
-	model.AICc	= model.AIC + 2 * rows(params) * (rows(params) + 1) / (n - rows(params) - 1)
-	model.HQIC	= -2 * maxLik + 2*rows(params)*ln(ln(n))
-	model.logLik0 	= sum(log(q :* mean(q)))
-	model.R2 	= 1 - maxLik /  model.logLik0
-	
-	model.V	= covMat
-	model.V_rob	= covMat_rob
-	model.logLik	= maxLik
-	model.ll_obs = ll_obs
+	model = describeModel(model, params, covMat, covMat_rob, maxLik, n, q, prob_obs)
 	
 	model.retCode = retCode
 	model.error_code = errorcode
@@ -1575,14 +1526,8 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 		covMat	= optimize_result_V(S2)
 		covMat_rob = optimize_result_V_robust(S2)
 	}
-	// calculate log-likelihood of each observation
-	_cnop_optim(0, params', x, zp, zn, q, ncat, infcat_index, 0, ll_obs, _, _)
-	
-	// calculate model statistics
-	se		= sqrt(diagonal(covMat))
-	tstat	= abs(params :/ se)
-	se_rob		= sqrt(diagonal(covMat_rob))
-	tstat_rob	= abs(params :/ se_rob)
+	// calculate predicted probabilities for each observation
+	prob_obs = MLcnop(params, x, zp, zn, q, ncat, infcat_index, 1)
 	
 	class CNOPModel scalar model 
 	model.model_class = "CNOP"
@@ -1595,25 +1540,7 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 	model.infcat = infcat_index
 	model.allcat = allcat
 	
-	model.params = params
-	
-	model.se		= se
-	model.t			= tstat
-	model.se_rob	= se_rob
-	model.t_rob		= tstat_rob
-	
-	model.AIC	= -2 * maxLik + 2 * rows(params) 
-	model.BIC	= -2 * maxLik + ln(n) * rows(params)
-	model.CAIC	= -2 * maxLik + (1 + ln(n)) * rows(params)
-	model.AICc	= model.AIC + 2 * rows(params) * (rows(params) + 1) / (n - rows(params) - 1)
-	model.HQIC	= -2 * maxLik + 2*rows(params)*ln(ln(n))
-	model.logLik0 	= sum(log(q :* mean(q)))
-	model.R2 	= 1 - maxLik /  model.logLik0
-	
-	model.V	= covMat
-	model.V_rob	= covMat_rob
-	model.logLik	= maxLik
-	model.ll_obs = ll_obs
+	model = describeModel(model, params, covMat, covMat_rob, maxLik, n, q, prob_obs)
 	
 	model.retCode = retCode
 	model.error_code = errorcode
@@ -1880,14 +1807,8 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 		covMat	= optimize_result_V(S2)
 		covMat_rob = optimize_result_V_robust(S2)
 	}
-	// calculate log-likelihood of each observation
-	_cnopc_optim(0, params', x, zp, zn, q, ncat, infcat_index, 0, 0, ll_obs, _, _)
-	
-	// calculate model statistics
-	se		= sqrt(diagonal(covMat))
-	tstat	= abs(params :/ se)
-	se_rob		= sqrt(diagonal(covMat_rob))
-	tstat_rob	= abs(params :/ se_rob)
+	// calculate predicted probabilities for each observation
+	prob_obs = MLcnopc(params, x, zp, zn, q, ncat, infcat_index, 1)
 	
 	class CNOPModel scalar model 
 	model.model_class = "CNOPC"
@@ -1900,25 +1821,7 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 	model.infcat = infcat_index
 	model.allcat = allcat
 	
-	model.params = params
-	
-	model.se		= se
-	model.t			= tstat
-	model.se_rob	= se_rob
-	model.t_rob		= tstat_rob
-	
-	model.AIC	= -2 * maxLik + 2 * rows(params) 
-	model.BIC	= -2 * maxLik + ln(n) * rows(params)
-	model.CAIC	= -2 * maxLik + (1 + ln(n)) * rows(params)
-	model.AICc	= model.AIC + 2 * rows(params) * (rows(params) + 1) / (n - rows(params) - 1)
-	model.HQIC	= -2 * maxLik + 2*rows(params)*ln(ln(n))
-	model.logLik0 	= sum(log(q :* mean(q)))
-	model.R2 	= 1 - maxLik /  model.logLik0
-	
-	model.V	= covMat
-	model.V_rob	= covMat_rob
-	model.logLik	= maxLik
-	model.ll_obs = ll_obs
+	model = describeModel(model, params, covMat, covMat_rob, maxLik, n, q, prob_obs)
 
 	model.retCode = retCode
 	model.error_code = errorcode

@@ -13,6 +13,7 @@ class CNOPModel {
 	real scalar n
 	real scalar k
 	
+	// categories of target variables
 	real scalar ncat
 	real scalar infcat
 	real vector allcat
@@ -66,6 +67,8 @@ class CNOPModel {
 	real scalar HQIC
 	real scalar R2 // mcFadden R2 = 1 - lnL(model)/lnL(simple model)
 	real scalar logLik0
+	real scalar brier_score
+	real scalar ranked_probability_score
 	
 	// marginal effects
 	real vector me
