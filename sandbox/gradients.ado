@@ -85,6 +85,14 @@ function codeIncreasingSequenceJacobian(coded_sequence) {
 	return(jacobian)
 }
 
+// get argsort of the nonzero positions
+function selectOrderedIndex(positions) {
+	// find unordered nonzero positions
+	where = selectindex(positions)
+	index = where[order(positions[where]', 1)']
+	return(index)
+}
+
 
 function coeffOP(x, ycateg, ncat,| quiet, startbmu, lambda, maxiter, ptol, vtol, nrtol) {
 	ntry = 0
@@ -316,33 +324,25 @@ function referenceValues(xzbar, xzSet, dummies) {
 ////////////////////////////////////////////////////////////////
 function generalPredict(real matrix xzvalues, class CNOPModel scalar model, real scalar loop) {
 	// loop: 1 - probabilities of y labels, 2 - decompositions of zeros, 3 - probabilities of -1 - 0 -1 regimes 
+	if (sum(model.model_class :== ("CNOP", "CNOPC", "NOP", "NOPC")) > 0){
+		x	= xzvalues[,selectOrderedIndex(model.corresp[1,])]
+		zp	= xzvalues[,selectOrderedIndex(model.corresp[2,])]
+		zn	= xzvalues[,selectOrderedIndex(model.corresp[3,])]
+	} else if(sum(model.model_class :== ("MIOPR", "MIOPRC")) > 0){
+		x	= xzvalues[,selectOrderedIndex(model.corresp[1,])]
+		z	= xzvalues[,selectOrderedIndex(model.corresp[2,])]
+	}
 	if (model.model_class == "CNOP") {
-		x	= xzvalues[,selectindex(model.corresp[1,]')']
-		zp	= xzvalues[,selectindex(model.corresp[2,]')']
-		zn	= xzvalues[,selectindex(model.corresp[3,]')']
 		prediction = MLcnop(model.params, x, zp, zn, ., model.ncat, model.infcat, loop)
 	} else if(model.model_class == "CNOPC") {
-		x	= xzvalues[,selectindex(model.corresp[1,]')']
-		zp	= xzvalues[,selectindex(model.corresp[2,]')']
-		zn	= xzvalues[,selectindex(model.corresp[3,]')']
 		prediction = MLcnopc(model.params, x, zp, zn, ., model.ncat, model.infcat, loop)
 	} else if(model.model_class == "MIOPR"){
-		x	= xzvalues[,selectindex(model.corresp[1,]')']
-		z	= xzvalues[,selectindex(model.corresp[2,]')']
 		prediction = MLmiopr(model.params, x, z, ., model.ncat, model.infcat, loop)
 	} else if(model.model_class == "MIOPRC"){
-		x	= xzvalues[,selectindex(model.corresp[1,]')']
-		z	= xzvalues[,selectindex(model.corresp[2,]')']
 		prediction = MLmioprc(model.params, x, z, ., model.ncat, model.infcat, loop)
 	} else if (model.model_class == "NOP") {
-		x	= xzvalues[,selectindex(model.corresp[1,]')']
-		zp	= xzvalues[,selectindex(model.corresp[2,]')']
-		zn	= xzvalues[,selectindex(model.corresp[3,]')']
 		prediction = MLnop(model.params, x, zp, zn, ., model.ncat, model.infcat, loop)
 	} else if (model.model_class == "NOPC") {
-		x	= xzvalues[,selectindex(model.corresp[1,]')']
-		zp	= xzvalues[,selectindex(model.corresp[2,]')']
-		zn	= xzvalues[,selectindex(model.corresp[3,]')']
 		prediction = MLnopc(model.params, x, zp, zn, ., model.ncat, model.infcat, loop)
 	} else if (model.model_class == "OP") {
 		prediction = MLop(model.params, xzvalues, ., model.ncat, loop)
@@ -736,10 +736,10 @@ void _miopr_optim(todo, params, x, z, q, ncat, infcat, coded, v, g, H) {
 
 function miopr_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {	 
 	
-	xbar = select(xzbar, corresp[1,]);
-	zbar = select(xzbar, corresp[2,]);
-	wherex = selectindex(corresp[1,]')
-	wherez = selectindex(corresp[2,]')
+	wherex = selectOrderedIndex(corresp[1,])
+	wherez = selectOrderedIndex(corresp[2,])
+	xbar = xzbar[wherex]
+	zbar = xzbar[wherez]
 	
 	kx 	= cols(xbar)
 	kz 	= cols(zbar)
@@ -849,10 +849,10 @@ void _mioprc_optim(todo, params, x, z, q, ncat, infcat, coded, v, g, H) {
 	}
 }
 function mioprc_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {
-	xbar = select(xzbar, corresp[1,]);
-	zbar = select(xzbar, corresp[2,]);
-	wherex = selectindex(corresp[1,]')
-	wherez = selectindex(corresp[2,]')
+	wherex = selectOrderedIndex(corresp[1,])
+	wherez = selectOrderedIndex(corresp[2,])
+	xbar = xzbar[wherex]
+	zbar = xzbar[wherez]
 	
 	kx 	= cols(xbar)
 	kz 	= cols(zbar)
@@ -1128,13 +1128,13 @@ function cnop_deriv(params, x, zp, zn, q, ncat, infcat,| ofLogLik) {
 }
 
 
-function cnop_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {
-	xbar 	= select(xzbar, corresp[1,]);
-	zpbar 	= select(xzbar, corresp[2,]);
-	znbar 	= select(xzbar, corresp[3,]);
-	wherex 	= selectindex(corresp[1,]')
-	wherezp = selectindex(corresp[2,]')
-	wherezn = selectindex(corresp[3,]')
+function cnop_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {	
+	wherex = selectOrderedIndex(corresp[1,])
+	wherezp = selectOrderedIndex(corresp[2,])
+	wherezn = selectOrderedIndex(corresp[3,])
+	xbar = xzbar[wherex]
+	zpbar = xzbar[wherezp]
+	znbar = xzbar[wherezn]
 	
 	kx	= cols(xbar)
 	kzp	= cols(zpbar)
@@ -1319,12 +1319,12 @@ function MLcnopc(params, x, zp, zn, q, ncat, infcat, | loop) {
 
 function cnopc_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {
 
-	xbar 	= select(xzbar, corresp[1,]);
-	zpbar 	= select(xzbar, corresp[2,]);
-	znbar 	= select(xzbar, corresp[3,]);
-	wherex 	= selectindex(corresp[1,]')
-	wherezp = selectindex(corresp[2,]')
-	wherezn = selectindex(corresp[3,]')
+	wherex = selectOrderedIndex(corresp[1,])
+	wherezp = selectOrderedIndex(corresp[2,])
+	wherezn = selectOrderedIndex(corresp[3,])
+	xbar = xzbar[wherex]
+	zpbar = xzbar[wherezp]
+	znbar = xzbar[wherezn]
 	
 	kx	= cols(xbar)
 	kzp	= cols(zpbar)
@@ -1760,12 +1760,12 @@ function nop_deriv(params, x, zp, zn, q, ncat, infcat,| ofLogLik) {
 
 
 function nop_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {
-	xbar 	= select(xzbar, corresp[1,]);
-	zpbar 	= select(xzbar, corresp[2,]);
-	znbar 	= select(xzbar, corresp[3,]);
-	wherex 	= selectindex(corresp[1,]')
-	wherezp = selectindex(corresp[2,]')
-	wherezn = selectindex(corresp[3,]')
+	wherex = selectOrderedIndex(corresp[1,])
+	wherezp = selectOrderedIndex(corresp[2,])
+	wherezn = selectOrderedIndex(corresp[3,])
+	xbar = xzbar[wherex]
+	zpbar = xzbar[wherezp]
+	znbar = xzbar[wherezn]
 	
 	kx	= cols(xbar)
 	kzp	= cols(zpbar)
@@ -2086,12 +2086,12 @@ function nopc_deriv(params, x, zp, zn, q, ncat, infcat,| ofLogLik) {
 
 function nopc_me_raw(params, xzbar, ncat, infcat, corresp, |loop) {
 
-	xbar 	= select(xzbar, corresp[1,]);
-	zpbar 	= select(xzbar, corresp[2,]);
-	znbar 	= select(xzbar, corresp[3,]);
-	wherex 	= selectindex(corresp[1,]')
-	wherezp = selectindex(corresp[2,]')
-	wherezn = selectindex(corresp[3,]')
+	wherex = selectOrderedIndex(corresp[1,])
+	wherezp = selectOrderedIndex(corresp[2,])
+	wherezn = selectOrderedIndex(corresp[3,])
+	xbar = xzbar[wherex]
+	zpbar = xzbar[wherezp]
+	znbar = xzbar[wherezn]
 	
 	kx	= cols(xbar)
 	kzp	= cols(zpbar)

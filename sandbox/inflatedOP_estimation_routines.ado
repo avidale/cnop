@@ -1925,13 +1925,13 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 
 
 
-// 
-function tokensListContains(alltokens, subset) {
-	ans = J(1, cols(alltokens), 0)
+// for each element of candidates, return its position in subset or 0
+function positionsInList(candidates, subset) {
+	ans = J(1, cols(candidates), 0)
 	for(i = 1; i <= cols(subset); i++) {
-		filter = alltokens :== subset[i]
+		filter = candidates :== subset[i]
 		if(sum(filter) > 0){
-			ans[selectindex(filter)] = 1
+			ans[selectindex(filter)] = i
 		}
 	}
 	return(ans)
@@ -1954,7 +1954,7 @@ function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robus
 	}
 	
 	allvars = uniqrows( (tokens(xnames),tokens(zpnames),tokens(znnames))' )'
-	corresp = (tokensListContains(allvars, tokens(xnames)) \ tokensListContains(allvars, tokens(zpnames)) \ tokensListContains(allvars, tokens(znnames)) )
+	corresp = (positionsInList(allvars, tokens(xnames)) \ positionsInList(allvars, tokens(zpnames)) \ positionsInList(allvars, tokens(znnames)) )
 	st_view(y  = ., ., yname, touse)
 	st_view(x  = ., ., xnames, touse)
 	st_view(zp = ., ., zpnames, touse)
@@ -2042,7 +2042,7 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 	}
 	
 	allvars = uniqrows( (tokens(xnames),tokens(zpnames),tokens(znnames))' )'
-	corresp = (tokensListContains(allvars, tokens(xnames)) \ tokensListContains(allvars, tokens(zpnames)) \ tokensListContains(allvars, tokens(znnames)) )
+	corresp = (positionsInList(allvars, tokens(xnames)) \ positionsInList(allvars, tokens(zpnames)) \ positionsInList(allvars, tokens(znnames)) )
 	st_view(y  = ., ., yname, touse)
 	st_view(x  = ., ., xnames, touse)
 	st_view(zp = ., ., zpnames, touse)
@@ -2123,7 +2123,7 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 		znames = xnames
 	}
 	allvars = uniqrows( (tokens(xnames),tokens(znames))' )'
-	corresp = (tokensListContains(allvars, tokens(xnames)) \ tokensListContains(allvars, tokens(znames)))
+	corresp = (positionsInList(allvars, tokens(xnames)) \ positionsInList(allvars, tokens(znames)))
 	st_view(y  = ., ., yname, touse)
 	st_view(x  = ., ., xnames, touse)
 	st_view(z = ., ., znames, touse)
@@ -2211,6 +2211,10 @@ function get_colstripes(model_class, loop, allcat, infcat) {
 			colstripes = ("Pr(s=-1)" \ "Pr(s=0)" \  "Pr(s=+1)")
 		}
 	}
+	// workaround: stata does not allow colstripes containing dots
+	colstripes = subinstr(colstripes, "=.", "=0.")
+	colstripes = subinstr(colstripes, "=-.", "=-0.")
+	colstripes = subinstr(colstripes, ".", ",")
 	return(colstripes)
 }
 
@@ -2229,30 +2233,34 @@ function output_mesetp(me, se, rowstripes, colstripes) {
 	output_matrix("r(pval)", pval, rowstripes, colstripes)
 }
 
+function update_named_vector(values, names, tokens) {
+	atVarnames = tokens[range(1, cols(tokens)-2, 3)]
+	atValues = subinstr(tokens[range(3, cols(tokens), 3)], ",", "") 
+	atTable = sort( (atVarnames' , atValues'), 1)
+	for(i = 1; i <= rows(atTable); i++) {
+		index = selectindex(names :== atTable[i,1])
+		if (cols(index)) {
+			newValue = strtoreal(atTable[i,2])
+			if (newValue == .) {
+				"'" + atTable[i,1] + " = " + atTable[i,2] + " could not be parsed"
+			}
+			values[index] = newValue
+		} else {
+			atTable[i,1] + " was not applied in the last ZIOP/NOP model"
+		}
+	}
+	return(values)
+} 
 
 // marginal effects for MIOP(r), CNOP, CNOP(c)
 
 function CNOPmargins(class CNOPModel scalar model, string atVarlist, string dummiesVarlist, zeroes, regime) {
-	dummiesVector = tokensListContains(model.XZnames, tokens(dummiesVarlist))
+	dummiesVector = positionsInList(model.XZnames, tokens(dummiesVarlist))
 	xzbar = model.XZmeans
 	atTokens = tokens(atVarlist, " =")
 	
 	if (length(atTokens) >= 3) {
-		atVarnames = atTokens[range(1, cols(atTokens)-2, 3)]
-		atValues = subinstr(atTokens[range(3, cols(atTokens), 3)], ",", "") 
-		atTable = sort( (atVarnames' , atValues'), 1)
-		for(i = 1; i <= rows(atTable); i++) {
-			index = selectindex(model.XZnames :== atTable[i,1])
-			if (cols(index)) {
-				newValue = strtoreal(atTable[i,2])
-				if (newValue == .) {
-					"'" + atTable[i,1] + " = " + atTable[i,2] + " could not be parsed"
-				}
-				xzbar[index] = newValue
-			} else {
-				atTable[i,1] + " was not applied in the last CNOP regression"
-			}
-		}
+		xzbar = update_named_vector(xzbar, model.XZnames, atTokens)
 	}
 	loop = 1 // code of prediction type
 	if (zeroes) {
@@ -2276,25 +2284,10 @@ function CNOPmargins(class CNOPModel scalar model, string atVarlist, string dumm
 
 function CNOPprobabilities(class CNOPModel scalar model, string atVarlist, zeroes, regime) {
 	xz_from = model.XZmeans
-	xz_to = model.XZmeans
 	atTokens = tokens(atVarlist, " =")
 	
 	if (length(atTokens) >= 3) {
-		atVarnames = atTokens[range(1, cols(atTokens)-2, 3)]
-		atValues = subinstr(atTokens[range(3, cols(atTokens), 3)], ",", "") 
-		atTable = sort( (atVarnames' , atValues'), 1)
-		for(i = 1; i <= rows(atTable); i++) {
-			index = selectindex(model.XZnames :== atTable[i,1])
-			if (cols(index)) {
-				newValue = strtoreal(atTable[i,2])
-				if (newValue == .) {
-					"'" + atTable[i,1] + " = " + atTable[i,2] + " could not be parsed"
-				}
-				xz_from[index] = newValue
-			} else {
-				atTable[i,1] + " was not applied in the last CNOP regression"
-			}
-		}
+		xz_from = update_named_vector(xz_from, model.XZnames, atTokens)
 	}
 	
 	loop = 1 // code of prediction type
@@ -2321,39 +2314,11 @@ function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string to
 	toTokens = tokens(toVarlist, " =")
 	
 	if (length(atTokens) >= 3) {
-		atVarnames = atTokens[range(1, cols(atTokens)-2, 3)]
-		atValues = subinstr(atTokens[range(3, cols(atTokens), 3)], ",", "") 
-		atTable = sort( (atVarnames' , atValues'), 1)
-		for(i = 1; i <= rows(atTable); i++) {
-			index = selectindex(model.XZnames :== atTable[i,1])
-			if (cols(index)) {
-				newValue = strtoreal(atTable[i,2])
-				if (newValue == .) {
-					"'" + atTable[i,1] + " = " + atTable[i,2] + " could not be parsed"
-				}
-				xz_from[index] = newValue
-			} else {
-				atTable[i,1] + " was not applied in the last ZIOP regression"
-			}
-		}
+		xz_from = update_named_vector(xz_from, model.XZnames, atTokens)
 	}
 	
 	if (length(toTokens) >= 3) {
-		toVarnames = toTokens[range(1, cols(toTokens)-2, 3)]
-		toValues = subinstr(toTokens[range(3, cols(toTokens), 3)], ",", "") 
-		toTable = sort( (toVarnames' , toValues'), 1)
-		for(i = 1; i <= rows(toTable); i++) {
-			index = selectindex(model.XZnames :== toTable[i,1])
-			if (cols(index)) {
-				newValue = strtoreal(toTable[i,2])
-				if (newValue == .) {
-					"'" + toTable[i,1] + " = " + toTable[i,2] + " could not be parsed"
-				}
-				xz_to[index] = newValue
-			} else {
-				toTable[i,1] + " was not applied in the last ZIOP regression"
-			}
-		}
+		xz_to = update_named_vector(xz_to, model.XZnames, toTokens)
 	}
 	
 	loop = 1 // code of prediction type
