@@ -2027,6 +2027,8 @@ function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robus
 	"Three-part zero-inflated ordered probit model with " + switching_type + " switching"
 	"Number of observations = " + strofreal(model.n)
 	"Log likelihood = " + strofreal(model.logLik)
+	"AIC            = " + strofreal(model.AIC)
+	"BIC            = " + strofreal(model.BIC)
 	
 	return(model)
 }
@@ -2066,6 +2068,13 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 		}
 	} else {
 		initial = .
+	}
+	
+	if ( (sum(uniqrows(y):<infcat) < 2) | (sum(uniqrows(y):>infcat) < 2)){
+		errprintf("The dependent variable takes on less than four discrete values. ")
+		errprintf("With only three or two outcome choices the NOP model reduces to the conventional ordered probit model. ")
+		errprintf("Use the oprobit command. ")
+		exit(3498)
 	}
 	
 	class CNOPModel scalar model 
@@ -2114,6 +2123,8 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 	"Three-part nested ordered probit model with " + switching_type + " switching"
 	"Number of observations = " + strofreal(model.n)
 	"Log likelihood = " + strofreal(model.logLik)
+	"AIC            = " + strofreal(model.AIC)
+	"BIC            = " + strofreal(model.BIC)
 	
 	return(model)
 }
@@ -2193,6 +2204,8 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 	"Two-part zero-inflated ordered probit model with " + switching_type + " switching"
 	"Number of observations = " + strofreal(model.n)
 	"Log likelihood = " + strofreal(model.logLik)
+	"AIC            = " + strofreal(model.AIC)
+	"BIC            = " + strofreal(model.BIC)
 	
 	return(model)
 }
