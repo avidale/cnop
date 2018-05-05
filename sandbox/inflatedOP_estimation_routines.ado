@@ -2233,6 +2233,24 @@ function output_mesetp(me, se, rowstripes, colstripes) {
 	output_matrix("r(pval)", pval, rowstripes, colstripes)
 }
 
+function update_named_vector(values, names, tokens) {
+	atVarnames = tokens[range(1, cols(tokens)-2, 3)]
+	atValues = subinstr(tokens[range(3, cols(tokens), 3)], ",", "") 
+	atTable = sort( (atVarnames' , atValues'), 1)
+	for(i = 1; i <= rows(atTable); i++) {
+		index = selectindex(names :== atTable[i,1])
+		if (cols(index)) {
+			newValue = strtoreal(atTable[i,2])
+			if (newValue == .) {
+				"'" + atTable[i,1] + " = " + atTable[i,2] + " could not be parsed"
+			}
+			values[index] = newValue
+		} else {
+			atTable[i,1] + " was not applied in the last ZIOP/NOP model"
+		}
+	}
+	return(values)
+} 
 
 // marginal effects for MIOP(r), CNOP, CNOP(c)
 
@@ -2242,21 +2260,7 @@ function CNOPmargins(class CNOPModel scalar model, string atVarlist, string dumm
 	atTokens = tokens(atVarlist, " =")
 	
 	if (length(atTokens) >= 3) {
-		atVarnames = atTokens[range(1, cols(atTokens)-2, 3)]
-		atValues = subinstr(atTokens[range(3, cols(atTokens), 3)], ",", "") 
-		atTable = sort( (atVarnames' , atValues'), 1)
-		for(i = 1; i <= rows(atTable); i++) {
-			index = selectindex(model.XZnames :== atTable[i,1])
-			if (cols(index)) {
-				newValue = strtoreal(atTable[i,2])
-				if (newValue == .) {
-					"'" + atTable[i,1] + " = " + atTable[i,2] + " could not be parsed"
-				}
-				xzbar[index] = newValue
-			} else {
-				atTable[i,1] + " was not applied in the last CNOP regression"
-			}
-		}
+		xzbar = update_named_vector(xzbar, model.XZnames, atTokens)
 	}
 	loop = 1 // code of prediction type
 	if (zeroes) {
@@ -2280,25 +2284,10 @@ function CNOPmargins(class CNOPModel scalar model, string atVarlist, string dumm
 
 function CNOPprobabilities(class CNOPModel scalar model, string atVarlist, zeroes, regime) {
 	xz_from = model.XZmeans
-	xz_to = model.XZmeans
 	atTokens = tokens(atVarlist, " =")
 	
 	if (length(atTokens) >= 3) {
-		atVarnames = atTokens[range(1, cols(atTokens)-2, 3)]
-		atValues = subinstr(atTokens[range(3, cols(atTokens), 3)], ",", "") 
-		atTable = sort( (atVarnames' , atValues'), 1)
-		for(i = 1; i <= rows(atTable); i++) {
-			index = selectindex(model.XZnames :== atTable[i,1])
-			if (cols(index)) {
-				newValue = strtoreal(atTable[i,2])
-				if (newValue == .) {
-					"'" + atTable[i,1] + " = " + atTable[i,2] + " could not be parsed"
-				}
-				xz_from[index] = newValue
-			} else {
-				atTable[i,1] + " was not applied in the last CNOP regression"
-			}
-		}
+		xz_from = update_named_vector(xz_from, model.XZnames, atTokens)
 	}
 	
 	loop = 1 // code of prediction type
@@ -2325,39 +2314,11 @@ function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string to
 	toTokens = tokens(toVarlist, " =")
 	
 	if (length(atTokens) >= 3) {
-		atVarnames = atTokens[range(1, cols(atTokens)-2, 3)]
-		atValues = subinstr(atTokens[range(3, cols(atTokens), 3)], ",", "") 
-		atTable = sort( (atVarnames' , atValues'), 1)
-		for(i = 1; i <= rows(atTable); i++) {
-			index = selectindex(model.XZnames :== atTable[i,1])
-			if (cols(index)) {
-				newValue = strtoreal(atTable[i,2])
-				if (newValue == .) {
-					"'" + atTable[i,1] + " = " + atTable[i,2] + " could not be parsed"
-				}
-				xz_from[index] = newValue
-			} else {
-				atTable[i,1] + " was not applied in the last ZIOP regression"
-			}
-		}
+		xz_from = update_named_vector(xz_from, model.XZnames, atTokens)
 	}
 	
 	if (length(toTokens) >= 3) {
-		toVarnames = toTokens[range(1, cols(toTokens)-2, 3)]
-		toValues = subinstr(toTokens[range(3, cols(toTokens), 3)], ",", "") 
-		toTable = sort( (toVarnames' , toValues'), 1)
-		for(i = 1; i <= rows(toTable); i++) {
-			index = selectindex(model.XZnames :== toTable[i,1])
-			if (cols(index)) {
-				newValue = strtoreal(toTable[i,2])
-				if (newValue == .) {
-					"'" + toTable[i,1] + " = " + toTable[i,2] + " could not be parsed"
-				}
-				xz_to[index] = newValue
-			} else {
-				toTable[i,1] + " was not applied in the last ZIOP regression"
-			}
-		}
+		xz_to = update_named_vector(xz_to, model.XZnames, toTokens)
 	}
 	
 	loop = 1 // code of prediction type
