@@ -23,8 +23,6 @@ ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0)
 set more off
 ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) endoswitch
 
-set more off
-ziop3 or_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) endoswitch
 
 set more off
 quietly ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) endoswitch
