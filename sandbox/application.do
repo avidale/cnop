@@ -11,17 +11,29 @@ run stata_wrappers.ado
 import delimited Data_for_application.csv, clear 
 
 set more off
-nop rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0)
+oprobit rate_change spread pb houst gdp, nolog
+estat ic
+
 set more off
-nop rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) endoswitch
+nop rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) nolog
+
+set more off
+nop rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) endoswitch nolog
+
 set more off
 ziop2 rate_change spread_u spread_d houst_u houst_d, x(spread pb houst gdp ) infcat(0)
+
 set more off
-ziop2 rate_change spread_u spread_d  gdp_u gdp_d houst_u houst_d, x(spread pb houst gdp ) infcat(0) endoswitch
+ziop2 rate_change spread pb houst gdp, x(spread pb houst gdp ) infcat(0) nolog
+
 set more off
-ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0)
+ziop2 rate_change spread_u spread_d  gdp_u gdp_d houst_u houst_d, x(spread pb houst gdp ) infcat(0) endoswitch nolog
+
 set more off
-ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) endoswitch
+ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) nolog
+
+set more off
+ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) endoswitch nolog
 
 
 set more off
@@ -60,4 +72,9 @@ ziopvuong firstmodel secondmodel
 //classification example
 set more off
 ziop3 rate_change pb spread houst gdp, xn(spread gdp )xp(pb spread) infcat(0) endoswitch
+ziopclassification
+
+set more off
+quietly nop rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) endoswitch
+set more off
 ziopclassification
