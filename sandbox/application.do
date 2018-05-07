@@ -83,3 +83,7 @@ set more off
 quietly nop rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0)
 set more off
 ziopclassification
+
+// view help
+view ../package/ziop.sthlp
+view ../package/ziop_postestimation.sthlp
