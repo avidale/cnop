@@ -53,7 +53,6 @@ ziopmargins, regime
 
 ziopprobabilities, at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
 
-
 ziopprobabilities, zeros at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
 ziopprobabilities, regime at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
 
