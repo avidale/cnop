@@ -39,6 +39,7 @@ ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) en
 set more off
 quietly ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) nolog
 predict proby
+predict proby, at(pb=1, spread=0.426, houst=1.6, gdp=6.8)
 
 predict przeros, zeros
 predict prregim, regime
@@ -46,17 +47,21 @@ predict emode, output(mode)
 predict emean, output(mean)
 predict pcum, output(cum)
 
+predict pcum, output(cum) at(pb=1, spread=0.426, houst=1.6, gdp=6.8)
+
 quietly ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) nolog
 ziopmargins, at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
+ziopmargins
 ziopmargins, zeros
 ziopmargins, regime
 
 ziopprobabilities, at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
-
+ziopprobabilities
 ziopprobabilities, zeros at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
 ziopprobabilities, regime at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
 
 ziopcontrasts, at(pb=1, spread=0.426, houst=1.6, gdp=6.8) to(pb=0, spread=-1.394, houst=1.2, gdp=1.9)
+ziopcontrasts, at(pb=1, spread=0.426, houst=1.6, gdp=6.8)
 ziopcontrasts, at(pb=1) to(pb=0) zeros
 ziopcontrasts, at(pb=1) to(pb=0) regime
 
