@@ -24,6 +24,9 @@ set more off
 ziop2 rate_change spread_u spread_d houst_u houst_d, x(spread pb houst gdp ) infcat(0)
 
 set more off
+ziop2 rate_change spread_u spread_d houst_u houst_d, x(spread pb houst gdp ) infcat(0) endoswitch
+
+set more off
 ziop2 rate_change spread pb houst gdp, x(spread pb houst gdp ) infcat(0) nolog
 
 set more off
@@ -66,9 +69,18 @@ ziopcontrasts, at(pb=1) to(pb=0) zeros
 ziopcontrasts, at(pb=1) to(pb=0) regime
 
 // vuong example ZIOP-3 vs ZIOP-2
+set more off
 quietly ziop3 rate_change pb spread houst gdp, xn(spread gdp )xp(pb spread) infcat(0)
 est store ziop3model
-quietly ziop2 rate_change houst_u houst_d spread_u spread_d, x( houst spread pb  gdp ) infcat(0)
+set more off
+ziop2 rate_change spread_u spread_d houst_u houst_d, x(spread pb houst gdp ) infcat(0)
+est store ziop2model
+ziopvuong ziop3model ziop2model
+
+
+quietly ziop3 rate_change pb spread houst gdp, xn(spread gdp )xp(pb spread) infcat(0) 
+est store ziop3model
+quietly ziop2 rate_change spread_u spread_d houst_u houst_d, x(spread pb houst gdp ) infcat(0) 
 est store ziop2model
 ziopvuong ziop3model ziop2model
 
