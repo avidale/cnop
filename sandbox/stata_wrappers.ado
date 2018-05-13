@@ -167,7 +167,7 @@ program nop, eclass
 	ereturn matrix ll_obs ll_obs
 	ereturn display
 	if "`vuong'" == "vuong" {
-		display "Vuong test versus ordered probit"
+		display "Vuong test versus ordered probit:"
 		mata: vuong_vs_op(CNOP_last_model)
 	}
 end
