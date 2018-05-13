@@ -18,6 +18,17 @@ function running_rowsum(input_matrix) {
 	return(result)
 }
 
+function colmedian(input_matrix) {
+	m = cols(input_matrix)
+	n = rows(input_matrix)
+	result = J(1, m, .)
+	for (i = 1; i <= m; i++) {
+		sorted = sort(input_matrix[ , i], 1)
+		result[1, i] = sorted[(n + 1) / 2]
+	}
+	return(result)
+}
+
 // calculate and remember various postestimation statistics
 class CNOPModel scalar describeModel(class CNOPModel scalar model, params, covMat, covMat_rob, maxLik, n, q, prob_obs) {
 	
@@ -46,6 +57,19 @@ class CNOPModel scalar describeModel(class CNOPModel scalar model, params, covMa
 	
 	return (model)
 }
+
+
+// calculate and remember even more postestimation statistics
+class CNOPModel scalar postDescribeModel(class CNOPModel scalar model, robust, allvars, corresp) {
+	model.robust = robust
+	model.XZnames 	= allvars
+	model.corresp	= corresp
+	st_view(xz = ., ., invtokens(allvars))
+	model.XZmeans = mean(xz)
+	model.XZmedians = colmedian(xz)
+	return (model)
+}
+
 
 
 // workfunction that returns OP model (as an instance of CNOPModel class)
@@ -1946,12 +1970,7 @@ function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robus
 	model.zpnames = zpnames
 	model.znnames = znnames
 	
-	model.robust = robust
-	
-	model.XZnames 	= allvars
-	model.corresp	= corresp
-	st_view(xz = ., ., invtokens(allvars))
-	model.XZmeans = mean(xz)
+	model = postDescribeModel(model, robust, allvars, corresp)
 	
 	model.eqnames = J(1, cols(tokens(xnames)) + 2, "Regime equation"),  J(1, cols(tokens(zpnames)) + model.ncatp, "Outcome equation (+)"),  J(1, cols(tokens(znnames)) + model.ncatn, "Outcome equation (-)")
 	model.parnames = tokens(xnames), "/cut1", "/cut2", tokens(zpnames),  "/cut" :+ strofreal(1..model.ncatp), tokens(znnames),  "/cut" :+ strofreal(1..model.ncatn)
@@ -2025,12 +2044,7 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 	model.zpnames = zpnames
 	model.znnames = znnames
 	
-	model.robust = robust
-	
-	model.XZnames 	= allvars
-	model.corresp	= corresp
-	st_view(xz = ., ., invtokens(allvars))
-	model.XZmeans = mean(xz)
+	model = postDescribeModel(model, robust, allvars, corresp)
 	
 	model.eqnames = J(1, cols(tokens(xnames))+2, "Regime equation"),  J(1, cols(tokens(zpnames)) + model.ncatn - 1, "Outcome equation (+)"),  J(1, cols(tokens(znnames)) + model.ncatn - 1, "Outcome equation (-)")
 	model.parnames = tokens(xnames), "/cut1", "/cut2", tokens(zpnames),  "/cut" :+ strofreal(1..(model.ncatp-1)), tokens(znnames),  "/cut" :+ strofreal(1..(model.ncatn-1))
@@ -2083,16 +2097,12 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 		switching_type = "exogenous"
 		model = estimateMIOPR(y, x, z, infcat, nolog, initial, robust, who)
 	}
-	model.XZnames 	= allvars
 	model.yname = yname
 	model.xnames = xnames
 	model.znames = znames
 	
-	model.robust = robust
+	model = postDescribeModel(model, robust, allvars, corresp)
 	
-	model.corresp	= corresp
-	st_view(xz = ., ., invtokens(allvars))
-	model.XZmeans = mean(xz)
 	model.eqnames = J(1, cols(tokens(xnames)) + 1, "Regime equation"), J(1, cols(tokens(znames)) + rows(model.allcat)-1, "Outcome equation")
 	model.parnames = tokens(xnames), "/cut1", tokens(znames), "/cut" :+ strofreal(1..(rows(model.allcat)-1))
 	
@@ -2175,7 +2185,7 @@ function update_named_vector(values, names, tokens) {
 // marginal effects for MIOP(r), CNOP, CNOP(c)
 
 function CNOPmargins(class CNOPModel scalar model, string atVarlist, zeroes, regime) {
-	xzbar = model.XZmeans
+	xzbar = model.XZmedians
 	atTokens = tokens(atVarlist, " =")
 	
 	if (length(atTokens) >= 3) {
@@ -2202,7 +2212,7 @@ function CNOPmargins(class CNOPModel scalar model, string atVarlist, zeroes, reg
 
 
 function CNOPprobabilities(class CNOPModel scalar model, string atVarlist, zeroes, regime) {
-	xz_from = model.XZmeans
+	xz_from = model.XZmedians
 	atTokens = tokens(atVarlist, " =")
 	
 	if (length(atTokens) >= 3) {
@@ -2227,8 +2237,8 @@ function CNOPprobabilities(class CNOPModel scalar model, string atVarlist, zeroe
 }
 
 function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string toVarlist, zeroes, regime) {
-	xz_from = model.XZmeans
-	xz_to = model.XZmeans
+	xz_from = model.XZmedians
+	xz_to = model.XZmedians
 	atTokens = tokens(atVarlist, " =")
 	toTokens = tokens(toVarlist, " =")
 	

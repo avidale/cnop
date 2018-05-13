@@ -90,6 +90,7 @@ class CNOPModel {
 	
 	*/
 	real vector XZmeans		// means of independent variables
+	real vector XZmedians
 	string vector eqnames
 	string vector parnames
 }
