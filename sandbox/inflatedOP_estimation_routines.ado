@@ -31,7 +31,7 @@ function colmedian(input_matrix) {
 
 // calculate and remember various postestimation statistics
 class CNOPModel scalar describeModel(class CNOPModel scalar model, params, covMat, covMat_rob, maxLik, n, q, prob_obs) {
-	
+
 	model.params = params
 	model.se		= sqrt(diagonal(covMat))
 	model.t			= abs(params :/ model.se)
@@ -73,14 +73,9 @@ class CNOPModel scalar postDescribeModel(class CNOPModel scalar model, robust, a
 
 
 // workfunction that returns OP model (as an instance of CNOPModel class)
-class CNOPModel scalar estimateOP(y, x, |quiet, startvalues, xbar, dummies, robust, who){
-	// incomplete: change argument list
-	/*
-	feed q instead of y ?
-	feed_vsop
-	*/
+class CNOPModel scalar estimateOP(y, x, |quiet, startvalues, xbar, dummies, robust, who) {
 	
-	starttime = clock(c("current_time"),"hms")
+	starttime = clock(c("current_time"), "hms")
 	
 	if (rows(quiet) < 1) {
 		quiet = 0
@@ -102,7 +97,6 @@ class CNOPModel scalar estimateOP(y, x, |quiet, startvalues, xbar, dummies, robu
 	if(cols(robust) == 0){
 		robust	= 0
 	}
-	
 	
 	
 	// compute categories
@@ -129,6 +123,7 @@ class CNOPModel scalar estimateOP(y, x, |quiet, startvalues, xbar, dummies, robu
 	optimize_init_argument(S, 1, x)
 	optimize_init_argument(S, 2, q)
 	optimize_init_argument(S, 3, ncat)
+	optimize_init_argument(S, 4, 0)
 	optimize_init_evaluator(S, &_op_optim())
 	optimize_init_evaluatortype(S, "gf1") // added!!
 	optimize_init_params(S, (start_param'))
@@ -145,70 +140,20 @@ class CNOPModel scalar estimateOP(y, x, |quiet, startvalues, xbar, dummies, robu
 	}
 	
 	// extract optimization results
-	maxLik	= optimize_result_value(S)
-	grad 	= optimize_result_gradient(S)
-	covMat	= optimize_result_V_oim(S)	// added!
-	retCode	= optimize_result_errortext(S)
-	
-	
-	// calculate robust variance
-	covMat_rob	= optimize_result_V_robust(S)		// in contrast with the source, here I get it automatically ??? no, the variable "who" matters !!! 
-	 
-	g	= Jacop(params, x, q, ncat) // gradient for all observations: n \times rows(params)
-	/*
-	ss	= J(rows(params), rows(params), 0)
-	for (i=1; i<=max(who);i++){
-		sel = select(g, who :== i)
-		ss  = ss + sel' * sel; 
+	if (errorcode == 0) {
+		/* When estimation is not successful, robust covatiance matrix cannot be calculated, and ordinary covariance matrix is . */
+		maxLik	= optimize_result_value(S)
+		grad 	= optimize_result_gradient(S)
+		covMat	= optimize_result_V(S)
+		covMat_rob = covMat
+	} else {
+		maxLik	= optimize_result_value(S)
+		grad 	= optimize_result_gradient(S)
+		covMat	= optimize_result_V(S)
+		covMat_rob = optimize_result_V_robust(S)
 	}
-	covMat_rob =covMat * ss * covMat; 
-	*/
 	
-	// calculate model statistics
-	se		= sqrt(diagonal(covMat))
-	tstat	= abs(params :/ se)
-	se_rob		= sqrt(diagonal(covMat_rob))
-	tstat_rob	= abs(params :/ se_rob)
-
-	// calculate predicted probabilities
-	pred_prob	= MLop(params, x, q, ncat, 1)
-	
-	// calculate predicted option ?????
-
-	// calculate ME
-	me		= op_me(params, xbar, q, ncat)
-	
-	// calculate SE for ME
-	mese	= J(k * ncat,1, 0) // to be reshaped
-	mese_rob	= J(k * ncat,1, 0) // to be reshaped
-	
-	// I want to find derivative of all ME's with respect to all parameters
-	D = deriv_init()
-	deriv_init_evaluator(D, &_op_me_deriv())
-	deriv_init_evaluatortype(D, "t")
-	deriv_init_argument(D, 1, xbar)
-	deriv_init_argument(D, 2, q)
-	deriv_init_argument(D, 3, ncat)
-	deriv_init_params(D, params') // a row vector
-	dydx = deriv(D, 1)
-	// in columns - params
-	// in rows - elements of rowshape(me[,1::cols(x)],1) - i.e. k * ncat effects
-
-	for(i = 1; i<=rows(dydx); i++){
-		mese[i]	= dydx[i,] * covMat * dydx[i,]'
-		mese_rob[i]	= dydx[i,] * covMat_rob * dydx[i,]'
-	}
-	mese	= colshape(mese, ncat)
-	mese_rob	= colshape(mese_rob, ncat)
-	
-	// calculate t-statistics for ME
-	met		= abs(me) :/ sqrt(mese)
-	met_rob	= abs(me) :/ sqrt(mese_rob)
-	
-	// just for convenience
-	gama = params[1::k]
-	mu = params[(k+1)::(k+ncat-1)]
-	
+	prob_obs	= MLop(params, x, q, ncat, 1)
 	
 	// pack results
 	class CNOPModel scalar model 
@@ -217,35 +162,9 @@ class CNOPModel scalar estimateOP(y, x, |quiet, startvalues, xbar, dummies, robu
 	model.n	= n
 	model.k	= k
 	model.ncat	= ncat
-	model.gamma	= gama
-	model.mu	= mu
 	model.allcat = allcat
 	
-	model.params	= params
-	model.se		= se
-	model.t			= tstat
-	model.se_rob	= se_rob
-	model.t_rob		= tstat_rob
-	
-	model.me		= me
-	model.met		= met
-	model.mese		= mese
-	
-	model.AIC	= -2 * maxLik + 2 * rows(params) 
-	model.BIC	= -2 * maxLik + ln(n) * rows(params)
-	model.CAIC	= -2 * maxLik + (1 + ln(n)) * rows(params)
-	model.AICc	= model.AIC + 2 * rows(params) * (rows(params) + 1) / (n - rows(params) - 1)
-	model.HQIC	= -2 * maxLik + 2*rows(params)*ln(ln(n))
-	model.logLik0 	= sum(log(q :* mean(q)))
-	model.R2 	= 1 - maxLik /  model.logLik0
-	
-	model.V	= covMat
-	model.V_rob	= covMat_rob
-	model.logLik	= maxLik
-	model.probabilities	= pred_prob
-	
-	model.retCode	= retCode
-	model.etime		= -1 // to be determined via Stata functions ???
+	model = describeModel(model, params, covMat, covMat_rob, maxLik, n, q, prob_obs)
 	
 	model.retCode = optimize_result_errortext(S)
 	model.error_code = errorcode
@@ -1870,9 +1789,20 @@ function positionsInList(candidates, subset) {
 	return(ans)
 }
 
+function vuong_vs_op(class CNOPModel scalar model) {
+	st_view(op_y=., ., invtokens(model.yname))
+	st_view(op_x=., ., invtokens(model.XZnames))
+	class CNOPModel scalar op_model 
+	op_model = estimateOP(op_y, op_x, 1)
+	ll_diff = model.ll_obs - op_model.ll_obs
+	k_1 = rows(model.params)
+	k_2 = rows(op_model.params)
+	vuong_calc(ll_diff, k_1, k_2)
+}
+
 //
 function passModelToStata(class CNOPModel scalar model) {
-
+	
 	if (model.model_class == "NOPC" | model.model_class == "MIOPRC" | model.model_class == "CNOPC") {
 		switching_type = "endogenous"
 	} else {
@@ -2381,24 +2311,24 @@ function CNOP_predict(class CNOPModel scalar model, string scalar newVarName, re
 	}
 }
 
-void vuong_calc(){
-	ll_diff = st_matrix("ll_diff")
+void vuong_calc(| ll_diff, k_1, k_2){
+	if (rows(ll_diff) < 1 || ll_diff == .) {
+		ll_diff = st_matrix("ll_diff")
+		k_1 = strtoreal(st_local("k_1"))
+		k_2 = strtoreal(st_local("k_2"))
+	}
 	mean_diff = mean(ll_diff)
 	std_diff = sqrt(variance(ll_diff))
 	n_obs = rows(ll_diff)
 	vuong = mean_diff / (std_diff / sqrt(n_obs))
 	
 	// AIC and BIC corrections
-	k_1 = strtoreal(st_local("k_1"))
-	k_2 = strtoreal(st_local("k_2"))
-	
 	vuongAIC = (mean_diff - (k_1-k_2) / n_obs) / (std_diff / sqrt(n_obs))
 	vuongBIC = (mean_diff - (k_1-k_2) * log(n_obs) / (2 * n_obs)) / (std_diff / sqrt(n_obs))
 	
 	pvalue = 1-normal(vuong)
 	pvalueAIC = 1-normal(vuongAIC)
 	pvalueBIC = 1-normal(vuongBIC)
-	
 	
 	"Mean difference in log likelihood                  " + strofreal(mean_diff)
 	"Standard deviation of difference in log likelihood " + strofreal(std_diff)

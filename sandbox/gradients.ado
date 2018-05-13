@@ -173,7 +173,7 @@ function coeffOP(x, ycateg, ncat,| quiet, startbmu, lambda, maxiter, ptol, vtol,
 		} else if(ntry==3) {
 			optimize_init_technique("bfgs")
 		} else {
-			"CNOP ordered probit estimation: no way to converge"
+			"ZIOP ordered probit estimation: no way to converge"
 			break;
 		}
 		ntry = ntry+1
