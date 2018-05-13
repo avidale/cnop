@@ -35,12 +35,14 @@ program ziopclassification, rclass
 	label variable _actual "Actual outcomes"
 	gen _correct_predicted = _predicted == _actual
 	display "Classification table"
-	tab _actual _predicted
+	tab _actual _predicted, matcell(cells) matrow(labels)
 	// todo: don't store unwanted results of sum
 	quietly sum _correct_predicted
     display "% Correctly Predicted    = " round(`r(mean)', 0.0001)
 	mata: "Brier score              = " + strofreal(CNOP_last_model.brier_score)
 	mata: "Ranked probability score = " + strofreal(CNOP_last_model.ranked_probability_score)
+	mata: classification_calc("cells", "labels", "result")
+	matlist result
 	drop _predicted _correct_predicted _actual
 	return local accuracy = `r(mean)'
 end
@@ -67,47 +69,6 @@ program ziopvuong, rclass
 	return local pvalue = `pvalue'
 end
 
-mata:
-	void vuong_calc(){
-		ll_diff = st_matrix("ll_diff")
-		mean_diff = mean(ll_diff)
-		std_diff = sqrt(variance(ll_diff))
-		n_obs = rows(ll_diff)
-		vuong = mean_diff / (std_diff / sqrt(n_obs))
-		
-		// AIC and BIC corrections
-		k_1 = strtoreal(st_local("k_1"))
-		k_2 = strtoreal(st_local("k_2"))
-		
-		vuongAIC = (mean_diff - (k_1-k_2) / n_obs) / (std_diff / sqrt(n_obs))
-		vuongBIC = (mean_diff - (k_1-k_2) * log(n_obs) / (2 * n_obs)) / (std_diff / sqrt(n_obs))
-		
-		pvalue = 1-normal(vuong)
-		pvalueAIC = 1-normal(vuongAIC)
-		pvalueBIC = 1-normal(vuongBIC)
-		
-		
-		"Mean difference in log likelihood                  " + strofreal(mean_diff)
-		"Standard deviation of difference in log likelihood " + strofreal(std_diff)
-		"Number of observations                             " + strofreal(n_obs)
-		"Vuong test statistic                           z = " + strofreal(vuong)
-		"P-Value                                     Pr>z = " + strofreal(pvalue)
-		"   with AIC (Akaike) correction                z = " + strofreal(vuongAIC)
-		"P-Value                                     Pr>z = " + strofreal(pvalueAIC)
-		"   with BIC (Schwarz) correction               z = " + strofreal(vuongBIC)
-		"P-Value                                     Pr>z = " + strofreal(pvalueBIC)
-		
-		st_local("mean_diff", strofreal(mean_diff))
-		st_local("std_diff", strofreal(std_diff))
-		st_local("n_obs", strofreal(n_obs))
-		st_local("vuong", strofreal(vuong))
-		st_local("vuongAIC", strofreal(vuongAIC))
-		st_local("vuongBIC", strofreal(vuongBIC))
-		st_local("pvalue", strofreal(pvalue))
-		st_local("pvalueAIC", strofreal(pvalueAIC))
-		st_local("pvalueBIC", strofreal(pvalueBIC))
-	}
-end
 
 // prediction for NOP, ZIOP2 and ZIOP3
 program ZIOP_predict

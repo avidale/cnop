@@ -2106,6 +2106,14 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 	return(model)
 }
 
+function escape_stripes(colstripes) {
+	// workaround: stata does not allow colstripes containing dots
+	colstripes = subinstr(colstripes, "=.", "=0.")
+	colstripes = subinstr(colstripes, "=-.", "=-0.")
+	colstripes = subinstr(colstripes, ".", ",")
+	return(colstripes)
+}
+
 
 function get_colstripes(model_class, loop, allcat, infcat) {
 	if (loop == 1) {
@@ -2125,14 +2133,12 @@ function get_colstripes(model_class, loop, allcat, infcat) {
 			colstripes = ("Pr(s=-1)" \ "Pr(s=0)" \  "Pr(s=+1)")
 		}
 	}
-	// workaround: stata does not allow colstripes containing dots
-	colstripes = subinstr(colstripes, "=.", "=0.")
-	colstripes = subinstr(colstripes, "=-.", "=-0.")
-	colstripes = subinstr(colstripes, ".", ",")
 	return(colstripes)
 }
 
 function output_matrix(matrix_name, matrix_value, rowstripes, colstripes){
+	rowstripes = escape_stripes(rowstripes)
+	colstripes = escape_stripes(colstripes)
 	st_matrix(matrix_name, matrix_value)
 	st_matrixrowstripe(matrix_name, (J(rows(rowstripes), 1, ""), rowstripes))
 	st_matrixcolstripe(matrix_name, (J(rows(colstripes), 1, ""), colstripes))
@@ -2365,4 +2371,75 @@ function CNOP_predict(class CNOPModel scalar model, string scalar newVarName, re
 		v[,] = p
 	}
 }
+
+void vuong_calc(){
+	ll_diff = st_matrix("ll_diff")
+	mean_diff = mean(ll_diff)
+	std_diff = sqrt(variance(ll_diff))
+	n_obs = rows(ll_diff)
+	vuong = mean_diff / (std_diff / sqrt(n_obs))
+	
+	// AIC and BIC corrections
+	k_1 = strtoreal(st_local("k_1"))
+	k_2 = strtoreal(st_local("k_2"))
+	
+	vuongAIC = (mean_diff - (k_1-k_2) / n_obs) / (std_diff / sqrt(n_obs))
+	vuongBIC = (mean_diff - (k_1-k_2) * log(n_obs) / (2 * n_obs)) / (std_diff / sqrt(n_obs))
+	
+	pvalue = 1-normal(vuong)
+	pvalueAIC = 1-normal(vuongAIC)
+	pvalueBIC = 1-normal(vuongBIC)
+	
+	
+	"Mean difference in log likelihood                  " + strofreal(mean_diff)
+	"Standard deviation of difference in log likelihood " + strofreal(std_diff)
+	"Number of observations                             " + strofreal(n_obs)
+	"Vuong test statistic                           z = " + strofreal(vuong)
+	"P-Value                                     Pr>z = " + strofreal(pvalue)
+	"   with AIC (Akaike) correction                z = " + strofreal(vuongAIC)
+	"P-Value                                     Pr>z = " + strofreal(pvalueAIC)
+	"   with BIC (Schwarz) correction               z = " + strofreal(vuongBIC)
+	"P-Value                                     Pr>z = " + strofreal(pvalueBIC)
+	
+	st_local("mean_diff", strofreal(mean_diff))
+	st_local("std_diff", strofreal(std_diff))
+	st_local("n_obs", strofreal(n_obs))
+	st_local("vuong", strofreal(vuong))
+	st_local("vuongAIC", strofreal(vuongAIC))
+	st_local("vuongBIC", strofreal(vuongBIC))
+	st_local("pvalue", strofreal(pvalue))
+	st_local("pvalueAIC", strofreal(pvalueAIC))
+	st_local("pvalueBIC", strofreal(pvalueBIC))
+}
+
+void classification_calc(cells_matname, labels_matname, result_matname) {
+	// analyze classification table
+	cells = st_matrix(cells_matname)
+	labels = st_matrix(labels_matname)
+	
+	total = sum(cells)
+	
+	ap = rowsum(cells)
+	an = total :- ap
+	pp = colsum(cells)'
+	pn = total :- pp
+
+	tp = diagonal(cells)
+	fp = pp - tp
+	fn = ap - tp
+	tn = pn - fn
+
+	noise = fp :/ an
+	recall = tp :/ ap
+	precision = tp :/ pp
+	n2s = noise :/ recall
+	
+	result = precision, recall, n2s
+	colnames = "Precision" \  "Hit rate (recall)" \  "Adjusted noise-to-signal ratio"
+	rownames = strofreal(labels)
+	
+	output_matrix(result_matname, result, rownames, colnames) 
+}
+
+
 end
