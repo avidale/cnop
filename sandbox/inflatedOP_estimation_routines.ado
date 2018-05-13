@@ -2174,8 +2174,7 @@ function update_named_vector(values, names, tokens) {
 
 // marginal effects for MIOP(r), CNOP, CNOP(c)
 
-function CNOPmargins(class CNOPModel scalar model, string atVarlist, string dummiesVarlist, zeroes, regime) {
-	dummiesVector = positionsInList(model.XZnames, tokens(dummiesVarlist))
+function CNOPmargins(class CNOPModel scalar model, string atVarlist, zeroes, regime) {
 	xzbar = model.XZmeans
 	atTokens = tokens(atVarlist, " =")
 	
@@ -2193,7 +2192,7 @@ function CNOPmargins(class CNOPModel scalar model, string atVarlist, string dumm
 	rowstripes = model.XZnames'
 	colstripes = get_colstripes(model.model_class, loop, model.allcat, model.infcat)
 	
-	mese = generalMEwithSE(xzbar, model, dummiesVector, loop)
+	mese = generalMEwithSE(xzbar, model, loop)
 	kxz = cols(xzbar)
 	me = mese[1::kxz,]
 	se = mese[(1::kxz) :+ kxz,]

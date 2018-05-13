@@ -318,7 +318,6 @@ function referenceValues(xzbar, xzSet, dummies) {
 }
 
 
-
 ////////////////////////////////////////////////////////////////
 // general functions
 ////////////////////////////////////////////////////////////////
@@ -407,8 +406,8 @@ function generalPredictWithSE(real matrix xzvalues, class CNOPModel scalar model
 }
 
 //
-function generalME(real matrix params, real vector xzbar, class CNOPModel scalar model, real vector dummies, real scalar loop, real matrix _returnedME) {
-	// xzbar, pmf, params, ncat, infcat, dummies, corresp, rawME, _returnedME
+function generalME(real matrix params, real vector xzbar, class CNOPModel scalar model, real scalar loop, real matrix _returnedME) {
+	// xzbar, pmf, params, ncat, infcat, corresp, rawME, _returnedME
 	// wanna have derivative of PMF!!!
 
 	if (model.model_class == "CNOP") {
@@ -429,25 +428,12 @@ function generalME(real matrix params, real vector xzbar, class CNOPModel scalar
 		"ME not determined for model of class: " + model.model_class
 		ME = .
 	}
-	params_tmp = model.params
-	model.params = params'
-	
-	probBase = generalPredict(xzbar, model, loop)
-	for (i = 1; i <= cols(xzbar); i++) {
-		if (dummies[i] != 0) {
-			xzbarOther = xzbar
-			xzbarOther[i] = 1 - xzbarOther[i]
-			probOther = generalPredict(xzbarOther, model, loop)
-			ME[i, ] =  probOther - probBase
-		}
-	}
-	model.params = params_tmp
 	_returnedME = rowshape(ME, 1); // change the by-reference argument!!!
 }
 //
-function generalMEwithSE(real vector xzbar, class CNOPModel scalar model, real vector dummies, real scalar loop) {
+function generalMEwithSE(real vector xzbar, class CNOPModel scalar model, real scalar loop) {
 	
-	generalME(model.params', xzbar, model, dummies, loop, me=.) // the function changes the last argument
+	generalME(model.params', xzbar, model, loop, me=.) // the function changes the last argument
 	me = rowshape(me, length(xzbar))
 	nc = cols(me)
 	nr = rows(me)
@@ -459,8 +445,7 @@ function generalMEwithSE(real vector xzbar, class CNOPModel scalar model, real v
 	deriv_init_params(D, model.params')
 	deriv_init_argument(D, 1, xzbar)
 	deriv_init_argument(D, 2, model)
-	deriv_init_argument(D, 3, dummies)
-	deriv_init_argument(D, 4, loop)
+	deriv_init_argument(D, 3, loop)
 	
 	errorcode = _deriv(D, 1)
 	if (errorcode != 0) {
@@ -637,9 +622,6 @@ function op_me(params, xbar, q, ncat, | loop) {	 // loop as a parameter
 		mes = (mes) , ((normalden(mu[j] :- xg) :- normalden(mu[j-1] :- xg)) :* -gama);
 	}
 	mes = (mes), (normalden(mu[ncat-1] :- xg) :* gama)
-	
-	//INCOMPLETE!!! if sumc(d) ne 0; .... incorporate dummies
-	
 	return(mes);
 }
 

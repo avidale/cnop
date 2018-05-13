@@ -82,8 +82,8 @@ end
 // produces marginal effects for NOP, ZIOP2 and ZIOP3
 program ziopmargins, rclass
 	version 13
-	syntax [, at(string asis) nominal(varlist) zeros regime]
-	mata: CNOPmargins(CNOP_last_model, "`at'", "`nominal'", "`zeros'" == "zeros", "`regime'"=="regime")
+	syntax [, at(string asis) zeros regime]
+	mata: CNOPmargins(CNOP_last_model, "`at'", "`zeros'" == "zeros", "`regime'"=="regime")
 	display "Evaluated at:"
 	mat list r(at_all), noheader
 	display ""
