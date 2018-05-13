@@ -28,23 +28,26 @@ capture program drop ziopvuong
 // confusion matrix (classification table) for the last ziop-like command
 program ziopclassification, rclass
 	version 13
-	// todo: use the marked sample
+	syntax [if] [in]
+	marksample touse
+	// this is the generation part, specific to the ZIOP-like commands
 	predict _predicted, output(mode)
 	label variable _predicted "Predicted outcomes"
 	gen _actual = `e(depvar)'
+	// this is the general comparison part
 	label variable _actual "Actual outcomes"
 	gen _correct_predicted = _predicted == _actual
 	display "Classification table"
-	tab _actual _predicted, matcell(cells) matrow(labels)
+	tab _actual _predicted if `touse', matcell(cells) matrow(labels)
 	// todo: don't store unwanted results of sum
-	quietly sum _correct_predicted
+	quietly sum _correct_predicted if `touse'
     display "% Correctly Predicted    = " round(`r(mean)', 0.0001)
 	mata: "Brier score              = " + strofreal(CNOP_last_model.brier_score)
 	mata: "Ranked probability score = " + strofreal(CNOP_last_model.ranked_probability_score)
 	mata: classification_calc("cells", "labels", "result")
-	matlist result
 	drop _predicted _correct_predicted _actual
 	return local accuracy = `r(mean)'
+	return matrix noise result
 end
 
 // vuong test to compare two models

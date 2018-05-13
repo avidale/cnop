@@ -2077,11 +2077,11 @@ function get_colstripes(model_class, loop, allcat, infcat) {
 }
 
 function output_matrix(matrix_name, matrix_value, rowstripes, colstripes){
-	rowstripes = escape_stripes(rowstripes)
-	colstripes = escape_stripes(colstripes)
+	rowstripes_new = escape_stripes(rowstripes)
+	colstripes_new = escape_stripes(colstripes)
 	st_matrix(matrix_name, matrix_value)
-	st_matrixrowstripe(matrix_name, (J(rows(rowstripes), 1, ""), rowstripes))
-	st_matrixcolstripe(matrix_name, (J(rows(colstripes), 1, ""), colstripes))
+	st_matrixrowstripe(matrix_name, (J(rows(rowstripes_new), 1, ""), rowstripes_new))
+	st_matrixcolstripe(matrix_name, (J(rows(colstripes_new), 1, ""), colstripes_new))
 }
 
 function output_mesetp(me, se, rowstripes, colstripes) {
@@ -2378,7 +2378,37 @@ void classification_calc(cells_matname, labels_matname, result_matname) {
 	rownames = strofreal(labels)
 	
 	output_matrix(result_matname, result, rownames, colnames) 
+	print_matrix(result, strofreal(labels), colnames)
 }
 
+void print_matrix(contents, rownames, colnames) {
+	// because Stata cannot display matrices with dots in colnames, we need our own printing function!
+	n = rows(contents)
+	m = cols(contents)
+	rowname_width = max(strlen(rownames) \ 10)
+	colwidths = strlen(colnames) :+ 3
+	// todo: support variable number of digits
+	// todo: support word wrap for long colnames
+	numberf = "4f"
+	hline = "{hline " + strofreal(rowname_width+1)+ "}{c +}{hline " + strofreal(sum(colwidths :+ 1) + 2)+ "}\n"
+	
+	// print header
+	printf(hline)
+	printf("%" + strofreal(rowname_width) + "s {c |} ", "")
+	for(j=1; j<=m; j++){
+		printf("%" + strofreal(colwidths[j]) + "s ", colnames[j])
+	}
+	printf("\n")
+	printf(hline)
+	// print the rest of the table
+	for(i=1; i<=n; i++) {
+		printf("%" + strofreal(rowname_width)+ "s {c |} ", rownames[i])
+		for(j=1; j<=m; j++){
+			printf("%" + strofreal(colwidths[j]) + "." + numberf + " ", contents[i, j])
+		}
+		printf("\n")
+	}
+	printf(hline)
+}
 
 end
