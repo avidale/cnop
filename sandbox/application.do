@@ -15,34 +15,34 @@ oprobit rate_change spread pb houst gdp, nolog
 estat ic
 
 set more off
-nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) infcat(0) nolog
+nop rate_change spread pb houst gdp, neg_indepvars(spread gdp) pos_indepvars(spread pb) infcat(0) nolog
 
 set more off
-nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) infcat(0) endoswitch nolog
-
-
-set more off
-ziop2 rate_change spread pb houst gdp, ind(spread pb houst gdp ) infcat(0) nolog
+nop rate_change spread pb houst gdp, neg_indepvars(spread gdp) pos_indepvars(spread pb) infcat(0) endo nolog
 
 
 set more off
-ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) infcat(0) nolog
-
-set more off
-ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) infcat(0) endoswitch nolog
+ziop2 rate_change spread pb houst gdp, indepvars(spread pb houst gdp ) infcat(0) nolog
 
 
 set more off
-quietly ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) infcat(0) nolog
+ziop3 rate_change spread pb houst gdp, neg_indepvars(spread gdp) pos_indepvars(spread pb) infcat(0) nolog
+
+set more off
+ziop3 rate_change spread pb houst gdp, neg_indepvars(spread gdp) pos_indepvars(spread pb) infcat(0) endos nolog
+
+
+set more off
+quietly ziop3 rate_change spread pb houst gdp, neg_indepvars(spread gdp) pos_indepvars(spread pb) infcat(0) nolog
 
 predict proby
 
 predict p_zero, zeros
-predict p_reg, regime
+predict p_reg, regimes
 tabstat p_zero* p_reg*, stat(mean)
 
 
-predict emode, output(mode)
+predict choice, output(choice)
 predict emean, output(mean)
 predict pcum, output(cum)
 
@@ -52,12 +52,12 @@ quietly ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) in
 ziopmargins, at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
 ziopmargins
 ziopmargins, zeros
-ziopmargins, regime
+ziopmargins, regimes
 
 ziopprobabilities, at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
 ziopprobabilities
 ziopprobabilities, zeros at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
-ziopprobabilities, regime at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
+ziopprobabilities, regimes at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
 
 ziopcontrasts, at(pb=1, spread=0.426, houst=1.6, gdp=6.8) to(pb=0, spread=-1.394, houst=1.2, gdp=1.9)
 ziopcontrasts, at(pb=1, spread=0.426, houst=1.6, gdp=6.8)
