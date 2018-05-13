@@ -28,23 +28,26 @@ capture program drop ziopvuong
 // confusion matrix (classification table) for the last ziop-like command
 program ziopclassification, rclass
 	version 13
-	// todo: use the marked sample
+	syntax [if] [in]
+	marksample touse
+	// this is the generation part, specific to the ZIOP-like commands
 	predict _predicted, output(mode)
 	label variable _predicted "Predicted outcomes"
 	gen _actual = `e(depvar)'
 	label variable _actual "Actual outcomes"
+	// this is the general comparison part
 	gen _correct_predicted = _predicted == _actual
 	display "Classification table"
-	tab _actual _predicted, matcell(cells) matrow(labels)
+	tab _actual _predicted if `touse', matcell(cells) matrow(labels)
 	// todo: don't store unwanted results of sum
-	quietly sum _correct_predicted
+	quietly sum _correct_predicted if `touse'
     display "% Correctly Predicted    = " round(`r(mean)', 0.0001)
 	mata: "Brier score              = " + strofreal(CNOP_last_model.brier_score)
 	mata: "Ranked probability score = " + strofreal(CNOP_last_model.ranked_probability_score)
-	mata: classification_calc("cells", "labels", "result")
-	matlist result
+	mata: classification_calc_large("_actual", "_predicted", "`touse'")
 	drop _predicted _correct_predicted _actual
 	return local accuracy = `r(mean)'
+	return matrix noise result
 end
 
 // vuong test to compare two models
@@ -83,73 +86,40 @@ program ziopmargins, rclass
 	version 13
 	syntax [, at(string asis) zeros regimes]
 	mata: CNOPmargins(CNOP_last_model, "`at'", "`zeros'" == "zeros", "`regimes'"=="regimes")
-	display "Evaluated at:"
-	mat list r(at_all), noheader
-	display ""
-	if "`zeros'" == "zeros" {
-		display "Marginal effects of all variables on the probabilities of different types of zeros"
-	} 
-	else if "`regimes'" == "regimes" {
-		display "Marginal effects of all variables on the probabilities of different latent regimes"
-	} 
-	else {
-		display "Marginal effects of all variables on the probabilities of different outcomes"
-	}
-	mat list r(me), noheader
-	display ""
-	display "Standard errors of marginal effects"
-	mat list r(se), noheader
+	return matrix at at
+	return matrix me me
+	return matrix se se
+	return matrix t t
+	return matrix pval pval
 end
 
 program ziopprobabilities, rclass
 	version 13
 	syntax [, at(string asis) zeros regimes]
 	mata: CNOPprobabilities(CNOP_last_model, "`at'", "`zeros'" == "zeros", "`regimes'"=="regimes")
-	display "Evaluated at:"
-	mat list r(at_all), noheader
-	display ""
-	if "`zeros'" == "zeros" {
-		display "Predicted probabilities of different types of zeros"
-	} 
-	else if "`regimes'" == "regimes" {
-		display "Predicted probabilities of different latent regimes"
-	} 
-	else {
-		display "Predicted probabilities of different outcomes"
-	}
-	mat list r(me), noheader
-	display ""
-	display "Standard errors of the probabilities"
-	mat list r(se), noheader
+	return matrix at at
+	return matrix me me
+	return matrix se se
+	return matrix t t
+	return matrix pval pval
 end
 
 program ziopcontrasts, rclass
 	version 13
 	syntax [, at(string asis) to(string asis) zeros regimes]
 	mata: CNOPcontrasts(CNOP_last_model, "`at'", "`to'", "`zeros'" == "zeros", "`regimes'"=="regimes")
-	display "Evaluated between:"
-	mat list r(between_all), noheader
-	display ""
-	if "`zeros'" == "zeros" {
-		display "Contrasts of the predicted probabilities of different types of zeros"
-	} 
-	else if "`regimes'" == "regimes" {
-		display "Contrasts of the predicted probabilities of different latent regimes"
-	} 
-	else {
-		display "Contrasts of the predicted probabilities of different outcomes"
-	}
-	mat list r(me), noheader
-	display ""
-	display "Standard errors of the contrasts"
-	mat list r(se), noheader
+	return matrix between between
+	return matrix me me
+	return matrix se se
+	return matrix t t
+	return matrix pval pval
 end
 
 
 // estimates ZIOP3 and ZIOP3(c) models
 program ziop3, eclass
 	version 13
-	syntax varlist(min=2) [if] [in] [, POS_indepvars(varlist) NEG_indepvars(varlist) INFcat(real 0) ENDOswitch CLUster(varname) ROBust INITial(string asis) NOLog VUong]
+	syntax varlist(min=2) [if] [in] [, POS_indepvars(varlist) NEG_indepvars(varlist) INFcat(real 0) ENDOswitch CLUster(varname) ROBust INITial(string asis) nolog VUong]
 	marksample touse
 	mata: CNOP_last_model = processCNOP("`varlist'", "`pos_indepvars'", "`neg_indepvars'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'", "`log'" == "nolog")
 
@@ -161,7 +131,7 @@ program ziop3, eclass
 	ereturn matrix ll_obs=ll_obs
 	ereturn display
 	if "`vuong'" == "vuong" {
-		display "Vuong test versus ordered probit"
+		display "Vuong test versus ordered probit:"
 		mata: vuong_vs_op(CNOP_last_model)
 	}
 end
@@ -169,7 +139,7 @@ end
 // estimates MIOP(r) model
 program ziop2, eclass
 	version 13
-	syntax varlist(min=2) [if] [in] [, INDepvars(varlist) INFcat(real 0) ENDOswitch CLuster(varname) ROBust INITial(string asis) NOLog]
+	syntax varlist(min=2) [if] [in] [, INDepvars(varlist) INFcat(real 0) ENDOswitch CLuster(varname) ROBust INITial(string asis) nolog]
 	marksample touse
 	mata: CNOP_last_model = processMIOPR("`varlist'", "`indepvars'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'"=="robust","`cluster'", "`initial'", "`log'" == "nolog")
 	
@@ -185,7 +155,7 @@ end
 // estimates NOP and NOP(c) models
 program nop, eclass
 	version 13
-	syntax varlist(min=2) [if] [in] [, POS_indepvars(varlist) NEG_indepvars(varlist) INFcat(real 0) ENDOswitch CLuster(varname) ROBust INITial(string asis) NOLog VUong]
+	syntax varlist(min=2) [if] [in] [, POS_indepvars(varlist) NEG_indepvars(varlist) INFcat(real 0) ENDOswitch CLuster(varname) ROBust INITial(string asis) nolog VUong]
 	marksample touse
 	mata: CNOP_last_model = processNOP("`varlist'", "`pos_indepvars'", "`neg_indepvars'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'", "`log'" == "nolog")
 
@@ -197,7 +167,7 @@ program nop, eclass
 	ereturn matrix ll_obs ll_obs
 	ereturn display
 	if "`vuong'" == "vuong" {
-		display "Vuong test versus ordered probit"
+		display "Vuong test versus ordered probit:"
 		mata: vuong_vs_op(CNOP_last_model)
 	}
 end

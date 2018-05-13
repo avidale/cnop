@@ -2046,9 +2046,9 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 	return(model)
 }
 
-function escape_stripes(colstripes) {
+function escape_stripes(stripes) {
 	// workaround: stata does not allow colstripes containing dots
-	colstripes = subinstr(colstripes, "=.", "=0.")
+	colstripes = subinstr(stripes, "=.", "=0.")
 	colstripes = subinstr(colstripes, "=-.", "=-0.")
 	colstripes = subinstr(colstripes, ".", ",")
 	return(colstripes)
@@ -2077,20 +2077,20 @@ function get_colstripes(model_class, loop, allcat, infcat) {
 }
 
 function output_matrix(matrix_name, matrix_value, rowstripes, colstripes){
-	rowstripes = escape_stripes(rowstripes)
-	colstripes = escape_stripes(colstripes)
+	rowstripes_new = escape_stripes(rowstripes)
+	colstripes_new = escape_stripes(colstripes)
 	st_matrix(matrix_name, matrix_value)
-	st_matrixrowstripe(matrix_name, (J(rows(rowstripes), 1, ""), rowstripes))
-	st_matrixcolstripe(matrix_name, (J(rows(colstripes), 1, ""), colstripes))
+	st_matrixrowstripe(matrix_name, (J(rows(rowstripes_new), 1, ""), rowstripes_new))
+	st_matrixcolstripe(matrix_name, (J(rows(colstripes_new), 1, ""), colstripes_new))
 }
 
 function output_mesetp(me, se, rowstripes, colstripes) {
 	t = me :/ se
 	pval = (1:-normal(abs(t))) :* 2
-	output_matrix("r(me)",     me, rowstripes, colstripes)
-	output_matrix("r(se)",     se, rowstripes, colstripes)
-	output_matrix("r(t)",       t, rowstripes, colstripes)
-	output_matrix("r(pval)", pval, rowstripes, colstripes)
+	output_matrix("me",     me, rowstripes, colstripes)
+	output_matrix("se",     se, rowstripes, colstripes)
+	output_matrix("t",       t, rowstripes, colstripes)
+	output_matrix("pval", pval, rowstripes, colstripes)
 }
 
 function update_named_vector(values, names, tokens) {
@@ -2127,7 +2127,7 @@ function CNOPmargins(class CNOPModel scalar model, string atVarlist, zeroes, reg
 	} else if (regime) {
 		loop = 3
 	}
-	output_matrix("r(at_all)", xzbar, " ", model.XZnames')
+	output_matrix("at", xzbar, " ", model.XZnames')
 	
 	rowstripes = model.XZnames'
 	colstripes = get_colstripes(model.model_class, loop, model.allcat, model.infcat)
@@ -2137,7 +2137,25 @@ function CNOPmargins(class CNOPModel scalar model, string atVarlist, zeroes, reg
 	me = mese[1::kxz,]
 	se = mese[(1::kxz) :+ kxz,]
 	
-	output_mesetp(me, se, rowstripes, colstripes)	
+	output_mesetp(me, se, rowstripes, colstripes)
+	
+	// now the printing part! 
+	"Evaluated at:"
+	print_matrix(xzbar, ., model.XZnames)
+	""
+	if (zeroes) {
+		"Marginal effects of all variables on the probabilities of different types of zeros"
+	} 
+	else if (regime) {
+		"Marginal effects of all variables on the probabilities of different latent regimes"
+	}
+	else {
+		"Marginal effects of all variables on the probabilities of different outcomes"
+	}
+	print_matrix(me, rowstripes, colstripes)
+	""
+	"Standard errors of marginal effects"
+	print_matrix(se, rowstripes, colstripes)
 }
 
 
@@ -2156,7 +2174,7 @@ function CNOPprobabilities(class CNOPModel scalar model, string atVarlist, zeroe
 		loop = 3
 	}
 	
-	output_matrix("r(at_all)", xz_from, " ", model.XZnames')
+	output_matrix("at", xz_from, " ", model.XZnames')
 
 	colstripes = get_colstripes(model.model_class, loop, model.allcat, model.infcat)
 	rowstripes = " " // rowstripes made invisible
@@ -2164,6 +2182,24 @@ function CNOPprobabilities(class CNOPModel scalar model, string atVarlist, zeroe
 	me = mese[1,]
 	se = mese[2,]
 	output_mesetp(me, se, rowstripes, colstripes)
+	
+	// now the printing part! 
+	"Evaluated at:"
+	print_matrix(xz_from, ., model.XZnames)
+	""
+	if (zeroes) {
+		"Predicted probabilities of different types of zeros"
+	} 
+	else if (regime) {
+		"Predicted probabilities of different latent regimes"
+	}
+	else {
+		"Predicted probabilities of different outcomes"
+	}
+	print_matrix(me, ., colstripes)
+	""
+	"Standard errors of the probabilities"
+	print_matrix(se, ., colstripes)
 }
 
 function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string toVarlist, zeroes, regime) {
@@ -2191,7 +2227,7 @@ function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string to
 		"Trying to contrast the same point"
 	}
 	
-	output_matrix("r(between_all)", xz_from \ xz_to, "from" \ "to", model.XZnames')
+	output_matrix("between", xz_from \ xz_to, "from" \ "to", model.XZnames')
 	
 	colstripes = get_colstripes(model.model_class, loop, model.allcat, model.infcat)
 	rowstripes = " " // rowstripes made invisible
@@ -2200,6 +2236,25 @@ function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string to
 	me = mese[1,]
 	se = mese[2,]
 	output_mesetp(me, se, rowstripes, colstripes)
+	
+	// now the printing part! 
+	"Evaluated between"
+	print_matrix(xz_from \ xz_to, "from" \ "to", model.XZnames')
+	""
+	if (zeroes) {
+		"Contrasts of the predicted probabilities of different types of zeros"
+	} 
+	else if (regime) {
+		"Contrasts of the predicted probabilities of different latent regimes"
+	}
+	else {
+		"Contrasts of the predicted probabilities of different outcomes"
+	}
+	print_matrix(me, ., colstripes)
+	""
+	"Standard errors of the contrasts"
+	print_matrix(se, ., colstripes)
+	
 }
 
 // prediction for MIOP(r), CNOP, CNOP(c)
@@ -2351,8 +2406,31 @@ void vuong_calc(| ll_diff, k_1, k_2){
 	st_local("pvalueBIC", strofreal(pvalueBIC))
 }
 
+
+void classification_calc_large(fact_varname, pred_varname, touse) {
+	// access Stata variables
+	st_view(fact = ., ., fact_varname, touse)
+	st_view(pred = ., ., pred_varname, touse)
+	
+	// construct the classification table
+	all_levels = uniqrows(fact \ pred)
+	ncat = rows(all_levels)
+	confmat = J(ncat, ncat, 0)
+	for (i=1; i <= ncat; i++) {
+		for (j=1; j <= ncat; j++) {
+			confmat[i, j] = sum((fact :== all_levels[i]) :& (pred :== all_levels[j]))
+		}
+	}
+	// todo: calculate margins of the table, add row and column titles
+	//print_matrix(confmat, strofreal(all_levels), strofreal(all_levels), ., ., ., 0)
+	st_matrix("cells", confmat)
+	st_matrix("labels", all_levels)
+	classification_calc("cells", "labels", "result")
+}
+
 void classification_calc(cells_matname, labels_matname, result_matname) {
 	// analyze classification table
+	
 	cells = st_matrix(cells_matname)
 	labels = st_matrix(labels_matname)
 	
@@ -2362,12 +2440,12 @@ void classification_calc(cells_matname, labels_matname, result_matname) {
 	an = total :- ap
 	pp = colsum(cells)'
 	pn = total :- pp
-
+	
 	tp = diagonal(cells)
 	fp = pp - tp
 	fn = ap - tp
 	tn = pn - fn
-
+	
 	noise = fp :/ an
 	recall = tp :/ ap
 	precision = tp :/ pp
@@ -2378,7 +2456,76 @@ void classification_calc(cells_matname, labels_matname, result_matname) {
 	rownames = strofreal(labels)
 	
 	output_matrix(result_matname, result, rownames, colnames) 
+	
+	print_matrix(result, strofreal(labels), colnames)
 }
 
+void print_matrix(contents, rownames, colnames, | uline, lline, mline, digits) {
+	// because Stata cannot display matrices with dots in colnames, we need our own printing function!
+	n = rows(contents)
+	m = cols(contents)
+	if (rownames == . | rows(rownames) == 0) {
+		rowname_width = 0
+		rowname_flag = 0
+	} else {
+		rowname_width = max(strlen(rownames) \ 10)
+		rowname_flag = 1
+	}
+	if (uline == . | rows(uline) == 0) {
+		uline = 0
+	} 
+	if (lline == . | rows(lline) == 0) {
+		lline = 0
+	}
+	if (mline == . | rows(mline) == 0) {
+		mline = (n > 1)
+	}
+	if (digits == . | rows(digits) == 0) {
+		digits = 4
+	}
+	_colnames = colnames
+	if (cols(_colnames) > 1){
+		_colnames = _colnames'
+	}
+	
+	colwidths = rowmax((strlen(_colnames) :+ 3 , J(rows(_colnames), 1, 6)))
+	// todo: support word wrap for long colnames
+	// todo: make colwidths depend on the contents
+	// todo: support lines before totals
+	// todo: support varnames of rows and columns
+	numberf = strofreal(digits) + "f"
+	if (rowname_flag) {
+		hline = "{hline " + strofreal(rowname_width+1)+ "}{c +}{hline " + strofreal(sum(colwidths :+ 1) + 2)+ "}\n"
+	} else {
+		hline = "{hline " + strofreal(rowname_width+1+1+sum(colwidths :+ 1) + 2) + "}\n"
+	}
+	// print header
+	if (uline) {
+		printf(hline)
+	}
+	if (rowname_flag) {
+		printf("%" + strofreal(rowname_width) + "s {c |} ", "")
+	}
+	for(j=1; j<=m; j++){
+		printf("%" + strofreal(colwidths[j]) + "s ", colnames[j])
+	}
+	printf("\n")
+	if (mline) {
+		printf(hline)
+	}
+	// print the rest of the table
+	for(i=1; i<=n; i++) {
+		if (rowname_flag) {
+			printf("%" + strofreal(rowname_width)+ "s {c |} ", rownames[i])
+		}
+		for(j=1; j<=m; j++){
+			printf("%" + strofreal(colwidths[j]) + "." + numberf + " ", contents[i, j])
+		}
+		printf("\n")
+	}
+	if (lline) {
+		printf(hline)
+	}
+}
 
 end
