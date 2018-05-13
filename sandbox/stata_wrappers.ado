@@ -73,24 +73,23 @@ end
 // prediction for NOP, ZIOP2 and ZIOP3
 program ZIOP_predict
 	version 13
-	syntax name [if] [in] [, zeros regime output(string asis) at(string asis) point]
-	// "at" and "point" are not implemented yet
+	syntax name [if] [in] [, zeros regimes output(string asis)]
 	marksample touse
-	mata: CNOP_predict(CNOP_last_model, "`1'", "`zeros'" == "zeros", "`regime'"=="regime", "`touse'", "`output'")
+	mata: CNOP_predict(CNOP_last_model, "`1'", "`zeros'" == "zeros", "`regimes'"=="regimes", "`touse'", "`output'")
 end
 
 // produces marginal effects for NOP, ZIOP2 and ZIOP3
 program ziopmargins, rclass
 	version 13
-	syntax [, at(string asis) zeros regime]
-	mata: CNOPmargins(CNOP_last_model, "`at'", "`zeros'" == "zeros", "`regime'"=="regime")
+	syntax [, at(string asis) zeros regimes]
+	mata: CNOPmargins(CNOP_last_model, "`at'", "`zeros'" == "zeros", "`regimes'"=="regimes")
 	display "Evaluated at:"
 	mat list r(at_all), noheader
 	display ""
 	if "`zeros'" == "zeros" {
 		display "Marginal effects of all variables on the probabilities of different types of zeros"
 	} 
-	else if "`regime'" == "regime" {
+	else if "`regimes'" == "regimes" {
 		display "Marginal effects of all variables on the probabilities of different latent regimes"
 	} 
 	else {
@@ -104,15 +103,15 @@ end
 
 program ziopprobabilities, rclass
 	version 13
-	syntax [, at(string asis) zeros regime]
-	mata: CNOPprobabilities(CNOP_last_model, "`at'", "`zeros'" == "zeros", "`regime'"=="regime")
+	syntax [, at(string asis) zeros regimes]
+	mata: CNOPprobabilities(CNOP_last_model, "`at'", "`zeros'" == "zeros", "`regimes'"=="regimes")
 	display "Evaluated at:"
 	mat list r(at_all), noheader
 	display ""
 	if "`zeros'" == "zeros" {
 		display "Predicted probabilities of different types of zeros"
 	} 
-	else if "`regime'" == "regime" {
+	else if "`regimes'" == "regimes" {
 		display "Predicted probabilities of different latent regimes"
 	} 
 	else {
@@ -126,15 +125,15 @@ end
 
 program ziopcontrasts, rclass
 	version 13
-	syntax [, at(string asis) to(string asis) zeros regime]
-	mata: CNOPcontrasts(CNOP_last_model, "`at'", "`to'", "`zeros'" == "zeros", "`regime'"=="regime")
+	syntax [, at(string asis) to(string asis) zeros regimes]
+	mata: CNOPcontrasts(CNOP_last_model, "`at'", "`to'", "`zeros'" == "zeros", "`regimes'"=="regimes")
 	display "Evaluated between:"
 	mat list r(between_all), noheader
 	display ""
 	if "`zeros'" == "zeros" {
 		display "Contrasts of the predicted probabilities of different types of zeros"
 	} 
-	else if "`regime'" == "regime" {
+	else if "`regimes'" == "regimes" {
 		display "Contrasts of the predicted probabilities of different latent regimes"
 	} 
 	else {
@@ -150,9 +149,9 @@ end
 // estimates ZIOP3 and ZIOP3(c) models
 program ziop3, eclass
 	version 13
-	syntax varlist(min=2) [if] [in] [, xp(varlist) xn(varlist) infcat(integer 0) endoswitch cluster(varname) robust initial(string asis) nolog]
+	syntax varlist(min=2) [if] [in] [, POS_indepvars(varlist) NEG_indepvars(varlist) INFcat(real 0) ENDOswitch CLUster(varname) ROBust INITial(string asis) NOLog]
 	marksample touse
-	mata: CNOP_last_model = processCNOP("`varlist'", "`xp'", "`xn'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'", "`log'" == "nolog")
+	mata: CNOP_last_model = processCNOP("`varlist'", "`pos_indepvars'", "`neg_indepvars'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'", "`log'" == "nolog")
 
 	ereturn post b V, esample(`touse') obs(`N') depname(`depvar')
 	ereturn local predict "ZIOP_predict"
@@ -166,9 +165,9 @@ end
 // estimates MIOP(r) model
 program ziop2, eclass
 	version 13
-	syntax varlist(min=2) [if] [in] [, x(varlist) infcat(integer 0) endoswitch cluster(varname) robust initial(string asis) nolog]
+	syntax varlist(min=2) [if] [in] [, INDepvars(varlist) INFcat(real 0) ENDOswitch CLuster(varname) ROBust INITial(string asis) NOLog]
 	marksample touse
-	mata: CNOP_last_model = processMIOPR("`varlist'", "`x'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'"=="robust","`cluster'", "`initial'", "`log'" == "nolog")
+	mata: CNOP_last_model = processMIOPR("`varlist'", "`indepvars'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'"=="robust","`cluster'", "`initial'", "`log'" == "nolog")
 	
 	ereturn post b V, esample(`touse')  depname(`depvar') obs(`N')
 	ereturn local predict "ZIOP_predict"
@@ -182,9 +181,9 @@ end
 // estimates NOP and NOP(c) models
 program nop, eclass
 	version 13
-	syntax varlist(min=2) [if] [in] [, xp(varlist) xn(varlist) infcat(integer 0) endoswitch cluster(varname) robust initial(string asis) nolog]
+	syntax varlist(min=2) [if] [in] [, POS_indepvars(varlist) NEG_indepvars(varlist) INFcat(real 0) ENDOswitch CLuster(varname) ROBust INITial(string asis) NOLog]
 	marksample touse
-	mata: CNOP_last_model = processNOP("`varlist'", "`xp'", "`xn'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'", "`log'" == "nolog")
+	mata: CNOP_last_model = processNOP("`varlist'", "`pos_indepvars'", "`neg_indepvars'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'", "`log'" == "nolog")
 
 	ereturn post b V, esample(`touse') obs(`N') depname(`depvar')
 	ereturn local predict "ZIOP_predict"

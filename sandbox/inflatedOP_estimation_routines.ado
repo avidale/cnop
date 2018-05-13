@@ -2335,7 +2335,7 @@ function CNOP_predict(class CNOPModel scalar model, string scalar newVarName, re
 		}
 	}
 	label_indices = newVarName + "_" :+ label_indices
-	if (output == "mode") {
+	if (output == "mode" | output == "choice") {
 		if (_st_varindex(newVarName) :== .) {
 			tmp = st_addvar("double", newVarName)
 		}
