@@ -86,66 +86,33 @@ program ziopmargins, rclass
 	version 13
 	syntax [, at(string asis) zeros regimes]
 	mata: CNOPmargins(CNOP_last_model, "`at'", "`zeros'" == "zeros", "`regimes'"=="regimes")
-	display "Evaluated at:"
-	mat list r(at_all), noheader
-	display ""
-	if "`zeros'" == "zeros" {
-		display "Marginal effects of all variables on the probabilities of different types of zeros"
-	} 
-	else if "`regimes'" == "regimes" {
-		display "Marginal effects of all variables on the probabilities of different latent regimes"
-	} 
-	else {
-		display "Marginal effects of all variables on the probabilities of different outcomes"
-	}
-	mat list r(me), noheader
-	display ""
-	display "Standard errors of marginal effects"
-	mat list r(se), noheader
+	return matrix at at
+	return matrix me me
+	return matrix se se
+	return matrix t t
+	return matrix pval pval
 end
 
 program ziopprobabilities, rclass
 	version 13
 	syntax [, at(string asis) zeros regimes]
 	mata: CNOPprobabilities(CNOP_last_model, "`at'", "`zeros'" == "zeros", "`regimes'"=="regimes")
-	display "Evaluated at:"
-	mat list r(at_all), noheader
-	display ""
-	if "`zeros'" == "zeros" {
-		display "Predicted probabilities of different types of zeros"
-	} 
-	else if "`regimes'" == "regimes" {
-		display "Predicted probabilities of different latent regimes"
-	} 
-	else {
-		display "Predicted probabilities of different outcomes"
-	}
-	mat list r(me), noheader
-	display ""
-	display "Standard errors of the probabilities"
-	mat list r(se), noheader
+	return matrix at at
+	return matrix me me
+	return matrix se se
+	return matrix t t
+	return matrix pval pval
 end
 
 program ziopcontrasts, rclass
 	version 13
 	syntax [, at(string asis) to(string asis) zeros regimes]
 	mata: CNOPcontrasts(CNOP_last_model, "`at'", "`to'", "`zeros'" == "zeros", "`regimes'"=="regimes")
-	display "Evaluated between:"
-	mat list r(between_all), noheader
-	display ""
-	if "`zeros'" == "zeros" {
-		display "Contrasts of the predicted probabilities of different types of zeros"
-	} 
-	else if "`regimes'" == "regimes" {
-		display "Contrasts of the predicted probabilities of different latent regimes"
-	} 
-	else {
-		display "Contrasts of the predicted probabilities of different outcomes"
-	}
-	mat list r(me), noheader
-	display ""
-	display "Standard errors of the contrasts"
-	mat list r(se), noheader
+	return matrix between between
+	return matrix me me
+	return matrix se se
+	return matrix t t
+	return matrix pval pval
 end
 
 
@@ -164,7 +131,7 @@ program ziop3, eclass
 	ereturn matrix ll_obs=ll_obs
 	ereturn display
 	if "`vuong'" == "vuong" {
-		display "Vuong test versus ordered probit"
+		display "Vuong test versus ordered probit:"
 		mata: vuong_vs_op(CNOP_last_model)
 	}
 end

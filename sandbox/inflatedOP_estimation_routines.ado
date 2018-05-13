@@ -2087,10 +2087,10 @@ function output_matrix(matrix_name, matrix_value, rowstripes, colstripes){
 function output_mesetp(me, se, rowstripes, colstripes) {
 	t = me :/ se
 	pval = (1:-normal(abs(t))) :* 2
-	output_matrix("r(me)",     me, rowstripes, colstripes)
-	output_matrix("r(se)",     se, rowstripes, colstripes)
-	output_matrix("r(t)",       t, rowstripes, colstripes)
-	output_matrix("r(pval)", pval, rowstripes, colstripes)
+	output_matrix("me",     me, rowstripes, colstripes)
+	output_matrix("se",     se, rowstripes, colstripes)
+	output_matrix("t",       t, rowstripes, colstripes)
+	output_matrix("pval", pval, rowstripes, colstripes)
 }
 
 function update_named_vector(values, names, tokens) {
@@ -2127,7 +2127,7 @@ function CNOPmargins(class CNOPModel scalar model, string atVarlist, zeroes, reg
 	} else if (regime) {
 		loop = 3
 	}
-	output_matrix("r(at_all)", xzbar, " ", model.XZnames')
+	output_matrix("at", xzbar, " ", model.XZnames')
 	
 	rowstripes = model.XZnames'
 	colstripes = get_colstripes(model.model_class, loop, model.allcat, model.infcat)
@@ -2137,7 +2137,25 @@ function CNOPmargins(class CNOPModel scalar model, string atVarlist, zeroes, reg
 	me = mese[1::kxz,]
 	se = mese[(1::kxz) :+ kxz,]
 	
-	output_mesetp(me, se, rowstripes, colstripes)	
+	output_mesetp(me, se, rowstripes, colstripes)
+	
+	// now the printing part! 
+	"Evaluated at:"
+	print_matrix(xzbar, " ", model.XZnames)
+	""
+	if (zeroes) {
+		"Marginal effects of all variables on the probabilities of different types of zeros"
+	} 
+	else if (regime) {
+		"Marginal effects of all variables on the probabilities of different latent regimes"
+	}
+	else {
+		"Marginal effects of all variables on the probabilities of different outcomes"
+	}
+	print_matrix(me, rowstripes, colstripes)
+	""
+	"Standard errors of marginal effects"
+	print_matrix(se, rowstripes, colstripes)
 }
 
 
@@ -2156,7 +2174,7 @@ function CNOPprobabilities(class CNOPModel scalar model, string atVarlist, zeroe
 		loop = 3
 	}
 	
-	output_matrix("r(at_all)", xz_from, " ", model.XZnames')
+	output_matrix("at", xz_from, " ", model.XZnames')
 
 	colstripes = get_colstripes(model.model_class, loop, model.allcat, model.infcat)
 	rowstripes = " " // rowstripes made invisible
@@ -2164,6 +2182,24 @@ function CNOPprobabilities(class CNOPModel scalar model, string atVarlist, zeroe
 	me = mese[1,]
 	se = mese[2,]
 	output_mesetp(me, se, rowstripes, colstripes)
+	
+	// now the printing part! 
+	"Evaluated at:"
+	print_matrix(xz_from, " ", model.XZnames)
+	""
+	if (zeroes) {
+		"Predicted probabilities of different types of zeros"
+	} 
+	else if (regime) {
+		"Predicted probabilities of different latent regimes"
+	}
+	else {
+		"Predicted probabilities of different outcomes"
+	}
+	print_matrix(me, rowstripes, colstripes)
+	""
+	"Standard errors of the probabilities"
+	print_matrix(se, rowstripes, colstripes)
 }
 
 function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string toVarlist, zeroes, regime) {
@@ -2191,7 +2227,7 @@ function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string to
 		"Trying to contrast the same point"
 	}
 	
-	output_matrix("r(between_all)", xz_from \ xz_to, "from" \ "to", model.XZnames')
+	output_matrix("between", xz_from \ xz_to, "from" \ "to", model.XZnames')
 	
 	colstripes = get_colstripes(model.model_class, loop, model.allcat, model.infcat)
 	rowstripes = " " // rowstripes made invisible
@@ -2200,6 +2236,25 @@ function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string to
 	me = mese[1,]
 	se = mese[2,]
 	output_mesetp(me, se, rowstripes, colstripes)
+	
+	// now the printing part! 
+	"Evaluated between"
+	print_matrix(xz_from \ xz_to, "from" \ "to", model.XZnames')
+	""
+	if (zeroes) {
+		"Contrasts of the predicted probabilities of different types of zeros"
+	} 
+	else if (regime) {
+		"Contrasts of the predicted probabilities of different latent regimes"
+	}
+	else {
+		"Contrasts of the predicted probabilities of different outcomes"
+	}
+	print_matrix(me, rowstripes, colstripes)
+	""
+	"Standard errors of the contrasts"
+	print_matrix(se, rowstripes, colstripes)
+	
 }
 
 // prediction for MIOP(r), CNOP, CNOP(c)
