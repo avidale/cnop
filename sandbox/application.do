@@ -79,13 +79,13 @@ est store opmodel
 ziopvuong ziop3model opmodel
 
 //classification example
-set more off
-ziop3 rate_change pb spread houst gdp, xn(spread gdp )xp(pb spread) infcat(0)
+quietly ziop3 rate_change pb spread houst gdp, xn(spread gdp )xp(pb spread) infcat(0)
 ziopclassification
 
-set more off
+quietly ziop2 rate_change spread pb houst gdp, x(spread pb houst gdp ) infcat(0) nolog
+ziopclassification
+
 quietly nop rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0)
-set more off
 ziopclassification
 
 // view help
