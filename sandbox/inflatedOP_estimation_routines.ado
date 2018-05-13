@@ -2046,9 +2046,9 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 	return(model)
 }
 
-function escape_stripes(colstripes) {
+function escape_stripes(stripes) {
 	// workaround: stata does not allow colstripes containing dots
-	colstripes = subinstr(colstripes, "=.", "=0.")
+	colstripes = subinstr(stripes, "=.", "=0.")
 	colstripes = subinstr(colstripes, "=-.", "=-0.")
 	colstripes = subinstr(colstripes, ".", ",")
 	return(colstripes)
@@ -2141,7 +2141,7 @@ function CNOPmargins(class CNOPModel scalar model, string atVarlist, zeroes, reg
 	
 	// now the printing part! 
 	"Evaluated at:"
-	print_matrix(xzbar, " ", model.XZnames)
+	print_matrix(xzbar, ., model.XZnames)
 	""
 	if (zeroes) {
 		"Marginal effects of all variables on the probabilities of different types of zeros"
@@ -2185,7 +2185,7 @@ function CNOPprobabilities(class CNOPModel scalar model, string atVarlist, zeroe
 	
 	// now the printing part! 
 	"Evaluated at:"
-	print_matrix(xz_from, " ", model.XZnames)
+	print_matrix(xz_from, ., model.XZnames)
 	""
 	if (zeroes) {
 		"Predicted probabilities of different types of zeros"
@@ -2196,10 +2196,10 @@ function CNOPprobabilities(class CNOPModel scalar model, string atVarlist, zeroe
 	else {
 		"Predicted probabilities of different outcomes"
 	}
-	print_matrix(me, rowstripes, colstripes)
+	print_matrix(me, ., colstripes)
 	""
 	"Standard errors of the probabilities"
-	print_matrix(se, rowstripes, colstripes)
+	print_matrix(se, ., colstripes)
 }
 
 function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string toVarlist, zeroes, regime) {
@@ -2250,10 +2250,10 @@ function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string to
 	else {
 		"Contrasts of the predicted probabilities of different outcomes"
 	}
-	print_matrix(me, rowstripes, colstripes)
+	print_matrix(me, ., colstripes)
 	""
 	"Standard errors of the contrasts"
-	print_matrix(se, rowstripes, colstripes)
+	print_matrix(se, ., colstripes)
 	
 }
 
@@ -2436,34 +2436,63 @@ void classification_calc(cells_matname, labels_matname, result_matname) {
 	print_matrix(result, strofreal(labels), colnames)
 }
 
-void print_matrix(contents, rownames, colnames) {
+void print_matrix(contents, rownames, colnames, | uline, lline, mline) {
 	// because Stata cannot display matrices with dots in colnames, we need our own printing function!
 	n = rows(contents)
 	m = cols(contents)
-	rowname_width = max(strlen(rownames) \ 10)
+	if (rownames == . | rows(rownames) == 0) {
+		rowname_width = 0
+		rowname_flag = 0
+	} else {
+		rowname_width = max(strlen(rownames) \ 10)
+		rowname_flag = 1
+	}
+	if (uline == . | rows(uline) == 0) {
+		uline = 0
+	} 
+	if (lline == . | rows(lline) == 0) {
+		lline = 0
+	}
+	if (mline == . | rows(mline) == 0) {
+		mline = (n > 1)
+	}
+	
 	colwidths = strlen(colnames) :+ 3
 	// todo: support variable number of digits
 	// todo: support word wrap for long colnames
 	numberf = "4f"
-	hline = "{hline " + strofreal(rowname_width+1)+ "}{c +}{hline " + strofreal(sum(colwidths :+ 1) + 2)+ "}\n"
-	
+	if (rowname_flag) {
+		hline = "{hline " + strofreal(rowname_width+1)+ "}{c +}{hline " + strofreal(sum(colwidths :+ 1) + 2)+ "}\n"
+	} else {
+		hline = "{hline " + strofreal(rowname_width+1+1+sum(colwidths :+ 1) + 2) + "}\n"
+	}
 	// print header
-	printf(hline)
-	printf("%" + strofreal(rowname_width) + "s {c |} ", "")
+	if (uline) {
+		printf(hline)
+	}
+	if (rowname_flag) {
+		printf("%" + strofreal(rowname_width) + "s {c |} ", "")
+	}
 	for(j=1; j<=m; j++){
 		printf("%" + strofreal(colwidths[j]) + "s ", colnames[j])
 	}
 	printf("\n")
-	printf(hline)
+	if (mline) {
+		printf(hline)
+	}
 	// print the rest of the table
 	for(i=1; i<=n; i++) {
-		printf("%" + strofreal(rowname_width)+ "s {c |} ", rownames[i])
+		if (rowname_flag) {
+			printf("%" + strofreal(rowname_width)+ "s {c |} ", rownames[i])
+		}
 		for(j=1; j<=m; j++){
 			printf("%" + strofreal(colwidths[j]) + "." + numberf + " ", contents[i, j])
 		}
 		printf("\n")
 	}
-	printf(hline)
+	if (lline) {
+		printf(hline)
+	}
 }
 
 end
