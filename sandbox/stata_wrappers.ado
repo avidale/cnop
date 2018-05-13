@@ -41,9 +41,10 @@ program ziopclassification, rclass
 	tab _actual _predicted if `touse', matcell(cells) matrow(labels)
 	// todo: don't store unwanted results of sum
 	quietly sum _correct_predicted if `touse'
-    display "% Correctly Predicted    = " round(`r(mean)', 0.0001)
+    display "Accuracy (% of correct predictions) = " round(`r(mean)', 0.0001)
 	mata: "Brier score              = " + strofreal(CNOP_last_model.brier_score)
 	mata: "Ranked probability score = " + strofreal(CNOP_last_model.ranked_probability_score)
+	display ""
 	mata: classification_calc_large("_actual", "_predicted", "`touse'")
 	drop _predicted _correct_predicted _actual
 	return local accuracy = `r(mean)'

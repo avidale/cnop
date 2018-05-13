@@ -2452,7 +2452,7 @@ void classification_calc(cells_matname, labels_matname, result_matname) {
 	n2s = noise :/ recall
 	
 	result = precision, recall, n2s
-	colnames = "Precision" \  "Hit rate (recall)" \  "Adjusted noise-to-signal ratio"
+	colnames = "Precision" \  "Recall" \  "Adjusted noise-to-signal ratio"
 	rownames = strofreal(labels)
 	
 	output_matrix(result_matname, result, rownames, colnames) 
