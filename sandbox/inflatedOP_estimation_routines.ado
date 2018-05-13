@@ -2406,8 +2406,31 @@ void vuong_calc(| ll_diff, k_1, k_2){
 	st_local("pvalueBIC", strofreal(pvalueBIC))
 }
 
+
+void classification_calc_large(fact_varname, pred_varname, touse) {
+	// access Stata variables
+	st_view(fact = ., ., fact_varname, touse)
+	st_view(pred = ., ., pred_varname, touse)
+	
+	// construct the classification table
+	all_levels = uniqrows(fact \ pred)
+	ncat = rows(all_levels)
+	confmat = J(ncat, ncat, 0)
+	for (i=1; i <= ncat; i++) {
+		for (j=1; j <= ncat; j++) {
+			confmat[i, j] = sum((fact :== all_levels[i]) :& (pred :== all_levels[j]))
+		}
+	}
+	// todo: calculate margins of the table, add row and column titles
+	//print_matrix(confmat, strofreal(all_levels), strofreal(all_levels), ., ., ., 0)
+	st_matrix("cells", confmat)
+	st_matrix("labels", all_levels)
+	classification_calc("cells", "labels", "result")
+}
+
 void classification_calc(cells_matname, labels_matname, result_matname) {
 	// analyze classification table
+	
 	cells = st_matrix(cells_matname)
 	labels = st_matrix(labels_matname)
 	
@@ -2417,12 +2440,12 @@ void classification_calc(cells_matname, labels_matname, result_matname) {
 	an = total :- ap
 	pp = colsum(cells)'
 	pn = total :- pp
-
+	
 	tp = diagonal(cells)
 	fp = pp - tp
 	fn = ap - tp
 	tn = pn - fn
-
+	
 	noise = fp :/ an
 	recall = tp :/ ap
 	precision = tp :/ pp
@@ -2433,10 +2456,11 @@ void classification_calc(cells_matname, labels_matname, result_matname) {
 	rownames = strofreal(labels)
 	
 	output_matrix(result_matname, result, rownames, colnames) 
+	
 	print_matrix(result, strofreal(labels), colnames)
 }
 
-void print_matrix(contents, rownames, colnames, | uline, lline, mline) {
+void print_matrix(contents, rownames, colnames, | uline, lline, mline, digits) {
 	// because Stata cannot display matrices with dots in colnames, we need our own printing function!
 	n = rows(contents)
 	m = cols(contents)
@@ -2456,11 +2480,20 @@ void print_matrix(contents, rownames, colnames, | uline, lline, mline) {
 	if (mline == . | rows(mline) == 0) {
 		mline = (n > 1)
 	}
+	if (digits == . | rows(digits) == 0) {
+		digits = 4
+	}
+	_colnames = colnames
+	if (cols(_colnames) > 1){
+		_colnames = _colnames'
+	}
 	
-	colwidths = strlen(colnames) :+ 3
-	// todo: support variable number of digits
+	colwidths = rowmax((strlen(_colnames) :+ 3 , J(rows(_colnames), 1, 6)))
 	// todo: support word wrap for long colnames
-	numberf = "4f"
+	// todo: make colwidths depend on the contents
+	// todo: support lines before totals
+	// todo: support varnames of rows and columns
+	numberf = strofreal(digits) + "f"
 	if (rowname_flag) {
 		hline = "{hline " + strofreal(rowname_width+1)+ "}{c +}{hline " + strofreal(sum(colwidths :+ 1) + 2)+ "}\n"
 	} else {

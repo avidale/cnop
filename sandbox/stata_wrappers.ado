@@ -34,8 +34,8 @@ program ziopclassification, rclass
 	predict _predicted, output(mode)
 	label variable _predicted "Predicted outcomes"
 	gen _actual = `e(depvar)'
-	// this is the general comparison part
 	label variable _actual "Actual outcomes"
+	// this is the general comparison part
 	gen _correct_predicted = _predicted == _actual
 	display "Classification table"
 	tab _actual _predicted if `touse', matcell(cells) matrow(labels)
@@ -44,7 +44,7 @@ program ziopclassification, rclass
     display "% Correctly Predicted    = " round(`r(mean)', 0.0001)
 	mata: "Brier score              = " + strofreal(CNOP_last_model.brier_score)
 	mata: "Ranked probability score = " + strofreal(CNOP_last_model.ranked_probability_score)
-	mata: classification_calc("cells", "labels", "result")
+	mata: classification_calc_large("_actual", "_predicted", "`touse'")
 	drop _predicted _correct_predicted _actual
 	return local accuracy = `r(mean)'
 	return matrix noise result
