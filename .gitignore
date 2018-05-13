@@ -53,6 +53,7 @@ Temporary Items
 *.log
 .upd.synctex.gz
 ~*.docx
+~*.xlsx
 paper/graphics
 *.wmf
 paper/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex

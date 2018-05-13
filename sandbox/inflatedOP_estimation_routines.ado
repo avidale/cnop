@@ -18,9 +18,20 @@ function running_rowsum(input_matrix) {
 	return(result)
 }
 
+function colmedian(input_matrix) {
+	m = cols(input_matrix)
+	n = rows(input_matrix)
+	result = J(1, m, .)
+	for (i = 1; i <= m; i++) {
+		sorted = sort(input_matrix[ , i], 1)
+		result[1, i] = sorted[(n + 1) / 2]
+	}
+	return(result)
+}
+
 // calculate and remember various postestimation statistics
 class CNOPModel scalar describeModel(class CNOPModel scalar model, params, covMat, covMat_rob, maxLik, n, q, prob_obs) {
-	
+
 	model.params = params
 	model.se		= sqrt(diagonal(covMat))
 	model.t			= abs(params :/ model.se)
@@ -48,15 +59,23 @@ class CNOPModel scalar describeModel(class CNOPModel scalar model, params, covMa
 }
 
 
+// calculate and remember even more postestimation statistics
+class CNOPModel scalar postDescribeModel(class CNOPModel scalar model, robust, allvars, corresp) {
+	model.robust = robust
+	model.XZnames 	= allvars
+	model.corresp	= corresp
+	st_view(xz = ., ., invtokens(allvars))
+	model.XZmeans = mean(xz)
+	model.XZmedians = colmedian(xz)
+	return (model)
+}
+
+
+
 // workfunction that returns OP model (as an instance of CNOPModel class)
-class CNOPModel scalar estimateOP(y, x, |quiet, startvalues, xbar, dummies, robust, who){
-	// incomplete: change argument list
-	/*
-	feed q instead of y ?
-	feed_vsop
-	*/
+class CNOPModel scalar estimateOP(y, x, |quiet, startvalues, xbar, dummies, robust, who) {
 	
-	starttime = clock(c("current_time"),"hms")
+	starttime = clock(c("current_time"), "hms")
 	
 	if (rows(quiet) < 1) {
 		quiet = 0
@@ -78,7 +97,6 @@ class CNOPModel scalar estimateOP(y, x, |quiet, startvalues, xbar, dummies, robu
 	if(cols(robust) == 0){
 		robust	= 0
 	}
-	
 	
 	
 	// compute categories
@@ -105,6 +123,7 @@ class CNOPModel scalar estimateOP(y, x, |quiet, startvalues, xbar, dummies, robu
 	optimize_init_argument(S, 1, x)
 	optimize_init_argument(S, 2, q)
 	optimize_init_argument(S, 3, ncat)
+	optimize_init_argument(S, 4, 0)
 	optimize_init_evaluator(S, &_op_optim())
 	optimize_init_evaluatortype(S, "gf1") // added!!
 	optimize_init_params(S, (start_param'))
@@ -121,70 +140,20 @@ class CNOPModel scalar estimateOP(y, x, |quiet, startvalues, xbar, dummies, robu
 	}
 	
 	// extract optimization results
-	maxLik	= optimize_result_value(S)
-	grad 	= optimize_result_gradient(S)
-	covMat	= optimize_result_V_oim(S)	// added!
-	retCode	= optimize_result_errortext(S)
-	
-	
-	// calculate robust variance
-	covMat_rob	= optimize_result_V_robust(S)		// in contrast with the source, here I get it automatically ??? no, the variable "who" matters !!! 
-	 
-	g	= Jacop(params, x, q, ncat) // gradient for all observations: n \times rows(params)
-	/*
-	ss	= J(rows(params), rows(params), 0)
-	for (i=1; i<=max(who);i++){
-		sel = select(g, who :== i)
-		ss  = ss + sel' * sel; 
+	if (errorcode == 0) {
+		/* When estimation is not successful, robust covatiance matrix cannot be calculated, and ordinary covariance matrix is . */
+		maxLik	= optimize_result_value(S)
+		grad 	= optimize_result_gradient(S)
+		covMat	= optimize_result_V(S)
+		covMat_rob = covMat
+	} else {
+		maxLik	= optimize_result_value(S)
+		grad 	= optimize_result_gradient(S)
+		covMat	= optimize_result_V(S)
+		covMat_rob = optimize_result_V_robust(S)
 	}
-	covMat_rob =covMat * ss * covMat; 
-	*/
 	
-	// calculate model statistics
-	se		= sqrt(diagonal(covMat))
-	tstat	= abs(params :/ se)
-	se_rob		= sqrt(diagonal(covMat_rob))
-	tstat_rob	= abs(params :/ se_rob)
-
-	// calculate predicted probabilities
-	pred_prob	= MLop(params, x, q, ncat, 1)
-	
-	// calculate predicted option ?????
-
-	// calculate ME
-	me		= op_me(params, xbar, q, ncat)
-	
-	// calculate SE for ME
-	mese	= J(k * ncat,1, 0) // to be reshaped
-	mese_rob	= J(k * ncat,1, 0) // to be reshaped
-	
-	// I want to find derivative of all ME's with respect to all parameters
-	D = deriv_init()
-	deriv_init_evaluator(D, &_op_me_deriv())
-	deriv_init_evaluatortype(D, "t")
-	deriv_init_argument(D, 1, xbar)
-	deriv_init_argument(D, 2, q)
-	deriv_init_argument(D, 3, ncat)
-	deriv_init_params(D, params') // a row vector
-	dydx = deriv(D, 1)
-	// in columns - params
-	// in rows - elements of rowshape(me[,1::cols(x)],1) - i.e. k * ncat effects
-
-	for(i = 1; i<=rows(dydx); i++){
-		mese[i]	= dydx[i,] * covMat * dydx[i,]'
-		mese_rob[i]	= dydx[i,] * covMat_rob * dydx[i,]'
-	}
-	mese	= colshape(mese, ncat)
-	mese_rob	= colshape(mese_rob, ncat)
-	
-	// calculate t-statistics for ME
-	met		= abs(me) :/ sqrt(mese)
-	met_rob	= abs(me) :/ sqrt(mese_rob)
-	
-	// just for convenience
-	gama = params[1::k]
-	mu = params[(k+1)::(k+ncat-1)]
-	
+	prob_obs	= MLop(params, x, q, ncat, 1)
 	
 	// pack results
 	class CNOPModel scalar model 
@@ -193,35 +162,9 @@ class CNOPModel scalar estimateOP(y, x, |quiet, startvalues, xbar, dummies, robu
 	model.n	= n
 	model.k	= k
 	model.ncat	= ncat
-	model.gamma	= gama
-	model.mu	= mu
 	model.allcat = allcat
 	
-	model.params	= params
-	model.se		= se
-	model.t			= tstat
-	model.se_rob	= se_rob
-	model.t_rob		= tstat_rob
-	
-	model.me		= me
-	model.met		= met
-	model.mese		= mese
-	
-	model.AIC	= -2 * maxLik + 2 * rows(params) 
-	model.BIC	= -2 * maxLik + ln(n) * rows(params)
-	model.CAIC	= -2 * maxLik + (1 + ln(n)) * rows(params)
-	model.AICc	= model.AIC + 2 * rows(params) * (rows(params) + 1) / (n - rows(params) - 1)
-	model.HQIC	= -2 * maxLik + 2*rows(params)*ln(ln(n))
-	model.logLik0 	= sum(log(q :* mean(q)))
-	model.R2 	= 1 - maxLik /  model.logLik0
-	
-	model.V	= covMat
-	model.V_rob	= covMat_rob
-	model.logLik	= maxLik
-	model.probabilities	= pred_prob
-	
-	model.retCode	= retCode
-	model.etime		= -1 // to be determined via Stata functions ???
+	model = describeModel(model, params, covMat, covMat_rob, maxLik, n, q, prob_obs)
 	
 	model.retCode = optimize_result_errortext(S)
 	model.error_code = errorcode
@@ -1846,9 +1789,20 @@ function positionsInList(candidates, subset) {
 	return(ans)
 }
 
+function vuong_vs_op(class CNOPModel scalar model) {
+	st_view(op_y=., ., invtokens(model.yname))
+	st_view(op_x=., ., invtokens(model.XZnames))
+	class CNOPModel scalar op_model 
+	op_model = estimateOP(op_y, op_x, 1)
+	ll_diff = model.ll_obs - op_model.ll_obs
+	k_1 = rows(model.params)
+	k_2 = rows(op_model.params)
+	vuong_calc(ll_diff, k_1, k_2)
+}
+
 //
 function passModelToStata(class CNOPModel scalar model) {
-
+	
 	if (model.model_class == "NOPC" | model.model_class == "MIOPRC" | model.model_class == "CNOPC") {
 		switching_type = "endogenous"
 	} else {
@@ -1946,12 +1900,7 @@ function processCNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robus
 	model.zpnames = zpnames
 	model.znnames = znnames
 	
-	model.robust = robust
-	
-	model.XZnames 	= allvars
-	model.corresp	= corresp
-	st_view(xz = ., ., invtokens(allvars))
-	model.XZmeans = mean(xz)
+	model = postDescribeModel(model, robust, allvars, corresp)
 	
 	model.eqnames = J(1, cols(tokens(xnames)) + 2, "Regime equation"),  J(1, cols(tokens(zpnames)) + model.ncatp, "Outcome equation (+)"),  J(1, cols(tokens(znnames)) + model.ncatn, "Outcome equation (-)")
 	model.parnames = tokens(xnames), "/cut1", "/cut2", tokens(zpnames),  "/cut" :+ strofreal(1..model.ncatp), tokens(znnames),  "/cut" :+ strofreal(1..model.ncatn)
@@ -2025,12 +1974,7 @@ function processNOP(yxnames, zpnames, znnames, infcat, correlated, touse, robust
 	model.zpnames = zpnames
 	model.znnames = znnames
 	
-	model.robust = robust
-	
-	model.XZnames 	= allvars
-	model.corresp	= corresp
-	st_view(xz = ., ., invtokens(allvars))
-	model.XZmeans = mean(xz)
+	model = postDescribeModel(model, robust, allvars, corresp)
 	
 	model.eqnames = J(1, cols(tokens(xnames))+2, "Regime equation"),  J(1, cols(tokens(zpnames)) + model.ncatn - 1, "Outcome equation (+)"),  J(1, cols(tokens(znnames)) + model.ncatn - 1, "Outcome equation (-)")
 	model.parnames = tokens(xnames), "/cut1", "/cut2", tokens(zpnames),  "/cut" :+ strofreal(1..(model.ncatp-1)), tokens(znnames),  "/cut" :+ strofreal(1..(model.ncatn-1))
@@ -2083,16 +2027,12 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 		switching_type = "exogenous"
 		model = estimateMIOPR(y, x, z, infcat, nolog, initial, robust, who)
 	}
-	model.XZnames 	= allvars
 	model.yname = yname
 	model.xnames = xnames
 	model.znames = znames
 	
-	model.robust = robust
+	model = postDescribeModel(model, robust, allvars, corresp)
 	
-	model.corresp	= corresp
-	st_view(xz = ., ., invtokens(allvars))
-	model.XZmeans = mean(xz)
 	model.eqnames = J(1, cols(tokens(xnames)) + 1, "Regime equation"), J(1, cols(tokens(znames)) + rows(model.allcat)-1, "Outcome equation")
 	model.parnames = tokens(xnames), "/cut1", tokens(znames), "/cut" :+ strofreal(1..(rows(model.allcat)-1))
 	
@@ -2104,6 +2044,14 @@ function processMIOPR(yxnames, znames, infcat, correlated, touse, robust, cluste
 	passModelToStata(model)
 	
 	return(model)
+}
+
+function escape_stripes(colstripes) {
+	// workaround: stata does not allow colstripes containing dots
+	colstripes = subinstr(colstripes, "=.", "=0.")
+	colstripes = subinstr(colstripes, "=-.", "=-0.")
+	colstripes = subinstr(colstripes, ".", ",")
+	return(colstripes)
 }
 
 
@@ -2125,14 +2073,12 @@ function get_colstripes(model_class, loop, allcat, infcat) {
 			colstripes = ("Pr(s=-1)" \ "Pr(s=0)" \  "Pr(s=+1)")
 		}
 	}
-	// workaround: stata does not allow colstripes containing dots
-	colstripes = subinstr(colstripes, "=.", "=0.")
-	colstripes = subinstr(colstripes, "=-.", "=-0.")
-	colstripes = subinstr(colstripes, ".", ",")
 	return(colstripes)
 }
 
 function output_matrix(matrix_name, matrix_value, rowstripes, colstripes){
+	rowstripes = escape_stripes(rowstripes)
+	colstripes = escape_stripes(colstripes)
 	st_matrix(matrix_name, matrix_value)
 	st_matrixrowstripe(matrix_name, (J(rows(rowstripes), 1, ""), rowstripes))
 	st_matrixcolstripe(matrix_name, (J(rows(colstripes), 1, ""), colstripes))
@@ -2168,9 +2114,8 @@ function update_named_vector(values, names, tokens) {
 
 // marginal effects for MIOP(r), CNOP, CNOP(c)
 
-function CNOPmargins(class CNOPModel scalar model, string atVarlist, string dummiesVarlist, zeroes, regime) {
-	dummiesVector = positionsInList(model.XZnames, tokens(dummiesVarlist))
-	xzbar = model.XZmeans
+function CNOPmargins(class CNOPModel scalar model, string atVarlist, zeroes, regime) {
+	xzbar = model.XZmedians
 	atTokens = tokens(atVarlist, " =")
 	
 	if (length(atTokens) >= 3) {
@@ -2187,7 +2132,7 @@ function CNOPmargins(class CNOPModel scalar model, string atVarlist, string dumm
 	rowstripes = model.XZnames'
 	colstripes = get_colstripes(model.model_class, loop, model.allcat, model.infcat)
 	
-	mese = generalMEwithSE(xzbar, model, dummiesVector, loop)
+	mese = generalMEwithSE(xzbar, model, loop)
 	kxz = cols(xzbar)
 	me = mese[1::kxz,]
 	se = mese[(1::kxz) :+ kxz,]
@@ -2197,7 +2142,7 @@ function CNOPmargins(class CNOPModel scalar model, string atVarlist, string dumm
 
 
 function CNOPprobabilities(class CNOPModel scalar model, string atVarlist, zeroes, regime) {
-	xz_from = model.XZmeans
+	xz_from = model.XZmedians
 	atTokens = tokens(atVarlist, " =")
 	
 	if (length(atTokens) >= 3) {
@@ -2222,8 +2167,8 @@ function CNOPprobabilities(class CNOPModel scalar model, string atVarlist, zeroe
 }
 
 function CNOPcontrasts(class CNOPModel scalar model, string atVarlist, string toVarlist, zeroes, regime) {
-	xz_from = model.XZmeans
-	xz_to = model.XZmeans
+	xz_from = model.XZmedians
+	xz_to = model.XZmedians
 	atTokens = tokens(atVarlist, " =")
 	toTokens = tokens(toVarlist, " =")
 	
@@ -2330,7 +2275,7 @@ function CNOP_predict(class CNOPModel scalar model, string scalar newVarName, re
 		}
 	}
 	label_indices = newVarName + "_" :+ label_indices
-	if (output == "mode") {
+	if (output == "mode" | output == "choice") {
 		if (_st_varindex(newVarName) :== .) {
 			tmp = st_addvar("double", newVarName)
 		}
@@ -2365,4 +2310,75 @@ function CNOP_predict(class CNOPModel scalar model, string scalar newVarName, re
 		v[,] = p
 	}
 }
+
+void vuong_calc(| ll_diff, k_1, k_2){
+	if (rows(ll_diff) < 1 || ll_diff == .) {
+		ll_diff = st_matrix("ll_diff")
+		k_1 = strtoreal(st_local("k_1"))
+		k_2 = strtoreal(st_local("k_2"))
+	}
+	mean_diff = mean(ll_diff)
+	std_diff = sqrt(variance(ll_diff))
+	n_obs = rows(ll_diff)
+	vuong = mean_diff / (std_diff / sqrt(n_obs))
+	
+	// AIC and BIC corrections
+	vuongAIC = (mean_diff - (k_1-k_2) / n_obs) / (std_diff / sqrt(n_obs))
+	vuongBIC = (mean_diff - (k_1-k_2) * log(n_obs) / (2 * n_obs)) / (std_diff / sqrt(n_obs))
+	
+	pvalue = 1-normal(vuong)
+	pvalueAIC = 1-normal(vuongAIC)
+	pvalueBIC = 1-normal(vuongBIC)
+	
+	"Mean difference in log likelihood                  " + strofreal(mean_diff)
+	"Standard deviation of difference in log likelihood " + strofreal(std_diff)
+	"Number of observations                             " + strofreal(n_obs)
+	"Vuong test statistic                           z = " + strofreal(vuong)
+	"P-Value                                     Pr>z = " + strofreal(pvalue)
+	"   with AIC (Akaike) correction                z = " + strofreal(vuongAIC)
+	"P-Value                                     Pr>z = " + strofreal(pvalueAIC)
+	"   with BIC (Schwarz) correction               z = " + strofreal(vuongBIC)
+	"P-Value                                     Pr>z = " + strofreal(pvalueBIC)
+	
+	st_local("mean_diff", strofreal(mean_diff))
+	st_local("std_diff", strofreal(std_diff))
+	st_local("n_obs", strofreal(n_obs))
+	st_local("vuong", strofreal(vuong))
+	st_local("vuongAIC", strofreal(vuongAIC))
+	st_local("vuongBIC", strofreal(vuongBIC))
+	st_local("pvalue", strofreal(pvalue))
+	st_local("pvalueAIC", strofreal(pvalueAIC))
+	st_local("pvalueBIC", strofreal(pvalueBIC))
+}
+
+void classification_calc(cells_matname, labels_matname, result_matname) {
+	// analyze classification table
+	cells = st_matrix(cells_matname)
+	labels = st_matrix(labels_matname)
+	
+	total = sum(cells)
+	
+	ap = rowsum(cells)
+	an = total :- ap
+	pp = colsum(cells)'
+	pn = total :- pp
+
+	tp = diagonal(cells)
+	fp = pp - tp
+	fn = ap - tp
+	tn = pn - fn
+
+	noise = fp :/ an
+	recall = tp :/ ap
+	precision = tp :/ pp
+	n2s = noise :/ recall
+	
+	result = precision, recall, n2s
+	colnames = "Precision" \  "Hit rate (recall)" \  "Adjusted noise-to-signal ratio"
+	rownames = strofreal(labels)
+	
+	output_matrix(result_matname, result, rownames, colnames) 
+}
+
+
 end
