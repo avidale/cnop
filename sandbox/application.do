@@ -34,9 +34,14 @@ ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) en
 
 set more off
 quietly ziop3 rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0) nolog
+
 predict proby
-predict przeros, zeros
-predict prregim, regime
+
+predict p_zero, zeros
+predict p_reg, regime
+tabstat p_zero* p_reg*, stat(mean)
+
+
 predict emode, output(mode)
 predict emean, output(mean)
 predict pcum, output(cum)
@@ -60,20 +65,12 @@ ziopcontrasts, at(pb=1) to(pb=0) zeros
 ziopcontrasts, at(pb=1) to(pb=0) regime
 
 // vuong example ZIOP-3 vs ZIOP-2
-set more off
 quietly ziop3 rate_change pb spread houst gdp, xn(spread gdp )xp(pb spread) infcat(0)
-est store ziop3model
-set more off
-ziop2 rate_change spread_u spread_d houst_u houst_d, x(spread pb houst gdp ) infcat(0)
-est store ziop2model
-ziopvuong ziop3model ziop2model
+est store ziop3_model
+quietly ziop2 rate_change spread pb houst gdp, x(spread pb houst gdp ) infcat(0)
+est store ziop2_model
+ziopvuong ziop3_model ziop2_model
 
-
-quietly ziop3 rate_change pb spread houst gdp, xn(spread gdp )xp(pb spread) infcat(0) 
-est store ziop3model
-quietly ziop2 rate_change spread_u spread_d houst_u houst_d, x(spread pb houst gdp ) infcat(0) 
-est store ziop2model
-ziopvuong ziop3model ziop2model
 
 quietly ziop3 rate_change pb spread houst gdp, xn(spread gdp )xp(pb spread) infcat(0)
 est store ziop3model
