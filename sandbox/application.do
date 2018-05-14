@@ -18,51 +18,21 @@ set more off
 nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) endo nolog vuong
 
 set more off
-nop rate_change spread pb houst gdp, neg_indepvars(spread gdp) pos_indepvars(spread pb) infcat(0) endo nolog vuong
-
-
-set more off
 ziop2 rate_change spread pb houst gdp, indepvars(spread pb houst gdp ) infcat(0) nolog
-
 
 set more off
 ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) nolog vuong
-
-set more off
-ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) endo nolog vuong
-(output omitted)
-
-set more off
-quietly ziop3 rate_change spread pb houst gdp, neg_indepvars(spread gdp) pos_indepvars(spread pb) infcat(0) nolog
-predict proby
 
 predict p_zero, zeros
 predict p_reg, regimes
 tabstat p_zero* p_reg*, stat(mean)
 
-
-predict choice, output(choice)
-predict emean, output(mean)
-predict pcum, output(cum)
-
-predict pcum, output(cum) at(pb=1, spread=0.426, houst=1.6, gdp=6.8)
-
-quietly ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) infcat(0) nolog
 ziopmargins, at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
-ziopmargins
-ziopmargins, zeros
-ziopmargins, regimes
 
 ziopprobabilities, at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
-ziopprobabilities
-ziopprobabilities, zeros at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
-ziopprobabilities, regimes at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
 
-ziopcontrasts, at(pb=1,spread=0.426, houst=1.6, gdp=6.8) to(pb=0, spread=-1.394, houst=1.2, gdp=1.9)
-ziopcontrasts, at(pb=1, spread=0.426, houst=1.6, gdp=6.8) to(pb=0, spread=0.426, houst=1.6, gdp=6.8)
-
-ziopcontrasts, at(pb=1) to(pb=0)
-ziopcontrasts, at(pb=1) to(pb=0) regime
+ziopcontrasts, at(pb=1, spread=0.426, houst=1.6, gdp=6.8) ///
+               to(pb=0, spread=0.426, houst=1.6, gdp=6.8)
 
 // vuong example ZIOP-3 vs ZIOP-2
 quietly ziop3 rate_change pb spread houst gdp, neg(spread gdp ) pos(pb spread) inf(0)
@@ -71,12 +41,6 @@ quietly ziop2 rate_change spread pb houst gdp, indepvars(spread pb houst gdp) in
 est store ziop2_model
 ziopvuong ziop3_model ziop2_model
 
-
-quietly ziop3 rate_change pb spread houst gdp, neg(spread gdp )pos(pb spread) infcat(0)
-est store ziop3model
-quietly oprobit rate_change spread pb houst gdp, nolog
-est store opmodel
-ziopvuong ziop3model opmodel
 
 //classification example
 
@@ -97,12 +61,3 @@ ziopclassification
 view ../package/ziop.sthlp
 view ../package/ziop_postestimation.sthlp
 
-
-set more off
-ziop2 rate_change spread_u spread_d houst_u houst_d, ind(spread pb houst gdp ) infcat(0)
-
-set more off
-ziop2 rate_change spread_u spread_d houst_u houst_d, ind(spread pb houst gdp ) infcat(0) endoswitch
-
-set more off
-ziop2 rate_change spread_u spread_d  gdp_u gdp_d houst_u houst_d, ind(spread pb houst gdp ) infcat(0) endoswitch nolog
