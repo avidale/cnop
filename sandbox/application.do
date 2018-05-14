@@ -80,7 +80,7 @@ ziopvuong ziop3model opmodel
 
 //classification example
 <<<<<<< HEAD
-quietly ziop3 rate_change pb spread houst gdp, xn(spread gdp )xp(pb spread) infcat(0)
+quietly ziop3 rate_change pb spread houst gdp, neg_indepvars(spread gdp ) pos_indepvars(pb spread) infcat(0)
 ziopclassification
 
 quietly ziop2 rate_change spread pb houst gdp, x(spread pb houst gdp ) infcat(0) nolog
