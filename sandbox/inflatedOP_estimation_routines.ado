@@ -2457,10 +2457,11 @@ void classification_calc(cells_matname, labels_matname, result_matname) {
 	
 	output_matrix(result_matname, result, rownames, colnames) 
 	
-	print_matrix(result, strofreal(labels), colnames)
+	rowtitle = ("Actual" \ "outcomes")
+	print_matrix(result, strofreal(labels), colnames, uline=., lline=., mline=., digits=., rowtitle=rowtitle)
 }
 
-void print_matrix(contents, rownames, colnames, | uline, lline, mline, digits) {
+void print_matrix(contents, rownames, colnames, | uline, lline, mline, digits, rowtitle, coltitle) {
 	// because Stata cannot display matrices with dots in colnames, we need our own printing function!
 	n = rows(contents)
 	m = cols(contents)
@@ -2488,11 +2489,24 @@ void print_matrix(contents, rownames, colnames, | uline, lline, mline, digits) {
 		_colnames = _colnames'
 	}
 	
+	if (rowtitle == . | rows(rowtitle) == 0) {
+		rowtitle_rows = 0
+	} else {
+		// todo: ensure that rowname_flag is true
+		rowtitle_rows = rows(rowtitle)
+		rowname_width = max((strlen(rowtitle) \ rowname_width))
+	}
+	if (coltitle == . | rows(coltitle) == 0) {
+		coltitle_rows = 0
+	} else {
+		// todo: ensure that rowname_flag is true
+		coltitle_rows = rows(coltitle)
+	}
+	
 	colwidths = rowmax((strlen(_colnames) :+ 3 , J(rows(_colnames), 1, 6)))
-	// todo: support word wrap for long colnames
+	// todo: support word wrap for long colnames and maybe row and col titles
 	// todo: make colwidths depend on the contents
 	// todo: support lines before totals
-	// todo: support varnames of rows and columns
 	numberf = strofreal(digits) + "f"
 	if (rowname_flag) {
 		hline = "{hline " + strofreal(rowname_width+1)+ "}{c +}{hline " + strofreal(sum(colwidths :+ 1) + 2)+ "}\n"
@@ -2503,7 +2517,23 @@ void print_matrix(contents, rownames, colnames, | uline, lline, mline, digits) {
 	if (uline) {
 		printf(hline)
 	}
-	if (rowname_flag) {
+	
+	if (rowtitle_rows > 1) {
+		for(i=1; i <= rowtitle_rows; i++) {
+			// todo: take into accoutn possible difference in vlines
+			printf("%" + strofreal(rowname_width) + "s {c |}", rowtitle[i])
+			// todo: make coltitle centered
+			if (coltitle_rows > 0) {
+				coltitle_current =  i + coltitle_rows - rowtitle_rows + 1
+				if ((coltitle_current > 0) & (coltitle_current <= coltitle_rows)) {
+					printf(coltitle[coltitle_current])
+				}
+			}
+			if (i < rowtitle_rows) {
+				printf("\n")
+			}
+		}
+	} else if (rowname_flag) {
 		printf("%" + strofreal(rowname_width) + "s {c |} ", "")
 	}
 	for(j=1; j<=m; j++){
