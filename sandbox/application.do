@@ -15,7 +15,7 @@ oprobit rate_change spread pb houst gdp, nolog
 estat ic
 
 set more off
-nop rate_change spread pb houst gdp, neg_indepvars(spread gdp) pos_indepvars(spread pb) infcat(0) nolog
+nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) nolog vuong
 
 set more off
 nop rate_change spread pb houst gdp, neg_indepvars(spread gdp) pos_indepvars(spread pb) infcat(0) endo nolog
@@ -79,24 +79,19 @@ est store opmodel
 ziopvuong ziop3model opmodel
 
 //classification example
-<<<<<<< HEAD
+
+set more off
 quietly ziop3 rate_change pb spread houst gdp, neg_indepvars(spread gdp ) pos_indepvars(pb spread) infcat(0)
 ziopclassification
 
-quietly ziop2 rate_change spread pb houst gdp, x(spread pb houst gdp ) infcat(0) nolog
-ziopclassification
-
-quietly nop rate_change spread pb houst gdp, xn(spread gdp) xp(spread pb) infcat(0)
-=======
 set more off
-ziop3 rate_change pb spread houst gdp, neg(spread gdp )pos(pb spread) infcat(0)
+quietly ziop2 rate_change spread pb houst gdp, indepvars(spread pb houst gdp ) infcat(0) nolog
 ziopclassification
 
 set more off
-quietly nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) infcat(0)
-set more off
->>>>>>> 3e79c29e7d37355a8c05efa37a46216276e3713c
+quietly nop rate_change spread pb houst gdp, neg_indepvars(spread gdp) pos_indepvars(spread pb) infcat(0)
 ziopclassification
+
 
 // view help
 view ../package/ziop.sthlp
