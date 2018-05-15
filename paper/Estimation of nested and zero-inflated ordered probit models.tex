@@ -26,7 +26,7 @@
 %TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
 %TCIDATA{BibliographyScheme=Manual}
 %TCIDATA{Created=Wednesday, April 07, 2010 09:52:31}
-%TCIDATA{LastRevised=Tuesday, May 15, 2018 14:57:33}
+%TCIDATA{LastRevised=Tuesday, May 15, 2018 15:12:03}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
 %TCIDATA{Language=American English}
@@ -1096,21 +1096,21 @@ and $\rho $ for the ZIOP-2 model.
 of NOP (or ZIOP-3) model versus the conventional OP model should be
 performed. The command computes the three Vuong test statistics, the
 standard statistic $z=(s_{\Delta l}\sqrt{T})^{-1}\sum_{i=1}^{T}\Delta l_{i}$
-and the two adjusted ones, $z_{AIC}=(s_{\Delta l}\sqrt{T})^{-1}%
-\sum_{i=1}^{T}\Delta l_{i}+(K_{1}-K_{2})$ and $z_{BIC}=(s_{\Delta l}\sqrt{T}%
-)^{-1}\sum_{i=1}^{T}\Delta l_{i}+(K_{1}-K_{2})\ln (T)/2$, with corrections
-based on the Akaike information criterion (AIC) (Akaike 1974) and the
-Bayesian (Schwarz) information criterion (BIC) (Schwarz 1978), where $\Delta
-l_{i}$ is the difference in the $i^{\text{th}}$ observation's individual
-contribution to the log-likelihoods of two models, $s_{\Delta l}$ is the
-standard deviation of the differences in the observation-wise
-log-likelihoods, and $K_{1}$ and $K_{2}$ are the numbers of parameters in
-each of the two models. The reported $z$-statistics have a standard normal
-distribution with large positive values favoring the NOP (or ZIOP-3) model
-and large negative values favoring the OP model. An insignificant statistic
-implies no preference for either model. For the ZIOP-2 model this option is
-not available since the Vuong test is not appropriate in this case as
-explained in Section 2.7.
+and the two adjusted ones, $z_{AIC}=(s_{\Delta l}\sqrt{T})^{-1}\left(
+\sum_{i=1}^{T}\Delta l_{i}+K_{1}-K_{2}\right) $ and $z_{BIC}=(s_{\Delta l}%
+\sqrt{T})^{-1}\left( \sum_{i=1}^{T}\Delta l_{i}+(K_{1}-K_{2})\ln
+(T)/2\right) $, with corrections based on the Akaike information criterion
+(AIC) (Akaike 1974) and the Bayesian (Schwarz) information criterion (BIC)
+(Schwarz 1978), where $\Delta l_{i}$ is the difference in the $i^{\text{th}}$
+observation's individual contribution to the log-likelihoods of two models, $%
+s_{\Delta l}$ is the standard deviation of the differences in the
+observation-wise log-likelihoods, and $K_{1}$ and $K_{2}$ are the numbers of
+parameters in each of the two models. The reported $z$-statistics have a
+standard normal distribution with large positive values favoring the NOP (or
+ZIOP-3) model and large negative values favoring the OP model. An
+insignificant statistic implies no preference for either model. For the
+ZIOP-2 model this option is not available since the Vuong test is not
+appropriate in this case as explained in Section 2.7.
 
 \smallskip
 
