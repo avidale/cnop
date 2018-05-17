@@ -2,7 +2,9 @@
 {* *! version 0.0.1  08may2018}{...}
 {title:Title}
 
-Zero-inflated ordered probit models - {cmd:nop}, {cmd:ziop2} and {cmd:ziop3} commands
+{cmd:nop}   -- Nested ordered probit regression
+{cmd:ziop2} -- Two-part zero-inflated ordered probit regression
+{cmd:ziop3} -- Three-part zero-inflated ordered probit regression
 
 {title:Description}
 
