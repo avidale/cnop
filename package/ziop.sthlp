@@ -6,26 +6,13 @@
 {cmd:ziop2} -- Two-part zero-inflated ordered probit regression
 {cmd:ziop3} -- Three-part zero-inflated ordered probit regression
 
-{title:Description}
-
-{cmd:ziop3} command estimates by ML the three-part cross-nested zero-inflated OP model with
-possibly different sets of covariates in the regime and outcome equations and possibly 
-endogenous switching among three latent regimes.
-
-{cmd:ziop2} command estimates by ML the two-part cross-nested zero-inflated OP model with
-possibly different sets of covariates in the regime and outcome equations and possibly 
-endogenous switching among two latent regimes.
-
-{cmd:nop} command estimates by ML the three-part nested OP model with possibly different
-sets of covariates in the regime and outcome equations and possibly endogenous switching
-among three latent regimes.
-
-See {help ziop_postestimation:ziop postestimation} for features available after estimation.  {p_end}
 
 {title:Syntax}
 
-{cmd:ziop3} {depvar} {indepvars} {ifin} {bind:[{cmd:,} {it:options}]}
+{cmd:ziop3} {depvar} {indepvars_reg} {ifin} {bind:[{cmd:,} {it:options}]}
+
 {cmd:ziop2} {depvar} {indepvars} {ifin} {bind:[{cmd:,} {it:options}]}
+
 {cmd:nop}   {depvar} {indepvars} {ifin} {bind:[{cmd:,} {it:options}]}
 
 
@@ -57,6 +44,23 @@ in the following order: beta, alpha, gamma+, mu+, gamma-, mu-, rho+, rho-
 {synopt :{opt nolog}} flag that intermediate results of optimization should not be displayed
 {p_end}
 {synoptline}
+
+See {help ziop_postestimation:ziop postestimation} for features available after estimation.
+
+{title:Description}
+
+{cmd:nop} estimates a three-part nested ordered probit (NOP) regression of {depvar} on three possibly different sets of covariates: {indepvars_reg} in the regime equation, {pos_indepvars()} in the outcome equation conditional on the regime s=1, and {neg_indepvars()} in the outcome equation conditional on the regime s=-1.
+
+An ordinal dependent variable depvar is assumed to take on at least five discrete ordinal values in the NOP model, at least two --- in the ZIOP-2 model, and at least three --- in the ZIOP-3 model. A list of the covariates in the regime equation indepvarsreg may be different from the lists of the covariates in the outcome equations.
+
+{cmd:ziop3} estimates by ML the three-part cross-nested zero-inflated OP model with
+possibly different sets of covariates in the regime and outcome equations and possibly 
+endogenous switching among three latent regimes.
+
+{cmd:ziop2} command estimates by ML the two-part cross-nested zero-inflated OP model with
+possibly different sets of covariates in the regime and outcome equations and possibly 
+endogenous switching among two latent regimes.
+
 
 
 {title:Stored results}
