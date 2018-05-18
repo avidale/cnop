@@ -8,14 +8,14 @@ cd "C:\Users\user\Documents\Dale\Our paper on Github\cnop\sandbox"
 // load the required procedures
 run stata_wrappers.ado
 
-import delimited Data_for_application.csv, clear 
+import delimited Rate_change.csv, clear 
 
 set more off
 oprobit rate_change spread pb houst gdp, nolog
 estat ic
 
 set more off
-nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) endo nolog vuong
+nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) nolog vuong
 
 set more off
 ziop2 rate_change spread pb houst gdp, indepvars(spread pb houst gdp ) infcat(0) nolog
