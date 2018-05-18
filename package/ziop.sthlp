@@ -24,7 +24,7 @@
 {synopt :{opth pos:_indepvars(varlist)}} independent variables in the outcome equation conditional on the regime s=1 for nonnegative outcomes in the {cmd:nop} and {cmd:ziop3} regressions; by default, it is identical to {it:indepvars_reg}, a list of the independent variables in the regime equation.{p_end}
 {synopt :{opth neg:_indepvars(varlist)}} independent variables in the outcome equation conditional on the regime s=-1 for nonpositive outcomes in the {cmd:nop} and {cmd:ziop3} regressions; by default, it is identical to {it:indepvars_reg}, a list of the independent variables in the regime equation.{p_end}
 {synopt :{opth ind:epvars(varlist)}} independent variables in the outcome equation of the {cmd:ziop2} regression; by default, it is identical to {it:indepvars_reg}, a list of the independent variables in the regime equation.{p_end}
-{synopt :{opt inf:cat(choice)}} inflated choice -- value of the dependent variable in the regime s=0; by default, it equals 0.{p_end}
+{synopt :{opt inf:cat(choice)}} value of the dependent variable in the regime s=0 (an inflated choice in {cmd:ziop2} and {cmd:ziop3} models; a neutral choice in {cmd:nop} model); by default, it equals 0.{p_end}
 {synopt :{opt endo:switch}} use endogenous regime switching instead of default exogenous switching (regime switching is endogenous if the errors in the regime equation are correlated with the errors in the outcome equations, and exogenous otherwise).{p_end}
 
 {syntab :SE/Robust}
@@ -32,7 +32,7 @@
 {synopt :{opth cluster(varname)}} clustering variable for the clustered robust sandwich estimator of variance{p_end}
 
 {syntab :Reporting}
-{synopt :{opt vuong}} perform Vuong test against the conventional ordered probit model (not available for {cmd:ziop2}).{p_end}
+{synopt :{opt vuong}} perform the Vuong test (Vuong 1989) against the conventional ordered probit (OP) model (not available for {cmd:ziop2}).{p_end}
  
 {syntab :Maximization}
 {synopt :{opt initial(string)}} whitespace-delimited list of the starting values of the parameters in the following order: gamma, mu, beta+, alpha+, beta-, alpha-, rho- and rho+ for the {cmd:nop} and {cmd:ziop3} regressions, and gamma, mu, beta, alpha and pho for the {cmd:ziop2} regression.{p_end}
@@ -43,37 +43,40 @@ See {help ziop_postestimation:ziop postestimation} for features available after 
 
 {title:Description}
 
-{cmd:nop} estimates a three-part nested ordered probit (NOP) model of ordinal variable {depvar}, which takes on at least five values, on three sets of independent variables: {it:indepvars_reg} in the regime equation, {cmd:pos_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1, and {cmd:neg_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=-1.
+{cmd:nop} estimates a three-part nested ordered probit (NOP) model of an ordinal variable {depvar}, which takes on at least five values, on three sets of independent variables: {it:indepvars_reg} in the regime equation, {cmd:pos_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1, and {cmd:neg_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=-1 (Sirchenko 2013).
 
-{cmd:ziop2} estimates a two-part zero-inflated ordered probit (ZIOP-2) model of ordinal variable {depvar} on two sets of independent variables: {it:indepvars_reg} in the regime equation and {cmd:indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1.
+{cmd:ziop2} estimates a two-part zero-inflated ordered probit (ZIOP-2) model of an ordinal variable {depvar} on two sets of independent variables: {it:indepvars_reg} in the regime equation and {cmd:indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1 (Harris and Zhao 2007; Brooks, Harris and Spencer 2012; Bagozzi and Mukherjee 2012).
 
-{cmd:ziop3} estimates a three-part zero-inflated ordered probit (ZIOP-3) model of ordinal variable {depvar}, which takes on at least three values, on three sets of independent variables: {it:indepvars_reg} in the regime equation, {cmd:pos_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1, and {cmd:neg_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=-1.
+{cmd:ziop3} estimates a three-part zero-inflated ordered probit (ZIOP-3) model of an ordinal variable {depvar}, which takes on at least three values, on three sets of independent variables: {it:indepvars_reg} in the regime equation, {cmd:pos_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1, and {cmd:neg_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=-1 (Sirchenko 2013).
 
 The actual values taken on by the dependent variable are irrelevant, except that larger values are assumed to correspond to "higher" outcomes.
 
-{title:Description}
-
-{synoptline}
-Model
-
-{synoptline}
-SE/Robust
-
-{synoptline}
-Reporting
-
-
-{synoptline}
-Maximization
-
 {title:Examples}
+
+Setup
+    . webuse targetchange
+
+Fit three-part nested ordered probit model with exogenous switching
+    . nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0)
+
+Fit three-part nested ordered probit model with endogenous switching and report Vuong test of NOP versus OP
+    . nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) endo vuong
+
+Fit two-part zero-inflated ordered probit model with exogenous switching
+    . ziop2 rate_change spread pb houst gdp, ind(spread pb houst gdp) inf(0)
+
+Fit three-part zero-inflated ordered probit model with exogenous switching
+    . ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0)
+
+Fit three-part zero-inflated ordered probit model with endogenous switching and report Vuong test of ZIOP-3 versus OP
+    . ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) endo vuong
 
 {title:Stored results}
 
 {pstd}
 {cmd:nop}, {cmd:ziop2} and {cmd:ziop3} store the following in {cmd:e()}:
 
-{synoptset 15 tabbed}{...}
+{synoptset 20 tabbed}{...}
 {p2col 5 15 19 2: Scalars}{p_end}
 {synopt:{cmd:e(N)}}number of observations{p_end}
 {synopt:{cmd:e(k_cat)}}number of categories{p_end}
@@ -99,3 +102,15 @@ Maximization
 {p2col 5 20 24 2: Functions}{p_end}
 {synopt:{cmd:e(sample)}}marks estimation sample{p_end}
 {p2colreset}{...}
+
+{title:References}
+
+Bagozzi, B. E., and B. Mukherjee. 2012. A mixture model for middle category inflation in ordered survey responses. {it:Political Analysis} 20: 369--386.
+
+Brooks, R., M. N. Harris, and C. Spencer. 2012. Inflated ordered outcomes. {it:Economics Letters} 117: 683--686.
+
+Harris, M. N., and X. Zhao. 2007. A zero-inflated ordered probit model, with an application to modelling tobacco consumption. {it:Journal of Econometrics} 141: 1073--1099.
+
+Sirchenko, A. 2013. A model for ordinal responses with an application to policy interest rate. National Bank of Poland Working Paper No. 148.
+
+Vuong, Q. H. 1989. Likelihood ratio tests for model selection and non-nested hypotheses. {it:Econometrica} 57: 307-333.
