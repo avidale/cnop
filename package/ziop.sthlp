@@ -54,7 +54,7 @@ The actual values taken on by the dependent variable are irrelevant, except that
 {title:Examples}
 
 Setup
-    . webuse targetchange
+    . webuse rate_change
 
 Fit three-part nested ordered probit model with exogenous switching
     . nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0)
