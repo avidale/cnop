@@ -51,6 +51,23 @@ See {help ziop_postestimation:ziop postestimation} for features available after 
 
 The actual values taken on by the dependent variable are irrelevant, except that larger values are assumed to correspond to "higher" outcomes.
 
+{title:Description}
+
+{synoptline}
+Model
+
+{synoptline}
+SE/Robust
+
+{synoptline}
+Reporting
+
+
+{synoptline}
+Maximization
+
+{title:Examples}
+
 {title:Stored results}
 
 {pstd}
