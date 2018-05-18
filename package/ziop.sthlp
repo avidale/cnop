@@ -2,9 +2,9 @@
 {* *! version 0.0.1  08may2018}{...}
 {title:Title}
 
-{cmd:nop}   -- Three-part nested ordered probit regression
-{cmd:ziop2} -- Two-part zero-inflated ordered probit regression
-{cmd:ziop3} -- Three-part zero-inflated ordered probit regression
+{helpb nop}   -- Three-part nested ordered probit regression
+{helpb ziop2} -- Two-part zero-inflated ordered probit regression
+{helpb ziop3} -- Three-part zero-inflated ordered probit regression
 
 
 {title:Syntax}

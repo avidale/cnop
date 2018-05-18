@@ -2,9 +2,9 @@
 {* *! version 0.0.1  08may2018}{...}
 {title:Title}
 
-Postestimation tools for {help ziop:zero-inflated ordered probit models} {cmd:nop}, {cmd:ziop2} and {cmd:ziop3}
+{helpb ziop postestimation} -- Postestimation tools fo {cmd:nop}, {cmd:ziop2} and {cmd:ziop3}
 
-{title:Description}
+{title:Postestimation commands}
 
 {pstd}
 The following postestimation commands are available after {cmd:nop}, {cmd:ziop2} and {cmd:ziop3}: 
@@ -12,12 +12,12 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {synoptset 20 notes}{...}
 {p2coldent :Command}Description{p_end}
 {synoptline}
-{synopt :{helpb ziop postestimation##predict:predict}}predictions, residuals, influence statistics, and other diagnostic measures{p_end}
-{synopt :{helpb ziop postestimation##ziopprobabilities:ziopprobabilities}}predicted probabilities at a single point{p_end}
-{synopt :{helpb ziop postestimation##ziopcontrasts:ziopcontrasts}}differences in predicted probabilities{p_end}
-{synopt :{helpb ziop postestimation##ziopmargins:ziopmargins}}marginal effects{p_end}
-{synopt :{helpb ziop postestimation##ziopclassification:ziopclassification}}classification table and goodness-of-fit statistics{p_end}
-{synopt :{helpb ziop postestimation##ziopvuong:ziopvuong}}non-nested Vuong test{p_end}
+{synopt :{helpb ziop postestimation##predict:predict}}predicted probabilities and other probabilistic predictions for all values of independent variables{p_end}
+{synopt :{helpb ziop postestimation##ziopprobabilities:ziopprobabilities}}predicted probabilities for specified values of independent variables{p_end}
+{synopt :{helpb ziop postestimation##ziopcontrasts:ziopcontrasts}}differences in predicted probabilities for specified values of independent variables{p_end}
+{synopt :{helpb ziop postestimation##ziopmargins:ziopmargins}}marginal effects on probabilities for specified values of independent variables{p_end}
+{synopt :{helpb ziop postestimation##ziopclassification:ziopclassification}}classification table and other goodness-of-fit measures{p_end}
+{synopt :{helpb ziop postestimation##ziopvuong:ziopvuong}}Vuong test for non-nested hypotheses{p_end}
 {synoptline}
 {p2colreset}{...}
 
