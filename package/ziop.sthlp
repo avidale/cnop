@@ -9,59 +9,47 @@
 
 {title:Syntax}
 
-{cmd:ziop3} {depvar} {indepvars_reg} {ifin} {bind:[{cmd:,} {it:options}]}
+{cmd:ziop3} {depvar} {it:indepvars_reg} {ifin} {bind:[{cmd:,} {it:options}]}
 
-{cmd:ziop2} {depvar} {indepvars} {ifin} {bind:[{cmd:,} {it:options}]}
+{cmd:ziop2} {depvar} {it:indepvars_reg} {ifin} {bind:[{cmd:,} {it:options}]}
 
-{cmd:nop}   {depvar} {indepvars} {ifin} {bind:[{cmd:,} {it:options}]}
+{cmd:nop}   {depvar} {it:indepvars_reg} {ifin} {bind:[{cmd:,} {it:options}]}
 
 
 {synoptset 28 tabbed}{...}
 {synopthdr}
 {synoptline}
 
-{syntab :Second-stage covariates}
-{synopt :{opth xp(varlist)}} list of covariates for positive response in {cmd:nop} and {cmd:ziop3} models; 
-by default, it equals indepvars, the list of covariates for initial stage{p_end}
-{synopt :{opth xn(varlist)}} list of covariates for negative response in {cmd:nop} and {cmd:ziop3} models; 
-by default, it equals indepvars, the list of covariates for initial stage{p_end}
-{synopt :{opth x(varlist)}} list of covariates for non-zero response in {cmd:ziop2} models; 
-by default, it equals indepvars, the list of covariates for initial stage{p_end}
+{syntab :Model}
+{synopt :{opth pos:_indepvars(varlist)}} independent variables in the outcome equation conditional on the regime s=1 for nonnegative outcomes in the {cmd:nop} and {cmd:ziop3} regressions; by default, it is identical to {it:indepvars_reg}, a list of the independent variables in the regime equation.{p_end}
+{synopt :{opth neg:_indepvars(varlist)}} independent variables in the outcome equation conditional on the regime s=-1 for nonpositive outcomes in the {cmd:nop} and {cmd:ziop3} regressions; by default, it is identical to {it:indepvars_reg}, a list of the independent variables in the regime equation.{p_end}
+{synopt :{opth ind:epvars(varlist)}} independent variables in the outcome equation of the {cmd:ziop2} regression; by default, it is identical to {it:indepvars_reg}, a list of the independent variables in the regime equation.{p_end}
+{synopt :{opt inf:cat(choice)}} inflated choice -- value of the dependent variable in the regime s=0; by default, it equals 0.{p_end}
+{synopt :{opt endo:switch}} use endogenous regime switching instead of default exogenous switching (regime switching is endogenous if the errors in the regime equation are correlated with the errors in the outcome equations, and exogenous otherwise).{p_end}
 
-{syntab :Other model specification}
-{synopt :{opt infcat(integer)}} value of the response variable that should be modeled as infated;
-by default, it equals 0{p_end}
-{synopt :{opt endoswitch}}  flag that errors in the first and second stages may be correlated,
-forcing estimation of endogenous switching models{p_end}
-{synopt :{opt robust}}  flag that variance-covariance estimator must be robust (based on
-"sandwich") estimate{p_end}
-{synopt :{opth cluster(varname)}}  clustering variable for robust variance estimator{p_end}
+{syntab :SE/Robust}
+{synopt :{opt robust}} use robust sandwich estimator of variance; the default estimator is based on the observed information matrix.{p_end}
+{synopt :{opth cluster(varname)}} clustering variable for the clustered robust sandwich estimator of variance{p_end}
+
+{syntab :Reporting}
+{synopt :{opt vuong}} perform Vuong test against the conventional ordered probit model (not available for {cmd:ziop2}).{p_end}
  
-{syntab :Control of optimization}
-{synopt :{opt initial(string)}}  whitespace-delimited list of initial parameter values for estimation,
-in the following order: beta, alpha, gamma+, mu+, gamma-, mu-, rho+, rho-
-{p_end}
-{synopt :{opt nolog}} flag that intermediate results of optimization should not be displayed
-{p_end}
+{syntab :Maximization}
+{synopt :{opt initial(string)}} whitespace-delimited list of the starting values of the parameters in the following order: gamma, mu, beta+, alpha+, beta-, alpha-, rho- and rho+ for the {cmd:nop} and {cmd:ziop3} regressions, and gamma, mu, beta, alpha and pho for the {cmd:ziop2} regression.{p_end}
+{synopt :{opt nolog}} suppress the iteration log and intermediate results.{p_end}
 {synoptline}
 
 See {help ziop_postestimation:ziop postestimation} for features available after estimation.
 
 {title:Description}
 
-{cmd:nop} estimates a three-part nested ordered probit (NOP) regression of {depvar} on three possibly different sets of covariates: {indepvars_reg} in the regime equation, {pos_indepvars()} in the outcome equation conditional on the regime s=1, and {neg_indepvars()} in the outcome equation conditional on the regime s=-1.
+{cmd:nop} estimates a three-part nested ordered probit (NOP) model of ordinal variable {depvar}, which takes on at least five values, on three sets of independent variables: {it:indepvars_reg} in the regime equation, {cmd:pos_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1, and {cmd:neg_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=-1.
 
-An ordinal dependent variable depvar is assumed to take on at least five discrete ordinal values in the NOP model, at least two --- in the ZIOP-2 model, and at least three --- in the ZIOP-3 model. A list of the covariates in the regime equation indepvarsreg may be different from the lists of the covariates in the outcome equations.
+{cmd:ziop2} estimates a two-part zero-inflated ordered probit (ZIOP-2) model of ordinal variable {depvar} on two sets of independent variables: {it:indepvars_reg} in the regime equation and {cmd:indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1.
 
-{cmd:ziop3} estimates by ML the three-part cross-nested zero-inflated OP model with
-possibly different sets of covariates in the regime and outcome equations and possibly 
-endogenous switching among three latent regimes.
+{cmd:ziop3} estimates a three-part zero-inflated ordered probit (ZIOP-3) model of ordinal variable {depvar}, which takes on at least three values, on three sets of independent variables: {it:indepvars_reg} in the regime equation, {cmd:pos_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1, and {cmd:neg_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=-1.
 
-{cmd:ziop2} command estimates by ML the two-part cross-nested zero-inflated OP model with
-possibly different sets of covariates in the regime and outcome equations and possibly 
-endogenous switching among two latent regimes.
-
-
+The actual values taken on by the dependent variable are irrelevant, except that larger values are assumed to correspond to "higher" outcomes.
 
 {title:Stored results}
 
