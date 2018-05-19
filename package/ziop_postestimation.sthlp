@@ -32,7 +32,7 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {synoptset 20 notes}{...}
 {p2coldent :Option}Description{p_end}
 {synoptline}
-{synopt :{cmd:zeros}}indicates that the probabilities of different types of zeros (the outcomes in the inflated category), conditional on different regimes, must be predicted instead of the choice probabilities{p_end}
+{synopt :{cmd:zeros}}indicates that the probabilities of different types of zeros (the outcomes in the inflated category specified in {opt infcat(choice)}), conditional on different regimes, must be predicted instead of the choice probabilities{p_end}
 {synopt :{cmd:regimes}}indicates that the probabilities of the regimes must be predicted instead of the choice probabilities; this option is ignored if the option {cmd:zeros}} is used.{p_end}
 {synopt :{opt output(string)}}specifies the different types of predictions. The possible options for {it:string} are: {it:choice} for reporting the predicted outcome (the choice with the largest predicted probability); {it:mean} for reporting the expected value of the dependent variable computed as a summation of i*Pr(y=i) across all choices i; and 
 {it:cum} for predicting the cumulative choice probabilities such as Pr(y<=0), Pr(y<=1), ... . If {it:string} is not specified, the usual choice probabilities such as Pr(y=0), Pr(y=1), ... are predicted and saved into new variables with the {varname} prefix.{p_end}
@@ -42,10 +42,51 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {title:Description for predict}
 
 {pstd}
-    {cmd:predict} creates new variables containing predictions such as the predicted probabilities of discrete choices, the predicted probabilities of the regimes or the types of zeros conditional on the regime, the expected values of the dependent variable for all sample values of the independent variables.
+    {cmd:predict} creates new variables containing predictions such as the predicted probabilities of the discrete choices, the regimes, the types of zeros conditional on the regime, the expected values of the dependent variable, the predicted choice (one with the largest predicted probability) for all sample values of the independent variables.
+
+{title:Examples}
+
+{pstd}
+Setup
+{pstd}
+    . webuse rate_change
+{pstd}
+    . ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) endo
+
+Predicted probabilities of discrete choices
+    . predict pr_choice
+
+Predicted discrete choice (one with the largest probability)
+    . predict pr_choice output(choice)
+
+Expected value of dependent variable
+    . predict pr_choice output(mean)
+
+Predicted cumulative probabilities of discrete choices
+    . predict pr_choice output(cum)
+
+Predicted probabilities of three types of zeros conditional on the regime
+    . predict pr_zero, zeros
+
+Predicted probabilities of three regimes
+    . predict pr_regime, regimes
 
 
-{marker ziopmargins}{...}
-{title:Syntax for ziopmargins}
+{marker ziopprobabilities}{...}
+{title:Syntax for ziopprobabilities}
 
-TBD
+{pstd}
+{cmd:ziopprobabilities} [, {opt at(string)}  {opt zeros} {opt regimes} ]
+
+{synoptset 20 notes}{...}
+{p2coldent :Option}Description{p_end}
+{synoptline}
+{synopt :{cmd:zeros}}indicates that the probabilities of different types of zeros (the outcomes in the inflated category specified in {opt infcat(choice)}), conditional on different regimes, must be predicted instead of the choice probabilities.{p_end}
+{synopt :{cmd:regimes}}indicates that the probabilities of the regimes must be predicted instead of the choice probabilities; this option is ignored if the option {cmd:zeros} is used.{p_end}
+{synopt :{opt at(string)}}specifies for which values of the independent variables to estimate the predictions. If at() is used ({it:string} is a list of varname=value expressions, separated by commas), the predictions are estimated for these values and displayed without saving to the dataset. If some covariate names are not specified, their median values are taken instead. If at() is not used, by default the predictions are estimated for the covariate median values.{p_end}
+{p2colreset}{...}
+
+{title:Description for ziopprobabilities}
+
+{pstd}
+    {cmd:ziopprobabilities} shows the predicted probabilities estimated for the specified values of the independent variables along with the standard errors.
