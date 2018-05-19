@@ -20,16 +20,16 @@
 %                                                                     %
 % Files included:                                                     %
 %                                                                     %
-% "/document/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex", Document, 86392, 5/18/2018, 18:49:52, ""%
+% "/document/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex", Document, 86397, 5/19/2018, 13:59:45, ""%
 % "/document/P8G7YZ0H.wmf", PastePict, 1804050, 5/9/2018, 6:42:35, "" %
-% "/document/graphics/P8G7YZ0H__1.pdf", ImportPict, 58030, 5/18/2018, 18:49:51, ""%
+% "/document/graphics/P8G7YZ0H__1.pdf", ImportPict, 58030, 5/19/2018, 13:59:43, ""%
 % "/document/P8MCBQ01.wmf", PastePict, 10766, 5/12/2018, 14:02:14, "" %
-% "/document/graphics/P8MCBQ01__2.pdf", ImportPict, 20986, 5/18/2018, 18:49:51, ""%
+% "/document/graphics/P8MCBQ01__2.pdf", ImportPict, 20986, 5/19/2018, 13:59:43, ""%
 % "/document/OP.png", ImportPict, 20146, 5/14/2018, 12:02:01, ""      %
-% "/document/graphics/OP__3.png", ImportPict, 29490, 5/18/2018, 18:49:52, ""%
+% "/document/graphics/OP__3.png", ImportPict, 29490, 5/19/2018, 13:59:44, ""%
 % "/document/NOP.png", ImportPict, 38349, 5/14/2018, 12:08:34, ""     %
 % "/document/ZIOP3command.png", ImportPict, 3074, 5/14/2018, 14:07:56, ""%
-% "/document/graphics/ZIOP3command__4.png", ImportPict, 3597, 5/18/2018, 18:49:52, ""%
+% "/document/graphics/ZIOP3command__4.png", ImportPict, 3597, 5/19/2018, 13:59:44, ""%
 % "/document/ZIOP3.png", ImportPict, 34878, 5/14/2018, 12:23:09, ""   %
 % "/document/ZIOP2.png", ImportPict, 27613, 5/14/2018, 12:33:47, ""   %
 % "/document/Vuong.png", ImportPict, 15870, 5/14/2018, 12:39:15, ""   %
@@ -37,12 +37,12 @@
 % "/document/Prob_zero_reg.png", ImportPict, 4698, 5/14/2018, 13:06:08, ""%
 % "/document/Margins.png", ImportPict, 14143, 5/14/2018, 13:09:41, "" %
 % "/document/Contrasts.png", ImportPict, 13126, 5/14/2018, 18:58:46, ""%
-% "/document/graphics/Contrasts__5.png", ImportPict, 14020, 5/18/2018, 18:49:52, ""%
+% "/document/graphics/Contrasts__5.png", ImportPict, 14020, 5/19/2018, 13:59:44, ""%
 % "/document/Classification.png", ImportPict, 13965, 5/14/2018, 14:31:21, ""%
 % "/document/P8RA9M00.wmf", PastePict, 5000, 5/15/2018, 6:05:46, ""   %
-% "/document/graphics/P8RA9M00__6.pdf", ImportPict, 11487, 5/18/2018, 18:49:52, ""%
+% "/document/graphics/P8RA9M00__6.pdf", ImportPict, 11487, 5/19/2018, 13:59:45, ""%
 % "/document/P6TXE50A.wmf", PastePict, 9036, 4/6/2018, 9:28:50, ""    %
-% "/document/graphics/P6TXE50A__7.pdf", ImportPict, 11985, 5/18/2018, 18:49:52, ""%
+% "/document/graphics/P6TXE50A__7.pdf", ImportPict, 11985, 5/19/2018, 13:59:45, ""%
 %                                                                     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -76,7 +76,7 @@
 %TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
 %TCIDATA{BibliographyScheme=Manual}
 %TCIDATA{Created=Wednesday, April 07, 2010 09:52:31}
-%TCIDATA{LastRevised=Friday, May 18, 2018 21:49:50}
+%TCIDATA{LastRevised=Saturday, May 19, 2018 16:59:40}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
 %TCIDATA{Language=American English}
@@ -1207,7 +1207,8 @@ expected value of the dependent variable computed as $\sum_{i}i\Pr (y_{t}=i)$%
 \Pr (y_{t}<=-J^{-})$, $\Pr (y_{t}<=-J^{-}+1)$, ..., $\Pr (y_{t}<=J^{+})$. If 
 \texttt{$string$ }is not specified, the usual choice probabilities $\Pr
 (y_{t}=-J^{-})$, $\Pr (y_{t}=-J^{-}+1)$, ..., $\Pr (y_{t}=J^{+})$ are
-predicted and saved into the new variables with a \texttt{$varname$} prefix.
+predicted and saved into the new variables with the \texttt{$varname$}
+prefix.
 
 \subsubsection*{The ziopprobabilities command}
 
@@ -33958,7 +33959,7 @@ jC@@|vP~
 %%%%%%%%%%%%%%% Start /document/graphics/P8G7YZ0H__1.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLuDCNrDCMyTCLk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLuDSNqXSMyPcLk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBoPU^pUFHo`uSbiVYcQgBoLU]bQW^pUFHodT[a]VYJ|rUiQF]hARLq
 PSMJ|BReevYhQGHuHSMJ|bPiQw\PUf\C}V[p}f[eyF]``cBoLt[l}f\SAWXcUFHoPTYvevXeIuQ
 BipKLUf[gQGZ`TcMx@cLJ|bQiqF]eIGH[}bQlEF]eQTYc}FYeueB~xcBsQg\eEV[J`gvmw[BXVQ
@@ -34986,9 +34987,9 @@ B]i`O~hPYnQv[bifBr@BL`|fXjABO|hpKTeG\eArKCEF]aqv[gipKPEvYeMGHq@BL`HeB~xcBey
 FYoIfZJ`g\eYfBp@BNJ@CLp@CLp@CLp@CHvTSMsTCHfAbBp@CLp@SMwXSLp@BLp@CLp@b[`h@Lp
 @CLpTsMvXSN`@CLp@CL`xFHJ@CLp@CLp@CLqDCHp@CLp@CHnAbBp@CLp@CLpDSLx@BLp@CLp@b[
 `h@Lp@CLpTsMpdsL`@CLp@CL`xFHJ@CLp@CLu\sLvDCHp@CLp@CHnAbBp@CLp@SMwPcMx@BLp@C
-Lp@b[`h@]rEVZlUf\JpCOJ|rTiiWY``cBodd[f}FHs@BL`HeBoHu[oQGHr@BL`HeBodDQ`lEOyH
-CMxPcLqXTLFYDMCesPsTDQq`sPCQTLpLcPpLtPsTcO|dcLt`CMrDcQqXdQtLTNCMSQDECNCMDQq
-@sLBAsPCMSM~teB~xcBsQWXrQG^rUfYJTsMwDCNJTRIE}dQJ@
+Lp@b[`h@]rEVZlUf\JpCOJ|rTiiWY``cBodd[f}FHs@BL`HeBoHu[oQGHr@BL`HeBodDQ`lEOqH
+SQyPDNDIcLEYcMFUdPw\CLr\SMrDdQCEcLAISLrHdO|DcLEeCQxPdLrTdMvXTQB]sMpHsMuHSPF
+MTLrDdLqHcP~teB~xcBsQWXrQG^rUfYJTsMwDCNJTRIE}dQJ@
 
 %%%%%%%%%%%%%%%% End /document/graphics/P8G7YZ0H__1.pdf %%%%%%%%%%%%%%%
 
@@ -35192,7 +35193,7 @@ tV@HLP@@D@@D@@@@\R@@@@@@@@@
 %%%%%%%%%%%%%%% Start /document/graphics/P8MCBQ01__2.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLuDCNrDCMyTSLk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLuDSNqXSMyPsLk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBopTYn]F]hECHrPCMsXcBopTYn]F]hArMp`sLJ|bQiqF]eIGH[}bQl
 EF]eQTYc}FYeueB~xcBsQg\eEV[J`gvmsu^xQUQV~SUu}v]gG]RgP^R@zNiSG^tIfP@DHtRz|hC
 PRTBoSsBfND^CZBfD\TAInLhXPE|q`bcBhnHlF]xfNJSCzJQgqqeqqA\U|uxHxJ~\dQFDYGEHw}
@@ -35335,7 +35336,7 @@ p@BL`@CHp@BMtPCHu@CLJPCMt@RMp@CHtPCM`LsLs@RMp@CHu@CL`HsMx@BL`@CHr\CN`\sMx@R
 Mp@CHu@CL`TCLp@BL`LsLshpLxdCHr\CN`TCLp@RMp@CHp@BL`TCLp@BMtPCHp@BL`@CHp@BL`@
 CHp@BLJ@CHp@BL`@CHp@BL`@CHp@BL`@CHp@BL`@CHp@BL`@cBp@BL`@CHp@BL`@CHp@BL`@CHp
 @BL`@CHp@bLu@CHp@BLJ@CHp@BL`@CHp@BL`@CHp@BL`@CHsLsL]ycOJTf[d}fXjipM`@CHoIfZ
-`pCOJ|BUyAWY`|bQoyF]DUv\cIWZpQw[ripKF}f[tyTXmUFHoHdUPMeUEmBUiuVYsyTYwIu[mEf
+`pCOJ|BUyAWY`|bQoyF]DUv\cIWZpQw[ripKF}f[tyTXmUFHoHdUP]eULmBUiuVYsyTYwIu[mEf
 [J|bQlEvYsArLrhpKF}f[tIdPoaGH[uRMv`CHmLCLw@bLp@CL`DCLp\SWJ|RSiMw\iyvYWeFYta
 FHrTCLJ|rTtUV[HArMwhpKSQWYmYEHw\cBodD]aqVZcEd[gqVY`@cBoLTXpaTYi]FZtAbMvHcBo
 `EReevYhQGHtPsMJ|RPsMVYnQGHxdSLJ|BQeMwXeyF]`tbLqXcBopTYaQVZn]FHqTCLJ|RSaawU
@@ -35346,9 +35347,9 @@ kL@QzhFU^HXg}R`N@SZdTsiJmL~dU~eFacpRI_[IDASONZImmDvudsPtoPw]yxiwOtT}Ba}fWA^
 MNQwucJ@czxRV~vls}AXRBtJRWGQAciJ~jp]VX@J{{Oznv@aspckVc@i[~oox@JopkWgIiUAAg
 PB^ANAdvjduQ[OelNB`jyoYMkaqB_HE~FpwweEyUklUhQeEy|zL{ItHkKuwJe[U~plmErYoO
 m`ekWYvsSmFamClszrYU^@\oP~aTYnQv\tIWYaufBeyFYoIfZJdCHp@r[biFH|pcBoPU^pUFHo
-Xt[nQgBoLU]bQW^pUFHoPU^pUFLJ|bPaMWYF}f[tArKBYETSYUQkPUZmUv\NUv]R}V[ayfBoTd[
+Xt[nQgBoLU]bQW^pUFHoPU^pUFLJ|bPaMWYF}f[tArKBYETWYESkPUZmUv\NUv]R}V[ayfBoTd[
 c}FYiyvY`|RRdUf[teF]yuBRJ|BQeMwXeyFYayF]F}f[tMGH[qCOoPU^pUFHoXt[nQgBoLU]bQW
-^pUFHoLTRDYt[nQGUyAWYrhpKBEv\eYt[nQGHoHdUPMeUEmBUiuVYsyTYwIu[mEf[J|bQoyF]DU
+^pUFHoLTRDYt[nQGUyAWYrhpKBEv\eYt[nQGHoHdUP]eULmBUiuVYsyTYwIu[mEf[J|bQoyF]DU
 v\cIWZpQw[rArM`@CHRipKCeDQSew\tUV[IyfYoABO|hpKRUvYiMG]reGHh@EQFauPs@SJJ|rSr
 QVYref[gABJIyFYeyF]iQW^pdbBoLU]pAG[euVYnQGHp@bO~hpKWArVJDSL`luLsLSWJLcL`lUM
 vPSWJTCMu@rVtdSN]iPWJ|BQWARLp@CLJxcO]ipKT}VUnevXoQVY``CHp@bTJxcOJTf[d}fXjiP
@@ -35510,12 +35511,12 @@ weZNjwczaUoMu{U]AjWgbEu}K^MuYjemzAUBQ}VurR}wTOoxGuFgzNTWiRWTUqkkNKmnjuEm^i
 NZrD^q[AocZA^kEJuZj]T|dUJAjGTOi^Q}abeFNMRcm[\LX}yPh|iYQsffCMOZedKqMJTEZBSB
 sBKb@EaHbRXUXSd`pnXJbibwbeHZgXyx]~jEUKVcXmZND[P|`bcIjW|PbgWTcxEiqKvD~}An^ZM
 bWQ]IjKUmPuIjVbzTTgjZijWkzvUoJurTgvSb[@VpeyFYsQg\eEV[JTf[d}fXjiPLq@BL`|fXj
-ABO|hpKTeG\eArKF}f[tQTYsMf\iAG]oIgBoXt[nQgSauVY`|bTVytTVeuJCEF[iIf\iipKFqVX
+ABO|hpKTeG\eArKF}f[tQTYsMf\iAG]oIgBoXt[nQgSauVY`|rQVYUTVEtJCEF[iIf\iipKFqVX
 gMGHsHcBoXt[nQgPB}F^`lUKu@sL`trLp\CHqHCMp@RNvPSWJ|RSiMw\iyvYWeFYtaFHrHcMJ|r
 TtUV[HABNuhpKSQWYmYEHxTcBodD]aqVZcEd[gqVY`@cBoLTXpaTYi]FZtAbMs`cBo`EReevYhQ
 GHt\CLJ|RPsMVYnQGHyTcLJ|BQeMwXeyF]`tbLvdcBopTYaQVZn]FHrHSLJ|RSaawUiQF]hARLs
 HCNJ|RPv]vUiQF]hARMrDcBoXt[nQgQiqVYr@RLp@BL`HeB~xcBeyFYoIfZJDcL`@CHoIfZ`pCO
-J|BUyAWY`|bQoyF]J|rTuIF]yAWY`|BUrUWYTeG\eipKBEv\eYt[nQGHoHeUNMeUYmrPaqVZbIW
+J|BUyAWY`|bQoyF]J|rTuIF]yAWY`|BUrUWYTeG\eipKBEv\eYt[nQGHo\dUVEeUAmrPaqVZbIW
 ZJ|bQiIw\tMDZaIGHrDSMJ|BSaMG]CaVXrAbLqTcBoTd[c}FYiyvY`|rUiyVPnMWZEyvXoQVZn]
 fBoXt[nQGQeMwXreF\t}f\`DSL`@CHRipKWeFYtav\`lEHtdCN]ycOJTf[d}fXjiPLs@BL`|fXj
 ABO|hpKTeG\eArKX}dXjUvXtipKSUgXteG\eArKF}f\mipKF}f\mQU^pUFHqhpKBIt[xArVp@BL
@@ -35562,8 +35563,8 @@ CLpDSL`@CLp@CL`xFHJ@CLp@CLp@SLq`CHp@CLp@CHnAbBp@CLp@CLwHSNp@BLp@CLp@b[`h@Lp
 `h@Lp@CLp@CNw@SL`@CLp@CL`xFHJ@CLp@CLpdCLuXCHp@CLp@CHnAbBp@CLp@SLwdsLv@BLp@C
 Lp@b[`h@Lp@CLpDCNrDCM`@CLp@CL`xFHJ@CLp@CLq`sLxXCHp@CLp@CHnAbBp@CLp@cLpDSMp@
 BLp@CLp@b[`h@Lp@CLpHCLrTCN`@CLp@CL`xFHJPg\aeF[eIgB|pcBoLUZzUFHqXcBodd[f}FHs
-@BL`HeBoHu[oQGHr@BL`HeBodDQ`lEODISNFYcQudsLBIdMr`CMBMTLyPdPA]cMvDSMyDcLsTcO
-|PdLyXdMFUSNsHdPvHCNtHtPqdCQBEtMvXSLudSLrLSM~teB~xcBsQWXrQG^rUfYJHCLuDcLJTR
+@BL`HeBoHu[oQGHr@BL`HeBodDQ`lEOAIDQyPDMDMcQsLdQtLSQEMTMDQsMFECLxHSNwXDLAUcO
+|DdPDeCQtPtLFMsPFQsLEUtPuPDMwXTLp`cLy\cQpDTM~teB~xcBsQWXrQG^rUfYJHCLuDcLJTR
 IE}dQJ@
 
 %%%%%%%%%%%%%%%% End /document/graphics/P8MCBQ01__2.pdf %%%%%%%%%%%%%%%
@@ -35935,7 +35936,7 @@ PREyDQnJDXBB
 %%%%%%%%%%%%%%%%%% Start /document/graphics/OP__3.png %%%%%%%%%%%%%%%%%
 
 IBeSGu`BZh@@@@PCIaDQRA@@BXG@@HpEHH@@@@`g^RXT@@@@I@GRYMG@@lpD@@pBSD@@ZrIF@@@
-@GPWRMUtAbW`DRDsLC_XDwC@@@\@]EaE]AUG]h}f\@djkLcD@@@@CtUDVtQTYsMf\iAG]i}f[@L
+@GPWRMUtAbWpDMlCK[Xz]`B@@@\@]EaE]AUG]h}f\@djkLcD@@@@CtUDVtQTYsMf\iAG]i}f[@L
 QBaLB@@@`BtUDVtMt[peg\i]FZtA@kOplN@@@@NPWQXQwPrUVXtev[nAB]iuVY@Ts}Od@@@@PBt
 UDVtMu[fQw]aIWY@tE\kC@@@pBtUDVtQTZsMF[aeV[eIG@wBLmOB@@@`@]EaE]WEf\nef[gA@p
 [X~a@@@@GPWQXQwToUg\cUF@u`kC@@@`@]EaE]C}V[mUf[tA`}L[yo@@@@FPWQXQGUiQG[eA@
@@ -37210,7 +37211,7 @@ GgVtogFJm@@@@g]nROjA~\bR_wQ_Qnkm|o]PhvgS~c|t[OXfG{__EuU@@@`CcS|gaziroVn}h
 %%%%%%%%%%%%% Start /document/graphics/ZIOP3command__4.png %%%%%%%%%%%%
 
 IBeSGu`BZh@@@@PCIaDQRA@@BPM@@@`KHH@@@@paYgQ|@@@@I@GRYMG@@lpD@@pBSD@@ZrIF@@@
-@GPWRMUtAbW`DRDCM]MNaTA@@@\@]EaE]AUG]h}f\@djkLcD@@@@CtUDVtQTYsMf\iAG]i}f[@L
+@GPWRMUtAbWpDMlCK[Xz]`B@@@\@]EaE]AUG]h}f\@djkLcD@@@@CtUDVtQTYsMf\iAG]i}f[@L
 QBaLB@@@`BtUDVtMt[peg\i]FZtA@kOplN@@@@NPWQXQwPrUVXtev[nAB]iuVY@Ts}Od@@@@PBt
 UDVtMu[fQw]aIWY@tE\kC@@@pBtUDVtQTZsMF[aeV[eIG@wBLmOB@@@`@]EaE]WEf\nef[gA@p
 [X~a@@@@GPWQXQwToUg\cUF@u`kC@@@`@]EaE]C}V[mUf[tA`}L[yo@@@@FPWQXQGUiQG[eA@
@@ -40064,7 +40065,7 @@ riwmDGltFE@@@@@PREyDQnJDXBB
 %%%%%%%%%%%%%% Start /document/graphics/Contrasts__5.png %%%%%%%%%%%%%%
 
 IBeSGu`BZh@@@@PCIaDQRA@@BX@@@D@CHH@@@@@LndNC@@@@I@GRYMG@@lpD@@pBSD@@ZrIF@@@
-@GPWRMUtAbW`DRDCM]MNaTA@@@\@]EaE]AUG]h}f\@djkLcD@@@@CtUDVtQTYsMf\iAG]i}f[@L
+@GPWRMUtAbWpDMlCK[Xz]`B@@@\@]EaE]AUG]h}f\@djkLcD@@@@CtUDVtQTYsMf\iAG]i}f[@L
 QBaLB@@@`BtUDVtMt[peg\i]FZtA@kOplN@@@@NPWQXQwPrUVXtev[nAB]iuVY@Ts}Od@@@@PBt
 UDVtMu[fQw]aIWY@tE\kC@@@pBtUDVtQTZsMF[aeV[eIG@wBLmOB@@@`@]EaE]WEf\nef[gA@p
 [X~a@@@@GPWQXQwToUg\cUF@u`kC@@@`@]EaE]C}V[mUf[tA`}L[yo@@@@FPWQXQGUiQG[eA@
@@ -40666,7 +40667,7 @@ A@PA@@@@AHpO@E@@@@d`@@@@@@\@@@@`ED|N@{KP@@D@@D@@@@\R@@@@@@@@@
 %%%%%%%%%%%%%%% Start /document/graphics/P8RA9M00__6.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLuDCNrDCMyTcLk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLuDSNqXSMyPCMk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBopTYn]F]hECHrPCMsXcBopTYn]F]hArMp`sLJ|bQiqF]eIGH[}bQl
 EF]eQTYc}FYeueB~xcBsQg\eEV[J`gvmsu^xQUQV~SUu}v]gG]RgP^R@zNiSG^tIfP@DHtRz|hC
 PRTBoSsBfND^CZBfD\TAInLhXPE|q`bcBhnHlF]xfNJSCzJQgqqeqqA\U|uxHxJ~\dQFDYGEHw}
@@ -40809,7 +40810,7 @@ u@CL`PCMt@rLsLcBu@CL`@CHr\CN`HsMx@RMp@CHr\CN`@CHu@CL`TCLp@RMp@CHp@rLsLCHs`S
 N`HsMx@RMp@CHph@L`@CHu@CL`PCMt@BL`@CHp@BL`@CHp@BL`@CHp@BL`@CHph@L`@CHp@BL`@
 CHp@BL`@CHp@BL`@CHp@BL`@CHp@BLJ@CHp@BL`@CHp@BL`@CHp@BL`HSMp@BL`@CHp@BL`@CHp
 h@L`@CHp@BL`@CHp@rLsLSW~xcBeyFYoIfZJ\CHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\
-t}f\J|bQoyF]NEV[eArKBYUQKYURkPUZmUv\NUv]R}V[ayfBoXD[a]v\`LcLJ|bQoyF]BIt[xAr
+t}f\J|bQoyF]NEV[eArKRYUTCYeSkPUZmUv\NUv]R}V[ayfBoXD[a]v\`LcLJ|bQoyF]BIt[xAr
 VmTcMx@RKs@sM`HCLp@CHq@CLwteBotTZsMWZn]vUiQF]hAbLu@cBoLE]euFR`\sMJ|rTtUV[VA
 rMwhpKIQWXlevXAyvYlUFHphpKCEF\HUVZgaF]`XcMrhpKXaTYi]FZtABMt\cBoDt\cUf[tABNy
 DcBoPTYsMVYnQGHmHSLvhpKLUVXdef[gARLu@cBotTXx]UZdQGZ`HCLp@cBoDd]g]UZdQGZ`PCL
@@ -40820,9 +40821,9 @@ _iQxHlTrwVBQptccVR[Ka]MyLD}Kt]WN^z}CMUoPXoyU`WcSt]}hBphNndeoM{\_@fd@mbtuQTp
 XjboJ\gEF`r~~sonkMPxL|xjuHPzf{KN`rK|zuYRZUPpId`W`S@imJY]tvSIkc@hz_~[VsZX|o
 pGRaoA|}]YQ^uJ[EZTYQNoNs^BMrzR}mRyVeOL[[a\v{SKXyzUf}|TkQX{@{ln\VewO@wKd_HU
 f[dMG]rUVXmiPYnQv[bifBy@BL`|fXjABO|hpKTeG\eArKF}f[tipKSUgXteG\eArKTeG\eAcBo
-HTXsUfQoyF]`|bPVUtRVetJTeV[eMgSe]gTouVXnipKEyvXoQVZn]FHodDYeyF]iQW^m`dBoPTY
+HTXsUfQoyF]`|bTVEuPVytJTeV[eMgSe]gTouVXnipKEyvXoQVZn]FHodDYeyF]iQW^m`dBoPTY
 sMVYnQVXnQgQoyF]sArV|psKTeG\eArKF}f[tipKSUgXteG\eArKCeDQF}f[tQU^pUfLJ|bPaMW
-YF}f[tArKBYUQKYURkPUZmUv\NUv]R}V[ayfBoXt[nQGQeMwXreF\t}f\`\CHp@bTJ|rPIQtTyM
+YF}f[tArKRYUTCYeSkPUZmUv\NUv]R}V[ayfBoXt[nQGQeMwXreF\t}f\`\CHp@bTJ|rPIQtTyM
 G]euVRnYv[`pCOJ|bTe]VZsQg\yABJPQdQXMtLpdbBo|d\dUf\iyvY``RRnQVYnQWZteGLihpKS
 UG\pqVYmUf[tABL`xcOJ|rU`leBqDCH[MsLsteBsHCH[UcMtteBuPSM`lEMydSWJteBoPtU`DCL
 p@cB~xSWJ|BUoUe[iMv[dUFHx@BL`HeB~xcBeyFYoIfZJDCL`@CHoIfZ`pCOJ|BUyAWY`|bQoyF
@@ -40867,8 +40868,8 @@ CL`xFHJ@CLp@CLp\cLy@CHp@CLp@CHnAbBp@CLp@CLwTCMy@BLp@CLp@b[`h@Lp@CLp@CNp\SL`
 @CLp@CL`xFHJ@CLp@CLp`sLuPCHp@CLp@CHnAbBp@CLp@CLxXsMy@BLp@CLp@b[`h@Lp@CLp@SN
 pLCM`@CLp@CL`xFHJ@CLp@CLpdcLydCHp@CLp@CHnAbBp@CLp@CLyTCLu@BLp@CLp@b[`h@Lp@C
 LpDCLv\SL`@CLp@CL`xFHJ@CLp@CLq@sMwdCHp@CLp@CHnAbBtIWXiqVYri@O|hpKSef^eARLuh
-pKIyfYoArL`@CHRipKR}v[tAbL`@CHRipKIQDH[qsMrHTNudcLAUsMu`cLEIdLsTsLpHDQvTsMr
-DTLp\cQuxCOwHcPyTSNrDTMwTCNrTdPrLSMs@cPDYSMwHSPq@sMFUcO]i`O~hp\tEf\tag\eYfB
+pKIyfYoArL`@CHRipKR}v[tAbL`@CHRipKIQDH[qCMpPTNxDDQFISPAMtMBasMxXSMx@SLq`sMF
+]SMtLTQuxCOt@CQy`SPDYdLAEtPwHDNw`cMu`CLqDCNwXtMuPsPEUcO]i`O~hp\tEf\tag\eYfB
 qDCLsLcBeTRQOYdB
 %%%%%%%%%%%%%%%% End /document/graphics/P8RA9M00__6.pdf %%%%%%%%%%%%%%%
 
@@ -41040,7 +41041,7 @@ KE@HCD@@A@pA@@@@VPpRA@r@A@P@@P@@@@pIA|C@@@@@@@
 %%%%%%%%%%%%%%% Start /document/graphics/P6TXE50A__7.pdf %%%%%%%%%%%%%%
 
 e@EQFuRLnPcBehpL`@CHoIfZ`pCOJ|BTr}FYuMVYrABJPQdQm`uPhEf[gUFHsxbLpxBLpTSM`pE
-JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLuDCNrDCMyTcLk@sLg@CLgdbB~xcBey
+JWef[d}v]sqUJihpKCIWYaQWZoyFQaQWY``BQzHCLq`CLuDSNqXSMyPSMk@sLg@CLgdbB~xcBey
 FYoIfZJPCHp@r[biFH|pcBoPU^pUFHoXt[nQGQeMwXreF\t}f\J|bQoyF]NEV[eArKTeV[eMgSe
 ]gTouVXnipKFqVXgMGHsHcBoXt[nQgPB}F^`lUKuXCN`trLp\CHr@CLp@RLp@sM]ipKMev\sef[
 g]UZdQGZ`HSMphpKSQWYmaDHw\cBoLE]eufU`\sMJ|RRtEF[iMVPn]F[eABLJ|rPaAGReevYhQG
@@ -41185,7 +41186,7 @@ QqO@dUoCjg{TE\klGusrpxi^oKU}^tsily~nGMQekz{|LewR}|fwPiC^|iz}fx}gb{fDax{Bqk^
 nrb`ckFGrcAoNTLNVcem_|Lw[j|PX]ypFH^vKVO{rpxUu}i`D{apvIh|L|{DYsCLk^xgjL_~_[
 vtflwj`{KpboixOW[`{CLBZo}}fbfBwf@x{jUIpc@bxgkX@lAcE@aOcVGH@tMt~znHWf[dMG
 ]rUVXmiPYnQv[bifBw@BL`|fXjABO|hpKTeG\eArKF}f[tQTYsMf\iAG]oIgBoXt[nQgSauVY`|
-rQVmTUV]uJTeV[eMgSe]gTouVXnqRRtEF[iMfBoXD[a]v\`LcLJ|bQoyF]BIt[xArVmPSNx@RKs
+bPVUUPVIuJTeV[eMgSe]gTouVXnqRRtEF[iMfBoXD[a]v\`LcLJ|bQoyF]BIt[xArVmPSNx@RKs
 @sM`DsLsLCHq@cLsteBotTZsMWZn]vUiQF]hAbLu@cBoLE]euFR`\sMJ|rTtUV[VArMwhpKIQWX
 levXAyvYlUFHmDcMnLSNyhpKCEF\HUVZgaF]`XcMrhpKXaTYi]FZtABMuPcBoDt\cUf[tABNyDc
 BoPTYsMVYnQGHmHSLvhpKLUVXdef[gARLu@cBotTXx]UZdQGZ`DcLw`cBoDd]g]UZdQGZ`PCLrh
@@ -41196,9 +41197,9 @@ h|mXb[QdXqwV|AXjSOXPMMHruxc~`[Ao{rqS_\hnZOb|nSBNe^DokSKA]PEVRx[sV{CXJBpUhvV
 dDFb]|Mn}L_Bpd_~z{{jIp_F~|jYbk_jKp_hDxmtnoXALKGSK_MaQB^KW@Nn^DPMUQkEw\JZmHP
 Kw{OWjj_XM]JCbiozj{imQHc~RJbQ_m@YEhl@eEhHCYtLlxjEt|PW[_Z~ievfBEsNWT|yM[VPI
 ihtpvrwZlijrg_q~oWhweyFYsQg\eEV[JTf[d}fXjiPN`@CHoIfZ`pCOJ|BUyAWY`|bQoyF]J|r
-TuIF]yAWY`|BUyAWYphpKBEv\eYt[nQGHo\dUKUeUWmBUiuVYsyTYwIu[mEf[ldD]aqVZcipKEy
+TuIF]yAWY`|BUyAWYphpKBEv\eYt[nQGHoHdUUEdURmBUiuVYsyTYwIu[mEf[ldD]aqVZcipKEy
 vXoQVZn]FHodDYeyF]iQW^m`dBoPTYsMVYnQVXnQgQoyF]sArV|psKTeG\eArKF}f[tipKSUgXt
-eG\eArKCeDQF}f[tQU^pUfLJ|bPaMWYF}f[tArKGYuRUYuUkPUZmUv\NUv]R}V[ayFKIQWXlevX
+eG\eArKCeDQF}f[tQU^pUfLJ|bPaMWYF}f[tArKBYUUAYeTkPUZmUv\NUv]R}V[ayFKIQWXlevX
 J|bQoyF]DUv\cIWZpQw[rArM`@CHRipKCeDQSew\tUV[IyfYoABO|hpKRUvYiMG]reGHh@EQFau
 Ps@SJJ|rSrQVYref[gABJIyFYeyF]iQW^pdbBoLU]pAG[euVYnQGHp@bO~hpKWArVJLCLr@rVuH
 SM]iPMsLCH[QSNx@rLyPSWJTCMq@rVu@cL]iPMtTCH[QCNpteB]ipKD]EHq@CLph`O~teBoPu[U
@@ -41250,7 +41251,7 @@ CMxHCHp@CLp@CHnAbBp@CLp@CLp@SLq@BLp@CLp@b[`h@Lp@CLp@CLqDCN`@CLp@CL`xFHJ@CLp
 J@CLp@CLp`CMvTCHp@CLp@CHnAbBp@CLp@CLx`CLw@BLp@CLp@b[`h@Lp@CLp@SNqdcL`@CLp@C
 L`xFHJ@CLp@CLpdCMvTCHp@CLp@CHnAbBp@CLp@CLydCLt@BLp@CLp@b[`h@Lp@CLpDSLqXSN`@
 CLp@CL`xFHJ@CLp@CLqDcLw\CHp@CLp@CHnAbBtIWXiqVYri@O|hpKSef^eARLuhpKIyfYoArL`
-@CHRipKR}v[tAbL`@CHRipKIQDH[qcLCQTLrPSPDesLyLTNAQsPyHTPEQDQy@cPwHsMu@CQDyCO
-rLDQqHCMAQTNsdsPyDDMCecPAUDQDeCLB]cLwTCLDQdO]i`O~hp\tEf\tag\eYfBqDSMsDcBeTR
+@CHRipKR}v[tAbL`@CHRipKIQDH[qcQxTCQp\CQwHDQtDSLAasLFITNpHDMAECLvHSLDIdPvxCO
+FaSMDAsMD]cPDQSLqDDNsXdPy@cPtDTLpXcLqPdPBYcO]i`O~hp\tEf\tag\eYfBqDSMsDcBeTR
 QOYdB
 %%%%%%%%%%%%%%%% End /document/graphics/P6TXE50A__7.pdf %%%%%%%%%%%%%%%

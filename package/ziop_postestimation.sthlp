@@ -2,6 +2,7 @@
 {* *! version 0.0.1  08may2018}{...}
 {title:Title}
 
+{pstd}
 {helpb ziop postestimation} -- Postestimation tools fo {cmd:nop}, {cmd:ziop2} and {cmd:ziop3}
 
 {title:Postestimation commands}
@@ -12,7 +13,7 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {synoptset 20 notes}{...}
 {p2coldent :Command}Description{p_end}
 {synoptline}
-{synopt :{helpb ziop postestimation##predict:predict}}predicted probabilities and other probabilistic predictions for all values of independent variables{p_end}
+{synopt :{helpb ziop postestimation##predict:predict}}predicted probabilities and other predictions for all values of independent variables{p_end}
 {synopt :{helpb ziop postestimation##ziopprobabilities:ziopprobabilities}}predicted probabilities for specified values of independent variables{p_end}
 {synopt :{helpb ziop postestimation##ziopcontrasts:ziopcontrasts}}differences in predicted probabilities for specified values of independent variables{p_end}
 {synopt :{helpb ziop postestimation##ziopmargins:ziopmargins}}marginal effects on probabilities for specified values of independent variables{p_end}
@@ -25,27 +26,18 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {marker predict}{...}
 {title:Syntax for predict}
 
-The predict command after the {cmd:nop}, {cmd:ziop2} and {cmd:ziop3} estimation commands produces either
-predicted probabilities or "central" values of the responses.
+{pstd}
+{cmd:predict} {varname} {ifin} [, {opt zeros} {opt regimes} {opt output(string)} ]
 
-{cmd:predict} {opth name(varname)} {ifin} [, {opt zeros} {opt regime} {opt output(string)} {opt at(string)}]
-
-{opt name} is the name of predicted variable, if it is single, 
-or prefix for names, if there are several predicted variables
-
-{opt zeros} indicates that different types of zeros (i.e. "intrinsic zeros", or "positive zeros", or
-"negative zeros") must be predicted instead of different response values.
-
-{opt regime} indicates that different groups of response (negative, positive or zero) must be
-predicted instead of different response values. This option is ignored if {opt zeros} option is on.
-
-{opt output} specifies type of aggregating predicted probabilities of different response. 
-Possible values are: 
-    {opt mode} for reporting the outcome with the highest predicted probability, 
-    {opt mean} for predicting the expected outcome, 
-    {opt cum}  for predicting cumulative response probabilities. 
-If not specified, raw response probabilities are predicted and placed into multiple variables with prefix {opt name}.
-
+{synoptset 20 notes}{...}
+{p2coldent :Option}Description{p_end}
+{synoptline}
+{synopt :{cmd:zeros}}indicates that the probabilities of different types of zeros (the outcomes in the inflated category), conditional on different regimes, must be predicted instead of the choice probabilities{p_end}
+{synopt :{cmd:regimes}}indicates that the probabilities of the regimes must be predicted instead of the choice probabilities; this option is ignored if the option {cmd:zeros}} is used.{p_end}
+{synopt :{opt output(string)}}specifies the different types of predictions. The possible options for {it:string} are: {it:choice} for reporting the predicted outcome (the choice with the largest predicted probability); {it:mean} for reporting the expected value of the dependent variable computed as a summation of i*Pr(y=i) across all choices i; and 
+{it:cum} for predicting the cumulative choice probabilities such as Pr(y<=0), Pr(y<=1), ... . If {it:string} is not specified, the usual choice probabilities such as Pr(y=0), Pr(y=1), ... are predicted and saved into new variables with the {varname} prefix.{p_end}
+{synoptline}
+{p2colreset}{...}
 
 {marker ziopmargins}{...}
 {title:Syntax for ziopmargins}
