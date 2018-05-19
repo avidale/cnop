@@ -39,6 +39,12 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {synoptline}
 {p2colreset}{...}
 
+{title:Description for predict}
+
+{pstd}
+    {cmd:predict} creates new variables containing predictions such as the predicted probabilities of discrete choices, the predicted probabilities of the regimes or the types of zeros conditional on the regime, the expected values of the dependent variable for all sample values of the independent variables.
+
+
 {marker ziopmargins}{...}
 {title:Syntax for ziopmargins}
 
