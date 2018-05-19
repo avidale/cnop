@@ -46,30 +46,28 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 
 {title:Examples}
 
-{pstd}
-Setup
-{pstd}
-    . webuse rate_change
-{pstd}
-    . ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) endo
+{pstd}Setup{p_end}
+        . webuse rate_change
+        . ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) endo
 
-Predicted probabilities of discrete choices
-    . predict pr_choice
+{pstd}Predicted probabilities of discrete choices{p_end}
+        . predict pr_choice
 
-Predicted discrete choice (one with the largest probability)
-    . predict pr_choice output(choice)
+{pstd}Predicted discrete choice (one with the largest probability){p_end}
+        . predict pr_choice output(choice)
 
-Expected value of dependent variable
-    . predict pr_choice output(mean)
+{pstd}Expected value of dependent variable{p_end}
+        . predict pr_choice output(mean)
 
-Predicted cumulative probabilities of discrete choices
-    . predict pr_choice output(cum)
+{pstd}Predicted cumulative probabilities of discrete choices{p_end}
+        . predict pr_choice output(cum)
 
-Predicted probabilities of three types of zeros conditional on the regime
-    . predict pr_zero, zeros
+{pstd}Predicted probabilities of three types of zeros conditional on the regime{p_end}
+        . predict pr_zero, zeros
 
-Predicted probabilities of three regimes
-    . predict pr_regime, regimes
+{pstd}Predicted probabilities of three regimes{p_end}
+        . predict pr_regime, regimes
+
 
 
 {marker ziopprobabilities}{...}
@@ -83,10 +81,29 @@ Predicted probabilities of three regimes
 {synoptline}
 {synopt :{cmd:zeros}}indicates that the probabilities of different types of zeros (the outcomes in the inflated category specified in {opt infcat(choice)}), conditional on different regimes, must be predicted instead of the choice probabilities.{p_end}
 {synopt :{cmd:regimes}}indicates that the probabilities of the regimes must be predicted instead of the choice probabilities; this option is ignored if the option {cmd:zeros} is used.{p_end}
-{synopt :{opt at(string)}}specifies for which values of the independent variables to estimate the predictions. If at() is used ({it:string} is a list of varname=value expressions, separated by commas), the predictions are estimated for these values and displayed without saving to the dataset. If some covariate names are not specified, their median values are taken instead. If at() is not used, by default the predictions are estimated for the covariate median values.{p_end}
+{synopt :{opt at(string)}}specifies for which values of the independent variables to estimate the predictions. If at() is used ({it:string} is a list of varname=value expressions, separated by commas), the predictions are estimated for these values and displayed without saving to the dataset. If some independent variable names are not specified, their median values are taken instead. If at() is not used, by default the predictions are estimated for the median values of the independent variables.{p_end}
 {p2colreset}{...}
 
 {title:Description for ziopprobabilities}
 
 {pstd}
-    {cmd:ziopprobabilities} shows the predicted probabilities estimated for the specified values of the independent variables along with the standard errors.
+    {cmd:ziopprobabilities} shows the predicted probabilities estimated for the specified values of independent variables along with the standard errors.{p_end}
+
+{title:Examples}
+
+{pstd}Setup{p_end}
+        . webuse rate_change
+        . ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) endo
+
+{pstd}Predicted probabilities of discrete choices for the median values of independent variables{p_end}
+        . ziopprobabilities pr_choice
+
+{pstd}Predicted probabilities of discrete choices for the specified values of independent variables{p_end}
+        . ziopprobabilities, at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
+
+{pstd}Predicted probabilities of three types of zeros conditional on the regime for the median values of independent variables{p_end}
+        . ziopprobabilities pr_zero, zeros
+
+{pstd}Predicted probabilities of three regimes for the median values of independent variables{p_end}
+        . ziopprobabilities pr_regime, regimes
+
