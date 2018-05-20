@@ -67,7 +67,7 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {pstd}Predicted probabilities of three regimes{p_end}
        . predict pr_regime, regimes
 
-
+{synoptline}
 
 {marker ziopprobabilities}{...}
 {title:Syntax for ziopprobabilities}
@@ -81,6 +81,7 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {synopt :{opt at(string)}}specifies for which values of the independent variables to estimate the predicted probabilities. If at() is used ({it:string} is a list of varname=value expressions, separated by commas), the predicted probabilities are estimated at these values and displayed without saving to the dataset. If some independent variable names are not specified, their median values are taken instead. If at() is not used, by default the predicted probabilities are estimated at the median values of the independent variables.{p_end}
 {synopt :{cmd:zeros}}indicates that the probabilities of different types of zeros (the outcomes in the inflated category specified in {opt infcat(choice)}), conditional on different regimes, must be predicted instead of the choice probabilities.{p_end}
 {synopt :{cmd:regimes}}indicates that the probabilities of the regimes must be predicted instead of the choice probabilities; this option is ignored if the option {cmd:zeros} is used.{p_end}
+{synoptline}
 {p2colreset}{...}
 
 {title:Description for ziopprobabilities}
@@ -105,7 +106,7 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {pstd}Predicted probabilities of three regimes at the median values of independent variables{p_end}
        . ziopprobabilities pr_regime, regimes
 
-
+{synoptline}
 
 {marker ziopcontrasts}{...}
 {title:Syntax for ziopcontrasts}
@@ -120,6 +121,7 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {synopt :{opt to(string)}}specifies the second value of the independent variables to estimate the difference in the predicted probabilities;({it:string} is a list of varname=value expressions, separated by commas). If some independent variable names are not specified, their median values are taken instead. If to() is not used, by default the predicted probabilities are estimated for the median values of the independent variables.{p_end}
 {synopt :{cmd:zeros}}indicates that the probabilities of different types of zeros (the outcomes in the inflated category specified in {opt infcat(choice)}), conditional on different regimes, must be predicted instead of the choice probabilities.{p_end}
 {synopt :{cmd:regimes}}indicates that the probabilities of the regimes must be predicted instead of the choice probabilities; this option is ignored if the option {cmd:zeros} is used.{p_end}
+{synoptline}
 {p2colreset}{...}
 
 {title:Description for ziopcontrasts}
@@ -138,11 +140,10 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {pstd}Difference in predicted probabilities of three types of zeros at two specified values of independent variables{p_end}
        . ziopcontrasts, at(pb=1, spread=0.426, houst=1.6, gdp=6.8) to(pb=0, spread=0.426, houst=1.6, gdp=6.8) zeros
 
-
 {pstd}Difference in predicted probabilities of three regimes at two specified values of independent variables{p_end}
        . ziopcontrasts, at(pb=1, spread=0.426, houst=1.6, gdp=6.8) to(pb=0, spread=0.426, houst=1.6, gdp=6.8) regimes
 
-
+{synoptline}
 
 {marker ziopmargins}{...}
 {title:Syntax for ziopmargins}
@@ -156,6 +157,7 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {synopt :{opt at(string)}}specifies for which values of the independent variables to estimate the marginal effects on the predicted probabilities. If at() is used ({it:string} is a list of varname=value expressions, separated by commas), the marginal effects are estimated for these values and displayed without saving to the dataset. If some independent variable names are not specified, their median values are taken instead. If at() is not used, by default the marginal effects are estimated for the median values of the independent variables.{p_end}
 {synopt :{cmd:zeros}}indicates that the marginal effects on the probabilities of different types of zeros (the outcomes in the inflated category specified in {opt infcat(choice)}), conditional on different regimes, must be predicted instead of the effects on the choice probabilities.{p_end}
 {synopt :{cmd:regimes}}indicates that the marginal effects on the probabilities of the regimes must be predicted instead of the effects on the choice probabilities; this option is ignored if the option {cmd:zeros} is used.{p_end}
+{synoptline}
 {p2colreset}{...}
 
 {title:Description for ziopmargins}
@@ -180,7 +182,7 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {pstd}Marginal effects on probabilities of three regimes at the median values of independent variables{p_end}
        . ziopmargins pr_regime, regimes
 
-
+{synoptline}
 
 {marker ziopclassification}{...}
 {title:Syntax for ziopclassification}
@@ -193,7 +195,7 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 
 {p 4 7}{cmd:ziopclassification} shows: the classification table (or confusion matrix); the percentage of correct predictions; the two strictly proper scores {c -} the probability, or Brier, score (Brier 1950) and the ranked probability score (Epstein 1969); the precisions, the hit rates (or recalls) and the adjusted noise-to-signal ratios (Kaminsky and Reinhart 1999).{p_end}
 {p 10 7}The classification table reports the predicted choices (ones with the highest predicted probability) in columns, the actual choices in rows, and the number of (mis)classifications in each cell.{p_end}
-{p 10 7}The Brier probability score is computed as (1/T)SUMtSUMj[Pr(y=j)-I(jt)]^2, where indicator I(jt)=1 if y(t)=j and I(jt)=0 otherwise. The ranked probability score is computed as (1/T)SUMtSUMj[Q(jt)-D(jt)]^2, where Q(jt)=SUMi[Pr(y=i)] and D(jt)=SUMi[I(it)]. The better the prediction, the smaller both score values. Both scores have a minimum value of zero when all the actual outcomes are predicted with a unit probability.{p_end}
+{p 10 7}The Brier probability score is computed as a summation of (1/T)[Pr(y=j)-I(j,t)]^2 over all t from 1 to T and all j, where indicator I(j,t)=1 if y(t)=j and I(j,t)=0 otherwise. The ranked probability score is computed as a summation of (1/T)[Q(j,t)-D(j,t)]^2 over all t and j, where Q(j,t) is a summation of Pr(y=i) over all i less or equal to j, and D(j,t) is a summation of I(i,t) over all i less or equal to j. The better the prediction, the smaller both score values. Both scores have a minimum value of zero when all the actual outcomes are predicted with a unit probability.{p_end}
 {p 10 7}The precision, the hit rate (or recall) and the adjusted noise-to-signal ratios are defined as follows. Let TP denote the true positive event that the outcome was predicted and occurred; let FP denote the false positive event that the outcome was predicted but did not occur; let FN denote the false positive event that the outcome was not predicted but occurred; and let TN denote the true negative event that the outcome was not predicted and did not occur. The desirable outcomes fall into categories TP and TN, while the noisy ones fall into categories FP and FN. A perfect prediction has no entries in FP and FN, while a noisy prediction has many entries in FP and FN, but few in TP and TN. The precision is defined for each choice as TP/(TP+FP), the recall {c -} as TP/(TP+FN), and the adjusted noise-to-signal ratio {c -} as [FP/(FP+TN)]/[TP/(TP+FN)].{p_end}
 
 {title:Examples for ziopclassification}
@@ -211,7 +213,7 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {p 4 7}Epstein, E. S. 1969. A scoring system for probability forecasts of ranked categories. {it:Journal of Applied Meteorology} 8: 985-987.{p_end}
 {p 4 7}Kaminsky, G. L., and C. M. Reinhart. 1999. The twin crises: the causes of banking and balance-of-payments problems. {it:American Economic Review} 89 (3): 473-500.{p_end}
 
-
+{synoptline}
 
 {marker ziopvuong}{...}
 {title:Syntax for ziopvuong}
@@ -238,7 +240,8 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 
 {title:Reference for ziopvuong}
 
-{p 4 7}Vuong, Q. 1989. Likelihood ratio tests for model selection and non-nested hypotheses. Econometrica 57 (2): 307-333.{p_end}
+{p 4 7}Vuong, Q. 1989. Likelihood ratio tests for model selection and non-nested hypotheses. {it:Econometrica} 57 (2): 307-333.{p_end}
 
+{synoptline}
 
 
