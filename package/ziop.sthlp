@@ -2,9 +2,9 @@
 {* *! version 0.0.1  08may2018}{...}
 {title:Title}
 
-{pstd}{helpb nop}   -- Three-part nested ordered probit regression{p_end}
-{pstd}{helpb ziop2} -- Two-part zero-inflated ordered probit regression{p_end}
-{pstd}{helpb ziop3} -- Three-part zero-inflated ordered probit regression{p_end}
+{pstd}{helpb nop} {space 2}{c -} Three-part nested ordered probit regression{p_end}
+{pstd}{helpb ziop2} {c -} Two-part zero-inflated ordered probit regression{p_end}
+{pstd}{helpb ziop3} {c -} Three-part zero-inflated ordered probit regression{p_end}
 
 
 {title:Syntax}
@@ -13,7 +13,7 @@
 
 {pstd}{cmd:ziop2} {depvar} {it:indepvars_reg} {ifin} {bind:[{cmd:,} {it:options}]}{p_end}
 
-{pstd}{cmd:nop}   {depvar} {it:indepvars_reg} {ifin} {bind:[{cmd:,} {it:options}]}{p_end}
+{pstd}{cmd:nop} {space 2}{depvar} {it:indepvars_reg} {ifin} {bind:[{cmd:,} {it:options}]}{p_end}
 
 
 {synoptset 28 tabbed}{...}
@@ -43,33 +43,33 @@
 
 {title:Description}
 
-{pstd}{cmd:nop} estimates a three-part nested ordered probit (NOP) model of an ordinal variable {depvar}, which takes on at least five values, on three sets of independent variables: {it:indepvars_reg} in the regime equation, {cmd:pos_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1, and {cmd:neg_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=-1 (Sirchenko 2013).{p_end}
+{p 4 7}{cmd:nop} estimates a three-part nested ordered probit (NOP) model of an ordinal variable {depvar}, which takes on at least five values, on three sets of independent variables: {it:indepvars_reg} in the regime equation, {cmd:pos_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1, and {cmd:neg_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=-1 (Sirchenko 2013).{p_end}
 
-{pstd}{cmd:ziop2} estimates a two-part zero-inflated ordered probit (ZIOP-2) model of an ordinal variable {depvar} on two sets of independent variables: {it:indepvars_reg} in the regime equation and {cmd:indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1 (Harris and Zhao 2007; Brooks, Harris and Spencer 2012; Bagozzi and Mukherjee 2012).{p_end}
+{p 4 7}{cmd:ziop2} estimates a two-part zero-inflated ordered probit (ZIOP-2) model of an ordinal variable {depvar} on two sets of independent variables: {it:indepvars_reg} in the regime equation and {cmd:indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1 (Harris and Zhao 2007; Brooks, Harris and Spencer 2012; Bagozzi and Mukherjee 2012).{p_end}
 
-{pstd}{cmd:ziop3} estimates a three-part zero-inflated ordered probit (ZIOP-3) model of an ordinal variable {depvar}, which takes on at least three values, on three sets of independent variables: {it:indepvars_reg} in the regime equation, {cmd:pos_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1, and {cmd:neg_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=-1 (Sirchenko 2013).{p_end}
+{p 4 7}{cmd:ziop3} estimates a three-part zero-inflated ordered probit (ZIOP-3) model of an ordinal variable {depvar}, which takes on at least three values, on three sets of independent variables: {it:indepvars_reg} in the regime equation, {cmd:pos_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1, and {cmd:neg_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=-1 (Sirchenko 2013).{p_end}
 
-{pstd}The actual values taken on by the dependent variable are irrelevant, except that larger values are assumed to correspond to "higher" outcomes.{p_end}
+{p 4 7}The actual values taken on by the dependent variable are irrelevant, except that larger values are assumed to correspond to "higher" outcomes.{p_end}
 
 {title:Examples}
 
-{pstd}Setup
-        . webuse rate_change
+{pstd}Setup{p_end}
+       . webuse rate_change
 
 {pstd}Fit three-part nested ordered probit model with exogenous switching{p_end}
-        . nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0)
+       . nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0)
 
 {pstd}Fit three-part nested ordered probit model with endogenous switching and report Vuong test of NOP versus OP{p_end}
-        . nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) endo vuong
+       . nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) endo vuong
 
 {pstd}Fit two-part zero-inflated ordered probit model with exogenous switching{p_end}
-        . ziop2 rate_change spread pb houst gdp, ind(spread pb houst gdp) inf(0)
+       . ziop2 rate_change spread pb houst gdp, ind(spread pb houst gdp) inf(0)
 
 {pstd}Fit three-part zero-inflated ordered probit model with exogenous switching{p_end}
-        . ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0)
+       . ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0)
 
 {pstd}Fit three-part zero-inflated ordered probit model with endogenous switching and report Vuong test of ZIOP-3 versus OP{p_end}
-        . ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) endo vuong
+       . ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) endo vuong
 
 {title:Stored results}
 
@@ -105,12 +105,8 @@
 
 {title:References}
 
-{pstd}Bagozzi, B. E., and B. Mukherjee. 2012. A mixture model for middle category inflation in ordered survey responses. {it:Political Analysis} 20: 369--386.{p_end}
-
-{pstd}Brooks, R., M. N. Harris, and C. Spencer. 2012. Inflated ordered outcomes. {it:Economics Letters} 117: 683--686.{p_end}
-
-{pstd}Harris, M. N., and X. Zhao. 2007. A zero-inflated ordered probit model, with an application to modelling tobacco consumption. {it:Journal of Econometrics} 141: 1073--1099.{p_end}
-
-{pstd}Sirchenko, A. 2013. A model for ordinal responses with an application to policy interest rate. National Bank of Poland Working Paper No. 148.{p_end}
-
-{pstd}Vuong, Q. H. 1989. Likelihood ratio tests for model selection and non-nested hypotheses. {it:Econometrica} 57: 307-333.{p_end}
+{p 4 7}Bagozzi, B. E., and B. Mukherjee. 2012. A mixture model for middle category inflation in ordered survey responses. {it:Political Analysis} 20: 369-386.{p_end}
+{p 4 7}Brooks, R., M. N. Harris, and C. Spencer. 2012. Inflated ordered outcomes. {it:Economics Letters} 117: 683-686.{p_end}
+{p 4 7}Harris, M. N., and X. Zhao. 2007. A zero-inflated ordered probit model, with an application to modelling tobacco consumption. {it:Journal of Econometrics} 141: 1073-1099.{p_end}
+{p 4 7}Sirchenko, A. 2013. A model for ordinal responses with an application to policy interest rate. National Bank of Poland Working Paper No. 148.{p_end}
+{p 4 7}Vuong, Q. H. 1989. Likelihood ratio tests for model selection and non-nested hypotheses. {it:Econometrica} 57: 307-333.{p_end}
