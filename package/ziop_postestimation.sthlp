@@ -232,7 +232,7 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
        . webuse rate_change
        . quietly ziop3 rate_change pb spread houst gdp, neg(spread gdp ) pos(pb spread) inf(0)
        . est store ziop3_model
-       . quietly ziop2 rate_change spread pb houst gdp, indepvars(spread pb houst gdp) inf(0)
+       . quietly ziop2 rate_change spread pb houst gdp, out(spread pb houst gdp) inf(0)
        . est store ziop2_model
 
 {pstd}Vuong test of ZIOP-3 model versus ZIOP-2 model{p_end}

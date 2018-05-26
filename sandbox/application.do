@@ -37,7 +37,7 @@ ziopcontrasts, at(pb=1, spread=0.426, houst=1.6, gdp=6.8) ///
 // vuong example ZIOP-3 vs ZIOP-2
 quietly ziop3 rate_change pb spread houst gdp, neg(spread gdp ) pos(pb spread) inf(0)
 est store ziop3_model
-quietly ziop2 rate_change spread pb houst gdp, indepvars(spread pb houst gdp) inf(0)
+quietly ziop2 rate_change spread pb houst gdp, out(spread pb houst gdp) inf(0)
 est store ziop2_model
 ziopvuong ziop3_model ziop2_model
 
@@ -49,11 +49,11 @@ quietly ziop3 rate_change pb spread houst gdp, neg(spread gdp ) pos(pb spread) i
 ziopclassification
 
 set more off
-quietly ziop2 rate_change spread pb houst gdp, indepvars(spread pb houst gdp ) infcat(0) nolog
+quietly ziop2 rate_change spread pb houst gdp, out(spread pb houst gdp ) infcat(0) nolog
 ziopclassification
 
 set more off
-quietly nop rate_change spread pb houst gdp, neg_indepvars(spread gdp) pos_indepvars(spread pb) infcat(0)
+quietly nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) infcat(0)
 ziopclassification
 
 

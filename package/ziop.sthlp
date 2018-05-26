@@ -45,7 +45,7 @@
 
 {p 4 7}{cmd:nop} estimates a three-part nested ordered probit (NOP) model of an ordinal variable {depvar}, which takes on at least five values, on three sets of independent variables: {it:indepvars} in the regime equation, {cmd:posindepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1, and {cmd:negindepvars}{it:(varlist)} in the outcome equation conditional on the regime s=-1 (Sirchenko 2013).{p_end}
 
-{p 4 7}{cmd:ziop2} estimates a two-part zero-inflated ordered probit (ZIOP-2) model of an ordinal variable {depvar} on two sets of independent variables: {it:indepvars} in the regime equation and {cmd:indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1 (Harris and Zhao 2007; Brooks, Harris and Spencer 2012; Bagozzi and Mukherjee 2012).{p_end}
+{p 4 7}{cmd:ziop2} estimates a two-part zero-inflated ordered probit (ZIOP-2) model of an ordinal variable {depvar} on two sets of independent variables: {it:indepvars} in the regime equation and {cmd:outindepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1 (Harris and Zhao 2007; Brooks, Harris and Spencer 2012; Bagozzi and Mukherjee 2012).{p_end}
 
 {p 4 7}{cmd:ziop3} estimates a three-part zero-inflated ordered probit (ZIOP-3) model of an ordinal variable {depvar}, which takes on at least three values, on three sets of independent variables: {it:indepvars} in the regime equation, {cmd:posindepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1, and {cmd:negindepvars}{it:(varlist)} in the outcome equation conditional on the regime s=-1 (Sirchenko 2013).{p_end}
 
@@ -59,16 +59,16 @@
 {pstd}Fit three-part nested ordered probit model with exogenous switching{p_end}
        . nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0)
 
-{pstd}Fit three-part nested ordered probit model with endogenous switching and report Vuong test of NOP versus OP{p_end}
+{pstd}Fit three-part nested ordered probit model with endogenous switching and report Vuong test of NOP versus ordered probit{p_end}
        . nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) endo vuong
 
 {pstd}Fit two-part zero-inflated ordered probit model with exogenous switching{p_end}
-       . ziop2 rate_change spread pb houst gdp, ind(spread pb houst gdp) inf(0)
+       . ziop2 rate_change spread pb houst gdp, out(spread pb houst gdp) inf(0)
 
 {pstd}Fit three-part zero-inflated ordered probit model with exogenous switching{p_end}
        . ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0)
 
-{pstd}Fit three-part zero-inflated ordered probit model with endogenous switching and report Vuong test of ZIOP-3 versus OP{p_end}
+{pstd}Fit three-part zero-inflated ordered probit model with endogenous switching and report Vuong test of ZIOP-3 versus ordered probit{p_end}
        . ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) endo vuong
 
 {title:Stored results}
@@ -82,9 +82,12 @@
 {synopt:{cmd:e(k_cat)}}number of categories{p_end}
 {synopt:{cmd:e(k)}}number of parameters{p_end}
 {synopt:{cmd:e(df_m)}}model degrees of freedom{p_end}
-{synopt:{cmd:e(r2_p)}}pseudo-R-squared{p_end}
+{synopt:{cmd:e(r2_p)}}McFadden pseudo-R-squared{p_end}
 {synopt:{cmd:e(ll)}}log likelihood{p_end}
 {synopt:{cmd:e(ll_0)}}log likelihood, constant-only model{p_end}
+{synopt:{cmd:e(vuong)}}Vuong test statistic{p_end}
+{synopt:{cmd:e(vuong_aic)}}Vuong test statistic with AIC correction{p_end}
+{synopt:{cmd:e(vuong_bic)}}Vuong test statistic with BIC correction{p_end}
 
 {synoptset 20 tabbed}{...}
 {p2col 5 20 24 2: Macros}{p_end}
