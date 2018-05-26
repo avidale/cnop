@@ -1618,8 +1618,9 @@ function MLnop(params, x, zp, zn, q, ncat, infcat, | loop){
 	if (loop == 1) {
 		return(prob)
 	} else if (loop == 2) {
+		errprintf("Option 'zeros' is not available for the nop command: there is only single type of zeros.\n")
+		exit(3498)
 		// decomposition of zeros --- irrelevant
-		//return((p10, p2n[,infcat] :* p1n, p2p[,1] :* p1p))
 	} else if (loop == 3) {
 		return ((p1n, p10, p1p))
 	} else {

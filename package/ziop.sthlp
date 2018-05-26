@@ -9,11 +9,11 @@
 
 {title:Syntax}
 
-{pstd}{cmd:ziop3} {depvar} {it:indepvars_reg} {ifin} {bind:[{cmd:,} {it:options}]}{p_end}
+{pstd}{cmd:ziop3} {depvar} {it:indepvars} {ifin} {bind:[{cmd:,} {it:options}]}{p_end}
 
-{pstd}{cmd:ziop2} {depvar} {it:indepvars_reg} {ifin} {bind:[{cmd:,} {it:options}]}{p_end}
+{pstd}{cmd:ziop2} {depvar} {it:indepvars} {ifin} {bind:[{cmd:,} {it:options}]}{p_end}
 
-{pstd}{cmd:nop} {space 2}{depvar} {it:indepvars_reg} {ifin} {bind:[{cmd:,} {it:options}]}{p_end}
+{pstd}{cmd:nop} {space 2}{depvar} {it:indepvars} {ifin} {bind:[{cmd:,} {it:options}]}{p_end}
 
 
 {synoptset 28 tabbed}{...}
@@ -21,9 +21,9 @@
 {synoptline}
 
 {syntab :Model}
-{synopt :{opth pos:_indepvars(varlist)}} independent variables in the outcome equation conditional on the regime s=1 for nonnegative outcomes in the {cmd:nop} and {cmd:ziop3} regressions; by default, it is identical to {it:indepvars_reg}, a list of the independent variables in the regime equation.{p_end}
-{synopt :{opth neg:_indepvars(varlist)}} independent variables in the outcome equation conditional on the regime s=-1 for nonpositive outcomes in the {cmd:nop} and {cmd:ziop3} regressions; by default, it is identical to {it:indepvars_reg}, a list of the independent variables in the regime equation.{p_end}
-{synopt :{opth ind:epvars(varlist)}} independent variables in the outcome equation of the {cmd:ziop2} regression; by default, it is identical to {it:indepvars_reg}, a list of the independent variables in the regime equation.{p_end}
+{synopt :{opth pos:indepvars(varlist)}} independent variables in the outcome equation conditional on the regime s=1 for nonnegative outcomes in the {cmd:nop} and {cmd:ziop3} regressions; by default, it is identical to {it:indepvars}, a list of the independent variables in the regime equation.{p_end}
+{synopt :{opth neg:indepvars(varlist)}} independent variables in the outcome equation conditional on the regime s=-1 for nonpositive outcomes in the {cmd:nop} and {cmd:ziop3} regressions; by default, it is identical to {it:indepvars}, a list of the independent variables in the regime equation.{p_end}
+{synopt :{opth out:indepvars(varlist)}} independent variables in the outcome equation of the {cmd:ziop2} regression; by default, it is identical to {it:indepvars}, a list of the independent variables in the regime equation.{p_end}
 {synopt :{opt inf:cat(choice)}} value of the dependent variable in the regime s=0 (an inflated choice in {cmd:ziop2} and {cmd:ziop3} models; a neutral choice in {cmd:nop} model); by default, it equals 0.{p_end}
 {synopt :{opt endo:switch}} use endogenous regime switching instead of default exogenous switching (regime switching is endogenous if the errors in the regime equation are correlated with the errors in the outcome equations, and exogenous otherwise).{p_end}
 
@@ -43,11 +43,11 @@
 
 {title:Description}
 
-{p 4 7}{cmd:nop} estimates a three-part nested ordered probit (NOP) model of an ordinal variable {depvar}, which takes on at least five values, on three sets of independent variables: {it:indepvars_reg} in the regime equation, {cmd:pos_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1, and {cmd:neg_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=-1 (Sirchenko 2013).{p_end}
+{p 4 7}{cmd:nop} estimates a three-part nested ordered probit (NOP) model of an ordinal variable {depvar}, which takes on at least five values, on three sets of independent variables: {it:indepvars} in the regime equation, {cmd:posindepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1, and {cmd:negindepvars}{it:(varlist)} in the outcome equation conditional on the regime s=-1 (Sirchenko 2013).{p_end}
 
-{p 4 7}{cmd:ziop2} estimates a two-part zero-inflated ordered probit (ZIOP-2) model of an ordinal variable {depvar} on two sets of independent variables: {it:indepvars_reg} in the regime equation and {cmd:indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1 (Harris and Zhao 2007; Brooks, Harris and Spencer 2012; Bagozzi and Mukherjee 2012).{p_end}
+{p 4 7}{cmd:ziop2} estimates a two-part zero-inflated ordered probit (ZIOP-2) model of an ordinal variable {depvar} on two sets of independent variables: {it:indepvars} in the regime equation and {cmd:indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1 (Harris and Zhao 2007; Brooks, Harris and Spencer 2012; Bagozzi and Mukherjee 2012).{p_end}
 
-{p 4 7}{cmd:ziop3} estimates a three-part zero-inflated ordered probit (ZIOP-3) model of an ordinal variable {depvar}, which takes on at least three values, on three sets of independent variables: {it:indepvars_reg} in the regime equation, {cmd:pos_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1, and {cmd:neg_indepvars}{it:(varlist)} in the outcome equation conditional on the regime s=-1 (Sirchenko 2013).{p_end}
+{p 4 7}{cmd:ziop3} estimates a three-part zero-inflated ordered probit (ZIOP-3) model of an ordinal variable {depvar}, which takes on at least three values, on three sets of independent variables: {it:indepvars} in the regime equation, {cmd:posindepvars}{it:(varlist)} in the outcome equation conditional on the regime s=1, and {cmd:negindepvars}{it:(varlist)} in the outcome equation conditional on the regime s=-1 (Sirchenko 2013).{p_end}
 
 {p 4 7}The actual values taken on by the dependent variable are irrelevant, except that larger values are assumed to correspond to "higher" outcomes.{p_end}
 

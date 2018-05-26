@@ -1829,10 +1829,10 @@ function passModelToStata(class CNOPModel scalar model) {
 	st_matrixrowstripe("V", stripes)
 	st_local("depvar", model.yname)
 	st_local("N", strofreal(model.n))
-	st_local("ll", strofreal(model.logLik))
-	st_local("k", strofreal(rows(model.params)))
+	st_numscalar("ll", model.logLik)
+	st_numscalar("k", rows(model.params))
 	st_matrix("ll_obs", model.ll_obs)
-	
+	st_numscalar("r2_p", model.R2)
 	// describe the model
 	model_type + " with " + switching_type + " switching"
 	"Number of observations = " + strofreal(model.n)
@@ -2395,15 +2395,15 @@ void vuong_calc(| ll_diff, k_1, k_2){
 	"   with BIC (Schwarz) correction               z = " + strofreal(vuongBIC)
 	"P-Value                                     Pr>z = " + strofreal(pvalueBIC)
 	
-	st_local("mean_diff", strofreal(mean_diff))
-	st_local("std_diff", strofreal(std_diff))
-	st_local("n_obs", strofreal(n_obs))
-	st_local("vuong", strofreal(vuong))
-	st_local("vuongAIC", strofreal(vuongAIC))
-	st_local("vuongBIC", strofreal(vuongBIC))
-	st_local("pvalue", strofreal(pvalue))
-	st_local("pvalueAIC", strofreal(pvalueAIC))
-	st_local("pvalueBIC", strofreal(pvalueBIC))
+	st_numscalar("mean_diff", mean_diff)
+	st_numscalar("std_diff", std_diff)
+	st_numscalar("n_obs", n_obs)
+	st_numscalar("vuong", vuong)
+	st_numscalar("vuongAIC", vuongAIC)
+	st_numscalar("vuongBIC", vuongBIC)
+	st_numscalar("pvalue", pvalue)
+	st_numscalar("pvalueAIC", pvalueAIC)
+	st_numscalar("pvalueBIC", pvalueBIC)
 }
 
 

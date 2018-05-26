@@ -20,7 +20,7 @@ capture program drop ziopmargins
 capture program drop ziopprobabilities
 capture program drop ziopcontrasts
 capture program drop ziop2
-capture program drop ZIOP_predict
+capture program drop zioppredict
 capture program drop ziopclassification
 capture program drop ziopvuong
 
@@ -75,7 +75,7 @@ end
 
 
 // prediction for NOP, ZIOP2 and ZIOP3
-program ZIOP_predict
+program zioppredict
 	version 13
 	syntax name [if] [in] [, zeros regimes output(string asis)]
 	marksample touse
@@ -120,56 +120,65 @@ end
 // estimates ZIOP3 and ZIOP3(c) models
 program ziop3, eclass
 	version 13
-	syntax varlist(min=2) [if] [in] [, POS_indepvars(varlist) NEG_indepvars(varlist) INFcat(real 0) ENDOswitch CLUster(varname) ROBust INITial(string asis) nolog VUong]
+	syntax varlist(min=2) [if] [in] [, POSindepvars(varlist) NEGindepvars(varlist) INFcat(real 0) ENDOswitch CLUster(varname) ROBust INITial(string asis) nolog VUong]
 	marksample touse
-	mata: CNOP_last_model = processCNOP("`varlist'", "`pos_indepvars'", "`neg_indepvars'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'", "`log'" == "nolog")
+	mata: CNOP_last_model = processCNOP("`varlist'", "`posindepvars'", "`negindepvars'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'", "`log'" == "nolog")
 
 	ereturn post b V, esample(`touse') obs(`N') depname(`depvar')
-	ereturn local predict "ZIOP_predict"
+	ereturn local predict "zioppredict"
 	ereturn local cmd "ziop3"
-	ereturn local ll `ll'
-	ereturn local k `k'
-	ereturn matrix ll_obs=ll_obs
+	ereturn scalar ll = ll
+	ereturn scalar k = k
+	ereturn matrix ll_obs ll_obs
+	ereturn scalar r2_p = r2_p
 	ereturn display
 	if "`vuong'" == "vuong" {
 		display "Vuong test versus ordered probit:"
 		mata: vuong_vs_op(CNOP_last_model)
+		ereturn scalar vuong = vuong
+		ereturn scalar vuong_aic = vuongAIC
+		ereturn scalar vuong_bic = vuongBIC
 	}
 end
 
 // estimates MIOP(r) model
 program ziop2, eclass
 	version 13
-	syntax varlist(min=2) [if] [in] [, INDepvars(varlist) INFcat(real 0) ENDOswitch CLuster(varname) ROBust INITial(string asis) nolog]
+	syntax varlist(min=2) [if] [in] [, OUTindepvars(varlist) INFcat(real 0) ENDOswitch CLuster(varname) ROBust INITial(string asis) nolog]
 	marksample touse
-	mata: CNOP_last_model = processMIOPR("`varlist'", "`indepvars'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'"=="robust","`cluster'", "`initial'", "`log'" == "nolog")
+	mata: CNOP_last_model = processMIOPR("`varlist'", "`outindepvars'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'"=="robust","`cluster'", "`initial'", "`log'" == "nolog")
 	
 	ereturn post b V, esample(`touse')  depname(`depvar') obs(`N')
-	ereturn local predict "ZIOP_predict"
+	ereturn local predict "zioppredict"
 	ereturn local cmd "ziop2"
-	ereturn local ll `ll'
-	ereturn local k `k'
+	ereturn scalar ll = ll
+	ereturn scalar k = k
 	ereturn matrix ll_obs ll_obs
+	ereturn scalar r2_p = r2_p
 	ereturn display
 end
 
 // estimates NOP and NOP(c) models
 program nop, eclass
 	version 13
-	syntax varlist(min=2) [if] [in] [, POS_indepvars(varlist) NEG_indepvars(varlist) INFcat(real 0) ENDOswitch CLuster(varname) ROBust INITial(string asis) nolog VUong]
+	syntax varlist(min=2) [if] [in] [, POSindepvars(varlist) NEGindepvars(varlist) INFcat(real 0) ENDOswitch CLuster(varname) ROBust INITial(string asis) nolog VUong]
 	marksample touse
-	mata: CNOP_last_model = processNOP("`varlist'", "`pos_indepvars'", "`neg_indepvars'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'", "`log'" == "nolog")
+	mata: CNOP_last_model = processNOP("`varlist'", "`posindepvars'", "`negindepvars'", `infcat', "`endoswitch'" == "endoswitch", "`touse'", "`robust'" == "robust", "`cluster'", "`initial'", "`log'" == "nolog")
 
 	ereturn post b V, esample(`touse') obs(`N') depname(`depvar')
-	ereturn local predict "ZIOP_predict"
+	ereturn local predict "zioppredict"
 	ereturn local cmd "nop"
-	ereturn local ll `ll'
-	ereturn local k `k'
+	ereturn scalar ll = ll
+	ereturn scalar k = k
 	ereturn matrix ll_obs ll_obs
+	ereturn scalar r2_p = r2_p
 	ereturn display
 	if "`vuong'" == "vuong" {
 		display "Vuong test versus ordered probit:"
 		mata: vuong_vs_op(CNOP_last_model)
+		ereturn scalar vuong = vuong
+		ereturn scalar vuong_aic = vuongAIC
+		ereturn scalar vuong_bic = vuongBIC
 	}
 end
 
