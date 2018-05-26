@@ -46,6 +46,11 @@ class CNOPModel scalar describeModel(class CNOPModel scalar model, params, covMa
 	model.logLik0 	= sum(log(q :* mean(q)))
 	model.R2 	= 1 - maxLik /  model.logLik0
 	
+	model.df = rows(params)
+	model.df_null = cols(q) - 1
+	model.chi2 = 2 * (maxLik - model.logLik0)
+	model.chi2_pvalue = 1 - chi2(model.df - model.df_null, model.chi2)
+	
 	model.brier_score = matrix_mse(prob_obs - q)
 	model.ranked_probability_score = matrix_mse(running_rowsum(prob_obs) - running_rowsum(q))
 	
@@ -1810,11 +1815,17 @@ function passModelToStata(class CNOPModel scalar model) {
 	}
 	
 	if (model.model_class == "NOP" | model.model_class == "NOPC") {
+		model_suptype = "Nested ordered probit regression"
 		model_type = "Three-part nested ordered probit model"
+		inflation_line = ""
 	} else if (model.model_class == "CNOP" | model.model_class == "CNOPC") {
+		model_suptype = "Zero-inflated ordered probit regression"
 		model_type = "Three-part zero-inflated ordered probit model"
+		inflation_line = "Zero inflation:          three regimes"
 	} else if (model.model_class == "MIOPR" | model.model_class == "MIOPRC") {
+		model_suptype = "Zero-inflated ordered probit regression"
 		model_type = "Two-part zero-inflated ordered probit model"
+		inflation_line = "Zero inflation:          two regimes"
 	}
 
 	st_matrix("b", model.params')
@@ -1834,11 +1845,18 @@ function passModelToStata(class CNOPModel scalar model) {
 	st_matrix("ll_obs", model.ll_obs)
 	st_numscalar("r2_p", model.R2)
 	// describe the model
-	model_type + " with " + switching_type + " switching"
+	//model_type + " with " + switching_type + " switching"
+	model_type
+	if (strlen(inflation_line) > 0) {
+		inflation_line
+	}
+	"Regime switching:        " + switching_type
 	"Number of observations = " + strofreal(model.n)
-	"Log likelihood = " + strofreal(model.logLik)
-	"AIC            = " + strofreal(model.AIC)
-	"BIC            = " + strofreal(model.BIC)
+	"Log likelihood         = " + strofreal(model.logLik)
+	"LR chi2(" + strofreal(model.df-model.df_null) + ")             = " + strofreal(model.chi2)
+	"Prob > chi2            = " + strofreal(model.chi2_pvalue)
+	"AIC                    = " + strofreal(model.AIC)
+	"BIC                    = " + strofreal(model.BIC)
 }
 
 // passes CNOP and CNOP(c) specification from Stata to Mata and back

@@ -18,7 +18,7 @@ set more off
 nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) nolog vuong
 
 set more off
-ziop2 rate_change spread pb houst gdp, indepvars(spread pb houst gdp ) infcat(0) nolog
+ziop2 rate_change spread pb houst gdp, out(spread pb houst gdp ) infcat(0) nolog
 
 set more off
 ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) nolog vuong

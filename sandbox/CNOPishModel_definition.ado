@@ -12,6 +12,8 @@ class CNOPModel {
 	real vector mu
 	real scalar n
 	real scalar k
+	real scalar df
+	real scalar df_null
 	
 	// categories of target variables
 	real scalar ncat
@@ -41,7 +43,6 @@ class CNOPModel {
 	real vector t
 	real vector se_rob
 	real vector t_rob
-	real scalar logLik
 	real vector pval
 	
 	// probabilities
@@ -59,14 +60,19 @@ class CNOPModel {
 	real scalar converged
 	real scalar iterations
 	
+	// likelihood
+	real scalar logLik
+	real scalar logLik0
+	real scalar R2 // mcFadden R2 = 1 - lnL(model)/lnL(simple model)
+	real scalar chi2
+	real scalar chi2_pvalue
+	
 	// infocriteria
 	real scalar AIC		
 	real scalar BIC		
 	real scalar CAIC	
 	real scalar AICc	
 	real scalar HQIC
-	real scalar R2 // mcFadden R2 = 1 - lnL(model)/lnL(simple model)
-	real scalar logLik0
 	real scalar brier_score
 	real scalar ranked_probability_score
 	
