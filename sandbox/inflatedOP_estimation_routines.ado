@@ -1847,9 +1847,14 @@ function passModelToStata(class CNOPModel scalar model) {
 	st_numscalar("k_cat", model.ncat)
 	st_numscalar("df_m", model.df)
 	st_numscalar("ll_0", model.logLik0)
+	st_numscalar("chi2", model.chi2)
+	st_numscalar("p", model.chi2_pvalue)
+	st_numscalar("aic", model.AIC)
+	st_numscalar("bic", model.BIC)
 	
 	// describe the model
 	//model_type + " with " + switching_type + " switching"
+	displayas("result")
 	printf("%s\n", model_suptype)
 	if (strlen(inflation_line) > 0) {
 		printf("%s\n", inflation_line)
@@ -2427,6 +2432,7 @@ void vuong_calc(| ll_diff, k_1, k_2){
 	st_numscalar("pvalue", pvalue)
 	st_numscalar("pvalueAIC", pvalueAIC)
 	st_numscalar("pvalueBIC", pvalueBIC)
+	"exiting mata"
 }
 
 

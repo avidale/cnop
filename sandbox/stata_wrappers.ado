@@ -65,11 +65,15 @@ program ziopvuong, rclass
 	display "Vuong non-nested test for `modelspec1' vs `modelspec2'"
 	mata: vuong_calc()
 	// todo: try to restore current environment
-	return local mean_diff = `mean_diff'
-	return local std_diff = `std_diff'
-	return local N = `n_obs'
-	return local vuong = `vuong'
-	return local pvalue = `pvalue'
+	return scalar mean_diff = mean_diff
+	return scalar std_diff = std_diff
+	return scalar N = n_obs
+	return scalar vuong = vuong
+	return scalar vuong_aic = vuongAIC
+	return scalar vuong_bic = vuongBIC
+	return scalar pvalue = pvalue
+	return scalar pvalue_aic = pvalueAIC
+	return scalar pvalue_bic = pvalueBIC
 end
 
 
@@ -133,6 +137,10 @@ program ziop3, eclass
 	ereturn scalar k_cat = k_cat
 	ereturn scalar df_m = df_m
 	ereturn scalar ll_0 = ll_0
+	ereturn scalar chi2 = chi2
+	ereturn scalar p = p
+	ereturn scalar aic = aic
+	ereturn scalar bic = bic
 	ereturn display
 	if "`vuong'" == "vuong" {
 		display "Vuong test versus ordered probit:"
@@ -160,6 +168,10 @@ program ziop2, eclass
 	ereturn scalar k_cat = k_cat
 	ereturn scalar df_m = df_m
 	ereturn scalar ll_0 = ll_0
+	ereturn scalar chi2 = chi2
+	ereturn scalar p = p
+	ereturn scalar aic = aic
+	ereturn scalar bic = bic
 	ereturn display
 end
 
@@ -180,6 +192,10 @@ program nop, eclass
 	ereturn scalar k_cat = k_cat
 	ereturn scalar df_m = df_m
 	ereturn scalar ll_0 = ll_0
+	ereturn scalar chi2 = chi2
+	ereturn scalar p = p
+	ereturn scalar aic = aic
+	ereturn scalar bic = bic
 	ereturn display
 	if "`vuong'" == "vuong" {
 		display "Vuong test versus ordered probit:"
