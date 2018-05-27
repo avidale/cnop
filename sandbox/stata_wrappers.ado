@@ -130,6 +130,9 @@ program ziop3, eclass
 	ereturn scalar k = k
 	ereturn matrix ll_obs ll_obs
 	ereturn scalar r2_p = r2_p
+	ereturn scalar k_cat = k_cat
+	ereturn scalar df_m = df_m
+	ereturn scalar ll_0 = ll_0
 	ereturn display
 	if "`vuong'" == "vuong" {
 		display "Vuong test versus ordered probit:"
@@ -154,6 +157,9 @@ program ziop2, eclass
 	ereturn scalar k = k
 	ereturn matrix ll_obs ll_obs
 	ereturn scalar r2_p = r2_p
+	ereturn scalar k_cat = k_cat
+	ereturn scalar df_m = df_m
+	ereturn scalar ll_0 = ll_0
 	ereturn display
 end
 
@@ -171,6 +177,9 @@ program nop, eclass
 	ereturn scalar k = k
 	ereturn matrix ll_obs ll_obs
 	ereturn scalar r2_p = r2_p
+	ereturn scalar k_cat = k_cat
+	ereturn scalar df_m = df_m
+	ereturn scalar ll_0 = ll_0
 	ereturn display
 	if "`vuong'" == "vuong" {
 		display "Vuong test versus ordered probit:"

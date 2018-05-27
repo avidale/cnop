@@ -1844,6 +1844,10 @@ function passModelToStata(class CNOPModel scalar model) {
 	st_numscalar("k", rows(model.params))
 	st_matrix("ll_obs", model.ll_obs)
 	st_numscalar("r2_p", model.R2)
+	st_numscalar("k_cat", model.ncat)
+	st_numscalar("df_m", model.df)
+	st_numscalar("ll_0", model.logLik0)
+	
 	// describe the model
 	//model_type + " with " + switching_type + " switching"
 	printf("%s\n", model_suptype)
