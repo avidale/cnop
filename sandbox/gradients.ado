@@ -1618,7 +1618,7 @@ function MLnop(params, x, zp, zn, q, ncat, infcat, | loop){
 	if (loop == 1) {
 		return(prob)
 	} else if (loop == 2) {
-		errprintf("Option 'zeros' is not available for the nop command: there is only single type of zeros.\n")
+		errprintf("Option 'zeros' in the postestimation commands is not available after the nop command: there is only a single type of zeros.\n")
 		exit(3498)
 		// decomposition of zeros --- irrelevant
 	} else if (loop == 3) {

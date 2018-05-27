@@ -1846,17 +1846,17 @@ function passModelToStata(class CNOPModel scalar model) {
 	st_numscalar("r2_p", model.R2)
 	// describe the model
 	//model_type + " with " + switching_type + " switching"
-	model_type
+	printf("%s\n", model_suptype)
 	if (strlen(inflation_line) > 0) {
-		inflation_line
+		printf("%s\n", inflation_line)
 	}
-	"Regime switching:        " + switching_type
-	"Number of observations = " + strofreal(model.n)
-	"Log likelihood         = " + strofreal(model.logLik)
-	"LR chi2(" + strofreal(model.df-model.df_null) + ")             = " + strofreal(model.chi2)
-	"Prob > chi2            = " + strofreal(model.chi2_pvalue)
-	"AIC                    = " + strofreal(model.AIC)
-	"BIC                    = " + strofreal(model.BIC)
+	printf("Regime switching:        %s  \n", switching_type)
+	printf("Number of observations = %9.0f \n", model.n)
+	printf("Log likelihood         = %9.4f \n", model.logLik)
+	printf("LR chi2(%2.0f)            = %9.4f \n", model.df - model.df_null, model.chi2)
+	printf("Prob > chi2            = %9.4f \n", model.chi2_pvalue)
+	printf("AIC                    = %9.4f \n" , model.AIC)
+	printf("BIC                    = %9.4f \n" , model.BIC)
 }
 
 // passes CNOP and CNOP(c) specification from Stata to Mata and back
@@ -2403,15 +2403,15 @@ void vuong_calc(| ll_diff, k_1, k_2){
 	pvalueAIC = 1-normal(vuongAIC)
 	pvalueBIC = 1-normal(vuongBIC)
 	
-	"Mean difference in log likelihood                  " + strofreal(mean_diff)
-	"Standard deviation of difference in log likelihood " + strofreal(std_diff)
-	"Number of observations                             " + strofreal(n_obs)
-	"Vuong test statistic                           z = " + strofreal(vuong)
-	"P-Value                                     Pr>z = " + strofreal(pvalue)
-	"   with AIC (Akaike) correction                z = " + strofreal(vuongAIC)
-	"P-Value                                     Pr>z = " + strofreal(pvalueAIC)
-	"   with BIC (Schwarz) correction               z = " + strofreal(vuongBIC)
-	"P-Value                                     Pr>z = " + strofreal(pvalueBIC)
+	sprintf("Mean difference in log likelihood                  %9.4f", mean_diff)
+	sprintf("Standard deviation of difference in log likelihood %9.4f", std_diff)
+	sprintf("Number of observations                             %9.0f", n_obs)
+	sprintf("Vuong test statistic                           z = %9.4f", vuong)
+	sprintf("P-Value                                     Pr>z = %9.4f", pvalue)
+	sprintf("   with AIC (Akaike) correction                z = %9.4f", vuongAIC)
+	sprintf("P-Value                                     Pr>z = %9.4f", pvalueAIC)
+	sprintf("   with BIC (Schwarz) correction               z = %9.4f", vuongBIC)
+	sprintf("P-Value                                     Pr>z = %9.4f", pvalueBIC)
 	
 	st_numscalar("mean_diff", mean_diff)
 	st_numscalar("std_diff", std_diff)
