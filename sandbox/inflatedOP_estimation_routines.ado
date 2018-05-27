@@ -2432,7 +2432,6 @@ void vuong_calc(| ll_diff, k_1, k_2){
 	st_numscalar("pvalue", pvalue)
 	st_numscalar("pvalueAIC", pvalueAIC)
 	st_numscalar("pvalueBIC", pvalueBIC)
-	"exiting mata"
 }
 
 
