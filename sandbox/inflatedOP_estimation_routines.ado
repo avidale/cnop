@@ -1853,6 +1853,7 @@ function passModelToStata(class CNOPModel scalar model) {
 	printf("Regime switching:        %s  \n", switching_type)
 	printf("Number of observations = %9.0f \n", model.n)
 	printf("Log likelihood         = %9.4f \n", model.logLik)
+	printf("McFadden pseudo R2     = %9.4f \n", model.R2)
 	printf("LR chi2(%2.0f)            = %9.4f \n", model.df - model.df_null, model.chi2)
 	printf("Prob > chi2            = %9.4f \n", model.chi2_pvalue)
 	printf("AIC                    = %9.4f \n" , model.AIC)
