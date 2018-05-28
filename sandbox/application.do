@@ -21,7 +21,7 @@ set more off
 ziop2 rate_change spread pb houst gdp, out(spread pb houst gdp ) infcat(0) nolog
 
 set more off
-ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) nolog vuong
+ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) nolog vuong 
 
 predict p_zero, zeros
 predict p_reg, regimes
@@ -31,9 +31,20 @@ ziopmargins, at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
 
 ziopprobabilities, at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
 
+ziopcontrasts, at(pb=0, spread=1.116, houst=1.97, gdp=7.4) ///
+               to(pb=1, spread=1.116, houst=1.97, gdp=7.4)
+			   
 ziopcontrasts, at(pb=1, spread=0.426, houst=1.6, gdp=6.8) ///
                to(pb=0, spread=0.426, houst=1.6, gdp=6.8)
 
+			   
+//ziopcontrasts, at(pb=0, spread=0.658, houst=2.15, gdp=7.2) ///
+ //              to(pb=1, spread=0.658, houst=2.15, gdp=7.2)
+
+//ziopcontrasts, at(pb=0, spread=-0.194, houst=1.56, gdp=9.4) ///
+ //              to(pb=1, spread=-0.194, houst=1.56, gdp=9.4)
+			   
+			   
 // vuong example ZIOP-3 vs ZIOP-2
 quietly ziop3 rate_change pb spread houst gdp, neg(spread gdp ) pos(pb spread) inf(0) nolog
 est store ziop3_model
