@@ -70,6 +70,7 @@
 \usepackage[labelsep=period]{caption}
 \usepackage{scalefnt}
 \usepackage{ragged2e}
+\usepackage{stata}
 
 \setcounter{MaxMatrixCols}{10}
 %TCIDATA{OutputFilter=LATEX.DLL}
@@ -1472,14 +1473,38 @@ command:
 
 \medskip
 
-%TCIMACRO{%
-%\FRAME{itbpF}{5.0693in}{4.308in}{0in}{}{}{op.png}{%
-%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 5.0693in;height 4.308in;depth 0in;original-width 5.0485in;original-height 2.8319in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename 'OP.png';file-properties "XNPEU";}}}%
-%BeginExpansion
-\includegraphics[
-natheight=2.8319in, natwidth=5.0485in, height=4.308in, width=5.0693in]
-{/document/graphics/OP__3.png}%
-%EndExpansion
+\begin{stlog}
+. oprobit rate_change spread pb houst gdp, nolog
+
+Ordered probit regression                         Number of obs   =        210
+                                                  LR chi2(4)      =     214.54
+                                                  Prob > chi2     =     0.0000
+Log likelihood = -159.56242                       Pseudo R2       =     0.4020
+
+------------------------------------------------------------------------------
+ rate_change |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      spread |   1.574232   .1870759     8.41   0.000      1.20757    1.940894
+          pb |   .9262378   .1479364     6.26   0.000     .6362877    1.216188
+       houst |   1.373179   .3459397     3.97   0.000     .6951499    2.051209
+         gdp |   .2390714   .0571926     4.18   0.000     .1269761    .3511668
+-------------+----------------------------------------------------------------
+       /cut1 |   .4656819   .5382091                     -.5891885    1.520552
+       /cut2 |     1.8382   .5339707                      .7916362    2.884763
+       /cut3 |   4.835985   .6359847                      3.589478    6.082492
+       /cut4 |   6.331172   .6875922                      4.983516    7.678828
+------------------------------------------------------------------------------
+
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+-----------------------------------------------------------------------------
+       Model |    Obs    ll(null)   ll(model)     df          AIC         BIC
+-------------+---------------------------------------------------------------
+           . |    210   -266.8308   -159.5624      8     335.1248    361.9017
+-----------------------------------------------------------------------------
+\end{stlog}
 
 \medskip \pagebreak
 
@@ -1489,14 +1514,49 @@ The \texttt{nop} command yields the following results:
 
 \medskip
 
-%TCIMACRO{%
-%\FRAME{itbpF}{5.7567in}{5.9178in}{0in}{}{}{nop.png}{%
-%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 5.7567in;height 5.9178in;depth 0in;original-width 5.7285in;original-height 5.3358in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename 'NOP.png';file-properties "XNPEU";}}}%
-%BeginExpansion
-\includegraphics[
-natheight=5.3358in, natwidth=5.7285in, height=5.9178in, width=5.7567in]
-{/document/graphics/NOP__4.png}%
-%EndExpansion
+\begin{stlog}
+. nop rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) nolog vuong
+Nested ordered probit regression
+Regime switching:        exogenous  
+Number of observations =       210 
+Log likelihood         = -150.9638 
+McFadden pseudo R2     =    0.4342 
+LR chi2( 8)            =  231.7341 
+Prob > chi2            =    0.0000 
+AIC                    =  325.9276 
+BIC                    =  366.0929 
+--------------------------------------------------------------------------------------
+         rate_change |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+---------------------+----------------------------------------------------------------
+Regime equation      |
+              spread |   1.579634   .2195074     7.20   0.000     1.149407     2.00986
+                  pb |   .8769436   .1582913     5.54   0.000     .5666983    1.187189
+               houst |   2.303497   .4324382     5.33   0.000     1.455934     3.15106
+                 gdp |   .2742909   .0696122     3.94   0.000     .1378535    .4107283
+               /cut1 |   3.299825   .6832466     4.83   0.000     1.960686    4.638963
+               /cut2 |   6.496983   .8339921     7.79   0.000     4.862389    8.131578
+---------------------+----------------------------------------------------------------
+Outcome equation (+) |
+              spread |   1.627788   .6748859     2.41   0.016     .3050354     2.95054
+                  pb |   2.255519   .8805447     2.56   0.010     .5296829    3.981355
+               /cut1 |    3.13416   .9511016     3.30   0.001     1.270035    4.998285
+---------------------+----------------------------------------------------------------
+Outcome equation (-) |
+              spread |   .9489572   .3821965     2.48   0.013     .1998659    1.698049
+                 gdp |   .1339181   .1006124     1.33   0.183    -.0632785    .3311147
+               /cut1 |  -.4720761   .4202012    -1.12   0.261    -1.295655     .351503
+--------------------------------------------------------------------------------------
+Vuong test versus ordered probit:
+  Mean difference in log likelihood                     0.0409
+  Standard deviation of difference in log likelihood    0.2626
+  Number of observations                                   210
+  Vuong test statistic                           z =    2.2600
+  P-Value                                     Pr>z =    0.0119
+     with AIC (Akaike) correction                z =    1.2087
+  P-Value                                     Pr>z =    0.1134
+     with BIC (Schwarz) correction               z =   -0.5508
+  P-Value                                     Pr>z =    0.7091
+\end{stlog}
 
 \bigskip
 
@@ -1518,21 +1578,55 @@ following results:
 
 \medskip
 
-%TCIMACRO{%
-%\FRAME{itbpF}{5.8198in}{0.396in}{0in}{}{}{ziop3command.png}{%
-%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 5.8198in;height 0.396in;depth 0in;original-width 5.7999in;original-height 0.1519in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename 'ZIOP3command.png';file-properties "XNPEU";}}}%
-%BeginExpansion
-\includegraphics[
-natheight=0.1519in, natwidth=5.7999in, height=0.396in, width=5.8198in]
-{/document/graphics/ZIOP3command__5.png}%
-%EndExpansion
+\begin{stlog}
+. ziop3 rate_change spread pb houst gdp, neg(spread gdp) pos(spread pb) inf(0) nolog vuong
+ (output omitted)
+Zero-inflated ordered probit regression
+Zero inflation:          three regimes
+Regime switching:        exogenous  
+Number of observations =       210 
+Log likelihood         = -139.5529 
+McFadden pseudo R2     =    0.4770 
+LR chi2(10)            =  254.5558 
+Prob > chi2            =    0.0000 
+AIC                    =  307.1058 
+BIC                    =  353.9653 
+--------------------------------------------------------------------------------------
+         rate_change |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+---------------------+----------------------------------------------------------------
+Regime equation      |
+              spread |   2.106257    .364262     5.78   0.000     1.392317    2.820198
+                  pb |   1.628486   .3356997     4.85   0.000     .9705269    2.286446
+               houst |   5.311379   .9913486     5.36   0.000     3.368372    7.254387
+                 gdp |   .3809606   .1085468     3.51   0.000     .1682127    .5937084
+               /cut1 |   9.103481   1.772781     5.14   0.000     5.628894    12.57807
+               /cut2 |    12.3481   1.952013     6.33   0.000     8.522227    16.17398
+---------------------+----------------------------------------------------------------
+Outcome equation (+) |
+              spread |   1.809669   .7282205     2.49   0.013     .3823831    3.236955
+                  pb |   2.620109   .9836793     2.66   0.008     .6921334    4.548085
+               /cut1 |  -1.481781   1.015198    -1.46   0.144    -3.471532    .5079697
+               /cut2 |   3.509078   1.070858     3.28   0.001     1.410236    5.607921
+---------------------+----------------------------------------------------------------
+Outcome equation (-) |
+              spread |   1.072859   .2690323     3.99   0.000     .5455655    1.600153
+                 gdp |    .177697   .0742318     2.39   0.017     .0322055    .3231886
+               /cut1 |  -.6373707   .3361142    -1.90   0.058    -1.296142     .021401
+               /cut2 |   .7569744   .3460019     2.19   0.029     .0788232    1.435126
+--------------------------------------------------------------------------------------
+Vuong test versus ordered probit:
+  Mean difference in log likelihood                     0.0953
+  Standard deviation of difference in log likelihood    0.3851
+  Number of observations                                   210
+  Vuong test statistic                           z =    3.5853
+  P-Value                                     Pr>z =    0.0002
+     with AIC (Akaike) correction                z =    2.5102
+  P-Value                                     Pr>z =    0.0060
+     with BIC (Schwarz) correction               z =    0.7110
+  P-Value                                     Pr>z =    0.2385
+\end{stlog}
 
-\smallskip 
-%TCIMACRO{%
-%\FRAME{itbpF}{5.628in}{5.5176in}{0in}{}{}{ziop3.png}{%
-%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 5.628in;height 5.5176in;depth 0in;original-width 5.5998in;original-height 5.4886in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename 'ZIOP3.png';file-properties "XNPEU";}}}%
-%BeginExpansion
-%EndExpansion
+
 
 \bigskip
 
@@ -1555,11 +1649,40 @@ command yields the following results:
 
 \bigskip
 
-%TCIMACRO{%
-%\FRAME{itbpF}{5.7086in}{3.7011in}{0in}{}{}{ziop2.png}{%
-%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 5.7086in;height 3.7011in;depth 0in;original-width 5.6803in;original-height 3.672in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename 'ZIOP2.png';file-properties "XNPEU";}}}%
-%BeginExpansion
-%EndExpansion
+\begin{stlog}
+. ziop2 rate_change spread pb houst gdp, out(spread pb houst gdp ) infcat(0) nolog
+Zero-inflated ordered probit regression
+Zero inflation:          two regimes
+Regime switching:        exogenous  
+Number of observations =       210 
+Log likelihood         = -154.3563 
+McFadden pseudo R2     =    0.4215 
+LR chi2( 9)            =  224.9490 
+Prob > chi2            =    0.0000 
+AIC                    =  334.7126 
+BIC                    =  378.2250 
+----------------------------------------------------------------------------------
+     rate_change |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-----------------+----------------------------------------------------------------
+Regime equation  |
+          spread |  -.5718098   .4932372    -1.16   0.246    -1.538537    .3949173
+              pb |   2.220756   1.124943     1.97   0.048      .015908    4.425605
+           houst |   .4317792   .9262931     0.47   0.641    -1.383722     2.24728
+             gdp |  -.3039409   .1561281    -1.95   0.052    -.6099462    .0020645
+           /cut1 |  -3.269292   2.104548    -1.55   0.120    -7.394131    .8555464
+-----------------+----------------------------------------------------------------
+Outcome equation |
+          spread |   1.920514   .2407834     7.98   0.000     1.448587    2.392441
+              pb |    1.21367   .1982338     6.12   0.000     .8251391    1.602201
+           houst |   1.637904   .3932584     4.16   0.000     .8671315    2.408676
+             gdp |   .2358575   .0628755     3.75   0.000     .1126239    .3590911
+           /cut1 |   .5651226   .5985828     0.94   0.345    -.6080782    1.738323
+           /cut2 |   2.422641   .6270021     3.86   0.000     1.193739    3.651542
+           /cut3 |   5.397053   .7416277     7.28   0.000      3.94349    6.850617
+           /cut4 |   7.039527   .8100945     8.69   0.000     5.451771    8.627283
+----------------------------------------------------------------------------------
+\end{stlog}
+
 
 \bigskip
 
@@ -1570,11 +1693,30 @@ BIC:
 
 \medskip
 
-%TCIMACRO{%
-%\FRAME{itbpF}{5.6197in}{2.8045in}{0in}{}{}{vuong.png}{%
-%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 5.6197in;height 2.8045in;depth 0in;original-width 5.5915in;original-height 2.7754in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename 'Vuong.png';file-properties "XNPEU";}}}%
-%BeginExpansion
-%EndExpansion
+\begin{stlog}
+. quietly ziop3 rate_change pb spread houst gdp, neg(spread gdp ) pos(pb spread) inf(0)
+ (output omitted)
+
+ . est store ziop3_model
+
+. quietly ziop2 rate_change spread pb houst gdp, out(spread pb houst gdp) inf(0)
+
+. est store ziop2_model
+
+. ziopvuong ziop3_model ziop2_model
+Vuong non-nested test for ziop3_model vs ziop2_model
+  Mean difference in log likelihood                     0.0705
+  Standard deviation of difference in log likelihood    0.4235
+  Number of observations                                   210
+  Vuong test statistic                           z =    2.4119
+  P-Value                                     Pr>z =    0.0079
+     with AIC (Akaike) correction                z =    2.2490
+  P-Value                                     Pr>z =    0.0123
+     with BIC (Schwarz) correction               z =    1.9763
+  P-Value                                     Pr>z =    0.0241
+
+\end{stlog}
+
 
 \bigskip
 
@@ -1589,11 +1731,21 @@ command:
 
 \medskip
 
-%TCIMACRO{%
-%\FRAME{itbpF}{4.2524in}{2.1727in}{0in}{}{}{probabilities.jpg}{%
-%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 4.2524in;height 2.1727in;depth 0in;original-width 4.2241in;original-height 2.1445in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename 'Probabilities.jpg';file-properties "XNPEU";}}}%
-%BeginExpansion
-%EndExpansion
+\begin{stlog}
+. ziopprobabilities, at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
+  Evaluated at:
+   gdp    houst     pb    spread 
+6.8000   1.6000 1.0000    0.4260 
+  
+  Predicted probabilities of different outcomes
+   Pr(y=-.5)    Pr(y=-.25)    Pr(y=0)    Pr(y=.25)    Pr(y=.5) 
+      0.0000        0.0000     0.1027       0.4908      0.4065 
+  
+  Standard errors of the probabilities
+   Pr(y=-.5)    Pr(y=-.25)    Pr(y=0)    Pr(y=.25)    Pr(y=.5) 
+      0.0000        0.0000     0.0491       0.1173      0.1154 
+\end{stlog}
+
 
 \bigskip
 
@@ -1605,11 +1757,19 @@ respectively:
 
 \bigskip
 
-%TCIMACRO{%
-%\FRAME{itbpF}{4.5737in}{1.4197in}{0in}{}{}{prob_zero_reg.png}{%
-%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 4.5737in;height 1.4197in;depth 0in;original-width 4.5438in;original-height 1.3914in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename 'Prob_zero_reg.png';file-properties "XNPEU";}}}%
-%BeginExpansion
-%EndExpansion
+\begin{stlog}
+. predict p_zero, zeros
+
+. predict p_reg, regimes
+
+. tabstat p_zero* p_reg*, stat(mean)
+
+   stats |  p_zero_0  p_zero_n  p_zero_p   p_reg_n   p_reg_0   p_reg_p
+---------+------------------------------------------------------------
+    mean |  .3895957  .1453901  .0042672  .4028259  .3895957  .2075784
+----------------------------------------------------------------------
+\end{stlog}
+
 
 \bigskip
 
@@ -1624,11 +1784,29 @@ estimated using the \texttt{ziopmargins} command:
 
 \bigskip
 
-%TCIMACRO{%
-%\FRAME{itbpF}{5.0602in}{2.9082in}{0in}{}{}{margins.png}{%
-%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 5.0602in;height 2.9082in;depth 0in;original-width 5.0319in;original-height 2.88in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename 'Margins.png';file-properties "XNPEU";}}}%
-%BeginExpansion
-%EndExpansion
+\begin{stlog}
+. ziopmargins, at (pb=1, spread=0.426, houst=1.6, gdp=6.8)
+  Evaluated at:
+   gdp    houst     pb    spread 
+6.8000   1.6000 1.0000    0.4260 
+  
+  Marginal effects of all variables on the probabilities of different outcomes
+           |    Pr(y=-.5)    Pr(y=-.25)    Pr(y=0)    Pr(y=.25)    Pr(y=.5) 
+-----------+-----------------------------------------------------------------
+       gdp |      -0.0000       -0.0000    -0.0682       0.0373      0.0309 
+     houst |      -0.0000       -0.0000    -0.9503       0.5198      0.4305 
+        pb |      -0.0000       -0.0000    -0.2914      -0.7720      1.0634 
+    spread |      -0.0000       -0.0000    -0.3769      -0.4372      0.8140 
+  
+  Standard errors of marginal effects
+           |    Pr(y=-.5)    Pr(y=-.25)    Pr(y=0)    Pr(y=.25)    Pr(y=.5) 
+-----------+-----------------------------------------------------------------
+       gdp |       0.0000        0.0000     0.0244       0.0156      0.0143 
+     houst |       0.0000        0.0000     0.2840       0.1924      0.1799 
+        pb |       0.0000        0.0000     0.0772       0.4059      0.3890 
+    spread |       0.0000        0.0000     0.1115       0.3106      0.2971 
+\end{stlog}
+
 
 \bigskip
 
@@ -1641,14 +1819,24 @@ command, which computes the derivatives of the probabilities):
 
 \bigskip
 
-%TCIMACRO{%
-%\FRAME{itbpF}{4.1967in}{2.3238in}{0in}{}{}{contrasts.png}{%
-%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 4.1967in;height 2.3238in;depth 0in;original-width 6.5355in;original-height 2.0556in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename 'Contrasts.png';file-properties "XNPEU";}}}%
-%BeginExpansion
-\includegraphics[
-natheight=2.0556in, natwidth=6.5355in, height=2.3238in, width=4.1967in]
-{/document/graphics/Contrasts__6.png}%
-%EndExpansion
+\begin{stlog}
+. ziopcontrasts, at(pb=1, spread=0.426, houst=1.6, gdp=6.8) ///
+>                to(pb=0, spread=0.426, houst=1.6, gdp=6.8)
+  Evaluated between
+           |    gdp    houst     pb    spread 
+-----------+-----------------------------------
+      from | 6.8000   1.6000 1.0000    0.4260 
+        to | 6.8000   1.6000 0.0000    0.4260 
+  
+  Contrasts of the predicted probabilities of different outcomes
+   Pr(y=-.5)    Pr(y=-.25)    Pr(y=0)    Pr(y=.25)    Pr(y=.5) 
+      0.0000        0.0003     0.5427      -0.1376     -0.4054 
+  
+  Standard errors of the contrasts
+   Pr(y=-.5)    Pr(y=-.25)    Pr(y=0)    Pr(y=.25)    Pr(y=.5) 
+      1.8053        0.9350     0.2971       0.3404      0.7325 
+\end{stlog}
+
 
 \bigskip
 
@@ -1658,11 +1846,34 @@ ziopclassification} command:
 
 \bigskip
 
-%TCIMACRO{%
-%\FRAME{itbpF}{5.1in}{3.6189in}{0in}{}{}{classification.png}{%
-%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 5.1in;height 3.6189in;depth 0in;original-width 5.0718in;original-height 3.5915in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename 'Classification.png';file-properties "XNPEU";}}}%
-%BeginExpansion
-%EndExpansion
+\begin{stlog}
+. ziopclassification
+Classification table
+
+    Actual |                   Predicted outcomes
+  outcomes |       -.5       -.25          0        .25         .5 |     Total
+-----------+-------------------------------------------------------+----------
+       -.5 |         7          9          2          0          0 |        18 
+      -.25 |         2         21         12          0          0 |        35 
+         0 |         1          8        100          5          0 |       114 
+       .25 |         0          0          9         25          0 |        34 
+        .5 |         0          0          2          4          3 |         9 
+-----------+-------------------------------------------------------+----------
+     Total |        10         38        125         34          3 |       210 
+
+Accuracy (% of correct predictions) =    0.7429 
+Brier score                         =    0.3731 
+Ranked probability score            =    0.2160 
+
+    Actual |
+  outcomes |   Precision    Recall    Adjusted noise-to-signal ratio 
+-----------+-----------------------------------------------------------
+       -.5 |       0.7000    0.3889                     0.0402 
+      -.25 |       0.5526    0.6000                     0.1619 
+         0 |       0.8000    0.8772                     0.2969 
+       .25 |       0.7353    0.7353                     0.0695 
+        .5 |       1.0000    0.3333                     0.0000 
+\end{stlog}
 
 \bigskip
 
