@@ -187,24 +187,19 @@ class CNOPModel scalar estimateNOP(y, x, zp, zn, infcat, |quiet, startvalues, ro
 		quiet = 0
 	}
 	if (args() < 11 || rows(lambda) < 1 || lambda ==.) {
-		external CNOP_GLOBAL_CONST_LAMBDA
-		lambda = CNOP_GLOBAL_CONST_LAMBDA
+		lambda = CNOP_GLOBAL_CONST_LAMBDA()
 	}
 	if (args() < 12 || rows(maxiter) < 1 || maxiter ==.) {
-		external CNOP_GLOBAL_CONST_MAXITER
-		maxiter = CNOP_GLOBAL_CONST_MAXITER
+		maxiter = CNOP_GLOBAL_CONST_MAXITER()
 	}
 	if (args() < 13 || rows(ptol) < 1 || ptol ==.) {
-		external CNOP_GLOBAL_CONST_PTOL
-		ptol = CNOP_GLOBAL_CONST_PTOL
+		ptol = CNOP_GLOBAL_CONST_PTOL()
 	}
 	if (args() < 14 || rows(vtol) < 1 || vtol ==.) {
-		external CNOP_GLOBAL_CONST_VTOL
-		vtol = CNOP_GLOBAL_CONST_VTOL
+		vtol = CNOP_GLOBAL_CONST_VTOL()
 	}
 	if (args() < 15 || rows(nrtol) < 1 || nrtol ==.) {
-		external CNOP_GLOBAL_CONST_NRTOL
-		nrtol = CNOP_GLOBAL_CONST_NRTOL
+		nrtol = CNOP_GLOBAL_CONST_NRTOL()
 	}
 	
 	starttime = clock(c("current_time"),"hms")
@@ -459,24 +454,19 @@ class CNOPModel scalar estimateMIOPR(y, x, z, infcat, |quiet, startvalues, robus
 		quiet = 0
 	}
 	if (args() < 10 || rows(lambda) < 1 || lambda ==.) {
-		external CNOP_GLOBAL_CONST_LAMBDA
-		lambda = CNOP_GLOBAL_CONST_LAMBDA
+		lambda = CNOP_GLOBAL_CONST_LAMBDA()
 	}
 	if (args() < 11 || rows(maxiter) < 1 || maxiter ==.) {
-		external CNOP_GLOBAL_CONST_MAXITER
-		maxiter = CNOP_GLOBAL_CONST_MAXITER
+		maxiter = CNOP_GLOBAL_CONST_MAXITER()
 	}
 	if (args() < 12 || rows(ptol) < 1 || ptol ==.) {
-		external CNOP_GLOBAL_CONST_PTOL
-		ptol = CNOP_GLOBAL_CONST_PTOL
+		ptol = CNOP_GLOBAL_CONST_PTOL()
 	}
 	if (args() < 13 || rows(vtol) < 1 || vtol ==.) {
-		external CNOP_GLOBAL_CONST_VTOL
-		vtol = CNOP_GLOBAL_CONST_VTOL
+		vtol = CNOP_GLOBAL_CONST_VTOL()
 	}
 	if (args() < 14 || rows(nrtol) < 1 || nrtol ==.) {
-		external CNOP_GLOBAL_CONST_NRTOL
-		nrtol = CNOP_GLOBAL_CONST_NRTOL
+		nrtol = CNOP_GLOBAL_CONST_NRTOL()
 	}
 	
 	starttime = clock(c("current_time"),"hms")
@@ -716,24 +706,19 @@ class CNOPModel scalar estimateMIOPRC(y, x, z, infcat, |quiet, startvalues, robu
 		quiet = 0
 	}
 	if (args() < 10 || rows(lambda) < 1 || lambda ==.) {
-		external CNOP_GLOBAL_CONST_LAMBDA
-		lambda = CNOP_GLOBAL_CONST_LAMBDA
+		lambda = CNOP_GLOBAL_CONST_LAMBDA()
 	}
 	if (args() < 11 || rows(maxiter) < 1 || maxiter ==.) {
-		external CNOP_GLOBAL_CONST_MAXITER
-		maxiter = CNOP_GLOBAL_CONST_MAXITER
+		maxiter = CNOP_GLOBAL_CONST_MAXITER()
 	}
 	if (args() < 12 || rows(ptol) < 1 || ptol ==.) {
-		external CNOP_GLOBAL_CONST_PTOL
-		ptol = CNOP_GLOBAL_CONST_PTOL
+		ptol = CNOP_GLOBAL_CONST_PTOL()
 	}
 	if (args() < 13 || rows(vtol) < 1 || vtol ==.) {
-		external CNOP_GLOBAL_CONST_VTOL
-		vtol = CNOP_GLOBAL_CONST_VTOL
+		vtol = CNOP_GLOBAL_CONST_VTOL()
 	}
 	if (args() < 14 || rows(nrtol) < 1 || nrtol ==.) {
-		external CNOP_GLOBAL_CONST_NRTOL
-		nrtol = CNOP_GLOBAL_CONST_NRTOL
+		nrtol = CNOP_GLOBAL_CONST_NRTOL()
 	}
 	
 	starttime = clock(c("current_time"),"hms")
@@ -952,24 +937,19 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 		quiet = 0
 	}
 	if (args() < 11 || rows(lambda) < 1 || lambda ==.) {
-		external CNOP_GLOBAL_CONST_LAMBDA
-		lambda = CNOP_GLOBAL_CONST_LAMBDA
+		lambda = CNOP_GLOBAL_CONST_LAMBDA()
 	}
 	if (args() < 12 || rows(maxiter) < 1 || maxiter ==.) {
-		external CNOP_GLOBAL_CONST_MAXITER
-		maxiter = CNOP_GLOBAL_CONST_MAXITER
+		maxiter = CNOP_GLOBAL_CONST_MAXITER()
 	}
 	if (args() < 13 || rows(ptol) < 1 || ptol ==.) {
-		external CNOP_GLOBAL_CONST_PTOL
-		ptol = CNOP_GLOBAL_CONST_PTOL
+		ptol = CNOP_GLOBAL_CONST_PTOL()
 	}
 	if (args() < 14 || rows(vtol) < 1 || vtol ==.) {
-		external CNOP_GLOBAL_CONST_VTOL
-		vtol = CNOP_GLOBAL_CONST_VTOL
+		vtol = CNOP_GLOBAL_CONST_VTOL()
 	}
 	if (args() < 15 || rows(nrtol) < 1 || nrtol ==.) {
-		external CNOP_GLOBAL_CONST_NRTOL
-		nrtol = CNOP_GLOBAL_CONST_NRTOL
+		nrtol = CNOP_GLOBAL_CONST_NRTOL()
 	}
 	
 	
@@ -1221,24 +1201,19 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 		quiet = 0
 	}
 	if (args() < 11 || rows(lambda) < 1 || lambda ==.) {
-		external CNOP_GLOBAL_CONST_LAMBDA
-		lambda = CNOP_GLOBAL_CONST_LAMBDA
+		lambda = CNOP_GLOBAL_CONST_LAMBDA()
 	}
 	if (args() < 12 || rows(maxiter) < 1 || maxiter ==.) {
-		external CNOP_GLOBAL_CONST_MAXITER
-		maxiter = CNOP_GLOBAL_CONST_MAXITER
+		maxiter = CNOP_GLOBAL_CONST_MAXITER()
 	}
 	if (args() < 13 || rows(ptol) < 1 || ptol ==.) {
-		external CNOP_GLOBAL_CONST_PTOL
-		ptol = CNOP_GLOBAL_CONST_PTOL
+		ptol = CNOP_GLOBAL_CONST_PTOL()
 	}
 	if (args() < 14 || rows(vtol) < 1 || vtol ==.) {
-		external CNOP_GLOBAL_CONST_VTOL
-		vtol = CNOP_GLOBAL_CONST_VTOL
+		vtol = CNOP_GLOBAL_CONST_VTOL()
 	}
 	if (args() < 15 || rows(nrtol) < 1 || nrtol ==.) {
-		external CNOP_GLOBAL_CONST_NRTOL
-		nrtol = CNOP_GLOBAL_CONST_NRTOL
+		nrtol = CNOP_GLOBAL_CONST_NRTOL()
 	}
 	
 	starttime = clock(c("current_time"),"hms")
@@ -1506,24 +1481,19 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 		quiet = 0
 	}
 	if (args() < 11 || rows(lambda) < 1 || lambda ==.) {
-		external CNOP_GLOBAL_CONST_LAMBDA
-		lambda = CNOP_GLOBAL_CONST_LAMBDA
+		lambda = CNOP_GLOBAL_CONST_LAMBDA()
 	}
 	if (args() < 12 || rows(maxiter) < 1 || maxiter ==.) {
-		external CNOP_GLOBAL_CONST_MAXITER
-		maxiter = CNOP_GLOBAL_CONST_MAXITER
+		maxiter = CNOP_GLOBAL_CONST_MAXITER()
 	}
 	if (args() < 13 || rows(ptol) < 1 || ptol ==.) {
-		external CNOP_GLOBAL_CONST_PTOL
-		ptol = CNOP_GLOBAL_CONST_PTOL
+		ptol = CNOP_GLOBAL_CONST_PTOL()
 	}
 	if (args() < 14 || rows(vtol) < 1 || vtol ==.) {
-		external CNOP_GLOBAL_CONST_VTOL
-		vtol = CNOP_GLOBAL_CONST_VTOL
+		vtol = CNOP_GLOBAL_CONST_VTOL()
 	}
 	if (args() < 15 || rows(nrtol) < 1 || nrtol ==.) {
-		external CNOP_GLOBAL_CONST_NRTOL
-		nrtol = CNOP_GLOBAL_CONST_NRTOL
+		nrtol = CNOP_GLOBAL_CONST_NRTOL()
 	}
 	starttime = clock(c("current_time"),"hms")
 	n	= rows(x)

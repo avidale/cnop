@@ -11,14 +11,22 @@ df/da = normalden(a) * cumnormal((b-ar)/(1-r^2))
 
 */
 
-/*
-INCOMPLETE: insert these constants into each optimization
-*/
-CNOP_GLOBAL_CONST_MAXITER = 30
-CNOP_GLOBAL_CONST_PTOL = 1e-6
-CNOP_GLOBAL_CONST_VTOL = 1e-7
-CNOP_GLOBAL_CONST_NRTOL = 1e-5
-CNOP_GLOBAL_CONST_LAMBDA = 0.0
+
+function CNOP_GLOBAL_CONST_MAXITER() {
+	return(30)
+}
+function CNOP_GLOBAL_CONST_PTOL() {
+	return(1e-6)
+}
+function CNOP_GLOBAL_CONST_VTOL() {
+	return(1e-7)
+}
+function CNOP_GLOBAL_CONST_NRTOL() {
+	return(1e-5)
+}
+function CNOP_GLOBAL_CONST_LAMBDA() {
+	return(0.0)
+}
 
 
 
@@ -107,27 +115,22 @@ function coeffOP(x, ycateg, ncat,| quiet, startbmu, lambda, maxiter, ptol, vtol,
 		startbmu 	= start_b1 \ start_mu1;
 	}
 	if (args() < 6 || rows(lambda) < 1 || lambda ==.) {
-		external CNOP_GLOBAL_CONST_LAMBDA
-		lambda = CNOP_GLOBAL_CONST_LAMBDA
+		lambda = CNOP_GLOBAL_CONST_LAMBDA()
 	}
 	if (args() < 7 || rows(maxiter) < 1 || maxiter ==.) {
-		external CNOP_GLOBAL_CONST_MAXITER
-		maxiter = CNOP_GLOBAL_CONST_MAXITER
+		maxiter = CNOP_GLOBAL_CONST_MAXITER()
 	}
 	if (args() < 8 || rows(ptol) < 1 || ptol ==.) {
-		external CNOP_GLOBAL_CONST_PTOL
-		ptol = CNOP_GLOBAL_CONST_PTOL
+		ptol = CNOP_GLOBAL_CONST_PTOL()
 	}
 	if (args() < 9 || rows(vtol) < 1 || vtol ==.) {
-		external CNOP_GLOBAL_CONST_VTOL
-		vtol = CNOP_GLOBAL_CONST_VTOL
+		vtol = CNOP_GLOBAL_CONST_VTOL()
 	}
 	if (args() < 10 || rows(nrtol) < 1 || nrtol ==.) {
-		external CNOP_GLOBAL_CONST_NRTOL
-		nrtol = CNOP_GLOBAL_CONST_NRTOL
+		nrtol = CNOP_GLOBAL_CONST_NRTOL()
 	}
 
-	S = optimize_init()
+	S = optimize_init(	)
 	if(quiet){
 		optimize_init_tracelevel(S, "none")
 		optimize_init_verbose(S, 0)

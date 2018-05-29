@@ -27,7 +27,9 @@ Author 5 from:
 Author 5 email: 
 
 Help keywords: 
-
+    ziop "ziop" "ziop2" "ziop3" "nop" ziop_postestimation "ziop postestimation" "ziopprobabilities" "ziopcontrasts" "ziopmargins" "ziopclassification"
 File list: 
+    application.do rate_change.dta lziop.mlib nop.ado ziop.sthlp ziop_postestimation.sthlp ziop2.ado ziop3.ado ziopclassification.ado ziopcontrasts.ado ziopmargins.ado zioppredict.ado ziopprobabilities.ado ziopvuong.ado
 
 Notes:
+    application.do and rate_change.dta are provided for illustration purposes. The rest of the files should be included into the package.

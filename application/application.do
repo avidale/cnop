@@ -1,14 +1,11 @@
 
-// clear workspace and load the needed functions
-drop _all
-mata: mata clear
+// assume that all contents of the `package` folder are installed
+
 // make the current directory working directory (change the address to that on your own computer!)
 //cd C:\Users\David\YandexDisk\hsework\gauss-mata\cnop\sandbox\
 cd "C:\Users\user\Documents\Dale\Our paper on Github\cnop\sandbox"
-// load the required procedures
-run stata_wrappers.ado
 
-import delimited Rate_change.csv, clear 
+use rate_change.dta, clear
 
 set more off
 oprobit rate_change spread pb houst gdp, nolog
