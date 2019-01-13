@@ -75,6 +75,7 @@ class CNOPModel {
 	real scalar HQIC
 	real scalar brier_score
 	real scalar ranked_probability_score
+	real scalar accuracy
 	
 	// marginal effects
 	real vector me

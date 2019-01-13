@@ -13,8 +13,9 @@ run simulation_routines.do
 
 mata
 
-dgp			= "NOP"
-n			= 200
+dgp			= "CNOP"
+mdl			= "CNOP"
+n			= 210
 end
 
 do simulation_comparison_script.do

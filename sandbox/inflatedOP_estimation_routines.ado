@@ -54,6 +54,11 @@ class CNOPModel scalar describeModel(class CNOPModel scalar model, params, covMa
 	model.brier_score = matrix_mse(prob_obs - q)
 	model.ranked_probability_score = matrix_mse(running_rowsum(prob_obs) - running_rowsum(q))
 	
+	values = runningsum(J(1, cols(q), 1))
+	prediction = rowsum((prob_obs:==rowmax(prob_obs)) :* values)
+	actual = rowsum((q:==rowmax(q)) :* values)
+	model.accuracy = mean(prediction :== actual)
+	
 	model.V	= covMat
 	model.V_rob	= covMat_rob
 	model.logLik	= maxLik
@@ -130,11 +135,11 @@ class CNOPModel scalar estimateOP(y, x, |quiet, startvalues, xbar, dummies, robu
 	optimize_init_argument(S, 3, ncat)
 	optimize_init_argument(S, 4, 0)
 	optimize_init_evaluator(S, &_op_optim())
-	optimize_init_evaluatortype(S, "gf1") // added!!
+	optimize_init_evaluatortype(S, "gf0") // todo: gf1 raises discontinuity error - why ?
 	optimize_init_params(S, (start_param'))
 	
 	if (cols(who) > 0 && who != .) {
-		optimize_init_cluster(S, who) // added!!!
+		optimize_init_cluster(S, who)
 	}
 	errorcode = _optimize(S)
 	if (errorcode == 0) {

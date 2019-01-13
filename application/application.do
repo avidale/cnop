@@ -2,7 +2,7 @@
 // assume that all contents of the `package` folder are installed
 
 // make the current directory working directory (change the address to that on your own computer!)
-//cd C:\Users\David\YandexDisk\hsework\gauss-mata\cnop\sandbox\
+// cd C:\Users\ddale\YandexDisk\hsework\gauss-mata\cnop\application\
 cd "C:\Users\user\Documents\Dale\Our paper on Github\cnop\sandbox"
 
 use rate_change.dta, clear
