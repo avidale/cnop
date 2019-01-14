@@ -18,10 +18,10 @@ run simulation_routines.do
 
 mata
 
-DGP	= "OP"
+DGP	= "CNOP"
 MDLS = "OP", "CNOP"
 start_iter	= 1
-sim_iter	= 10
+sim_iter	= 100
 quiet	= 1
 
 end

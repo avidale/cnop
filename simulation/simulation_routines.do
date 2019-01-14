@@ -324,7 +324,7 @@ function estimate_and_get_params_v3(dgp, p, s, me, mese, pr, prse, ll_obs, acc, 
 		me_se = generalMEwithSE(pvt_x, mod, 1)
 		pr_se = generalPredictWithSE(pvt_x, mod, 1)
 	} else {
-		me_se = J(6,5,.)
+		me_se = J(8,5,.)
 		pr_se = J(2,5,.)
 	}
 	me = rowshape(me_se[(1,2,3,4),], 1)
