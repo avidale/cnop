@@ -110,10 +110,16 @@ for(it = start_iter; it <= 50000; it++){
 		calculate bias, RMSE, CR and bias of s.e. for their marginal effects
 	*/
 	
-	/* the Vuong part */
-	ll_diff = ll_obs1 - ll_obs2
+	
+	/* likelihood ratio test - we don't conduct it because models are not nested */
 	k_1 = cols(p1)
 	k_2 = cols(p2)
+	/*chi2_pvalue1 = chi2(k_1 - k_2, 2 *(lik1 - lik2))
+	chi2_pvalue2 = chi2(k_2 - k_1, 2 *(lik2 - lik2))*/
+	
+	/* the Vuong part */
+	ll_diff = ll_obs1 - ll_obs2
+	
 	
 	mean_diff = mean(ll_diff)
 	std_diff = sqrt(variance(ll_diff))
@@ -130,15 +136,25 @@ for(it = start_iter; it <= 50000; it++){
 	n_winsAIC = sum((ll_diff :- (k_1-k_2) / n_obs) :> 0)
 	n_winsBIC = sum((ll_diff :- (k_1-k_2) * log(n_obs) / (2 * n_obs)) :> 0)
 	pr_wins = n_wins / n_obs
+	wins_pvalue = binomialp(n_obs, n_wins, 0.5)
+	wins_pvalueAIC = binomialp(n_obs, n_winsAIC, 0.5)
+	wins_pvalueBIC = binomialp(n_obs, n_winsBIC, 0.5)
+	
+	crit1 = acc1, brier1, rps1, aic1, caic1, bic1, lik1
+	crit2 = acc2, brier2, rps2, aic2, caic2, bic2, lik2
+	crit12 = vuong, vuongAIC, vuongBIC, n_wins, n_winsAIC, n_winsBIC, pvalue, pvalueAIC, pvalueBIC, wins_pvalue, wins_pvalueAIC, wins_pvalueBIC
 	
 	
-	cmp1 = acc1 > acc2, brier1 < brier2, rps1 < rps2, aic1 < aic2, caic1 < caic2, bic1 < bic2, lik1 > lik2, vuong > 0, vuongAIC > 0, vuongBIC > 0, n_wins > n_obs/2, n_winsAIC > n_obs/2, n_winsBIC > n_obs/2
-	cmp2 = acc2 > acc1, brier2 < brier1, rps2 < rps1, aic2 < aic1, caic2 < caic1, bic2 < bic1, lik2 > lik1, vuong < 0, vuongAIC < 0, vuongBIC < 0, n_wins < n_obs/2, n_winsAIC < n_obs/2, n_winsBIC < n_obs/2
-	cmp1
+	cmp1 = acc1 > acc2, brier1 < brier2, rps1 < rps2, aic1 < aic2, caic1 < caic2, bic1 < bic2, lik1 > lik2, pvalue < 0.05, pvalueAIC < 0.05, pvalueBIC < 0.05, wins_pvalue < 0.05, wins_pvalueAIC < 0.05, wins_pvalueBIC < 0.05
+	cmp2 = acc2 > acc1, brier2 < brier1, rps2 < rps1, aic2 < aic1, caic2 < caic1, bic2 < bic1, lik2 > lik1, pvalue > 0.95, pvalueAIC > 0.95, pvalueBIC > 0.95, wins_pvalue > 0.95, wins_pvalueAIC > 0.95, wins_pvalueBIC > 0.95
 	
 	if (ready == 0) {
 		all_cmp1 = cmp1
 		all_cmp2 = cmp2
+		
+		all_crit1  = crit1
+		all_crit2  = crit2
+		all_crit12 = crit12
 		
 		all_pbias1 = pbias1 
 		all_prmse1 = prmse1
@@ -172,6 +188,10 @@ for(it = start_iter; it <= 50000; it++){
 	} else {
 		all_cmp1 = all_cmp1 \ cmp1
 		all_cmp2 = all_cmp2 \ cmp2
+		
+		all_crit1  = all_crit1 \ crit1
+		all_crit2  = all_crit2 \ crit2
+		all_crit12 = all_crit12 \ crit12
 		
 		all_pbias1 = all_pbias1 \ pbias1 
 		all_prmse1 = all_prmse1 \ prmse1
@@ -259,28 +279,28 @@ mean(allco)
 */
 
 effp1 = (
-	mean(abs(colsum(all_pbias1) :/ rows(all_pbias1) :/ true_pr )'), 	/* mean relative bias - enormous because of division by nearly 0 */
+	mean(abs(colsum(all_pbias1) :/ rows(all_pbias1)  )'), 	/* mean ABSOLUTE bias - enormous because of division by nearly 0 */
 	mean(((colsum(prmse1) :/ rows(prmse1)) :^0.5)'),  /* mean absolute rmse */
 	mean((colsum(all_pcovr1) :/ rows(all_pcovr1))'),  /* mean coverage rate */
 	mean(abs((colsum(all_pavgm21) :/ rows(all_pavgm21) - (colsum(all_pavgm11) :/ rows(all_pavgm11)) :^2) :^ 0.5 :/ (colsum(all_pavgse1) / rows(all_pavgse1)) :- 1)') /* mean percentage bias of s.e. */
 )
 
 effm1 = (
-	mean(abs(colsum(all_mbias1) :/ rows(all_mbias1) :/ true_me )'), 	/* mean relative bias */
+	mean(abs(colsum(all_mbias1) :/ rows(all_mbias1)  )'), 	/* mean ABSOLUTE bias */
 	mean(((colsum(mrmse1) :/ rows(mrmse1)) :^0.5)'),  /* mean absolute rmse */
 	mean((colsum(all_mcovr1) :/ rows(all_mcovr1))'),  /* mean coverage rate */
 	mean(abs((colsum(all_mavgm21) :/ rows(all_mavgm21) - (colsum(all_mavgm11) :/ rows(all_mavgm11)) :^2) :^ 0.5 :/ (colsum(all_mavgse1) / rows(all_mavgse1)) :- 1)') /* mean percentage bias of s.e. */
 )
 
 effp2 = (
-	mean(abs(colsum(all_pbias2) :/ rows(all_pbias2) :/ true_pr )'), 	/* mean relative bias - enormous because of division by nearly 0 */
+	mean(abs(colsum(all_pbias2) :/ rows(all_pbias2) )'), 	/* mean ABSOLUTE bias - enormous because of division by nearly 0 */
 	mean(((colsum(prmse2) :/ rows(prmse2)) :^0.5)'),  /* mean absolute rmse */
 	mean((colsum(all_pcovr2) :/ rows(all_pcovr2))'),  /* mean coverage rate */
 	mean(abs((colsum(all_pavgm22) :/ rows(all_pavgm22) - (colsum(all_pavgm12) :/ rows(all_pavgm12)) :^2) :^ 0.5 :/ (colsum(all_pavgse2) / rows(all_pavgse2)) :- 1)') /* mean percentage bias of s.e. */
 )
 
 effm2 = (
-	mean(abs(colsum(all_mbias2) :/ rows(all_mbias2) :/ true_me )'), 	/* mean relative bias */
+	mean(abs(colsum(all_mbias2) :/ rows(all_mbias2) )'), 	/* mean ABSOLUTE bias */
 	mean(((colsum(mrmse2) :/ rows(mrmse2)) :^0.5)'),  /* mean absolute rmse */
 	mean((colsum(all_mcovr2) :/ rows(all_mcovr2))'),  /* mean coverage rate */
 	mean(abs((colsum(all_mavgm22) :/ rows(all_mavgm22) - (colsum(all_mavgm12) :/ rows(all_mavgm12)) :^2) :^ 0.5 :/ (colsum(all_mavgse2) / rows(all_mavgse2)) :- 1)') /* mean percentage bias of s.e. */
@@ -288,11 +308,21 @@ effm2 = (
 
 /* todo: in normalization, take into account convergence rate! */
 
+/* this is the basic table */
+
 column1 = effp1, effm1, colsum(all_cmp1) / rows(all_cmp1)
 
 column2 = effp2, effm2, colsum(all_cmp2) / rows(all_cmp2)
 
 column1', column2'
+
+/* this is the mean values of one-model scores (first part of comparison) */
+
+colsum(all_crit1)' / rows(all_crit1), colsum(all_crit2)' / rows(all_crit2)
+
+/* this is the mean values of two-model scores and their p-values (second part of comparison) */
+
+colsum(all_crit12)' / rows(all_crit12)
 
 /*
 sim = allpa, allse, allme, allms, allpr, allps, allco, allet, allyh, allei, allit
