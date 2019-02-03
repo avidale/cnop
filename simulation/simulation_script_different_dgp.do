@@ -14,6 +14,7 @@ For example:
 	start_iter	= 1
 	sim_iter	= 10*1000
 	quiet	= 1
+	MIN_CLASS_PERCENTAGE = 0.04
 
 Before execution, we need to call:
 	CNOPishModel_definition.ado
@@ -62,7 +63,7 @@ for(it = start_iter; it <= 50000; it++){
 	
 	y_hist = sum(y:==1), sum(y:==2), sum(y:==3), sum(y:==4), sum(y:==5)
 	
-	if (min(y_hist/rows(y))<0.03) {
+	if (min(y_hist/rows(y))<MIN_CLASS_PERCENTAGE) {
 		y_hist / rows(y)
 		"bad data generated, continue another y"
 		continue
@@ -136,9 +137,9 @@ for(it = start_iter; it <= 50000; it++){
 	n_winsAIC = sum((ll_diff :- (k_1-k_2) / n_obs) :> 0)
 	n_winsBIC = sum((ll_diff :- (k_1-k_2) * log(n_obs) / (2 * n_obs)) :> 0)
 	pr_wins = n_wins / n_obs
-	wins_pvalue = binomialp(n_obs, n_wins, 0.5)
-	wins_pvalueAIC = binomialp(n_obs, n_winsAIC, 0.5)
-	wins_pvalueBIC = binomialp(n_obs, n_winsBIC, 0.5)
+	wins_pvalue = binomial(n_obs, n_obs-n_wins, 0.5)
+	wins_pvalueAIC = binomial(n_obs, n_obs-n_winsAIC, 0.5)
+	wins_pvalueBIC = binomial(n_obs, n_obs-n_winsBIC, 0.5)
 	
 	crit1 = acc1, brier1, rps1, aic1, caic1, bic1, lik1
 	crit2 = acc2, brier2, rps2, aic2, caic2, bic2, lik2
@@ -280,28 +281,28 @@ mean(allco)
 
 effp1 = (
 	mean(abs(colsum(all_pbias1) :/ rows(all_pbias1)  )'), 	/* mean ABSOLUTE bias - enormous because of division by nearly 0 */
-	mean(((colsum(prmse1) :/ rows(prmse1)) :^0.5)'),  /* mean absolute rmse */
+	mean(((colsum(all_prmse1) :/ rows(all_prmse1)) :^0.5)'),  /* mean absolute rmse */
 	mean((colsum(all_pcovr1) :/ rows(all_pcovr1))'),  /* mean coverage rate */
 	mean(abs((colsum(all_pavgm21) :/ rows(all_pavgm21) - (colsum(all_pavgm11) :/ rows(all_pavgm11)) :^2) :^ 0.5 :/ (colsum(all_pavgse1) / rows(all_pavgse1)) :- 1)') /* mean percentage bias of s.e. */
 )
 
 effm1 = (
 	mean(abs(colsum(all_mbias1) :/ rows(all_mbias1)  )'), 	/* mean ABSOLUTE bias */
-	mean(((colsum(mrmse1) :/ rows(mrmse1)) :^0.5)'),  /* mean absolute rmse */
+	mean(((colsum(all_mrmse1) :/ rows(all_mrmse1)) :^0.5)'),  /* mean absolute rmse */
 	mean((colsum(all_mcovr1) :/ rows(all_mcovr1))'),  /* mean coverage rate */
 	mean(abs((colsum(all_mavgm21) :/ rows(all_mavgm21) - (colsum(all_mavgm11) :/ rows(all_mavgm11)) :^2) :^ 0.5 :/ (colsum(all_mavgse1) / rows(all_mavgse1)) :- 1)') /* mean percentage bias of s.e. */
 )
 
 effp2 = (
 	mean(abs(colsum(all_pbias2) :/ rows(all_pbias2) )'), 	/* mean ABSOLUTE bias - enormous because of division by nearly 0 */
-	mean(((colsum(prmse2) :/ rows(prmse2)) :^0.5)'),  /* mean absolute rmse */
+	mean(((colsum(all_prmse2) :/ rows(all_prmse2)) :^0.5)'),  /* mean absolute rmse */
 	mean((colsum(all_pcovr2) :/ rows(all_pcovr2))'),  /* mean coverage rate */
 	mean(abs((colsum(all_pavgm22) :/ rows(all_pavgm22) - (colsum(all_pavgm12) :/ rows(all_pavgm12)) :^2) :^ 0.5 :/ (colsum(all_pavgse2) / rows(all_pavgse2)) :- 1)') /* mean percentage bias of s.e. */
 )
 
 effm2 = (
 	mean(abs(colsum(all_mbias2) :/ rows(all_mbias2) )'), 	/* mean ABSOLUTE bias */
-	mean(((colsum(mrmse2) :/ rows(mrmse2)) :^0.5)'),  /* mean absolute rmse */
+	mean(((colsum(all_mrmse2) :/ rows(all_mrmse2)) :^0.5)'),  /* mean absolute rmse */
 	mean((colsum(all_mcovr2) :/ rows(all_mcovr2))'),  /* mean coverage rate */
 	mean(abs((colsum(all_mavgm22) :/ rows(all_mavgm22) - (colsum(all_mavgm12) :/ rows(all_mavgm12)) :^2) :^ 0.5 :/ (colsum(all_mavgse2) / rows(all_mavgse2)) :- 1)') /* mean percentage bias of s.e. */
 )
