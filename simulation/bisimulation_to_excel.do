@@ -7,7 +7,7 @@ btm = colsum(all_crit12)' / rows(all_crit12)
 
 
 fname = "sim_compare_results.xlsx"
-sheetname = "MC results (20190202)"
+sheetname = "MC results (20190205)-10.0"
 
 excel = xl()
 excel.load_book(fname)
@@ -19,13 +19,14 @@ if(DGP == "OP") {
 } else {
 	left = 7
 }
+left = left + (repeat_dataset - 1) * 10
 
-excel.put_number(7, left, top[(1,2,3,4),])
-excel.put_number(12, left, top[(5,6,7,8),])
-excel.put_number(17, left, top[(9,10,11,12,13,14,15,16,17,18,19,20,21),])
+excel.put_number(7, left, top[range(1,12,1),])
+excel.put_number(20, left, top[range(13,16,1),])
+excel.put_number(25, left, top[range(17,29,1),])
 
-excel.put_number(34, left, mid)
-excel.put_number(42, left, btm)
+excel.put_number(42, left, mid)
+excel.put_number(50, left, btm)
 
 excel.close_book()
 

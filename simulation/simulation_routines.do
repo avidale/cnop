@@ -317,6 +317,7 @@ function estimate_and_get_params_v3(dgp, p, s, me, mese, pr, prse, ll_obs, acc, 
 	
 	*/
 	
+	/* */
 	pvt_x = (0.063, 0, 1.47, 4.9)
 	
 	if (conv == 1) {
@@ -331,6 +332,38 @@ function estimate_and_get_params_v3(dgp, p, s, me, mese, pr, prse, ll_obs, acc, 
 	mese = rowshape(me_se[(5,6,7,8),], 1)
 	pr = pr_se[1,]
 	prse = pr_se[2,]
+	 
+	
+	/* 
+	for(i=1; i<=rows(x), i++) {
+		/* here we assume X contains all necessary columns 
+		pvt_x = x[i,]
+		if (conv == 1) {
+			me_se = generalMEwithSE(pvt_x, mod, 1)
+			pr_se = generalPredictWithSE(pvt_x, mod, 1)
+		} else {
+			me_se = J(8,5,.)
+			pr_se = J(2,5,.)
+		}
+		me1 = rowshape(me_se[(1,2,3,4),], 1)
+		mese1 = rowshape(me_se[(5,6,7,8),], 1)
+		pr1 = pr_se[1,]
+		prse1 = pr_se[2,]
+		if (i==1) {
+			pr = pr1
+			prse = prse1 
+			me = me1
+			mese = mese1
+		} else {
+			pr = pr \ pr1
+			prse = prse \ prse1 
+			me = me \ me1
+			mese = mese \ mese1
+		}
+		*/
+	}
+	*/
+	
 	
 	ll_obs = mod.ll_obs
 	acc    = mod.accuracy

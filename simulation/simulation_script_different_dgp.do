@@ -14,7 +14,9 @@ For example:
 	start_iter	= 1
 	sim_iter	= 10*1000
 	quiet	= 1
-	MIN_CLASS_PERCENTAGE = 0.04
+	MIN_CLASS_PERCENTAGE = 0.02
+	MIN_CLASS_COUNT = 8
+	repeat_dataset = 1
 
 Before execution, we need to call:
 	CNOPishModel_definition.ado
@@ -46,15 +48,19 @@ for(it = start_iter; it <= 50000; it++){
 	x2 = st_data(., "pb")
 	x3 = st_data(., "houst")
 	x4 = st_data(., "gdp")
-	n = rows(x4)
-
-	e0 = rnormal(n,1,0,1)
-	e1 = rnormal(n,1,0,1)
-	e2 = rnormal(n,1,0,1)
 	
 	x	= x1, x2, x3, x4
 	zp	= x1, x2
 	zn	= x1, x4
+	x = J(repeat_dataset, 1, x)
+	zp = J(repeat_dataset, 1, zp)
+	zn = J(repeat_dataset, 1, zn)
+	
+	n = rows(x)
+
+	e0 = rnormal(n,1,0,1)
+	e1 = rnormal(n,1,0,1)
+	e2 = rnormal(n,1,0,1)
 
 	ncat = 5
 	infcat = 3
@@ -63,7 +69,7 @@ for(it = start_iter; it <= 50000; it++){
 	
 	y_hist = sum(y:==1), sum(y:==2), sum(y:==3), sum(y:==4), sum(y:==5)
 	
-	if (min(y_hist/rows(y))<MIN_CLASS_PERCENTAGE) {
+	if (min(y_hist/rows(y)) < MIN_CLASS_PERCENTAGE  || min(y_hist) < MIN_CLASS_COUNT) {
 		y_hist / rows(y)
 		"bad data generated, continue another y"
 		continue
@@ -279,32 +285,38 @@ mean(allpa)'
 mean(allco)
 */
 
+/* todo: select index for the "actual" category and append it to all "all" matrices */
+
 effp1 = (
-	mean(abs(colsum(all_pbias1) :/ rows(all_pbias1)  )'), 	/* mean ABSOLUTE bias - enormous because of division by nearly 0 */
-	mean(((colsum(all_prmse1) :/ rows(all_prmse1)) :^0.5)'),  /* mean absolute rmse */
-	mean((colsum(all_pcovr1) :/ rows(all_pcovr1))'),  /* mean coverage rate */
-	mean(abs((colsum(all_pavgm21) :/ rows(all_pavgm21) - (colsum(all_pavgm11) :/ rows(all_pavgm11)) :^2) :^ 0.5 :/ (colsum(all_pavgse1) / rows(all_pavgse1)) :- 1)') /* mean percentage bias of s.e. */
+	colsum(all_pbias1) :/ rows(all_pbias1)          			\ 	/* mean ABSOLUTE bias - enormous because of division by nearly 0 */
+	((colsum(all_prmse1) :/ rows(all_prmse1)) :^0.5)			\   /* mean absolute rmse */
+	(colsum(all_pcovr1) :/ rows(all_pcovr1))					\   /* mean coverage rate */
+	(colsum(all_pavgse1) / rows(all_pavgse1)) :/ (colsum(all_pavgm21) :/ rows(all_pavgm21) - (colsum(all_pavgm11) :/ rows(all_pavgm11)) :^2) :^ 0.5 /* predicted to true s.e. */
 )
+
+/* todo: reshape every row into 4 rows, by variable */
 
 effm1 = (
-	mean(abs(colsum(all_mbias1) :/ rows(all_mbias1)  )'), 	/* mean ABSOLUTE bias */
-	mean(((colsum(all_mrmse1) :/ rows(all_mrmse1)) :^0.5)'),  /* mean absolute rmse */
-	mean((colsum(all_mcovr1) :/ rows(all_mcovr1))'),  /* mean coverage rate */
-	mean(abs((colsum(all_mavgm21) :/ rows(all_mavgm21) - (colsum(all_mavgm11) :/ rows(all_mavgm11)) :^2) :^ 0.5 :/ (colsum(all_mavgse1) / rows(all_mavgse1)) :- 1)') /* mean percentage bias of s.e. */
+	abs(colsum(all_mbias1) :/ rows(all_mbias1))					\ 	/* mean ABSOLUTE bias */
+	((colsum(all_mrmse1) :/ rows(all_mrmse1)) :^0.5)			\  /* mean absolute rmse */
+	(colsum(all_mcovr1) :/ rows(all_mcovr1))					\  /* mean coverage rate */
+	(colsum(all_mavgse1) / rows(all_mavgse1)) :/ ((colsum(all_mavgm21) :/ rows(all_mavgm21) - (colsum(all_mavgm11) :/ rows(all_mavgm11)) :^2) :^ 0.5)  /* predicted to true s.e. */
 )
 
+/* todo: rewrite the shapes for the second model - as above */
+
 effp2 = (
-	mean(abs(colsum(all_pbias2) :/ rows(all_pbias2) )'), 	/* mean ABSOLUTE bias - enormous because of division by nearly 0 */
+	colsum(all_pbias2) :/ rows(all_pbias2), 	/* mean ABSOLUTE bias - enormous because of division by nearly 0 */
 	mean(((colsum(all_prmse2) :/ rows(all_prmse2)) :^0.5)'),  /* mean absolute rmse */
 	mean((colsum(all_pcovr2) :/ rows(all_pcovr2))'),  /* mean coverage rate */
-	mean(abs((colsum(all_pavgm22) :/ rows(all_pavgm22) - (colsum(all_pavgm12) :/ rows(all_pavgm12)) :^2) :^ 0.5 :/ (colsum(all_pavgse2) / rows(all_pavgse2)) :- 1)') /* mean percentage bias of s.e. */
+	(colsum(all_pavgse2) / rows(all_pavgse2)) :/ (colsum(all_pavgm22) :/ rows(all_pavgm22) - (colsum(all_pavgm12) :/ rows(all_pavgm12)) :^2) :^ 0.5 /* predicted to true  s.e. */
 )
 
 effm2 = (
 	mean(abs(colsum(all_mbias2) :/ rows(all_mbias2) )'), 	/* mean ABSOLUTE bias */
 	mean(((colsum(all_mrmse2) :/ rows(all_mrmse2)) :^0.5)'),  /* mean absolute rmse */
 	mean((colsum(all_mcovr2) :/ rows(all_mcovr2))'),  /* mean coverage rate */
-	mean(abs((colsum(all_mavgm22) :/ rows(all_mavgm22) - (colsum(all_mavgm12) :/ rows(all_mavgm12)) :^2) :^ 0.5 :/ (colsum(all_mavgse2) / rows(all_mavgse2)) :- 1)') /* mean percentage bias of s.e. */
+	mean( (colsum(all_mavgse2) / rows(all_mavgse2))' :/ ((colsum(all_mavgm22) :/ rows(all_mavgm22) - (colsum(all_mavgm12) :/ rows(all_mavgm12)) :^2) :^ 0.5)' ) /* predicted to true s.e.*/
 )
 
 /* todo: in normalization, take into account convergence rate! */

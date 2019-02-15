@@ -25,7 +25,7 @@ function CNOP_GLOBAL_CONST_NRTOL() {
 	return(1e-5)
 }
 function CNOP_GLOBAL_CONST_LAMBDA() {
-	return(1e-10)
+	return(1e-5)
 }
 
 
