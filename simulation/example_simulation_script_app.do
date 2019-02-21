@@ -18,10 +18,10 @@ run simulation_routines.do
 
 mata
 
-DGP	= "OP"
+DGP	= "CNOP"
 MDLS = "OP", "CNOP"
 start_iter	= 1
-sim_iter	= 1
+sim_iter	= 100
 quiet	= 1
 MIN_CLASS_PERCENTAGE = 0.02
 MIN_CLASS_COUNT = 8
@@ -30,7 +30,7 @@ repeat_dataset = 1
 end
 
 do simulation_script_different_dgp.do
-/*
-do bisimulation_to_excel.do
-*/
+
+do bisimulation_to_excel2.do
+
 

@@ -34,6 +34,33 @@ function CNOP_GLOBAL_CONST_LAMBDA() {
 // support functions
 ////////////////////////////////////////////////////////////////
 
+function selectColumns(matrixToSelectFrom, columnIndices) {
+	result = J(rows(columnIndices), cols(columnIndices), 0);
+	for(i=1; i<=rows(columnIndices); i++) {
+		for(j=1; j<=cols(columnIndices); j++) {
+			result[i,j] = matrixToSelectFrom[i, columnIndices[i,j]];
+		}
+	}
+	return(result);
+}
+
+function addRepeatedSelectColumns(matrixToSelectFrom, columnIndices, repetitions) {
+	step_size = cols(matrixToSelectFrom) / repetitions
+	for (i=1; i <= repetitions; i++) {
+		columns = (i-1) * step_size :+ runningsum(J(1,step_size,1))
+		part = matrixToSelectFrom[,columns]
+		part1 = part, selectColumns(part, columnIndices)
+		if (i==1) {
+			result = part1
+		} else {
+			result = result, part1
+		}
+	}
+	return(result)
+}
+
+
+
 function punishSort(x, | delta, diff) {
 	// the function returns vector x, if it is sorted in ascending order
 	// otherwise, it returns modified x in incrieasing order with very small distances between swapped points

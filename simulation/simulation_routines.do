@@ -303,7 +303,7 @@ function estimate_and_get_params_v3(dgp, p, s, me, mese, pr, prse, ll_obs, acc, 
 	else if (dgp == "CNOPC") {
 		mod = estimateCNOPC(y, x, zp, zn, infcat, quiet) 
 	} else {
-		"Don't know how to estimate model specified as " + dgp
+		"Don't know how to estimate model specified as " + dgpp
 	}
 	p = mod.params'
 	s = mod.se'
@@ -317,7 +317,7 @@ function estimate_and_get_params_v3(dgp, p, s, me, mese, pr, prse, ll_obs, acc, 
 	
 	*/
 	
-	/* */
+	/* 
 	pvt_x = (0.063, 0, 1.47, 4.9)
 	
 	if (conv == 1) {
@@ -332,11 +332,12 @@ function estimate_and_get_params_v3(dgp, p, s, me, mese, pr, prse, ll_obs, acc, 
 	mese = rowshape(me_se[(5,6,7,8),], 1)
 	pr = pr_se[1,]
 	prse = pr_se[2,]
+	*/
 	 
 	
-	/* 
-	for(i=1; i<=rows(x), i++) {
-		/* here we assume X contains all necessary columns 
+	/* */
+	for(i=1; i<=rows(x); i++) {
+		/* here we assume X contains all necessary columns */
 		pvt_x = x[i,]
 		if (conv == 1) {
 			me_se = generalMEwithSE(pvt_x, mod, 1)
@@ -360,9 +361,9 @@ function estimate_and_get_params_v3(dgp, p, s, me, mese, pr, prse, ll_obs, acc, 
 			me = me \ me1
 			mese = mese \ mese1
 		}
-		*/
+		
 	}
-	*/
+	
 	
 	
 	ll_obs = mod.ll_obs
@@ -375,6 +376,28 @@ function estimate_and_get_params_v3(dgp, p, s, me, mese, pr, prse, ll_obs, acc, 
 	lik    = mod.logLik
 }
 
+
+function calucalate_metrics(biases, rmses, coverages, predicted_ses, predictions, squared_predictions, true_category_indices, repetitions) {
+	/* todo: in normalization, take into account convergence rate! (aka missing rate) */
+
+	biases1 = addRepeatedSelectColumns(biases, true_category_indices, repetitions)
+	rmses1 = addRepeatedSelectColumns(rmses, true_category_indices, repetitions)
+	coverages1 = addRepeatedSelectColumns(coverages, true_category_indices, repetitions)
+	predicted_ses1 = addRepeatedSelectColumns(predicted_ses, true_category_indices, repetitions)
+	predictions1 = addRepeatedSelectColumns(predictions, true_category_indices, repetitions)
+	squared_predictions1 = addRepeatedSelectColumns(squared_predictions, true_category_indices, repetitions)
+	
+	mean_predicted_se1 = (colsum(predicted_ses1) / rows(predicted_ses1))
+	mean_true_se1 = (colsum(squared_predictions1) :/ rows(squared_predictions1) - (colsum(predictions1) :/ rows(predictions1)) :^2) :^ 0.5
+	
+	effect = (
+		colsum(biases1) :/ rows(biases1)    	      	\ 	/* mean ABSOLUTE bias */
+		((colsum(rmses1) :/ rows(rmses1)) :^0.5)		\   /* mean absolute rmse */
+		(colsum(coverages1) :/ rows(coverages1))		\   /* mean coverage rate */
+		mean_predicted_se1 :/ mean_true_se1					/* predicted to true s.e. */
+	)	
+	return(effect)
+} 
 
 
 
@@ -468,12 +491,41 @@ function get_true_me_p_v3(dgp, par_true, _returnedME, _returnedP){
 	true_model.ncat 	= 5
 	true_model.infcat 	= 3
 	true_model.corresp	= (1,2,3,4 \ 1,2,0,0 \ 1,0,0,2)
+	
 	pvt_x = (0.063, 0, 1.47, 4.9)
-	
 	generalME(par_true', pvt_x, true_model, 1, _returnedME = .)
-	
 	_returnedP = generalPredict(pvt_x, true_model, 1)
 }
+
+
+function get_true_me_p_v4(dgp, par_true, x, _returnedME, _returnedP){
+	
+	class CNOPModel scalar true_model
+	true_model.model_class 	= dgp
+	true_model.params 	= par_true
+	
+	true_model.ncat 	= 5
+	true_model.infcat 	= 3
+	true_model.corresp	= (1,2,3,4 \ 1,2,0,0 \ 1,0,0,2)
+	for(i=1; i<=rows(x); i++) {
+		/* here we assume X contains all necessary columns */
+		pvt_x = x[i,]
+		pr1 = generalPredict(pvt_x, true_model, 1)
+		generalME(par_true', pvt_x, true_model, 1, me1 = .)
+		if (i==1) {
+			pr = pr1
+			me = me1
+		} else {
+			pr = pr \ pr1
+			me = me \ me1
+		}
+	}
+	_returnedP = pr
+	_returnedME = me
+}
+
+
+
 
 
 function colMedians(matrix x) {
@@ -492,58 +544,8 @@ function colMedians(matrix x) {
 	return(results)
 }
 
-	
-/*
-	if (dgp == "NOP"){
-	}
-	if (dgp == "NOPC"){
-	}
-	if (dgp == "MIOPR"){
-	}
-	if (dgp == "MIOPRC"){
-	}
-	if (dgp == "CNOP"){
-	}
-	if (dgp == "CNOPC"){
-	}
-*/
-
 end
 
 
 
 
-
-
-
-mata
-/*
-
-generate_params("NOPC", param_true=.,  beta=., a=., gammap=., gamman=., mup=., mun=., ron=., rop=., gamma=., mu=., ro=.)
-
-rseed(42)
-n = 1000
-
-
-x1	= rnormal(n,1,0,1) :+ 2
-x2	= rnormal(n,1,0,1)
-x3	= runiform(n,1)
-x3	= (x3 :> 0.70) :- (x3 :< 0.30)
-
-e0 = rnormal(n,1,0,1)
-e1 = rnormal(n,1,0,1)
-e2 = rnormal(n,1,0,1)
-
-x	= x1, x2
-zp	= x2, x3
-zn	= x1, x3
-
-ncat = 5
-infcat = 3
-
-one_simulation("NOPC", y=., n, ncat, infcat, x, zp, zn, e0, e1, e2, beta, a, gammap, gamman, mup, mun, ron, rop, gamma, mu, ro)
-
-estimate_and_get_params("NOPC", p=., s=., me=., mese = ., pr = ., prse = ., conv = ., etime = ., y=y, x=x, zp=zp, zn=zn, infcat=infcat, quiet=0)
-
-*/
-end

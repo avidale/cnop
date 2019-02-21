@@ -20,6 +20,7 @@ For example:
 
 Before execution, we need to call:
 	CNOPishModel_definition.ado
+	
 	gradients.ado
 	inflatedOP_estimation_routines.ado
 	simulation_routines.do
@@ -31,7 +32,22 @@ mata
 
 generate_params_app(DGP, param_true=.,  beta=., a=., gammap=., gamman=., mup=., mun=., ron=., rop=., gamma=., mu=., ro=.)
 
-get_true_me_p_v3(DGP, param_true, true_me = ., true_pr = .)
+x1 = st_data(., "spread")
+x2 = st_data(., "pb")
+x3 = st_data(., "houst")
+x4 = st_data(., "gdp")
+x	= x1, x2, x3, x4
+zp	= x1, x2
+zn	= x1, x4
+x = J(repeat_dataset, 1, x)
+zp = J(repeat_dataset, 1, zp)
+zn = J(repeat_dataset, 1, zn)
+n = rows(x)
+ncat = 5
+infcat = 3
+
+/* todo: calculate these things for all rows) */
+get_true_me_p_v4(DGP, param_true, x, true_me = ., true_pr = .)
 
 ready = 0
 con1 = 0
@@ -43,27 +59,10 @@ for(it = start_iter; it <= 50000; it++){
 	
 	/* Generate data */
 	rseed(42+it)
-	
-	x1 = st_data(., "spread")
-	x2 = st_data(., "pb")
-	x3 = st_data(., "houst")
-	x4 = st_data(., "gdp")
-	
-	x	= x1, x2, x3, x4
-	zp	= x1, x2
-	zn	= x1, x4
-	x = J(repeat_dataset, 1, x)
-	zp = J(repeat_dataset, 1, zp)
-	zn = J(repeat_dataset, 1, zn)
-	
-	n = rows(x)
 
 	e0 = rnormal(n,1,0,1)
 	e1 = rnormal(n,1,0,1)
 	e2 = rnormal(n,1,0,1)
-
-	ncat = 5
-	infcat = 3
 	
 	one_simulation(DGP, y=., n, ncat, infcat, x, zp, zn, e0, e1, e2, beta, a, gammap, gamman, mup, mun, ron, rop, gamma, mu, ro)
 	
@@ -81,12 +80,12 @@ for(it = start_iter; it <= 50000; it++){
 	
 	estimate_and_get_params_v3(MDLS[2], p2=., s2=., me2=., mese2 = ., pr2 = ., prse2 = ., ll_obs2=. , acc2=., brier2=., rps2=., aic2=., caic2=., bic2=., lik2=., conv2 = ., etime2 = ., eiter2 = ., y=y, x=x, zp=zp, zn=zn, infcat=infcat, quiet=quiet)
 	
-	pbias1 = pr1 - true_pr /* todo: in the end, make it absolute and average */
-	prmse1 = (pr1 - true_pr) :^ 2 /* todo: in the end, average and take root */
-	pcovr1 = abs((true_pr - pr1) :/ prse1) :< 1.96 /* todo: in the end, average */
-	pavgse1 = prse1 /* todo: in the end, calculate mean predicted se and compare with true */
-	pavgm11 = pr1 /* todo: in the end, calculate true se */
-	pavgm21 = pr1 :^ 2 /* todo: in the end, calculate true se */
+	pbias1 = pr1 - true_pr /* in the end, make it absolute and average */
+	prmse1 = (pr1 - true_pr) :^ 2 /* in the end, average and take root */
+	pcovr1 = abs((true_pr - pr1) :/ prse1) :< 1.96 /*  in the end, average */
+	pavgse1 = prse1 /* in the end, calculate mean predicted se and compare with true */
+	pavgm11 = pr1 /* in the end, calculate true se */
+	pavgm21 = pr1 :^ 2 /* in the end, calculate true se */
 	
 	mbias1 = me1 - true_me
 	mrmse1 = (me1 - true_me) :^ 2
@@ -275,59 +274,32 @@ for(it = start_iter; it <= 50000; it++){
 it
 rows(sim_iter)
 
-/* this row may be incorrect because params may have different shape
-param_true,  mean(allpa)'
-*/
-/*
-param_true
-mean(allpa)'
 
-mean(allco)
-*/
+true_categories = J(rows(all_pbias1)/rows(y), 1, y) /* just repeat y multiple times */
 
-/* todo: select index for the "actual" category and append it to all "all" matrices */
+effp1_new = calucalate_metrics(all_pbias1, all_prmse1, all_pcovr1, all_pavgse1, all_pavgm11, all_pavgm21, true_categories, 1)
+effm1_new = calucalate_metrics(all_mbias1, all_mrmse1, all_mcovr1, all_mavgse1, all_mavgm11, all_mavgm21, true_categories, 4)
 
-effp1 = (
-	colsum(all_pbias1) :/ rows(all_pbias1)          			\ 	/* mean ABSOLUTE bias - enormous because of division by nearly 0 */
-	((colsum(all_prmse1) :/ rows(all_prmse1)) :^0.5)			\   /* mean absolute rmse */
-	(colsum(all_pcovr1) :/ rows(all_pcovr1))					\   /* mean coverage rate */
-	(colsum(all_pavgse1) / rows(all_pavgse1)) :/ (colsum(all_pavgm21) :/ rows(all_pavgm21) - (colsum(all_pavgm11) :/ rows(all_pavgm11)) :^2) :^ 0.5 /* predicted to true s.e. */
-)
+effp2_new = calucalate_metrics(all_pbias2, all_prmse2, all_pcovr2, all_pavgse2, all_pavgm12, all_pavgm22, true_categories, 1)
+effm2_new = calucalate_metrics(all_mbias2, all_mrmse2, all_mcovr2, all_mavgse2, all_mavgm12, all_mavgm22, true_categories, 4)
 
-/* todo: reshape every row into 4 rows, by variable */
+/* for marginal effects, reshape every row into 4 rows, by variable */
+effm1_new = effm1_new[,(1,2,3,4,5,6)] \ effm1_new[,(7,8,9,10,11,12)] \ effm1_new[,(13,14,15,16,17,18)] \ effm1_new[,(19,20,21,22,23,24)]
+effm2_new = effm2_new[,(1,2,3,4,5,6)] \ effm2_new[,(7,8,9,10,11,12)] \ effm2_new[,(13,14,15,16,17,18)] \ effm2_new[,(19,20,21,22,23,24)]
+/* now put each variable into its own part */
+effm1_new = effm1_new[(1,5,9,13),] \ effm1_new[(2,6,10,14),] \ effm1_new[(3,7,11,15),]  effm1_new[(4,8,12,16),]
+effm2_new = effm2_new[(1,5,9,13),] \ effm2_new[(2,6,10,14),] \ effm2_new[(3,7,11,15),]  effm2_new[(4,8,12,16),]
 
-effm1 = (
-	abs(colsum(all_mbias1) :/ rows(all_mbias1))					\ 	/* mean ABSOLUTE bias */
-	((colsum(all_mrmse1) :/ rows(all_mrmse1)) :^0.5)			\  /* mean absolute rmse */
-	(colsum(all_mcovr1) :/ rows(all_mcovr1))					\  /* mean coverage rate */
-	(colsum(all_mavgse1) / rows(all_mavgse1)) :/ ((colsum(all_mavgm21) :/ rows(all_mavgm21) - (colsum(all_mavgm11) :/ rows(all_mavgm11)) :^2) :^ 0.5)  /* predicted to true s.e. */
-)
 
-/* todo: rewrite the shapes for the second model - as above */
 
-effp2 = (
-	colsum(all_pbias2) :/ rows(all_pbias2), 	/* mean ABSOLUTE bias - enormous because of division by nearly 0 */
-	mean(((colsum(all_prmse2) :/ rows(all_prmse2)) :^0.5)'),  /* mean absolute rmse */
-	mean((colsum(all_pcovr2) :/ rows(all_pcovr2))'),  /* mean coverage rate */
-	(colsum(all_pavgse2) / rows(all_pavgse2)) :/ (colsum(all_pavgm22) :/ rows(all_pavgm22) - (colsum(all_pavgm12) :/ rows(all_pavgm12)) :^2) :^ 0.5 /* predicted to true  s.e. */
-)
-
-effm2 = (
-	mean(abs(colsum(all_mbias2) :/ rows(all_mbias2) )'), 	/* mean ABSOLUTE bias */
-	mean(((colsum(all_mrmse2) :/ rows(all_mrmse2)) :^0.5)'),  /* mean absolute rmse */
-	mean((colsum(all_mcovr2) :/ rows(all_mcovr2))'),  /* mean coverage rate */
-	mean( (colsum(all_mavgse2) / rows(all_mavgse2))' :/ ((colsum(all_mavgm22) :/ rows(all_mavgm22) - (colsum(all_mavgm12) :/ rows(all_mavgm12)) :^2) :^ 0.5)' ) /* predicted to true s.e.*/
-)
-
-/* todo: in normalization, take into account convergence rate! */
-
-/* this is the basic table */
+/* this is the basic table
 
 column1 = effp1, effm1, colsum(all_cmp1) / rows(all_cmp1)
 
 column2 = effp2, effm2, colsum(all_cmp2) / rows(all_cmp2)
 
 column1', column2'
+ */
 
 /* this is the mean values of one-model scores (first part of comparison) */
 
