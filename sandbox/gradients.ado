@@ -25,7 +25,7 @@ function CNOP_GLOBAL_CONST_NRTOL() {
 	return(1e-5)
 }
 function CNOP_GLOBAL_CONST_LAMBDA() {
-	return(1e-5)
+	return(1e-50)
 }
 
 
@@ -57,6 +57,17 @@ function addRepeatedSelectColumns(matrixToSelectFrom, columnIndices, repetitions
 		}
 	}
 	return(result)
+}
+
+function getDummies(y) {
+	allcat = uniqrows(y)
+	ncat = rows(allcat)
+	n = rows(y)
+	q = J(n, ncat, 0)
+	for(i=1; i<=ncat; i++){
+		q[.,i]	=(y :== allcat[i])
+	}
+	return(q)
 }
 
 

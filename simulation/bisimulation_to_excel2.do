@@ -6,7 +6,7 @@ btm = colsum(all_crit12)' / rows(all_crit12)
 
 
 fname = "MC results feb 2019.xlsx"
-sheetname = "MC results (2)"
+sheetname = "MC results (100it_conv)"
 
 excel = xl()
 excel.load_book(fname)
@@ -21,15 +21,26 @@ if(DGP == "OP") {
 shift = 7
 /*left = left + (repeat_dataset - 1) * 10*/
 
-excel.put_number(7, left,       effp1_new)
-excel.put_number(7, left+shift, effp2_new)
-excel.put_number(14, left,       effm1_new)
-excel.put_number(14, left+shift, effm2_new)
+excel.put_number(8, left,       effp1_new)
+excel.put_number(8, left+shift, effp2_new)
+excel.put_number(12, left,       prmse1)
+excel.put_number(12, left+shift, prmse2)
+excel.put_number(15, left,       effm1_new)
+excel.put_number(15, left+shift, effm2_new)
 
 
-excel.put_number(31, left, colsum(all_cmp1)' / rows(all_cmp1))
+excel.put_number(32, left, colsum(all_cmp1)' / rows(all_cmp1))
 
-excel.put_number(31, left+shift, colsum(all_cmp2)' / rows(all_cmp2))
+excel.put_number(32, left+shift, colsum(all_cmp2)' / rows(all_cmp2))
+
+if (MDLS[1] == DGP) {
+	top = 49
+} else if (MDLS[2] == DGP) {
+	top = 55
+} 
+
+excel.put_number(top, 4, effx_new)
+
 
 /*
 excel.put_number(42, left, mid)

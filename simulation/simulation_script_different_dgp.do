@@ -80,12 +80,18 @@ for(it = start_iter; it <= 50000; it++){
 	
 	estimate_and_get_params_v3(MDLS[2], p2=., s2=., me2=., mese2 = ., pr2 = ., prse2 = ., ll_obs2=. , acc2=., brier2=., rps2=., aic2=., caic2=., bic2=., lik2=., conv2 = ., etime2 = ., eiter2 = ., y=y, x=x, zp=zp, zn=zn, infcat=infcat, quiet=quiet)
 	
-	pbias1 = pr1 - true_pr /* in the end, make it absolute and average */
-	prmse1 = (pr1 - true_pr) :^ 2 /* in the end, average and take root */
-	pcovr1 = abs((true_pr - pr1) :/ prse1) :< 1.96 /*  in the end, average */
-	pavgse1 = prse1 /* in the end, calculate mean predicted se and compare with true */
-	pavgm11 = pr1 /* in the end, calculate true se */
-	pavgm21 = pr1 :^ 2 /* in the end, calculate true se */
+	if ((conv1 == 0) || (conv2 == 0)) {
+		"One of the models did not converge"
+		continue
+	}
+	
+	
+	pbias1 = pr1 - true_pr 							/* in the end, make it absolute and average */
+	prmse1 = (pr1 - true_pr) :^ 2 					/* in the end, average and take root */
+	pcovr1 = abs((true_pr - pr1) :/ prse1) :< 1.96 	/*  in the end, average */
+	pavgse1 = prse1 								/* in the end, calculate mean predicted se and compare with true */
+	pavgm11 = pr1 									/* in the end, calculate true se */
+	pavgm21 = pr1 :^ 2 								/* in the end, calculate true se */
 	
 	mbias1 = me1 - true_me
 	mrmse1 = (me1 - true_me) :^ 2
@@ -108,14 +114,23 @@ for(it = start_iter; it <= 50000; it++){
 	mavgm12 = me2 
 	mavgm22 = me2 :^ 2
 	
-	
-	/* todo: 
-	
-	for each model:
-		calculate bias, RMSE, CR and bias of s.e. for choice probabilities
-		calculate bias, RMSE, CR and bias of s.e. for their marginal effects
-	*/
-	
+	/* same calculation for model parameters */
+	if (MDLS[1] == DGP) {
+		true_model_p = p1
+		true_model_s = s1
+	} else if (MDLS[2] == DGP) {
+		true_model_p = p2
+		true_model_s = s2
+	} else {
+		/* here we would just throw an error */
+	}
+	xbias  = true_model_p - param_true'
+	xrmse  = (true_model_p - param_true') :^ 2
+	xcovr  = abs((true_model_p - param_true') :/ true_model_s) :< 1.96 
+	xavgse = true_model_s 
+	xavgm1 = true_model_p 
+	xavgm2 = true_model_p :^ 2
+		
 	
 	/* likelihood ratio test - we don't conduct it because models are not nested */
 	k_1 = cols(p1)
@@ -190,6 +205,14 @@ for(it = start_iter; it <= 50000; it++){
 		all_mavgm12 = mavgm12
 		all_mavgm22 = mavgm22
 		
+		all_xbias = xbias
+		all_xrmse = xrmse
+		all_xcovr = xcovr
+		all_xavgse = xavgse
+		all_xavgm1 = xavgm1
+		all_xavgm2 = xavgm2
+		
+		all_y = y
 		
 	} else {
 		all_cmp1 = all_cmp1 \ cmp1
@@ -226,6 +249,15 @@ for(it = start_iter; it <= 50000; it++){
 		all_mavgse2 = all_mavgse2 \ mavgse2
 		all_mavgm12 = all_mavgm12 \ mavgm12
 		all_mavgm22 = all_mavgm22 \ mavgm22
+		
+		all_xbias = all_xbias \ xbias
+		all_xrmse = all_xrmse \ xrmse
+		all_xcovr = all_xcovr \ xcovr
+		all_xavgse = all_xavgse \ xavgse
+		all_xavgm1 = all_xavgm1 \ xavgm1
+		all_xavgm2 = all_xavgm2 \ xavgm2
+		
+		all_y = all_y \ y
 		
 	}
 	
@@ -275,21 +307,26 @@ it
 rows(sim_iter)
 
 
-true_categories = J(rows(all_pbias1)/rows(y), 1, y) /* just repeat y multiple times */
+true_categories = all_y /* just repeat y multiple times */
 
-effp1_new = calucalate_metrics(all_pbias1, all_prmse1, all_pcovr1, all_pavgse1, all_pavgm11, all_pavgm21, true_categories, 1)
-effm1_new = calucalate_metrics(all_mbias1, all_mrmse1, all_mcovr1, all_mavgse1, all_mavgm11, all_mavgm21, true_categories, 4)
+effp1_new = calucalate_metrics(all_pbias1, all_prmse1, all_pcovr1, all_pavgse1, all_pavgm11, all_pavgm21, 1, true_categories, 1)
+effm1_new = calucalate_metrics(all_mbias1, all_mrmse1, all_mcovr1, all_mavgse1, all_mavgm11, all_mavgm21, 1, true_categories, 4)
 
-effp2_new = calucalate_metrics(all_pbias2, all_prmse2, all_pcovr2, all_pavgse2, all_pavgm12, all_pavgm22, true_categories, 1)
-effm2_new = calucalate_metrics(all_mbias2, all_mrmse2, all_mcovr2, all_mavgse2, all_mavgm12, all_mavgm22, true_categories, 4)
+effp2_new = calucalate_metrics(all_pbias2, all_prmse2, all_pcovr2, all_pavgse2, all_pavgm12, all_pavgm22, 1, true_categories, 1)
+effm2_new = calucalate_metrics(all_mbias2, all_mrmse2, all_mcovr2, all_mavgse2, all_mavgm12, all_mavgm22, 1, true_categories, 4)
 
 /* for marginal effects, reshape every row into 4 rows, by variable */
 effm1_new = effm1_new[,(1,2,3,4,5,6)] \ effm1_new[,(7,8,9,10,11,12)] \ effm1_new[,(13,14,15,16,17,18)] \ effm1_new[,(19,20,21,22,23,24)]
 effm2_new = effm2_new[,(1,2,3,4,5,6)] \ effm2_new[,(7,8,9,10,11,12)] \ effm2_new[,(13,14,15,16,17,18)] \ effm2_new[,(19,20,21,22,23,24)]
 /* now put each variable into its own part */
-effm1_new = effm1_new[(1,5,9,13),] \ effm1_new[(2,6,10,14),] \ effm1_new[(3,7,11,15),]  effm1_new[(4,8,12,16),]
-effm2_new = effm2_new[(1,5,9,13),] \ effm2_new[(2,6,10,14),] \ effm2_new[(3,7,11,15),]  effm2_new[(4,8,12,16),]
+effm1_new = effm1_new[(1,5,9,13),] \ effm1_new[(2,6,10,14),] \ effm1_new[(3,7,11,15),] \ effm1_new[(4,8,12,16),]
+effm2_new = effm2_new[(1,5,9,13),] \ effm2_new[(2,6,10,14),] \ effm2_new[(3,7,11,15),] \ effm2_new[(4,8,12,16),]
 
+effx_new = calucalate_metrics(all_xbias, all_xrmse, all_xcovr, all_xavgse, all_xavgm1, all_xavgm2, 0)
+
+
+prmse1 = (colsum(addRepeatedSelectColumns(all_pavgm11 - getDummies(all_y), true_categories, 1) :^2) / rows(all_y)) :^ 0.5
+prmse2 = (colsum(addRepeatedSelectColumns(all_pavgm21 - getDummies(all_y), true_categories, 1) :^2) / rows(all_y)) :^ 0.5
 
 
 /* this is the basic table

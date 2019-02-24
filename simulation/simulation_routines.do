@@ -377,15 +377,24 @@ function estimate_and_get_params_v3(dgp, p, s, me, mese, pr, prse, ll_obs, acc, 
 }
 
 
-function calucalate_metrics(biases, rmses, coverages, predicted_ses, predictions, squared_predictions, true_category_indices, repetitions) {
+function calucalate_metrics(biases, rmses, coverages, predicted_ses, predictions, squared_predictions, | add_columns, true_category_indices, repetitions) {
 	/* todo: in normalization, take into account convergence rate! (aka missing rate) */
 
-	biases1 = addRepeatedSelectColumns(biases, true_category_indices, repetitions)
-	rmses1 = addRepeatedSelectColumns(rmses, true_category_indices, repetitions)
-	coverages1 = addRepeatedSelectColumns(coverages, true_category_indices, repetitions)
-	predicted_ses1 = addRepeatedSelectColumns(predicted_ses, true_category_indices, repetitions)
-	predictions1 = addRepeatedSelectColumns(predictions, true_category_indices, repetitions)
-	squared_predictions1 = addRepeatedSelectColumns(squared_predictions, true_category_indices, repetitions)
+	if (add_columns == 1) {
+		biases1 = addRepeatedSelectColumns(biases, true_category_indices, repetitions)
+		rmses1 = addRepeatedSelectColumns(rmses, true_category_indices, repetitions)
+		coverages1 = addRepeatedSelectColumns(coverages, true_category_indices, repetitions)
+		predicted_ses1 = addRepeatedSelectColumns(predicted_ses, true_category_indices, repetitions)
+		predictions1 = addRepeatedSelectColumns(predictions, true_category_indices, repetitions)
+		squared_predictions1 = addRepeatedSelectColumns(squared_predictions, true_category_indices, repetitions)
+	} else {
+		biases1 = biases
+		rmses1 = rmses
+		coverages1 = coverages
+		predicted_ses1 = predicted_ses
+		predictions1 = predictions
+		squared_predictions1 = squared_predictions
+	}
 	
 	mean_predicted_se1 = (colsum(predicted_ses1) / rows(predicted_ses1))
 	mean_true_se1 = (colsum(squared_predictions1) :/ rows(squared_predictions1) - (colsum(predictions1) :/ rows(predictions1)) :^2) :^ 0.5
