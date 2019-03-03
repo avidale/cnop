@@ -6,7 +6,9 @@ btm = colsum(all_crit12)' / rows(all_crit12)
 
 
 fname = "MC results feb 2019.xlsx"
-sheetname = "MC results (100it_conv)"
+/*
+sheetname = "MC results (10it_conv)"
+*/
 
 excel = xl()
 excel.load_book(fname)
@@ -41,6 +43,11 @@ if (MDLS[1] == DGP) {
 
 excel.put_number(top, 4, effx_new)
 
+excel.put_number(61, left, (it, estimations, ready, con1, con2))
+
+excel.put_number(64, left, mean_criteria)
+
+excel.put_number(72, left, mean_comparison)
 
 /*
 excel.put_number(42, left, mid)

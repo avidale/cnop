@@ -52,10 +52,11 @@ get_true_me_p_v4(DGP, param_true, x, true_me = ., true_pr = .)
 ready = 0
 con1 = 0
 con2 = 0
+estimations = 0
 
-for(it = start_iter; it <= 50000; it++){
+for(it = start_iter-1; it < 50000; it++){
 	/* iteration number, number of good attempts so far, number of converged attempts */
-	it, ready, con1, con2
+	it, estimations, ready, con1, con2
 	
 	/* Generate data */
 	rseed(42+it)
@@ -79,6 +80,10 @@ for(it = start_iter; it <= 50000; it++){
 	estimate_and_get_params_v3(MDLS[1], p1=., s1=., me1=., mese1 = ., pr1 = ., prse1 = ., ll_obs1 = ., acc1 = ., brier1 = ., rps1 = ., aic1 = ., caic1 = ., bic1 = ., lik1 = ., conv1 = ., etime1 = ., eiter1 = ., y=y, x=x, zp=zp, zn=zn, infcat=infcat, quiet=quiet)
 	
 	estimate_and_get_params_v3(MDLS[2], p2=., s2=., me2=., mese2 = ., pr2 = ., prse2 = ., ll_obs2=. , acc2=., brier2=., rps2=., aic2=., caic2=., bic2=., lik2=., conv2 = ., etime2 = ., eiter2 = ., y=y, x=x, zp=zp, zn=zn, infcat=infcat, quiet=quiet)
+	
+	con1 = con1 + conv1
+	con2 = con2 + conv2
+	estimations = estimations + 1
 	
 	if ((conv1 == 0) || (conv2 == 0)) {
 		"One of the models did not converge"
@@ -263,8 +268,6 @@ for(it = start_iter; it <= 50000; it++){
 	
 	
 	ready = ready + 1
-	con1 = con1 + conv1
-	con2 = con2 + conv2
 	if(ready >= sim_iter){
 		break
 	}
@@ -340,11 +343,14 @@ column1', column2'
 
 /* this is the mean values of one-model scores (first part of comparison) */
 
-colsum(all_crit1)' / rows(all_crit1), colsum(all_crit2)' / rows(all_crit2)
+mean_criteria = colsum(all_crit1)' / rows(all_crit1), colsum(all_crit2)' / rows(all_crit2)
+mean_criteria
 
 /* this is the mean values of two-model scores and their p-values (second part of comparison) */
 
-colsum(all_crit12)' / rows(all_crit12)
+mean_comparison = colsum(all_crit12)' / rows(all_crit12)
+mean_comparison
+
 
 /*
 sim = allpa, allse, allme, allms, allpr, allps, allco, allet, allyh, allei, allit

@@ -17,30 +17,15 @@ cd "C:\Users\ddale\YandexDisk\hsework\gauss-mata\cnop\simulation"
 run simulation_routines.do
 
 mata
-
 DGP	= "OP"
 MDLS = "OP", "CNOP"
 start_iter	= 1
-sim_iter	= 100
+sim_iter	= 10000
 quiet	= 1
 MIN_CLASS_PERCENTAGE = 0.02
 MIN_CLASS_COUNT = 8
 repeat_dataset = 1
-
+sheetname = "MC results (10000it_conv)"
 end
-
 do simulation_script_different_dgp.do
-
 do bisimulation_to_excel2.do
-
-
-mata
-DGP	= "CNOP"
-end
-
-
-do simulation_script_different_dgp.do
-
-do bisimulation_to_excel2.do
-
-
