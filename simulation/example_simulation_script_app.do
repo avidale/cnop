@@ -19,13 +19,26 @@ run simulation_routines.do
 mata
 DGP	= "OP"
 MDLS = "OP", "CNOP"
-start_iter	= 1
-sim_iter	= 10000
+start_iter	= 20000
+sim_iter	= 1000
 quiet	= 1
 MIN_CLASS_PERCENTAGE = 0.02
 MIN_CLASS_COUNT = 8
 repeat_dataset = 1
-sheetname = "MC results (10000it_conv)"
+sheetname = "MC results (1000it_conv_2)"
 end
+
 do simulation_script_different_dgp.do
 do bisimulation_to_excel2.do
+
+
+mata
+DGP	= "CNOP"
+start_iter	= 1
+sim_iter	= 1000
+end
+
+do simulation_script_different_dgp.do
+do bisimulation_to_excel2.do
+
+
