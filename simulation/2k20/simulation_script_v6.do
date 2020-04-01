@@ -84,7 +84,7 @@ for(it = start_iter; it <= 50000; it++){
 			zn_iter = zn[boot_indices,]
 			y_iter_hist = sum(y_iter:==1), sum(y_iter:==2), sum(y_iter:==3), sum(y_iter:==4), sum(y_iter:==5)
 			y_iter_hist
-			if (min(y_hist/rows(y)) < 0.03) {
+			if (min(y_hist/rows(y)) < 0.06) {
 				"bad boot data generated, resample once more"
 				continue
 			}
