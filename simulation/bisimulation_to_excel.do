@@ -6,8 +6,10 @@ mid = colsum(all_crit1)' / rows(all_crit1), colsum(all_crit2)' / rows(all_crit2)
 btm = colsum(all_crit12)' / rows(all_crit12)
 
 
-fname = "sim_compare_results.xlsx"
+/* 
+fname = "sim_compare_results_2020.xlsx"
 sheetname = "MC results (20190205)-10.0"
+*/
 
 excel = xl()
 excel.load_book(fname)

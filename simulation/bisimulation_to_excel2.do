@@ -4,9 +4,9 @@ mata
 mid = colsum(all_crit1)' / rows(all_crit1), colsum(all_crit2)' / rows(all_crit2)
 btm = colsum(all_crit12)' / rows(all_crit12)
 
-
-fname = "MC results feb 2019.xlsx"
 /*
+fname = "MC results feb 2019.xlsx"
+
 sheetname = "MC results (10it_conv)"
 */
 
