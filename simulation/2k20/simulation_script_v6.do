@@ -61,7 +61,7 @@ for(it = start_iter; it <= 50000; it++){
 	
 	y_hist = sum(y:==1), sum(y:==2), sum(y:==3), sum(y:==4), sum(y:==5)
 	
-	if (min(y_hist/rows(y))<0.06) {
+	if (min(y_hist/rows(y))<min_y_pct) {
 		"bad data generated, continue another y"
 		continue
 	}
@@ -84,14 +84,15 @@ for(it = start_iter; it <= 50000; it++){
 			zn_iter = zn[boot_indices,]
 			y_iter_hist = sum(y_iter:==1), sum(y_iter:==2), sum(y_iter:==3), sum(y_iter:==4), sum(y_iter:==5)
 			y_iter_hist
-			if (min(y_hist/rows(y)) < 0.06) {
-				"bad boot data generated, resample once more"
+			if (min(y_iter_hist/rows(y_iter)) < min_boot_y_pct) {
+				"bad bootstrap data generated, resample once more"
 				continue
 			}
 			// todo: estimate
 			estimate_and_get_params_v2(DGP, boot_p=., boot_s=., boot_me=., boot_mese = ., boot_pr = ., boot_prse = ., boot_conv = ., boot_etime = ., boot_eiter = ., y=y_iter, x=x_iter, zp=zp_iter, zn=zn_iter, infcat=infcat, quiet=0, need_meprse=1)
 			if (boot_conv != 1) {
 				"boot did not converge, resample once more"
+				continue
 			}
 			boot_row = ready, it, booti, boot_p, boot_me, boot_pr 
 			if (boot_ready == 0) {

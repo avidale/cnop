@@ -18,10 +18,13 @@ mata
 
 DGP	= "CNOPC"
 n	= 200
-n_boot = 100
+n_boot = 7
 start_iter	= 1
 sim_iter	= 10
 quiet	= 1
+
+min_y_pct = 0.06
+min_boot_y_pct = 0.06
 
 end
 
