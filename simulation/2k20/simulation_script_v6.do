@@ -77,7 +77,8 @@ for(it = start_iter; it <= 50000; it++){
 		boot_success = 0
 		for (booti = 0; booti < n_boot * 10; booti++) {
 			rseed(42 + it + booti * 10000 + 123456789);
-			boot_indices = runiformint(n, 1, 1, n);
+			//boot_indices = runiformint(n, 1, 1, n);
+			boot_indices = floor(1 :+ runiform(n, 1) :* n);
 			y_iter = y[boot_indices,]
 			x_iter = x[boot_indices,]
 			zp_iter = zp[boot_indices,]
@@ -89,7 +90,7 @@ for(it = start_iter; it <= 50000; it++){
 				continue
 			}
 			// todo: estimate
-			estimate_and_get_params_v2(DGP, boot_p=., boot_s=., boot_me=., boot_mese = ., boot_pr = ., boot_prse = ., boot_conv = ., boot_etime = ., boot_eiter = ., y=y_iter, x=x_iter, zp=zp_iter, zn=zn_iter, infcat=infcat, quiet=0, need_meprse=1)
+			estimate_and_get_params_v2(DGP, boot_p=., boot_s=., boot_me=., boot_mese = ., boot_pr = ., boot_prse = ., boot_conv = ., boot_etime = ., boot_eiter = ., y_iter, x_iter, zp_iter, zn_iter, infcat=infcat, quiet=quiet, need_meprse=1, initial=p')
 			if (boot_conv != 1) {
 				"boot did not converge, resample once more"
 				continue

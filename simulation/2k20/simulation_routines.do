@@ -232,28 +232,28 @@ function one_simulation(dgp, y, n, ncat, infcat, x, zp, zn, e0, e1, e2, beta, a,
 }
 
 
-function estimate_and_get_params_v2(dgp, p, s, me, mese, pr, prse, conv, etime, eiter, y, x, zp, zn, infcat, quiet, need_meprse) {
+function estimate_and_get_params_v2(dgp, p, s, me, mese, pr, prse, conv, etime, eiter, y, x, zp, zn, infcat, quiet, need_meprse, | initial) {
 	class CNOPModel scalar mod
 	if (dgp == "OP") {
-		mod = estimateOP(y, x, quiet) 
+		mod = estimateOP(y, x, quiet, initial) 
 	} 
 	else if (dgp == "NOP") {
-		mod = estimateNOP(y, x, zp, zn, infcat, quiet) 
+		mod = estimateNOP(y, x, zp, zn, infcat, quiet, initial) 
 	} 
 	else if (dgp == "NOPC") {
-		mod = estimateNOPC(y, x, zp, zn, infcat, quiet) 
+		mod = estimateNOPC(y, x, zp, zn, infcat, quiet, initial) 
 	} 
 	else if (dgp == "MIOPR") {
-		mod = estimateMIOPR(y, x, zp, infcat, quiet) 
+		mod = estimateMIOPR(y, x, zp, infcat, quiet, initial) 
 	} 
 	else if (dgp == "MIOPRC") {
-		mod = estimateMIOPRC(y, x, zp, infcat, quiet) 
+		mod = estimateMIOPRC(y, x, zp, infcat, quiet, initial) 
 	} 
 	else if (dgp == "CNOP") {
-		mod = estimateCNOP(y, x, zp, zn, infcat, quiet) 
+		mod = estimateCNOP(y, x, zp, zn, infcat, quiet, initial) 
 	} 
 	else if (dgp == "CNOPC") {
-		mod = estimateCNOPC(y, x, zp, zn, infcat, quiet) 
+		mod = estimateCNOPC(y, x, zp, zn, infcat, quiet, initial) 
 	} else {
 		"Don't know how to estimate model specified as " + dgp
 	}
@@ -551,6 +551,15 @@ function colMedians(matrix x) {
 		}
 	}
 	return(results)
+}
+
+
+function calc_coverage(true_params, ests, stderrors, cv) {
+	cil = ests - cv:*stderrors
+	ciu = ests + cv:*stderrors
+	coverage = (true_params :> cil') :* (true_params :< ciu')
+	meancoverage = mean(coverage')'
+	return(meancoverage)
 }
 
 end
