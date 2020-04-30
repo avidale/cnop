@@ -20,7 +20,7 @@ Before execution, we need to call:
 
 mata
 
-DGP=dgp
+dgp=DGP
 
 signature = strlower(DGP) + "_" + strofreal(n) + "_partial_"+strofreal(start_iter)+"to"+strofreal(sim_iter)
 
@@ -103,7 +103,7 @@ realse = (mean((allpa[okrows,]:-meanparams'):^2)'):^0.5
 realse_boot = mean(bootspa[okrows,])'
 
 
-boot_meancoverage = calc_coverage(param_true, allpa[okrows,], allse[okrows,], cv)
+meancoverage = calc_coverage(param_true, allpa[okrows,], allse[okrows,], cv)
 boot_meancoverage = calc_coverage(param_true, allpa[okrows,], bootspa[okrows,], cv)
 
 

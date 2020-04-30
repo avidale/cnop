@@ -16,11 +16,11 @@ run 2k20/simulation_routines.do
 
 mata
 
-DGP	= "CNOPC"
-n	= 200
-n_boot = 7
+DGP	= "NOP"
+n	= 500
+n_boot = 3
 start_iter	= 1
-sim_iter	= 9
+sim_iter	= 4
 quiet	= 1
 
 min_y_pct = 0.06
@@ -30,6 +30,7 @@ end
 
 do 2k20/simulation_script_v6.do
 
+do 2k20/to_excel.do
 
 mata
 
