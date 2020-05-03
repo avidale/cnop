@@ -259,7 +259,7 @@ function estimate_and_get_params_v2(dgp, p, s, me, mese, pr, prse, conv, etime, 
 	}
 	p = mod.params'
 	s = mod.se'
-	mod.corresp = (1,1,0 \ 0,1,1 \ 1,0,1)
+	mod.corresp = (1,2,0 \ 0,1,2 \ 1,0,2)
 	conv = mod.converged
 	etime = mod.etime
 	eiter = mod.iterations
@@ -483,7 +483,7 @@ function get_true_me_p(dgp, par_true, _returnedME, _returnedP){
 	
 	true_model.ncat 	= 5
 	true_model.infcat 	= 3
-	true_model.corresp	= (1,1,0 \ 0,1,1 \ 1,0,1)
+	true_model.corresp	= (1,2,0 \ 0,1,2 \ 1,0,2)
 	
 	/* todo: decide whether we needed the 4th argument (0,0,1) */
 	generalME(par_true', (2,0,0), true_model, 1, _returnedME = .)
