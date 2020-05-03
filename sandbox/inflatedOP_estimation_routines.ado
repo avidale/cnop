@@ -262,6 +262,10 @@ class CNOPModel scalar estimateNOP(y, x, zp, zn, infcat, |quiet, startvalues, ro
 		params3 = coeffOP(zn2, q2, ncatn, quiet, ., lambda, maxiter, ptol, vtol, nrtol)
 		
 		start_param = params1 \ params2 \ params3
+	} else {
+		if(!quiet) {
+			"Using given start values for parameter estimation"
+		}
 	}
 	if(!quiet){
 		"Estimating NOP with exogenous switching"
@@ -509,6 +513,10 @@ class CNOPModel scalar estimateMIOPR(y, x, z, infcat, |quiet, startvalues, robus
 		params2 = coeffOP(z, q, ncat, quiet, ., lambda, maxiter, ptol, vtol, nrtol)
 			
 		start_param	= params1 \ params2
+	}  else {
+		if(!quiet) {
+			"Using given start values for parameter estimation"
+		}
 	}
 	
 	if(!quiet){
@@ -757,6 +765,10 @@ class CNOPModel scalar estimateMIOPRC(y, x, z, infcat, |quiet, startvalues, robu
 		}
 		start_param = initial_model.params \ 0
 		/* Here I could have started looping through different ro, but I just set ro = 0, and it's okay; more quick and stable. */
+	} else {
+		if(!quiet) {
+			"Using given start values for parameter estimation"
+		}
 	}
 	
 	if(!quiet){
@@ -1019,6 +1031,10 @@ class CNOPModel scalar estimateNOPC(y, x, zp, zn, infcat, |quiet, startvalues, r
 		if(!quiet) { 
 			"rho(+) = " + strofreal(rop)
 			"rho(-) = " + strofreal(ron)
+		}
+	} else {
+		if(!quiet) {
+			"Using given start values for parameter estimation"
 		}
 	}
 	
@@ -1292,6 +1308,10 @@ class CNOPModel scalar estimateCNOP(y, x, zp, zn, infcat, |quiet, startvalues, r
 		params3 = coeffOP(zn2, q2, ncatn+1,quiet, ., lambda, maxiter, ptol, vtol, nrtol)
 		
 		start_param = params1 \ params2 \ params3
+	} else {
+		if(!quiet) {
+			"Using given start values for parameter estimation"
+		}
 	}
 	if(!quiet){
 		"ZIOP-3 with exogenous switching"
@@ -1563,6 +1583,10 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 			"rho(+) = " + strofreal(rop)
 			"rho(-) = " + strofreal(ron)
 		}
+	} else {
+		if(!quiet) {
+			"Using given start values for parameter estimation"
+		}
 	}
 	
 	if(!quiet) {
@@ -1759,6 +1783,7 @@ class CNOPModel scalar estimateCNOPC(y, x, zp, zn, infcat,|quiet, startvalues, r
 
 // for each element of candidates, return its position in subset or 0
 function positionsInList(candidates, subset) {
+	/* return a vector where in i'th position is 0, if i'th candidate is not in subset, otherwise its position in subset */
 	ans = J(1, cols(candidates), 0)
 	for(i = 1; i <= cols(subset); i++) {
 		filter = candidates :== subset[i]
