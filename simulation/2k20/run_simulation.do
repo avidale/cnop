@@ -17,14 +17,14 @@ run 2k20/simulation_routines.do
 mata
 
 DGP	= "NOP"
-n	= 500
+n	= 200
 n_boot = 10
-start_iter	= 1
-sim_iter	= 15
+start_iter	= 31
+sim_iter	= 20
 quiet	= 1
 
 min_y_pct = 0.06
-min_boot_y_pct = 0.06
+min_boot_y_pct = 0.03
 
 end
 
