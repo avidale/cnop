@@ -4,6 +4,7 @@ Before execution, we need to specify:
 	n
 	start_iter
 	sim_iter
+	trim_alpha
 
 For example:
 DGP	= "NOPC"
@@ -98,10 +99,13 @@ meanparams = mean(allpa[okrows,])'
 rmse = (mean((allpa[okrows,]:-param_true'):^2)'):^0.5
 
 meanse = mean(allse[okrows,])'
+meanse_trimmed = mean(trim_cols(allse[okrows,], trim_alpha))'
+meanse_trimmed_boot = mean(trim_cols(bootspa[okrows,], trim_alpha))'
 medianse = colMedians(allse[okrows,])'
 realse = (mean((allpa[okrows,]:-meanparams'):^2)'):^0.5
 realse_boot = mean(bootspa[okrows,])'
 boot_se_median = colMedians(bootspa[okrows,])'
+
 
 
 meancoverage = calc_coverage(param_true, allpa[okrows,], allse[okrows,], cv)
@@ -109,10 +113,14 @@ boot_meancoverage = calc_coverage(param_true, allpa[okrows,], bootspa[okrows,], 
 
 
 
+
+
 p_meanparams = mean(allpr[okrows,])'
 p_rmse = (mean((allpr[okrows,]:-true_pr):^2)'):^0.5
 
 p_meanse = mean(allps[okrows,])'
+p_meanse_trimmed = mean(trim_cols(allps[okrows,], trim_alpha))'
+p_meanse_trimmed_boot = mean(trim_cols(bootspr[okrows,], trim_alpha))'
 p_medianse = colMedians(allps[okrows,])'
 p_realse = (mean((allpr[okrows,]:-p_meanparams'):^2)'):^0.5
 p_realse_boot = mean(bootspr[okrows,])'
@@ -131,6 +139,8 @@ m_meanparams = mean(allme[okrows,])'
 m_rmse = (mean((allme[okrows,]:-true_me):^2)'):^0.5
 
 m_meanse = mean(allms[okrows,])'
+m_meanse_trimmed = mean(trim_cols(allms[okrows,], trim_alpha))'
+m_meanse_trimmed_boot = mean(trim_cols(bootsme[okrows,], trim_alpha))'
 m_medianse = colMedians(allms[okrows,])'
 m_realse = (mean((allme[okrows,]:-m_meanparams'):^2)'):^0.5
 m_realse_boot = mean(bootsme[okrows,])'
@@ -191,23 +201,23 @@ erow = erow + 2
 
 excel.put_string(erow, 1, "PARAMETERS " + sheetname)
 erow = erow + 1
-excel.put_string(erow, 1, ("TRUE", "mean", "mean se", "real se", "real2mean se", "real2median se", "rmse", "coverage", "boot_cov", "boot_se", "real2boot_se", "real2boot_median_se"))
+excel.put_string(erow, 1, ("TRUE", "mean", "mean se", "real se", "real2mean se", "real2median se", "rmse", "coverage", "boot_cov", "boot_se", "real2boot_se", "real2boot_median_se", "mean_se_trimmed", "mean_se_trimmed_boot"))
 erow=erow+1
-excel.put_number(erow, 1, (param_true,meanparams,meanse,realse,(realse :/ meanse),(realse :/ medianse), rmse,meancoverage, boot_meancoverage, realse_boot, (realse :/ realse_boot), (realse :/ boot_se_median) ) )
+excel.put_number(erow, 1, (param_true,meanparams,meanse,realse,(realse :/ meanse),(realse :/ medianse), rmse,meancoverage, boot_meancoverage, realse_boot, (realse :/ realse_boot), (realse :/ boot_se_median), meanse_trimmed, meanse_trimmed_boot ) )
 erow = erow + rows(param_true) + 1
 
 excel.put_string(erow, 1, "PROBABILITIES " + sheetname)
 erow = erow + 1
-excel.put_string(erow, 1, ("TRUE", "mean", "mean se", "real se", "real2mean se", "real2median se", "rmse", "coverage", "boot_cov", "boot_se", "real2boot_se", "real2boot_median_se"))
+excel.put_string(erow, 1, ("TRUE", "mean", "mean se", "real se", "real2mean se", "real2median se", "rmse", "coverage", "boot_cov", "boot_se", "real2boot_se", "real2boot_median_se", "mean_se_trimmed", "mean_se_trimmed_boot"))
 erow=erow+1
-excel.put_number(erow, 1, (true_pr',p_meanparams,p_meanse,p_realse,(p_realse :/ p_meanse),(p_realse :/ p_medianse), p_rmse,p_meancoverage, p_boot_meancoverage, p_realse_boot, (p_realse :/ p_realse_boot), (p_realse :/ p_boot_se_median) ) )
+excel.put_number(erow, 1, (true_pr',p_meanparams,p_meanse,p_realse,(p_realse :/ p_meanse),(p_realse :/ p_medianse), p_rmse,p_meancoverage, p_boot_meancoverage, p_realse_boot, (p_realse :/ p_realse_boot), (p_realse :/ p_boot_se_median), p_meanse_trimmed, p_meanse_trimmed_boot ) )
 erow = erow + rows(true_pr') + 1
 
 excel.put_string(erow, 1, "MARGINAL EFFECTS " + sheetname)
 erow = erow + 1
-excel.put_string(erow, 1, ("TRUE", "mean", "mean se", "real se", "real2mean se", "real2median se", "rmse", "coverage", "boot_cov", "boot_se", "real2boot_se", "real2boot_median_se"))
+excel.put_string(erow, 1, ("TRUE", "mean", "mean se", "real se", "real2mean se", "real2median se", "rmse", "coverage", "boot_cov", "boot_se", "real2boot_se", "real2boot_median_se", "mean_se_trimmed", "mean_se_trimmed_boot"))
 erow=erow+1
-excel.put_number(erow, 1, (true_me',m_meanparams,m_meanse,m_realse,(m_realse :/ m_meanse),(m_realse :/ m_medianse), m_rmse,m_meancoverage, m_boot_meancoverage, m_realse_boot, (m_realse :/ m_realse_boot), (m_realse :/ m_boot_se_median) ) )
+excel.put_number(erow, 1, (true_me',m_meanparams,m_meanse,m_realse,(m_realse :/ m_meanse),(m_realse :/ m_medianse), m_rmse,m_meancoverage, m_boot_meancoverage, m_realse_boot, (m_realse :/ m_realse_boot), (m_realse :/ m_boot_se_median), m_meanse_trimmed, m_meanse_trimmed_boot ) )
 erow = erow + rows(true_me') + 1
 
 

@@ -19,12 +19,14 @@ mata
 DGP	= "NOP"
 n	= 200
 n_boot = 10
-start_iter	= 31
+start_iter	= 1
 sim_iter	= 20
 quiet	= 1
 
 min_y_pct = 0.06
 min_boot_y_pct = 0.03
+
+trim_alpha = 0.10
 
 end
 

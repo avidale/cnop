@@ -562,6 +562,18 @@ function calc_coverage(true_params, ests, stderrors, cv) {
 	return(meancoverage)
 }
 
+function trim_cols(x, trim_alpha) {
+	k = cols(x)
+	m = floor((1-trim_alpha) * rows(x))
+	idx = runningsum(J(m, 1, 1))
+	results = J(m, k, 0)
+	for (i = 1; i <= k; i++) {
+		sorted = sort(x[,i], 1)
+		results[,i] = sorted[idx]
+	}
+	return(results)
+}
+
 end
 
 
