@@ -3,7 +3,7 @@
 {title:Title}
 
 {pstd}
-{helpb ziop postestimation} {c -} Postestimation tools fo {cmd:nop}, {cmd:ziop2} and {cmd:ziop3}
+{helpb ziop postestimation} {c -} Postestimation tools for {cmd:nop}, {cmd:ziop2} and {cmd:ziop3}
 
 {title:Postestimation commands}
 
@@ -13,6 +13,7 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {synoptset 20 notes}{...}
 {p2coldent :Command}Description{p_end}
 {synoptline}
+
 {synopt :{helpb ziop postestimation##predict:predict}}predicted probabilities and other predictions for all values of independent variables{p_end}
 {synopt :{helpb ziop postestimation##ziopprobabilities:ziopprobabilities}}predicted probabilities for specified values of independent variables{p_end}
 {synopt :{helpb ziop postestimation##ziopcontrasts:ziopcontrasts}}differences in predicted probabilities for specified values of independent variables{p_end}
@@ -27,17 +28,21 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {title:Syntax for predict}
 
 {pstd}
-{cmd:predict} {newvar} {ifin} [, {opt zeros} {opt regimes} {opt output(string)} ]
+{cmd:predict} {newvar} {ifin} {bind:[{cmd:,} {it:options}]}{p_end}
 
-{synoptset 20 notes}{...}
-{p2coldent :Option}Description{p_end}
+
+{synoptset 28 tabbed}{...}
+{synopthdr}
 {synoptline}
-{synopt :{cmd:zeros}}indicates that the probabilities of different types of zeros (the outcomes in the inflated category specified in {opt infcat(choice)}), conditional on different regimes, must be predicted instead of the choice probabilities{p_end}
-{synopt :{cmd:regimes}}indicates that the probabilities of the regimes must be predicted instead of the choice probabilities; this option is ignored if the option {cmd:zeros}} is used.{p_end}
+
+{synopt :{cmd:zeros}}indicates that the probabilities of different types of zeros (the outcomes in the inflated category specified in {opt infcat(choice)}), conditional on different regimes, must be predicted instead of the choice probabilities.{p_end}
+
+{synopt :{cmd:regimes}}indicates that the probabilities of the regimes must be predicted instead of the choice probabilities; this option is ignored if the option {cmd:zeros} is used.{p_end}
+
 {synopt :{opt output(string)}}specifies the different types of predictions. The possible options for {it:string} are: {it:choice} for reporting the predicted outcome (the choice with the largest predicted probability); {it:mean} for reporting the expected value of the dependent variable computed as a summation of i*Pr(y=i) across all choices i; and 
-{it:cum} for predicting the cumulative choice probabilities such as Pr(y<=0), Pr(y<=1), ... . If {it:string} is not specified, the usual choice probabilities such as Pr(y=0), Pr(y=1), ... are predicted and saved into new variables with the {newvar} prefix.{p_end}
+{it:cum} for predicting the cumulative choice probabilities such as Pr(y<=0), Pr(y<=1), ... . If {it:string} is not specified, the usual choice probabilities such as Pr(y=0), Pr(y=1), ... are predicted and saved into new variables with the {it:newvar} prefix.{p_end}
 {synoptline}
-{p2colreset}{...}
+
 
 {title:Description for predict}
 
