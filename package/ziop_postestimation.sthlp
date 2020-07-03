@@ -35,12 +35,13 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {synopthdr}
 {synoptline}
 
-{synopt :{cmd:zeros}}indicates that the probabilities of different types of zeros (the outcomes in the inflated category specified in {opt infcat(choice)}), conditional on different regimes, must be predicted instead of the choice probabilities.{p_end}
+{synopt :{cmd:zeros}}indicates that the probabilities of different types of zeros (the outcomes in the inflated category specified in {opt infcat}), conditional on different regimes, must be predicted instead of the choice probabilities.{p_end}
 
 {synopt :{cmd:regimes}}indicates that the probabilities of the regimes must be predicted instead of the choice probabilities; this option is ignored if the option {cmd:zeros} is used.{p_end}
 
 {synopt :{opt output(string)}}specifies the different types of predictions. The possible options for {it:string} are: {it:choice} for reporting the predicted outcome (the choice with the largest predicted probability); {it:mean} for reporting the expected value of the dependent variable computed as a summation of i*Pr(y=i) across all choices i; and 
-{it:cum} for predicting the cumulative choice probabilities such as Pr(y<=0), Pr(y<=1), ... . If {it:string} is not specified, the usual choice probabilities such as Pr(y=0), Pr(y=1), ... are predicted and saved into new variables with the {it:newvar} prefix.{p_end}
+{it:cum} for predicting the cumulative choice probabilities such as Pr(y<=0), Pr(y<=1), ... . 
+If {it:string} is not specified, the usual choice probabilities such as Pr(y=0), Pr(y=1), ... are predicted and saved into new variables with the {it:newvar} prefix.{p_end}
 {synoptline}
 
 
@@ -84,7 +85,7 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {p2coldent :Option}Description{p_end}
 {synoptline}
 {synopt :{opt at(string)}}specifies for which values of the independent variables to estimate the predicted probabilities. If at() is used ({it:string} is a list of varname=value expressions, separated by commas), the predicted probabilities are estimated at these values and displayed without saving to the dataset. If some independent variable names are not specified, their median values are taken instead. If at() is not used, by default the predicted probabilities are estimated at the median values of the independent variables.{p_end}
-{synopt :{cmd:zeros}}indicates that the probabilities of different types of zeros (the outcomes in the inflated category specified in {opt infcat(choice)}), conditional on different regimes, must be predicted instead of the choice probabilities.{p_end}
+{synopt :{cmd:zeros}}indicates that the probabilities of different types of zeros (the outcomes in the inflated category specified in {opt infcat}), conditional on different regimes, must be predicted instead of the choice probabilities.{p_end}
 {synopt :{cmd:regimes}}indicates that the probabilities of the regimes must be predicted instead of the choice probabilities; this option is ignored if the option {cmd:zeros} is used.{p_end}
 {synoptline}
 {p2colreset}{...}
@@ -124,7 +125,7 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {synoptline}
 {synopt :{opt at(string)}}specifies the first value of the independent variables to estimate the difference in the predicted probabilities;({it:string} is a list of varname=value expressions, separated by commas). If some independent variable names are not specified, their median values are taken instead. If at() is not used, by default the predicted probabilities are estimated for the median values of the independent variables.{p_end}
 {synopt :{opt to(string)}}specifies the second value of the independent variables to estimate the difference in the predicted probabilities;({it:string} is a list of varname=value expressions, separated by commas). If some independent variable names are not specified, their median values are taken instead. If to() is not used, by default the predicted probabilities are estimated for the median values of the independent variables.{p_end}
-{synopt :{cmd:zeros}}indicates that the probabilities of different types of zeros (the outcomes in the inflated category specified in {opt infcat(choice)}), conditional on different regimes, must be predicted instead of the choice probabilities.{p_end}
+{synopt :{cmd:zeros}}indicates that the probabilities of different types of zeros (the outcomes in the inflated category specified in {opt infcat}), conditional on different regimes, must be predicted instead of the choice probabilities.{p_end}
 {synopt :{cmd:regimes}}indicates that the probabilities of the regimes must be predicted instead of the choice probabilities; this option is ignored if the option {cmd:zeros} is used.{p_end}
 {synoptline}
 {p2colreset}{...}
@@ -160,7 +161,7 @@ The following postestimation commands are available after {cmd:nop}, {cmd:ziop2}
 {p2coldent :Option}Description{p_end}
 {synoptline}
 {synopt :{opt at(string)}}specifies for which values of the independent variables to estimate the marginal effects on the predicted probabilities. If at() is used ({it:string} is a list of varname=value expressions, separated by commas), the marginal effects are estimated for these values and displayed without saving to the dataset. If some independent variable names are not specified, their median values are taken instead. If at() is not used, by default the marginal effects are estimated for the median values of the independent variables.{p_end}
-{synopt :{cmd:zeros}}indicates that the marginal effects on the probabilities of different types of zeros (the outcomes in the inflated category specified in {opt infcat(choice)}), conditional on different regimes, must be predicted instead of the effects on the choice probabilities.{p_end}
+{synopt :{cmd:zeros}}indicates that the marginal effects on the probabilities of different types of zeros (the outcomes in the inflated category specified in {opt infcat}), conditional on different regimes, must be predicted instead of the effects on the choice probabilities.{p_end}
 {synopt :{cmd:regimes}}indicates that the marginal effects on the probabilities of the regimes must be predicted instead of the effects on the choice probabilities; this option is ignored if the option {cmd:zeros} is used.{p_end}
 {synoptline}
 {p2colreset}{...}
