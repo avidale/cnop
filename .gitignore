@@ -60,3 +60,5 @@ paper/Estimation of nested, zero-inflated and cross-nested ordered probit models
 paper/Estimation of nested, zero-inflated and cross-nested ordered probit models.tex
 *.dvi
 *.tmp
+
+.ipynb_checkpoints
